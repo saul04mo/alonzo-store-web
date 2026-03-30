@@ -18,7 +18,7 @@ const nextConfig = {
     return [
       {
         source: '/api/osrm/:path*',
-        destination: 'https://router.project-osrm.org/:path*',
+        destination: 'https://routing.openstreetmap.de/routed-car/:path*',
       },
       {
         source: '/api/nominatim/:path*',
