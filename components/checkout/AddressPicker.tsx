@@ -27,35 +27,38 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-/* ── OSRM: distancia REAL por carretera (gratis, sin API key) ── */
+/* ── OSRM: distancia REAL por carretera (via proxy para evitar CORS en producción) ── */
 async function getRoadDistanceKm(
   lat1: number, lng1: number,
   lat2: number, lng2: number
 ): Promise<{ km: number; durationMin: number; isRoad: boolean; routeCoords: [number, number][] | null }> {
   try {
-    const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
+    const url = `/api/osrm?lat1=${lat1}&lng1=${lng1}&lat2=${lat2}&lng2=${lng2}`;
     const res = await fetch(url);
-    const data = await res.json();
 
-    if (data.code === 'Ok' && data.routes?.[0]) {
-      const route = data.routes[0];
-      // GeoJSON coords son [lng, lat] → convertir a [lat, lng] para Leaflet
-      const routeCoords: [number, number][] = route.geometry?.coordinates?.map(
-        (c: [number, number]) => [c[1], c[0]] as [number, number]
-      ) || null;
-      return {
-        km: route.distance / 1000,
-        durationMin: Math.round(route.duration / 60),
-        isRoad: true,
-        routeCoords,
-      };
+    if (res.ok) {
+      const data = await res.json();
+      if (data.code === 'Ok' && data.routes?.[0]) {
+        const route = data.routes[0];
+        const routeCoords: [number, number][] = route.geometry?.coordinates?.map(
+          (c: [number, number]) => [c[1], c[0]] as [number, number]
+        ) || null;
+        return {
+          km: route.distance / 1000,
+          durationMin: Math.round(route.duration / 60),
+          isRoad: true,
+          routeCoords,
+        };
+      }
     }
   } catch (err) {
-    console.warn('OSRM falló, usando Haversine como fallback:', err);
+    console.warn('OSRM proxy falló, usando Haversine como fallback:', err);
   }
 
+  // Fallback: Haversine × 1.35 para aproximar distancia por carretera
+  const straightKm = haversineKm(lat1, lng1, lat2, lng2);
   return {
-    km: haversineKm(lat1, lng1, lat2, lng2),
+    km: Math.round(straightKm * 1.35 * 10) / 10,
     durationMin: 0,
     isRoad: false,
     routeCoords: null,
@@ -66,7 +69,7 @@ function getDeliveryTier(km: number) {
   return DELIVERY_TIERS.find((t) => km <= t.maxKm) || DELIVERY_TIERS[DELIVERY_TIERS.length - 1];
 }
 
-/* ── Nominatim search ── */
+/* ── Nominatim search (via proxy) ── */
 interface NominatimResult {
   display_name: string;
   lat: string;
@@ -189,7 +192,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
       if (data.display_name) {
         setQuery(data.display_name);
         setSelectedAddress(data.display_name);
-        
+
         // Distancia real por carretera
         const road = await getRoadDistanceKm(STORE_LAT, STORE_LNG, lat, lng);
         const km = Math.round(road.km * 10) / 10;
@@ -204,7 +207,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
           deliveryLabel: tier.label,
         });
       }
-    } catch {}
+    } catch { }
   };
 
   /* ── Dibujar ruta en el mapa ── */
@@ -386,7 +389,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
                   ? `~${distanceInfo.durationMin} min por carretera`
                   : distanceInfo.km === 0
                     ? 'Calculando ruta...'
-                    : 'Distancia desde la tienda'}
+                    : 'Distancia desde la tienda (aprox.)'}
               </p>
             </div>
           </div>
