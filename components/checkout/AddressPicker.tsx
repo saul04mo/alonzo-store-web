@@ -33,7 +33,7 @@ async function getRoadDistanceKm(
   lat2: number, lng2: number
 ): Promise<{ km: number; durationMin: number; isRoad: boolean; routeCoords: [number, number][] | null }> {
   try {
-    const url = `/api/osrm/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
+    const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
     const res = await fetch(url);
     const data = await res.json();
 

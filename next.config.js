@@ -13,20 +13,6 @@ const nextConfig = {
     unoptimized: false,
   },
 
-  // Proxy para OSRM para evitar bloqueos de CORS en el navegador
-  async rewrites() {
-    return [
-      {
-        source: '/api/osrm/:path*',
-        destination: 'https://routing.openstreetmap.de/routed-car/:path*',
-      },
-      {
-        source: '/api/nominatim/:path*',
-        destination: 'https://nominatim.openstreetmap.org/:path*',
-      }
-    ];
-  },
-
   // Security headers
   async headers() {
     return [
