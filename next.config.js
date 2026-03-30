@@ -12,6 +12,20 @@ const nextConfig = {
     unoptimized: false,
   },
 
+  // Proxy para OSRM para evitar bloqueos de CORS en el navegador
+  async rewrites() {
+    return [
+      {
+        source: '/api/osrm/:path*',
+        destination: 'https://router.project-osrm.org/:path*',
+      },
+      {
+        source: '/api/nominatim/:path*',
+        destination: 'https://nominatim.openstreetmap.org/:path*',
+      }
+    ];
+  },
+
   // Security headers
   async headers() {
     return [

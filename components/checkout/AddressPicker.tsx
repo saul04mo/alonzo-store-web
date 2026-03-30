@@ -33,7 +33,7 @@ async function getRoadDistanceKm(
   lat2: number, lng2: number
 ): Promise<{ km: number; durationMin: number; isRoad: boolean; routeCoords: [number, number][] | null }> {
   try {
-    const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
+    const url = `/api/osrm/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -75,7 +75,7 @@ interface NominatimResult {
 
 async function searchAddress(query: string): Promise<NominatimResult[]> {
   if (query.length < 3) return [];
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=ve&addressdetails=1`;
+  const url = `/api/nominatim/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=ve&addressdetails=1`;
   const res = await fetch(url, { headers: { 'Accept-Language': 'es' } });
   return res.json();
 }
@@ -183,7 +183,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
   const reverseGeocode = async (lat: number, lng: number) => {
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=es`
+        `/api/nominatim/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=es`
       );
       const data = await res.json();
       if (data.display_name) {
