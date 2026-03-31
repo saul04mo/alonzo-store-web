@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Body inválido' }, { status: 400 });
   }
 
-  const { cart, clientData, deliveryType, deliveryCostUsd, deliveryZoneInfo, payments, exchangeRate, proofUrl } = body;
+  const { cart, clientData, deliveryType, deliveryCostUsd, deliveryZoneInfo, payments, exchangeRate, proofUrl, couponCode } = body;
 
   // 4. Validar inputs
   if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -117,6 +117,57 @@ export async function POST(request: NextRequest) {
 
       const serverTotal = serverSubtotal + deliveryCostUsd;
 
+      // 5c-bis. Validate coupon server-side (if provided)
+      let couponDiscount = 0;
+      let appliedCouponData: any = null;
+
+      if (couponCode && typeof couponCode === 'string') {
+        const couponSnap = await adminDb.collection('coupons').where('code', '==', couponCode.toUpperCase().trim()).limit(1).get();
+
+        if (!couponSnap.empty) {
+          const couponDoc = couponSnap.docs[0];
+          const coupon = couponDoc.data();
+          const now = Date.now();
+          const isActive = coupon.active;
+          const inDateRange =
+            (!coupon.startsAt || coupon.startsAt.toMillis() <= now) &&
+            (!coupon.expiresAt || coupon.expiresAt.toMillis() >= now);
+          const notExhausted = !coupon.maxUsesTotal || (coupon.usedCount || 0) < coupon.maxUsesTotal;
+          const clientNotExhausted = !coupon.maxUsesPerClient ||
+            ((coupon.usageByClient?.[user!.uid] || 0) < coupon.maxUsesPerClient);
+          const meetsMinPurchase = !coupon.minPurchase || serverSubtotal >= coupon.minPurchase;
+
+          if (isActive && inDateRange && notExhausted && clientNotExhausted && meetsMinPurchase) {
+            if (coupon.discountType === 'percentage') {
+              couponDiscount = (serverSubtotal * coupon.discountValue) / 100;
+            } else {
+              couponDiscount = Math.min(coupon.discountValue, serverSubtotal);
+            }
+            couponDiscount = Math.round(couponDiscount * 100) / 100;
+
+            appliedCouponData = {
+              couponId: couponDoc.id,
+              code: coupon.code,
+              discountAmount: couponDiscount,
+              description: coupon.discountType === 'percentage'
+                ? `${coupon.discountValue}% OFF`
+                : `$${coupon.discountValue.toFixed(2)} OFF`,
+              freeShipping: coupon.freeShipping || false,
+            };
+
+            // Increment coupon usage
+            const couponRef = adminDb.collection('coupons').doc(couponDoc.id);
+            transaction.update(couponRef, {
+              usedCount: FieldValue.increment(1),
+              [`usageByClient.${user!.uid}`]: FieldValue.increment(1),
+            });
+          }
+        }
+      }
+
+      const effectiveDeliveryCost = appliedCouponData?.freeShipping ? 0 : deliveryCostUsd;
+      const serverTotalAfterCoupon = Math.max(0, serverSubtotal - couponDiscount + effectiveDeliveryCost);
+
       // 5c. Atomic numericId
       const counterRef = adminDb.collection('config').doc('orderCounter');
       const counterSnap = await transaction.get(counterRef);
@@ -154,7 +205,7 @@ export async function POST(request: NextRequest) {
       }));
 
       const paidVes = finalPayments.reduce((a: number, p: any) => a + (p.amountVes || 0), 0);
-      const totalVes = serverTotal * (exchangeRate || 1);
+      const totalVes = serverTotalAfterCoupon * (exchangeRate || 1);
       const changeVes = Math.max(0, parseFloat((paidVes - totalVes).toFixed(2)));
 
       const invoiceData = {
@@ -180,8 +231,10 @@ export async function POST(request: NextRequest) {
           variantIndex: item.variantIndex,
           img: item.img || '',
         })),
-        totalDiscount: { type: 'none', value: 0 },
-        total: serverTotal,
+        totalDiscount: couponDiscount > 0
+          ? { type: appliedCouponData?.code ? 'coupon' : 'none', value: couponDiscount }
+          : { type: 'none', value: 0 },
+        total: serverTotalAfterCoupon,
         exchangeRate: exchangeRate || 1,
         payments: finalPayments,
         status: 'Creada',
@@ -190,10 +243,12 @@ export async function POST(request: NextRequest) {
         sellerName: 'WEB APP',
         sellerUid: 'WEB',
         deliveryType,
-        deliveryCostUsd,
+        deliveryCostUsd: effectiveDeliveryCost,
         deliveryZone: deliveryZoneInfo || '',
         deliveryPaidInStore: deliveryType === 'delivery',
         observation: 'Venta Online',
+        appliedCoupon: appliedCouponData || null,
+        appliedPromotions: [],
       };
 
       const invoiceRef = adminDb.collection('invoices').doc();

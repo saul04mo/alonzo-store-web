@@ -10,6 +10,7 @@ import { usePaymentMethods } from '@/lib/usePaymentMethods';
 import { createOrder } from '@/lib/api';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD } from '@/lib/format';
+import { CouponInput, type AppliedCouponWeb } from './CouponInput';
 import type { AddressResult } from './AddressPicker';
 import dynamic from 'next/dynamic';
 
@@ -123,6 +124,9 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const [processing, setProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // Coupon
+  const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
+
 
 
   // Address from map
@@ -133,8 +137,10 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   };
 
   // Totals
-  const deliveryCost = deliveryType === 'delivery' ? mapDeliveryCost : 0;
+  const rawDeliveryCost = deliveryType === 'delivery' ? mapDeliveryCost : 0;
+  const deliveryCost = appliedCoupon?.freeShipping ? 0 : rawDeliveryCost;
   const subtotal = totalMoney();
+  const couponDiscount = appliedCoupon?.discountAmount || 0;
   const totalPaid = useMemo(() => {
     let paid = 0;
     Object.keys(paymentSelection).forEach((id) => {
@@ -147,7 +153,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     return paid;
   }, [paymentSelection, exchangeRate]);
 
-  const total = subtotal + deliveryCost;
+  const total = Math.max(0, subtotal - couponDiscount + deliveryCost);
   const canFinish = total - totalPaid <= 0.01;
   const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
 
@@ -187,6 +193,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         deliveryZoneInfo: mapDistanceKm !== null ? `Calculado mapa (${mapDistanceKm} km)` : 'No especificada',
         payments, exchangeRate, proofFile,
         authenticatedClientId: client?.id,
+        couponCode: appliedCoupon?.code || undefined,
       });
       clearCart();
       onSuccess(result.invoiceData, result.numericId, result.docId);
@@ -320,9 +327,25 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             </Section>
           )}
 
-          {/* 4. Pago */}
+          {/* Cupón de descuento */}
+          <div className="border-b border-gray-200 py-6">
+            <div className="flex items-center gap-4 mb-4">
+              <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium shrink-0">
+                {deliveryType === 'pickup' ? 3 : 4}
+              </span>
+              <h3 className="text-lg font-semibold text-gray-900">Cupón de descuento</h3>
+            </div>
+            <CouponInput
+              subtotal={subtotal}
+              appliedCoupon={appliedCoupon}
+              onApply={setAppliedCoupon}
+              onRemove={() => setAppliedCoupon(null)}
+            />
+          </div>
+
+          {/* Pago */}
           <Section
-            number={deliveryType === 'pickup' ? 3 : 4}
+            number={deliveryType === 'pickup' ? 4 : 5}
             title="Pago"
             summary="Selecciona tu método de pago"
           >
@@ -409,9 +432,19 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                 <span>Subtotal</span>
                 <span>{formatUSD(subtotal)}</span>
               </div>
+              {couponDiscount > 0 && (
+                <div className="flex justify-between text-sm text-green-600 font-medium">
+                  <span>Cupón {appliedCoupon?.code}</span>
+                  <span>- {formatUSD(couponDiscount)}</span>
+                </div>
+              )}
               <div className="flex justify-between text-sm text-gray-600">
                 <span>Envío</span>
-                <span>{deliveryCost > 0 ? formatUSD(deliveryCost) : 'Gratis'}</span>
+                {appliedCoupon?.freeShipping && rawDeliveryCost > 0 ? (
+                  <span className="text-green-600 font-medium">Gratis 🎉</span>
+                ) : (
+                  <span>{deliveryCost > 0 ? formatUSD(deliveryCost) : 'Gratis'}</span>
+                )}
               </div>
             </div>
 

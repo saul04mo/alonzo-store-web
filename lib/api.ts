@@ -105,6 +105,7 @@ interface CreateOrderParams {
   exchangeRate: number;
   proofFile: File | null;
   authenticatedClientId?: string;
+  couponCode?: string;
 }
 
 export async function createOrder(params: CreateOrderParams): Promise<{
@@ -142,6 +143,7 @@ export async function createOrder(params: CreateOrderParams): Promise<{
       })),
       exchangeRate: params.exchangeRate,
       proofUrl,
+      couponCode: params.couponCode || null,
     }),
   });
 
