@@ -24,6 +24,9 @@ export function HomePage() {
   // Load products
   useEffect(() => {
     setLoading(true);
+    setProducts([]);
+    setActiveCategory('');
+    setHasBrowsed(true);
     fetchProducts(gender)
       .then(setProducts)
       .catch(console.error)
@@ -51,16 +54,12 @@ export function HomePage() {
   }, [products, gender]);
 
   useEffect(() => {
-    setLoading(true);
-    setProducts([]);
-    setActiveCategory('');
-    fetchProducts(gender)
-      .then(setProducts)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [gender]);
+    if (categories.length > 0 && !activeCategory) {
+      setActiveCategory(categories[0]);
+    }
+  }, [categories, activeCategory]);
 
-  // FilteredS
+  // Filtered
   const filteredProducts = useMemo(() => {
     if (searchTerm.trim()) {
       const term = searchTerm.toUpperCase();
