@@ -22,88 +22,54 @@ async function authFetch(url: string, options: RequestInit = {}) {
 }
 
 // ─────────────────────────────────────────────
-// Products (directo desde Firestore — sin API route, sin cold start)
+// Products (via API route + aggressive client cache)
 // ─────────────────────────────────────────────
 const productCache: Record<string, { data: Product[]; ts: number }> = {};
 const singleCache: Record<string, { data: Product; ts: number }> = {};
-const CACHE_TTL = 3 * 60 * 1000; // 3 min
-
-const BLACKLISTED_IDS = new Set([
-  '25ATMO0j9D1cnnAVUdCU', 'ErjzpOXhRzulV0FrmvjZ', 'H6rfaRowA6W6LU4RT3Bi',
-  'J4lvEQWgeM7eSqBosZbK', 'ONjjex380HEeERE7NFBa', 'OsYZNYZhXsr6ohBGIzNJ',
-  'PdtuvYVxTW0FiC2bsedm', 'QT3ojCtg9aZm2mIJTnBs', 'WSBMrLvcYmZXrHw5j1bo',
-  'c4AfpX4d5lWQE9TPq2pb', 'd77VzxMOKYATtqVp8TsU', 'eNTOPb9lori0JrABimK3',
-  'mIEQXA4K0zwA8QRAGlwV', 't2YdEo8m2n2GCbppZt1I', 'vzCxUCAAzqa6HAs6oaOj',
-  'EYcF7XdAaDRpwjK0eM92',
-]);
-const BLACKLISTED_CATS = new Set(['PANTALONES DE VESTIR', 'PANTALONES DE CUERO']);
+const CACHE_TTL = 5 * 60 * 1000; // 5 min
 
 export async function fetchProducts(gender?: string): Promise<Product[]> {
   const cacheKey = gender || 'all';
+
+  // Return from cache if fresh
   if (productCache[cacheKey] && Date.now() - productCache[cacheKey].ts < CACHE_TTL) {
     return productCache[cacheKey].data;
   }
 
-  const { db, collection, getDocs, query, where } = await import('@/lib/firebase-client');
-  const ref = collection(db, 'products');
-  const q = gender ? query(ref, where('gender', '==', gender)) : query(ref);
-  const snap = await getDocs(q);
+  const url = gender ? `/api/products?gender=${gender}` : '/api/products';
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Error cargando productos');
+  const products: Product[] = await res.json();
 
-  const products: Product[] = [];
-  snap.forEach((doc) => {
-    const data = doc.data();
-    const id = doc.id;
-    if (BLACKLISTED_IDS.has(id)) return;
-    const cat = (data.category || '').trim().toUpperCase();
-    if (BLACKLISTED_CATS.has(cat)) return;
-
-    const product: Product = {
-      id,
-      name: data.name || 'SIN NOMBRE',
-      category: data.category?.trim() || '',
-      gender: data.gender || 'Hombre',
-      imageUrl: data.imageUrl || '',
-      price: data.price,
-      variants: data.variants || [],
-      sizeGuideImage: data.sizeGuideImage,
-    };
-    products.push(product);
-    // Cache individual products too
-    singleCache[id] = { data: product, ts: Date.now() };
+  // Cache the list + each individual product
+  productCache[cacheKey] = { data: products, ts: Date.now() };
+  products.forEach((p) => {
+    singleCache[p.id] = { data: p, ts: Date.now() };
   });
 
-  productCache[cacheKey] = { data: products, ts: Date.now() };
   return products;
 }
 
 export async function fetchProduct(id: string): Promise<Product> {
+  // Instant return if already cached from list fetch
   if (singleCache[id] && Date.now() - singleCache[id].ts < CACHE_TTL) {
     return singleCache[id].data;
   }
 
-  const { db, doc, getDoc } = await import('@/lib/firebase-client');
-  const docSnap = await getDoc(doc(db, 'products', id));
-
-  if (!docSnap.exists()) throw new Error('Producto no encontrado');
-  if (BLACKLISTED_IDS.has(id)) throw new Error('Producto no disponible');
-
-  const data = docSnap.data();
-  const cat = (data.category || '').trim().toUpperCase();
-  if (BLACKLISTED_CATS.has(cat)) throw new Error('Producto no disponible');
-
-  const product: Product = {
-    id,
-    name: data.name || 'SIN NOMBRE',
-    category: data.category?.trim() || '',
-    gender: data.gender || 'Hombre',
-    imageUrl: data.imageUrl || '',
-    price: data.price,
-    variants: data.variants || [],
-    sizeGuideImage: data.sizeGuideImage,
-  };
-
+  const res = await fetch(`/api/products/${encodeURIComponent(id)}`);
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || 'Producto no encontrado');
+  }
+  const product: Product = await res.json();
   singleCache[id] = { data: product, ts: Date.now() };
   return product;
+}
+
+// Pre-fetch both genders on app start (call once from AppShell)
+export function prefetchAllProducts() {
+  fetchProducts('Hombre').catch(() => { });
+  fetchProducts('Mujer').catch(() => { });
 }
 
 // ─────────────────────────────────────────────

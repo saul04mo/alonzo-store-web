@@ -170,9 +170,11 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
-                  Alonzo
-                </h1>
+                <img
+                  src="/images/logoAlonzo.png"
+                  alt="Alonzo"
+                  className="h-8 md:h-9 w-auto object-contain"
+                />
                 <p className="text-base text-gray-600 mt-1">
                   {product.name}
                 </p>

@@ -14,6 +14,7 @@ import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { auth, onAuthStateChanged, db, doc, getDoc } from '@/lib/firebase-client';
+import { prefetchAllProducts } from '@/lib/api';
 import type { Product, ProductVariant, Client } from '@/types';
 
 function ShellContent({ children }: { children: React.ReactNode }) {
@@ -39,6 +40,11 @@ function ShellContent({ children }: { children: React.ReactNode }) {
   // Cart expiry
   useEffect(() => {
     useCartStore.getState().checkExpiry();
+  }, []);
+
+  // Pre-fetch all products on app start
+  useEffect(() => {
+    prefetchAllProducts();
   }, []);
 
   // Auth state listener
