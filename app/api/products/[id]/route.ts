@@ -54,7 +54,7 @@ export async function GET(
     cache[id] = { data: product, ts: Date.now() };
 
     return NextResponse.json(product, {
-      headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' },
+      headers: { 'Cache-Control': 'private, no-store' },
     });
   } catch (err: any) {
     console.error('[product/:id] Error:', err.message);
