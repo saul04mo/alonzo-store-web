@@ -60,7 +60,7 @@ export function HomePage() {
       .finally(() => setLoading(false));
   }, [gender]);
 
-  // Filtered
+  // FilteredS
   const filteredProducts = useMemo(() => {
     if (searchTerm.trim()) {
       const term = searchTerm.toUpperCase();
