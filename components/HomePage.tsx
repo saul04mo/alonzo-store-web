@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { HeroSection } from '@/components/ui';
 import { ProductGrid } from '@/components/products/ProductGrid';
-import { CategoryChips } from '@/components/products/CategoryChips';
 import { fetchProducts } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
 import { useUIStore } from '@/stores';
@@ -18,7 +17,9 @@ export function HomePage() {
   const setGender = useUIStore((s) => s.setGender);
   const searchTerm = useUIStore((s) => s.searchTerm);
   const setSearchTerm = useUIStore((s) => s.setSearchTerm);
-  const [activeCategory, setActiveCategory] = useState('');
+  const activeCategory = useUIStore((s) => s.activeCategory);
+  const setActiveCategory = useUIStore((s) => s.setActiveCategory);
+  const setCategoriesForGender = useUIStore((s) => s.setCategoriesForGender);
   const [hasBrowsed, setHasBrowsed] = useState(false);
 
   // Load products
@@ -53,6 +54,14 @@ export function HomePage() {
     return arr;
   }, [products, gender]);
 
+  // Store categories in UI store for the header nav
+  useEffect(() => {
+    if (categories.length > 0) {
+      setCategoriesForGender(gender, categories);
+    }
+  }, [categories, gender]);
+
+  // Auto-select first category
   useEffect(() => {
     if (categories.length > 0 && !activeCategory) {
       setActiveCategory(categories[0]);
@@ -106,25 +115,13 @@ export function HomePage() {
   }
 
   return (
-    <>
-      <div className="pt-5 md:pt-8">
-        <CategoryChips
-          categories={categories}
-          active={activeCategory}
-          onChange={(cat) => {
-            setActiveCategory(cat);
-            setSearchTerm('');
-          }}
-        />
-      </div>
-      <div className="pb-6 md:pb-10">
-        <ProductGrid
-          products={filteredProducts}
-          loading={loading}
-          onProductClick={handleProductClick}
-          sectionTitle={searchTerm ? `Resultados para "${searchTerm}"` : genderLabel}
-        />
-      </div>
-    </>
+    <div className="py-6 md:py-10">
+      <ProductGrid
+        products={filteredProducts}
+        loading={loading}
+        onProductClick={handleProductClick}
+        sectionTitle={searchTerm ? `Resultados para "${searchTerm}"` : genderLabel}
+      />
+    </div>
   );
 }

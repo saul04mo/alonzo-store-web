@@ -14,7 +14,8 @@ import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { auth, onAuthStateChanged, db, doc, getDoc } from '@/lib/firebase-client';
-import { prefetchAllProducts } from '@/lib/api';
+import { prefetchAllProducts, fetchProducts } from '@/lib/api';
+import { hombreCategoryOrder } from '@/config';
 import type { Product, ProductVariant, Client } from '@/types';
 
 function ShellContent({ children }: { children: React.ReactNode }) {
@@ -42,9 +43,34 @@ function ShellContent({ children }: { children: React.ReactNode }) {
     useCartStore.getState().checkExpiry();
   }, []);
 
-  // Pre-fetch all products on app start
+  // Pre-fetch all products + categories on app start
   useEffect(() => {
-    prefetchAllProducts();
+    const setCats = useUIStore.getState().setCategoriesForGender;
+
+    const loadGender = async (g: 'Hombre' | 'Mujer') => {
+      try {
+        const products = await fetchProducts(g);
+        const unique = new Set<string>();
+        products.forEach((p) => {
+          const cat = p.category.trim().toUpperCase();
+          if (cat && cat !== 'EXTRAS') unique.add(cat);
+        });
+        const arr = Array.from(unique);
+        if (g === 'Mujer') {
+          arr.sort((a, b) => b.localeCompare(a));
+        } else {
+          arr.sort((a, b) => {
+            const wA = hombreCategoryOrder[a] || 99;
+            const wB = hombreCategoryOrder[b] || 99;
+            return wA !== wB ? wA - wB : a.localeCompare(b);
+          });
+        }
+        setCats(g, arr);
+      } catch { }
+    };
+
+    loadGender('Hombre');
+    loadGender('Mujer');
   }, []);
 
   // Auth state listener
