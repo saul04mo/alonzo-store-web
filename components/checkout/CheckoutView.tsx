@@ -9,6 +9,7 @@ import { usePaymentMethods } from '@/lib/usePaymentMethods';
 import { createOrder } from '@/lib/api';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { OrderSummary } from './OrderSummary';
+import { CouponInput, type AppliedCouponWeb } from './CouponInput';
 
 interface CheckoutViewProps {
   open: boolean;
@@ -44,6 +45,9 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
   const [processing, setProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
+  // Coupon
+  const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
+
   // Pre-fill from client store
   useEffect(() => {
     if (open && client) {
@@ -56,8 +60,10 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
 
 
   // Calculate totals
-  const deliveryCost = deliveryType === 'delivery' ? (selectedZone?.price || 0) : 0;
+  const rawDeliveryCost = deliveryType === 'delivery' ? (selectedZone?.price || 0) : 0;
+  const deliveryCost = appliedCoupon?.freeShipping ? 0 : rawDeliveryCost;
   const subtotal = totalMoney();
+  const couponDiscount = appliedCoupon?.discountAmount || 0;
 
   const totalPaid = useMemo(() => {
     let paid = 0;
@@ -71,7 +77,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
     return paid;
   }, [paymentSelection, exchangeRate]);
 
-  const total = subtotal + deliveryCost;
+  const total = Math.max(0, subtotal - couponDiscount + deliveryCost);
   const canFinish = total - totalPaid <= 0.01;
 
   // Delivery method label
@@ -125,6 +131,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
         payments,
         exchangeRate,
         proofFile,
+        couponCode: appliedCoupon?.code || undefined,
       });
 
       clearCart();
@@ -230,6 +237,18 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
 
           <div className="h-px bg-alonzo-gray-300 my-5" />
 
+          {/* Coupon */}
+          <div className="mb-5">
+            <CouponInput
+              subtotal={subtotal}
+              appliedCoupon={appliedCoupon}
+              onApply={setAppliedCoupon}
+              onRemove={() => setAppliedCoupon(null)}
+            />
+          </div>
+
+          <div className="h-px bg-alonzo-gray-300 my-5" />
+
           {/* Payment */}
           <label className="label-luxury mb-3 block">MÉTODO DE PAGO</label>
           <PaymentGrid
@@ -246,10 +265,13 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
           {/* Order summary */}
           <OrderSummary
             subtotal={subtotal}
-            discount={0}
+            discount={couponDiscount}
             deliveryCost={deliveryCost}
             totalPaid={totalPaid}
             exchangeRate={exchangeRate}
+            couponCode={appliedCoupon?.code}
+            freeShipping={appliedCoupon?.freeShipping}
+            originalDeliveryCost={rawDeliveryCost}
           />
 
           {/* Submit button */}

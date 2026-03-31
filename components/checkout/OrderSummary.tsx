@@ -6,6 +6,9 @@ interface OrderSummaryProps {
   deliveryCost: number;
   totalPaid: number;
   exchangeRate: number;
+  couponCode?: string;
+  freeShipping?: boolean;
+  originalDeliveryCost?: number;
 }
 
 export function OrderSummary({
@@ -14,8 +17,11 @@ export function OrderSummary({
   deliveryCost,
   totalPaid,
   exchangeRate,
+  couponCode,
+  freeShipping,
+  originalDeliveryCost,
 }: OrderSummaryProps) {
-  const total = subtotal - discount + deliveryCost;
+  const total = Math.max(0, subtotal - discount + deliveryCost);
   const totalBs = total * exchangeRate;
   const difference = total - totalPaid;
   const isComplete = difference <= 0.01;
@@ -25,8 +31,22 @@ export function OrderSummary({
   return (
     <div className="bg-alonzo-gray-200 p-4 mt-5 space-y-1.5">
       <Row label="SUBTOTAL PRODUCTOS" value={formatUSD(subtotal)} />
-      <Row label="DESCUENTO" value={`- ${formatUSD(discount)}`} className="text-alonzo-danger font-bold" />
-      <Row label="COSTO ENVÍO" value={formatUSD(deliveryCost)} />
+      {discount > 0 && (
+        <Row
+          label={couponCode ? `CUPÓN ${couponCode}` : 'DESCUENTO'}
+          value={`- ${formatUSD(discount)}`}
+          className="text-[#16a34a] font-bold"
+        />
+      )}
+      {freeShipping && originalDeliveryCost && originalDeliveryCost > 0 ? (
+        <Row
+          label="ENVÍO GRATIS 🎉"
+          value={`- ${formatUSD(originalDeliveryCost)}`}
+          className="text-[#2563eb] font-bold"
+        />
+      ) : (
+        <Row label="COSTO ENVÍO" value={formatUSD(deliveryCost)} />
+      )}
       <Row label="TOTAL PAGADO" value={formatUSD(totalPaid)} />
 
       {/* Total USD */}
