@@ -156,14 +156,6 @@ function ShellContent({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
 
-      <div className="md:hidden">
-        <BottomNav
-          onCartOpen={() => router.push('/cart')}
-          onProfileOpen={() => (client ? router.push('/account') : setAuthOpen(true))}
-          onSearchFocus={() => searchRef.current?.focus()}
-        />
-      </div>
-
       <SizeSelector
         product={selectedProduct}
         open={sizeOpen}

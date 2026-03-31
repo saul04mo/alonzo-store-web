@@ -139,7 +139,7 @@ export function SiteHeader({
             <div className="flex items-center justify-end gap-4 md:gap-5 flex-1">
               <button
                 onClick={onProfileOpen}
-                className="text-alonzo-charcoal hover:text-alonzo-black transition-colors flex items-center gap-2"
+                className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center gap-2"
               >
                 <User size={17} strokeWidth={1.5} />
                 {mounted && client && (
@@ -150,7 +150,7 @@ export function SiteHeader({
               </button>
               <button
                 onClick={onCartOpen}
-                className="text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
+                className="hidden md:block text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
               >
                 <ShoppingBag size={17} strokeWidth={1.5} />
                 {mounted && totalItems > 0 && (
@@ -259,17 +259,44 @@ export function SiteHeader({
                   </button>
                 </div>
 
-                {/* Bottom: login */}
-                <div className="border-t border-alonzo-gray-200 px-5 py-4">
+                {/* Bottom links */}
+                <div className="border-t border-alonzo-gray-200">
                   <button
                     onClick={() => { setDrawerOpen(false); onProfileOpen(); }}
-                    className="flex items-center gap-2 text-alonzo-gray-600"
+                    className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
                   >
-                    <User size={16} strokeWidth={1.5} />
-                    <span className="text-[11px] tracking-[0.1em] uppercase">
+                    <User size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
+                    <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
                       {client ? client.name : 'Iniciar sesión'}
                     </span>
                   </button>
+                  <button
+                    onClick={() => { setDrawerOpen(false); onCartOpen(); }}
+                    className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+                  >
+                    <ShoppingBag size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
+                    <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
+                      Carrito {mounted && totalItems > 0 ? `(${totalItems})` : ''}
+                    </span>
+                  </button>
+                  <a
+                    href="/terms"
+                    onClick={() => setDrawerOpen(false)}
+                    className="w-full flex items-center px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+                  >
+                    <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
+                      Términos y condiciones
+                    </span>
+                  </a>
+                  <a
+                    href="/privacy"
+                    onClick={() => setDrawerOpen(false)}
+                    className="w-full flex items-center px-5 py-3.5 text-left"
+                  >
+                    <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
+                      Política de privacidad
+                    </span>
+                  </a>
                 </div>
               </>
             )}
