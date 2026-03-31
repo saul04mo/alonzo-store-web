@@ -129,7 +129,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
   return (
     <>
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-6 md:py-10 font-sans">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-6 md:py-10 font-sans animate-fade-in">
         {/* Back button */}
         <button
           onClick={() => router.back()}
@@ -143,7 +143,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 lg:gap-16">
           {/* ── LEFT: Image gallery ── */}
-          <div className="w-full md:w-[58%] flex flex-col md:flex-row gap-4">
+          <div className="w-full md:w-[58%] flex flex-col md:flex-row gap-4 animate-slide-up">
             <div className="hidden md:flex flex-col gap-3 w-[100px] shrink-0">
               <div className="w-full aspect-square rounded-lg overflow-hidden border-2 border-black cursor-pointer">
                 <img
@@ -163,7 +163,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           </div>
 
           {/* ── RIGHT: Product info ── */}
-          <div className="w-full md:w-[42%] md:sticky md:top-28 md:self-start">
+          <div className="w-full md:w-[42%] md:sticky md:top-28 md:self-start animate-fade-in" style={{ animationDelay: '0.15s', animationFillMode: 'both' }}>
             <p className="text-xs text-gray-400 font-medium tracking-wider mb-1">
               {product.category}
             </p>
@@ -208,9 +208,8 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               <div className={`relative ${sizeGuideImg ? 'mt-2' : 'mt-6'}`}>
                 <button
                   onClick={() => setSizeDropdownOpen(!sizeDropdownOpen)}
-                  className={`w-full border rounded-lg px-4 py-3.5 text-base flex justify-between items-center cursor-pointer transition-colors bg-white ${
-                    sizeDropdownOpen ? 'border-black' : 'border-gray-300 hover:border-gray-500'
-                  }`}
+                  className={`w-full border rounded-lg px-4 py-3.5 text-base flex justify-between items-center cursor-pointer transition-colors bg-white ${sizeDropdownOpen ? 'border-black' : 'border-gray-300 hover:border-gray-500'
+                    }`}
                 >
                   <span className={selectedVariant ? 'text-gray-900' : 'text-gray-400'}>
                     {selectedVariant
@@ -233,11 +232,10 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                           key={`${v.size}-${v.color}-${idx}`}
                           disabled={!inStock}
                           onClick={() => handleVariantSelect(v, idx)}
-                          className={`w-full text-left px-4 py-3.5 text-sm border-b border-gray-100 last:border-0 flex items-center justify-between transition-colors ${
-                            inStock
+                          className={`w-full text-left px-4 py-3.5 text-sm border-b border-gray-100 last:border-0 flex items-center justify-between transition-colors ${inStock
                               ? 'hover:bg-gray-50 text-gray-900 cursor-pointer'
                               : 'text-gray-300 cursor-not-allowed'
-                          } ${selectedVariantIdx === idx ? 'bg-gray-50 font-medium' : ''}`}
+                            } ${selectedVariantIdx === idx ? 'bg-gray-50 font-medium' : ''}`}
                         >
                           <span>
                             {v.size}

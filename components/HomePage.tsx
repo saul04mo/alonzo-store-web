@@ -51,10 +51,14 @@ export function HomePage() {
   }, [products, gender]);
 
   useEffect(() => {
-    if (categories.length > 0 && !activeCategory) {
-      setActiveCategory(categories[0]);
-    }
-  }, [categories, activeCategory]);
+    setLoading(true);
+    setProducts([]);
+    setActiveCategory('');
+    fetchProducts(gender)
+      .then(setProducts)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [gender]);
 
   // Filtered
   const filteredProducts = useMemo(() => {
