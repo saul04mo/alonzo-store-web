@@ -131,8 +131,6 @@ function ShellContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <AnnouncementBar text="Envío gratis en compras mayores a $50." linkText="Ver más" />
-
       <SiteHeader
         gender={gender}
         onGenderChange={handleGenderChange}
