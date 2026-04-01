@@ -18,7 +18,6 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
   const [name, setName] = useState(client.name && client.name !== 'Usuario' ? client.name : '');
   const [rifCi, setRifCi] = useState(client.rif_ci || '');
   const [phone, setPhone] = useState(client.phone || '');
-  const [address, setAddress] = useState(client.address || '');
   const [saving, setSaving] = useState(false);
 
   const canSubmit = name.trim() && rifCi.trim() && phone.trim();
@@ -33,7 +32,6 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
         name: name.trim(),
         rif_ci: rifCi.trim(),
         phone: phone.trim(),
-        address: address.trim(),
         email: client.email || '',
       };
 
@@ -112,20 +110,6 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="text-[13px] font-semibold text-gray-900 block mb-2 uppercase tracking-wider">
-                Dirección
-              </label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 focus:border-black bg-white text-[15px] py-3 px-4 outline-none transition-colors rounded-sm"
-                placeholder="Calle, edificio, ciudad..."
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-              <p className="text-[10px] text-gray-400 mt-1.5">Opcional — puedes agregarla después</p>
             </div>
 
             <button
