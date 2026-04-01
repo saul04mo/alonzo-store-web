@@ -1,14 +1,16 @@
 'use client';
 import { useClientStore } from '@/stores';
-import { LogOut, Package, ShieldCheck, MapPin, ChevronRight } from 'lucide-react';
+import { LogOut, Package, ShieldCheck, MapPin, ChevronRight, Heart, Ticket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { auth, signOut } from '@/lib/firebase-client';
 import { useToast } from '@/components/ui';
+import { useWishlist } from '@/lib/useWishlist';
 
 export function AccountPage() {
   const { client, clearClient } = useClientStore();
   const router = useRouter();
   const toast = useToast();
+  const { count: wishlistCount } = useWishlist();
 
   const handleSignOut = async () => {
     try {
@@ -58,6 +60,20 @@ export function AccountPage() {
       description: 'Revisa tu dirección de facturación y de envío guardadas',
       icon: <MapPin size={24} strokeWidth={1.2} />,
       onClick: () => router.push('/account/details#addresses'),
+    },
+    {
+      id: 'wishlist',
+      title: 'MIS FAVORITOS',
+      description: wishlistCount > 0 ? `Tienes ${wishlistCount} producto${wishlistCount > 1 ? 's' : ''} guardado${wishlistCount > 1 ? 's' : ''}` : 'Guarda tus productos favoritos para después',
+      icon: <Heart size={24} strokeWidth={1.2} />,
+      onClick: () => router.push('/account/wishlist'),
+    },
+    {
+      id: 'coupons',
+      title: 'MIS CUPONES',
+      description: 'Consulta tus cupones de descuento disponibles',
+      icon: <Ticket size={24} strokeWidth={1.2} />,
+      onClick: () => router.push('/account/coupons'),
     },
   ];
 

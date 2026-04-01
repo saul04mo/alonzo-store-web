@@ -5,6 +5,7 @@ import { Heart, ChevronDown, Truck, X } from 'lucide-react';
 import { useCartStore } from '@/stores';
 import { useToast } from '@/components/ui';
 import { getSizeGuideImage } from '@/config';
+import { useWishlist } from '@/lib/useWishlist';
 import type { Product, ProductVariant } from '@/types';
 
 interface ProductDetailPageProps {
@@ -21,7 +22,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
   const [selectedVariantIdx, setSelectedVariantIdx] = useState<number | null>(null);
-  const [liked, setLiked] = useState(false);
+  const { toggle: toggleWishlist, isInWishlist } = useWishlist();
 
   // Scroll to top on mount
   useEffect(() => {
@@ -189,13 +190,13 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 </p>
               </div>
               <button
-                onClick={() => setLiked(!liked)}
+                onClick={() => product && toggleWishlist(product.id)}
                 className="mt-1 shrink-0"
               >
                 <Heart
                   size={22}
                   strokeWidth={1.5}
-                  className={liked ? 'fill-red-500 text-red-500' : 'text-gray-400 hover:text-gray-600 transition-colors'}
+                  className={product && isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400 hover:text-gray-600 transition-colors'}
                 />
               </button>
             </div>
