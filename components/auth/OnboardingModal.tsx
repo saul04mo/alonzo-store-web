@@ -20,7 +20,7 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
   const [phone, setPhone] = useState(client.phone || '');
   const [saving, setSaving] = useState(false);
 
-  const canSubmit = name.trim() && rifCi.trim() && phone.trim();
+  const canSubmit = name.trim().length >= 3 && rifCi.trim().length >= 6 && phone.trim().length >= 10;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -92,10 +92,12 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
                 </label>
                 <input
                   type="text"
+                  inputMode="numeric"
                   className="w-full border border-gray-300 focus:border-black bg-white text-[15px] py-3 px-4 outline-none transition-colors rounded-sm"
-                  placeholder="V12345678"
+                  placeholder="12345678"
                   value={rifCi}
-                  onChange={(e) => setRifCi(e.target.value)}
+                  onChange={(e) => setRifCi(e.target.value.replace(/[^0-9]/g, ''))}
+                  maxLength={12}
                 />
               </div>
               <div>
@@ -104,10 +106,12 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
                 </label>
                 <input
                   type="tel"
+                  inputMode="numeric"
                   className="w-full border border-gray-300 focus:border-black bg-white text-[15px] py-3 px-4 outline-none transition-colors rounded-sm"
-                  placeholder="0412 000 0000"
+                  placeholder="04121234567"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
+                  maxLength={11}
                 />
               </div>
             </div>
