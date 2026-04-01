@@ -23,6 +23,8 @@ import {
   onSnapshot,
   orderBy,
   setDoc,
+  writeBatch,
+  updateDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -73,4 +75,5 @@ export {
   onAuthStateChanged, signOut, sendPasswordResetEmail,
   db,
   collection, getDocs, getDoc, query, where, doc, limit, onSnapshot, orderBy, setDoc,
+  writeBatch, updateDoc,
 };

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useClientStore } from '@/stores';
 import { useToast } from '@/components/ui';
-import { db, doc, setDoc } from '@/lib/firebase-client';
+import { db, doc, setDoc, collection, getDocs, query, where, writeBatch } from '@/lib/firebase-client';
 import type { Client } from '@/types';
 
 interface OnboardingModalProps {
@@ -19,6 +19,7 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
   const [rifCi, setRifCi] = useState(client.rif_ci || '');
   const [phone, setPhone] = useState(client.phone || '');
   const [saving, setSaving] = useState(false);
+  const [linkMessage, setLinkMessage] = useState('');
 
   const canSubmit = name.trim().length >= 3 && rifCi.trim().length >= 6 && phone.trim().length >= 10;
 
@@ -27,18 +28,68 @@ export function OnboardingModal({ client, onComplete }: OnboardingModalProps) {
     if (!canSubmit) return;
 
     setSaving(true);
+    setLinkMessage('');
     try {
-      const updatedData = {
-        name: name.trim(),
-        rif_ci: rifCi.trim(),
-        phone: phone.trim(),
+      const trimmedRif = rifCi.trim();
+      const trimmedName = name.trim();
+      const trimmedPhone = phone.trim();
+
+      // ── 1. Search for existing client in POS by RIF/CI ──
+      const existingSnap = await getDocs(
+        query(collection(db, 'clients'), where('rif_ci', '==', trimmedRif))
+      );
+
+      let existingAddress = '';
+      let linkedOrders = 0;
+
+      if (!existingSnap.empty) {
+        // Found existing client(s) from POS
+        const oldDocs = existingSnap.docs.filter((d) => d.id !== client.id);
+
+        if (oldDocs.length > 0) {
+          const oldClient = oldDocs[0];
+          const oldData = oldClient.data();
+
+          // Grab address if they had one
+          existingAddress = oldData.address || oldData.direccion || '';
+
+          // ── 2. Update old invoices to point to new UID ──
+          const invoiceSnap = await getDocs(
+            query(collection(db, 'invoices'), where('clientId', '==', oldClient.id))
+          );
+
+          if (!invoiceSnap.empty) {
+            const batch = writeBatch(db);
+            invoiceSnap.docs.forEach((invDoc) => {
+              batch.update(doc(db, 'invoices', invDoc.id), {
+                clientId: client.id,
+                linkedFromPOS: oldClient.id,
+              });
+            });
+            await batch.commit();
+            linkedOrders = invoiceSnap.size;
+          }
+        }
+      }
+
+      // ── 3. Save the web client profile ──
+      const updatedData: any = {
+        name: trimmedName,
+        rif_ci: trimmedRif,
+        phone: trimmedPhone,
         email: client.email || '',
       };
+      if (existingAddress) updatedData.address = existingAddress;
 
       await setDoc(doc(db, 'clients', client.id), updatedData, { merge: true });
 
       setClient({ ...client, ...updatedData });
-      toast.show('¡PERFIL COMPLETADO!');
+
+      if (linkedOrders > 0) {
+        toast.show(`¡PERFIL VINCULADO! ${linkedOrders} PEDIDOS ANTERIORES ENCONTRADOS`);
+      } else {
+        toast.show('¡PERFIL COMPLETADO!');
+      }
       onComplete();
     } catch (err) {
       console.error('Error saving onboarding:', err);
