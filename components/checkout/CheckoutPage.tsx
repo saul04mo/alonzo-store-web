@@ -255,23 +255,29 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             number={1}
             title="Datos personales"
             summary={name || 'Completa tus datos'}
-            defaultOpen={true}
+            defaultOpen={!client}
           >
             <div className="space-y-5">
               <div>
                 <label className="text-sm font-medium text-gray-600 block mb-1.5">RIF / CI</label>
-                <input type="text" className={inputClass} placeholder="V12345678" value={rif} onChange={(e) => setRif(e.target.value)} />
+                <input type="text" className={`${inputClass} ${client?.rif_ci ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : ''}`} placeholder="V12345678" value={rif} onChange={(e) => setRif(e.target.value)} disabled={!!client?.rif_ci} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-600 block mb-1.5">Nombre completo</label>
-                  <input type="text" className={inputClass} placeholder="Tu nombre" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input type="text" className={`${inputClass} ${client?.name ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : ''}`} placeholder="Tu nombre" value={name} onChange={(e) => setName(e.target.value)} disabled={!!client?.name} />
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-600 block mb-1.5">Teléfono</label>
-                  <input type="tel" className={inputClass} placeholder="0412..." value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <input type="tel" className={`${inputClass} ${client?.phone ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : ''}`} placeholder="0412..." value={phone} onChange={(e) => setPhone(e.target.value)} disabled={!!client?.phone} />
                 </div>
               </div>
+              {client && (
+                <p className="text-xs text-gray-400 flex items-center gap-1.5">
+                  <CheckCircle2 size={12} className="text-green-500" />
+                  Datos vinculados a tu cuenta. Para modificarlos ve a <button onClick={() => router.push('/account/details')} className="underline hover:text-black transition-colors">Mi Cuenta</button>.
+                </p>
+              )}
             </div>
           </Section>
 
