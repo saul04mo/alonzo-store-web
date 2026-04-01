@@ -1,9 +1,11 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/stores';
 import { CartItemRow } from './CartItemRow';
 import { formatUSD } from '@/lib/format';
+import { fetchProducts } from '@/lib/api';
+import type { Product } from '@/types';
 
 interface CartPageProps {
   onCheckout: () => void;
@@ -16,6 +18,42 @@ export function CartPage({ onCheckout }: CartPageProps) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Fetch products for offer data
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    fetchProducts().then(setAllProducts).catch(() => {});
+  }, []);
+
+  // Calculate offer discount
+  const offerDiscount = useMemo(() => {
+    let discount = 0;
+    items.forEach((item) => {
+      const product = allProducts.find((p) => p.id === item.productId);
+      if (product?.offer && product.offer.value > 0) {
+        const price = parseFloat(item.precio);
+        const lineTotal = price * item.qty;
+        if (product.offer.type === 'percentage') {
+          discount += (lineTotal * product.offer.value) / 100;
+        } else {
+          discount += Math.min(product.offer.value * item.qty, lineTotal);
+        }
+      }
+    });
+    return Math.round(discount * 100) / 100;
+  }, [items, allProducts]);
+
+  const subtotal = totalMoney();
+  const total = Math.max(0, subtotal - offerDiscount);
+
+  // Build a map of productId -> offer for CartItemRow
+  const offerMap = useMemo(() => {
+    const map: Record<string, { type: 'percentage' | 'fixed'; value: number }> = {};
+    allProducts.forEach((p) => {
+      if (p.offer && p.offer.value > 0) map[p.id] = p.offer;
+    });
+    return map;
+  }, [allProducts]);
 
   const handleCheckout = () => {
     if (items.length === 0) return;
@@ -60,7 +98,7 @@ export function CartPage({ onCheckout }: CartPageProps) {
           ) : (
             <div className="space-y-8">
               {items.map((item, index) => (
-                <CartItemRow key={item.key} item={item} index={index} />
+                <CartItemRow key={item.key} item={item} index={index} offer={offerMap[item.productId]} />
               ))}
             </div>
           )}
@@ -75,8 +113,14 @@ export function CartPage({ onCheckout }: CartPageProps) {
               <div className="space-y-4 text-sm font-sans mb-6 border-b border-alonzo-gray-200 pb-6">
                 <div className="flex justify-between text-alonzo-gray-600">
                   <span>Subtotal</span>
-                  <span>{formatUSD(totalMoney())}</span>
+                  <span>{formatUSD(subtotal)}</span>
                 </div>
+                {offerDiscount > 0 && (
+                  <div className="flex justify-between text-red-600 font-medium">
+                    <span>Ofertas</span>
+                    <span>- {formatUSD(offerDiscount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-alonzo-gray-600">
                   <span>Entrega</span>
                   <span>Calculado al final</span>
@@ -86,7 +130,7 @@ export function CartPage({ onCheckout }: CartPageProps) {
               <div className="flex justify-between items-center mb-8">
                 <span className="font-semibold font-sans text-base">Total</span>
                 <span className="font-bold text-lg font-sans">
-                  USD {formatUSD(totalMoney())}
+                  USD {formatUSD(total)}
                 </span>
               </div>
 

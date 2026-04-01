@@ -6,9 +6,10 @@ import type { CartItem } from '@/types';
 interface CartItemRowProps {
   item: CartItem;
   index: number;
+  offer?: { type: 'percentage' | 'fixed'; value: number };
 }
 
-export function CartItemRow({ item, index }: CartItemRowProps) {
+export function CartItemRow({ item, index, offer }: CartItemRowProps) {
   const { updateQty, removeItem } = useCartStore();
 
   const increaseQty = () => {
@@ -21,15 +22,28 @@ export function CartItemRow({ item, index }: CartItemRowProps) {
     }
   };
 
+  const originalPrice = parseFloat(item.precio);
+  const hasOffer = offer && offer.value > 0;
+  const discountedPrice = hasOffer
+    ? (offer.type === 'percentage'
+        ? originalPrice - (originalPrice * offer.value / 100)
+        : Math.max(0, originalPrice - offer.value))
+    : originalPrice;
+
   return (
     <div className="flex gap-6 md:gap-8 pb-8 border-b border-alonzo-gray-200 last:border-0 relative font-sans">
       {/* Image */}
-      <div className="w-[120px] h-[160px] md:w-[160px] md:h-[200px] shrink-0 bg-alonzo-gray-100 flex items-center justify-center overflow-hidden rounded-md">
+      <div className="w-[120px] h-[160px] md:w-[160px] md:h-[200px] shrink-0 bg-alonzo-gray-100 flex items-center justify-center overflow-hidden rounded-md relative">
         <img
           src={item.img}
           alt={item.titulo}
           className="w-full h-full object-cover object-top"
         />
+        {hasOffer && (
+          <div className="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
+            {offer.type === 'percentage' ? `-${offer.value}%` : `-$${offer.value}`}
+          </div>
+        )}
       </div>
 
       {/* Details */}
@@ -74,7 +88,16 @@ export function CartItemRow({ item, index }: CartItemRowProps) {
           </div>
 
           <div className="flex items-start gap-3">
-            <span className="text-base font-semibold">${item.precio}</span>
+            <div className="text-right">
+              {hasOffer ? (
+                <>
+                  <span className="text-base font-semibold text-red-600">${discountedPrice.toFixed(2)}</span>
+                  <span className="block text-xs text-gray-400 line-through">${originalPrice.toFixed(2)}</span>
+                </>
+              ) : (
+                <span className="text-base font-semibold">${item.precio}</span>
+              )}
+            </div>
             {/* Botón de eliminar */}
             <button
               onClick={() => removeItem(index)}
