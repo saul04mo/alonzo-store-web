@@ -427,27 +427,50 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
 
             {/* Cart items */}
             <div className="space-y-4 mb-6">
-              {items.map((item) => (
-                <div key={item.key} className="flex gap-4">
-                  <div className="w-16 h-20 bg-gray-100 rounded overflow-hidden shrink-0">
-                    <img
-                      src={item.img}
-                      alt={item.titulo}
-                      className="w-full h-full object-cover"
-                    />
+              {items.map((item) => {
+                const product = allProducts.find((p) => p.id === item.productId);
+                const hasOffer = product?.offer && product.offer.value > 0;
+                const originalTotal = parseFloat(item.precio) * item.qty;
+                const discountedTotal = hasOffer
+                  ? (product!.offer!.type === 'percentage'
+                      ? originalTotal - (originalTotal * product!.offer!.value / 100)
+                      : Math.max(0, originalTotal - product!.offer!.value * item.qty))
+                  : originalTotal;
+
+                return (
+                  <div key={item.key} className="flex gap-4">
+                    <div className="w-16 h-20 bg-gray-100 rounded overflow-hidden shrink-0 relative">
+                      <img
+                        src={item.img}
+                        alt={item.titulo}
+                        className="w-full h-full object-cover"
+                      />
+                      {hasOffer && (
+                        <div className="absolute top-1 left-1 bg-red-600 text-white text-[7px] font-bold px-1 py-0.5 rounded-sm">
+                          {product!.offer!.type === 'percentage' ? `-${product!.offer!.value}%` : `-$${product!.offer!.value}`}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">{item.titulo}</p>
+                      {item.size && (
+                        <p className="text-xs text-gray-500 mt-0.5">Talla: {item.size}</p>
+                      )}
+                      <p className="text-xs text-gray-500">Cant: {item.qty}</p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      {hasOffer ? (
+                        <>
+                          <p className="text-sm font-medium text-red-600">{formatUSD(discountedTotal)}</p>
+                          <p className="text-[10px] text-gray-400 line-through">{formatUSD(originalTotal)}</p>
+                        </>
+                      ) : (
+                        <p className="text-sm font-medium text-gray-900">{formatUSD(originalTotal)}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{item.titulo}</p>
-                    {item.size && (
-                      <p className="text-xs text-gray-500 mt-0.5">Talla: {item.size}</p>
-                    )}
-                    <p className="text-xs text-gray-500">Cant: {item.qty}</p>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900 shrink-0">
-                    {formatUSD(parseFloat(item.precio) * item.qty)}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Cost breakdown */}
