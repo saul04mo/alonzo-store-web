@@ -237,18 +237,29 @@ export async function POST(request: NextRequest) {
           email: user.email || '',
         },
         date: Timestamp.now(),
-        items: cart.map((item: any) => ({
-          productId: item.productId,
-          titulo: item.titulo,
-          name: item.titulo,
-          quantity: item.qty,
-          price: parseFloat(item.precio),
-          rowTotal: parseFloat(item.precio) * item.qty,
-          size: item.size || '',
-          color: item.color || '',
-          variantIndex: item.variantIndex,
-          img: item.img || '',
-        })),
+        items: cart.map((item: any) => {
+          const unitPrice = parseFloat(item.precio);
+          const variant = productReads[item.productId]?.data?.variants?.[item.variantIndex];
+          return {
+            // ── Standard fields (same as POS) ──
+            productId: item.productId,
+            productName: item.titulo,
+            priceAtSale: unitPrice,
+            quantity: item.qty,
+            variantIndex: item.variantIndex,
+            variantLabel: `${item.size || 'N/A'} / ${item.color || 'N/A'}`,
+            discount: { type: 'none', value: 0 },
+            // ── Legacy fields (backward compat) ──
+            titulo: item.titulo,
+            name: item.titulo,
+            price: unitPrice,
+            rowTotal: unitPrice * item.qty,
+            qty: item.qty,
+            size: item.size || '',
+            color: item.color || '',
+            img: item.img || '',
+          };
+        }),
         totalDiscount: (offerDiscount + couponDiscount) > 0
           ? { type: couponDiscount > 0 ? 'coupon' : 'offer', value: offerDiscount + couponDiscount }
           : { type: 'none', value: 0 },
