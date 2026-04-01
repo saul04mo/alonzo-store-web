@@ -13,6 +13,7 @@ import {
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
 import { AuthModal } from '@/components/auth/AuthModal';
+import { OnboardingModal } from '@/components/auth/OnboardingModal';
 import { auth, onAuthStateChanged, db, doc, getDoc } from '@/lib/firebase-client';
 import { prefetchAllProducts, fetchProducts } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
@@ -37,6 +38,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [sizeOpen, setSizeOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // Cart expiry
   useEffect(() => {
@@ -81,22 +83,30 @@ function ShellContent({ children }: { children: React.ReactNode }) {
           const userRef = doc(db, 'clients', user.uid);
           const userSnap = await getDoc(userRef);
           if (userSnap.exists()) {
-            setClient({ id: user.uid, ...userSnap.data() } as Client);
+            const data = { id: user.uid, ...userSnap.data() } as Client;
+            setClient(data);
+            // Check if profile is incomplete
+            if (!data.rif_ci || !data.phone) {
+              setShowOnboarding(true);
+            }
           } else {
-            setClient({
+            const newClient = {
               id: user.uid,
               name: user.displayName || 'Usuario',
               email: user.email || '',
               phone: '',
               address: '',
               rif_ci: '',
-            });
+            };
+            setClient(newClient);
+            setShowOnboarding(true);
           }
         } catch (err) {
           console.error('Error loading client:', err);
         }
       } else {
         clearClient();
+        setShowOnboarding(false);
       }
     });
     return () => unsub();
@@ -173,6 +183,13 @@ function ShellContent({ children }: { children: React.ReactNode }) {
               router.push('/checkout');
             }
           }}
+        />
+      )}
+
+      {showOnboarding && client && (
+        <OnboardingModal
+          client={client}
+          onComplete={() => setShowOnboarding(false)}
         />
       )}
     </div>
