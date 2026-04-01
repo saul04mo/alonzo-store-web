@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
         price: data.price,
         variants: data.variants || [],
         sizeGuideImage: data.sizeGuideImage,
+        offer: data.offer && data.offer.value > 0 ? data.offer : undefined,
       } as Product);
     });
 

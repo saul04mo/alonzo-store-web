@@ -72,6 +72,15 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const selectedVariant = selectedVariantIdx !== null ? product.variants[selectedVariantIdx] : null;
   const sizeGuideImg = getSizeGuideImage(product.category, product.gender);
 
+  // Offer calculations
+  const hasOffer = product.offer && product.offer.value > 0;
+  const displayPrice = selectedVariant ? parseFloat(selectedVariant.price) : parseFloat(price);
+  const discountedPrice = hasOffer
+    ? (product.offer!.type === 'percentage'
+        ? displayPrice - (displayPrice * product.offer!.value / 100)
+        : Math.max(0, displayPrice - product.offer!.value))
+    : displayPrice;
+
   const handleAddToCart = () => {
     if (hasVariants) {
       if (selectedVariant) {
@@ -194,6 +203,19 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             <p className="text-xl font-semibold text-gray-900 mt-4">
               ${selectedVariant ? selectedVariant.price : price}
             </p>
+
+            {hasOffer && (
+              <div className="flex items-center gap-3 mt-1">
+                <span className="text-xl font-semibold text-red-600">
+                  ${discountedPrice.toFixed(2)}
+                </span>
+                <span className="inline-flex items-center bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-sm">
+                  {product.offer!.type === 'percentage'
+                    ? `-${product.offer!.value}%`
+                    : `-$${product.offer!.value}`}
+                </span>
+              </div>
+            )}
 
             {sizeGuideImg && (
               <div className="flex justify-end mt-4">

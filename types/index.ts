@@ -18,6 +18,25 @@ export interface Product {
   price?: string;
   variants: ProductVariant[];
   sizeGuideImage?: string;
+  offer?: {
+    type: 'percentage' | 'fixed';
+    value: number;
+  };
+}
+
+export interface ActivePromotion {
+  id: string;
+  name: string;
+  description: string;
+  type: 'nxm' | 'volume_discount' | 'min_purchase' | 'free_shipping' | 'bundle';
+  scope: 'global' | 'category' | 'product';
+  scopeTargets: string[];
+  buyQty: number;
+  payQty: number;
+  minUnits: number;
+  discountType: 'percentage' | 'fixed';
+  discountValue: number;
+  minPurchase: number;
 }
 
 export interface CartItem {

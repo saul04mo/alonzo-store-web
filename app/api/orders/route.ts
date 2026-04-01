@@ -115,7 +115,25 @@ export async function POST(request: NextRequest) {
           parseInt(stockUpdates[item.productId][item.variantIndex].stock) - item.qty;
       }
 
-      const serverTotal = serverSubtotal + deliveryCostUsd;
+      // 5b-bis. Calculate product offer discounts
+      let offerDiscount = 0;
+      for (const item of cart) {
+        const product = productReads[item.productId];
+        const offer = product.data.offer;
+        if (offer && offer.value > 0) {
+          const variant = product.data.variants[item.variantIndex];
+          const basePrice = parseFloat(variant.price);
+          const lineTotal = basePrice * item.qty;
+          if (offer.type === 'percentage') {
+            offerDiscount += (lineTotal * offer.value) / 100;
+          } else {
+            offerDiscount += Math.min(offer.value * item.qty, lineTotal);
+          }
+        }
+      }
+      offerDiscount = Math.round(offerDiscount * 100) / 100;
+
+      const serverTotal = serverSubtotal - offerDiscount + deliveryCostUsd;
 
       // 5c-bis. Validate coupon server-side (if provided)
       let couponDiscount = 0;
@@ -166,7 +184,7 @@ export async function POST(request: NextRequest) {
       }
 
       const effectiveDeliveryCost = appliedCouponData?.freeShipping ? 0 : deliveryCostUsd;
-      const serverTotalAfterCoupon = Math.max(0, serverSubtotal - couponDiscount + effectiveDeliveryCost);
+      const serverTotalAfterCoupon = Math.max(0, serverSubtotal - offerDiscount - couponDiscount + effectiveDeliveryCost);
 
       // 5c. Atomic numericId
       const counterRef = adminDb.collection('config').doc('orderCounter');
@@ -231,9 +249,10 @@ export async function POST(request: NextRequest) {
           variantIndex: item.variantIndex,
           img: item.img || '',
         })),
-        totalDiscount: couponDiscount > 0
-          ? { type: appliedCouponData?.code ? 'coupon' : 'none', value: couponDiscount }
+        totalDiscount: (offerDiscount + couponDiscount) > 0
+          ? { type: couponDiscount > 0 ? 'coupon' : 'offer', value: offerDiscount + couponDiscount }
           : { type: 'none', value: 0 },
+        offerDiscount: offerDiscount,
         total: serverTotalAfterCoupon,
         exchangeRate: exchangeRate || 1,
         payments: finalPayments,

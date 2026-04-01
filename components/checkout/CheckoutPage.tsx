@@ -7,11 +7,12 @@ import { useCartStore, useClientStore } from '@/stores';
 import { useExchangeRate } from '@/lib/useExchangeRate';
 import { deliveryMethods } from '@/config';
 import { usePaymentMethods } from '@/lib/usePaymentMethods';
-import { createOrder } from '@/lib/api';
+import { createOrder, fetchProducts } from '@/lib/api';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD } from '@/lib/format';
 import { CouponInput, type AppliedCouponWeb } from './CouponInput';
 import type { AddressResult } from './AddressPicker';
+import type { Product } from '@/types';
 import dynamic from 'next/dynamic';
 
 // FIX #27: Lazy-load AddressPicker (Leaflet CSS+JS) — only when delivery is selected
@@ -127,7 +128,11 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   // Coupon
   const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
 
-
+  // Fetch products for offer data
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    fetchProducts().then(setAllProducts).catch(() => {});
+  }, []);
 
   // Address from map
   const handleAddressSelect = (result: AddressResult) => {
@@ -140,6 +145,25 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const rawDeliveryCost = deliveryType === 'delivery' ? mapDeliveryCost : 0;
   const deliveryCost = appliedCoupon?.freeShipping ? 0 : rawDeliveryCost;
   const subtotal = totalMoney();
+
+  // Calculate offer discounts from product data
+  const offerDiscount = useMemo(() => {
+    let discount = 0;
+    items.forEach((item) => {
+      const product = allProducts.find((p) => p.id === item.productId);
+      if (product?.offer && product.offer.value > 0) {
+        const price = parseFloat(item.precio);
+        const lineTotal = price * item.qty;
+        if (product.offer.type === 'percentage') {
+          discount += (lineTotal * product.offer.value) / 100;
+        } else {
+          discount += Math.min(product.offer.value * item.qty, lineTotal);
+        }
+      }
+    });
+    return Math.round(discount * 100) / 100;
+  }, [items, allProducts]);
+
   const couponDiscount = appliedCoupon?.discountAmount || 0;
   const totalPaid = useMemo(() => {
     let paid = 0;
@@ -153,7 +177,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     return paid;
   }, [paymentSelection, exchangeRate]);
 
-  const total = Math.max(0, subtotal - couponDiscount + deliveryCost);
+  const total = Math.max(0, subtotal - offerDiscount - couponDiscount + deliveryCost);
   const canFinish = total - totalPaid <= 0.01;
   const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
 
@@ -432,6 +456,12 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                 <span>Subtotal</span>
                 <span>{formatUSD(subtotal)}</span>
               </div>
+              {offerDiscount > 0 && (
+                <div className="flex justify-between text-sm text-red-600 font-medium">
+                  <span>Ofertas</span>
+                  <span>- {formatUSD(offerDiscount)}</span>
+                </div>
+              )}
               {couponDiscount > 0 && (
                 <div className="flex justify-between text-sm text-green-600 font-medium">
                   <span>Cupón {appliedCoupon?.code}</span>

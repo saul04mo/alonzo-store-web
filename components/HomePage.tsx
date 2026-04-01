@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { HeroSection } from '@/components/ui';
 import { ProductGrid } from '@/components/products/ProductGrid';
+import { PromotionsBanner } from '@/components/products/PromotionsBanner';
 import { fetchProducts } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
 import { useUIStore } from '@/stores';
@@ -103,6 +104,7 @@ export function HomePage() {
           <div className="h-px bg-alonzo-gray-200 my-4" />
         </div>
         <div className="py-6 md:py-10">
+          <PromotionsBanner />
           <ProductGrid
             products={filteredProducts.slice(0, 8)}
             loading={loading}
@@ -116,6 +118,7 @@ export function HomePage() {
 
   return (
     <div className="py-6 md:py-10">
+      <PromotionsBanner />
       <ProductGrid
         products={filteredProducts}
         loading={loading}
