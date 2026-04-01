@@ -129,7 +129,8 @@ export function AccountOrdersPage() {
                   className="w-full text-left p-5 md:p-6"
                 >
                   <div className="flex gap-4 md:gap-6">
-                    {/* Product thumbnails */}
+                    {/* Product thumbnails - hide when expanded */}
+                    {!isOpen && (
                     <div className="flex -space-x-3 shrink-0">
                       {firstImages.length > 0 ? firstImages.map((img: string, i: number) => (
                         <div key={i} className="w-12 h-16 md:w-14 md:h-[72px] bg-gray-100 rounded overflow-hidden border-2 border-white shadow-sm relative"
@@ -148,6 +149,7 @@ export function AccountOrdersPage() {
                         </div>
                       )}
                     </div>
+                    )}
 
                     {/* Order info */}
                     <div className="flex-1 min-w-0">
@@ -283,10 +285,10 @@ export function AccountOrdersPage() {
                             <span>{formatUSD(order.deliveryCostUsd)}</span>
                           </div>
                         )}
-                        {order.appliedCoupon && (
+                        {(order as any).appliedCoupon && (
                           <div className="flex justify-between text-sm text-green-600 font-medium">
-                            <span>Cupón {order.appliedCoupon.code}</span>
-                            <span>- {formatUSD(order.appliedCoupon.discountAmount || 0)}</span>
+                            <span>Cupón {(order as any).appliedCoupon.code}</span>
+                            <span>- {formatUSD((order as any).appliedCoupon.discountAmount || 0)}</span>
                           </div>
                         )}
                         <div className="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-100">
