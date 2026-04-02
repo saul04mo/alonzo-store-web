@@ -3,8 +3,9 @@ import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/stores';
 import { CartItemRow } from './CartItemRow';
-import { formatUSD } from '@/lib/format';
+import { formatUSD, formatBs } from '@/lib/format';
 import { fetchProducts } from '@/lib/api';
+import { useExchangeRate } from '@/lib/useExchangeRate';
 import type { Product } from '@/types';
 
 interface CartPageProps {
@@ -45,6 +46,7 @@ export function CartPage({ onCheckout }: CartPageProps) {
 
   const subtotal = totalMoney();
   const total = Math.max(0, subtotal - offerDiscount);
+  const exchangeRate = useExchangeRate();
 
   // Build a map of productId -> offer for CartItemRow
   const offerMap = useMemo(() => {
@@ -127,12 +129,21 @@ export function CartPage({ onCheckout }: CartPageProps) {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center mb-8">
+              <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold font-sans text-base">Total</span>
                 <span className="font-bold text-lg font-sans">
                   USD {formatUSD(total)}
                 </span>
               </div>
+              {exchangeRate > 0 && (
+                <div className="flex justify-between items-center mb-8">
+                  <span className="text-sm text-gray-400">Ref. en Bs</span>
+                  <span className="text-sm font-medium text-gray-500">
+                    {formatBs(total * exchangeRate)}
+                  </span>
+                </div>
+              )}
+              {!exchangeRate && <div className="mb-8" />}
 
               <button
                 onClick={handleCheckout}
