@@ -409,31 +409,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         {/* ── RIGHT: Order Summary ──────────────── */}
         <div className="w-full lg:w-[38%]">
           <div className="lg:sticky lg:top-28">
-            {/* Total bar */}
-            <div className="flex items-center justify-between mb-1 pb-2 border-b border-gray-200">
-              <span className="text-lg font-semibold text-gray-900">Total</span>
-              <span className="text-lg font-bold text-gray-900">USD {formatUSD(total)}</span>
-            </div>
-            {exchangeRate > 0 && (
-              <div className="flex items-center justify-between mb-4 text-sm text-gray-400">
-                <span>Ref. en Bs</span>
-                <span className="font-medium">{formatBs(total * exchangeRate)}</span>
-              </div>
-            )}
-            {!exchangeRate && <div className="mb-4" />}
-
-            <button
-              className="w-full py-3.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-lg mb-4 cursor-not-allowed"
-              disabled
-            >
-              Realizar un pedido
-            </button>
-
-            <p className="text-xs text-gray-500 mb-8 leading-relaxed">
-              Al realizar tu pedido, aceptas nuestros{' '}
-              <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-black">Términos y Condiciones</a>{' '}
-              y <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-black">Política de Privacidad</a>.
-            </p>
 
             {/* Resumen heading */}
             <h3 className="text-lg font-semibold text-gray-900 mb-5">Resumen</h3>
@@ -519,12 +494,25 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
               <span>USD {formatUSD(total)}</span>
             </div>
             {exchangeRate > 0 && (
-              <div className="flex justify-between text-sm text-gray-400 mb-6">
+              <div className="flex justify-between text-sm text-gray-400 mb-4">
                 <span>Ref. en Bs</span>
                 <span className="font-medium">{formatBs(total * exchangeRate)}</span>
               </div>
             )}
-            {!exchangeRate && <div className="mb-6" />}
+            {!exchangeRate && <div className="mb-4" />}
+
+            <button
+              className="w-full py-3.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-lg mb-4 cursor-not-allowed"
+              disabled
+            >
+              Realizar un pedido
+            </button>
+
+            <p className="text-xs text-gray-500 mb-4 leading-relaxed text-center">
+              Al realizar tu pedido, aceptas nuestros{' '}
+              <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-black">Términos y Condiciones</a>{' '}
+              y <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-black">Política de Privacidad</a>.
+            </p>
 
             {/* Returns */}
           </div>
