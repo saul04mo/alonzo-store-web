@@ -26,6 +26,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const [qty, setQty] = useState(1);
   const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
   const [mainImage, setMainImage] = useState('');
+  const [imageLoaded, setImageLoaded] = useState(false);
   const { toggle: toggleWishlist, isInWishlist } = useWishlist();
 
   // Scroll to top on mount
@@ -39,6 +40,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     setSizeGuideOpen(false);
     setQty(1);
     setActiveAccordion(null);
+    setImageLoaded(false);
     if (product) setMainImage(product.imageUrl);
   }, [product?.id]);
 
@@ -185,7 +187,10 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 55vw"
-                className="object-cover object-top transition-opacity duration-500"
+                onLoad={() => setImageLoaded(true)}
+                className={`object-cover object-top transition-opacity duration-700 ease-out ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
               />
             </div>
 

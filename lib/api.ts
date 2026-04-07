@@ -26,7 +26,7 @@ async function authFetch(url: string, options: RequestInit = {}) {
 // ─────────────────────────────────────────────
 const productCache: Record<string, { data: Product[]; ts: number }> = {};
 const singleCache: Record<string, { data: Product; ts: number }> = {};
-const CACHE_TTL = 30 * 1000; // 30 seconds (reduced from 5 mins)
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 export async function fetchProducts(gender?: string): Promise<Product[]> {
   const cacheKey = gender || 'all';
@@ -70,6 +70,11 @@ export async function fetchProduct(id: string): Promise<Product> {
 export function prefetchAllProducts() {
   fetchProducts('Hombre').catch(() => { });
   fetchProducts('Mujer').catch(() => { });
+}
+
+// Seed a single product into cache (instant detail page load)
+export function seedProduct(product: Product) {
+  singleCache[product.id] = { data: product, ts: Date.now() };
 }
 
 // ─────────────────────────────────────────────

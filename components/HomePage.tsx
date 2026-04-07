@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { PromotionsBanner } from '@/components/products/PromotionsBanner';
 import { HeroBanner } from '@/components/ui';
-import { fetchProducts } from '@/lib/api';
+import { fetchProducts, seedProduct } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
 import { useUIStore } from '@/stores';
 import type { Product, Gender } from '@/types';
@@ -87,7 +87,10 @@ export function HomePage() {
 
   const genderLabel = gender === 'Mujer' ? 'Moda para mujer' : 'Moda para hombre';
   const handleProductClick = useCallback(
-    (product: Product) => router.push(`/product/${product.id}`),
+    (product: Product) => {
+      seedProduct(product); // instant cache hit on detail page
+      router.push(`/product/${product.id}`);
+    },
     [router]
   );
 
