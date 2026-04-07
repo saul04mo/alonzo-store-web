@@ -27,7 +27,7 @@ export function HeroBanner() {
     <div className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden">
       {/* Background Image Optimized */}
       <Image
-        src="/images/hero-banner.png"
+        src="/images/hero-banner.jpg"
         alt="Nueva Colección"
         fill
         priority
