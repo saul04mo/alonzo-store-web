@@ -12,7 +12,7 @@ interface ProductGridProps {
 export function ProductGrid({ products, loading, onProductClick, sectionTitle }: ProductGridProps) {
   if (loading) {
     return (
-      <div className="max-w-[1400px] mx-auto px-4 md:px-10">
+      <div className="w-full px-2 md:px-4 lg:px-6">
         {sectionTitle && <SectionTitle title={sectionTitle} />}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -31,7 +31,7 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle }:
 
   if (products.length === 0) {
     return (
-      <div className="max-w-[1400px] mx-auto px-4 md:px-10 py-16">
+      <div className="w-full px-2 md:px-4 lg:px-6 py-16">
         <p className="text-center text-alonzo-gray-500 text-sm tracking-wider">
           Sin resultados.
         </p>
@@ -40,9 +40,9 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle }:
   }
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 md:px-10">
+    <div className="w-full px-1 md:px-2">
       {sectionTitle && <SectionTitle title={sectionTitle} />}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-1 gap-y-12 md:gap-x-2 md:gap-y-16">
         {products.map((product) => (
           <ProductCard
             key={product.id}

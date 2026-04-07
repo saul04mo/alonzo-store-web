@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { Search, User, ShoppingBag, Menu, X, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { Gender } from '@/types';
 
 interface SiteHeaderProps {
@@ -55,7 +56,7 @@ export function SiteHeader({
     setHoveredGender(g);
   };
   const startClose = () => {
-    closeTimer.current = setTimeout(() => setHoveredGender(null), 250);
+    closeTimer.current = setTimeout(() => setHoveredGender(null), 80);
   };
 
   const handleCategoryClick = (g: Gender, cat: string) => {
@@ -74,15 +75,31 @@ export function SiteHeader({
     setDrawerSub(null);
   };
 
+  const pathname = usePathname();
   const dropdownCats = hoveredGender ? (categoriesByGender[hoveredGender] || []) : [];
   const columns: string[][] = [];
   for (let i = 0; i < dropdownCats.length; i += 6) {
     columns.push(dropdownCats.slice(i, i + 6));
   }
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const isHomeHero = pathname === '/' && !searchTerm;
+  const isTransparent = isHomeHero && !isScrolled && !drawerOpen && !hoveredGender;
+
+  const baseHeaderClass = "w-full top-0 z-[90] transition-colors duration-300";
+  const headerLayoutClass = isHomeHero ? "fixed" : "sticky";
+  const headerBgClass = isTransparent ? "bg-transparent border-transparent" : "bg-white border-alonzo-gray-200 border-b";
+
   return (
     <>
-      <header className="w-full bg-white sticky top-0 z-[90]">
+      <header className={`${baseHeaderClass} ${headerLayoutClass} ${headerBgClass}`}>
         <div className="max-w-[1400px] mx-auto px-4 md:px-10">
           <div className="flex items-center justify-between h-12 md:h-14">
 
@@ -98,6 +115,14 @@ export function SiteHeader({
 
               {/* Desktop nav */}
               <nav className="hidden md:flex items-center gap-7">
+                {/* SHOP */}
+                <button
+                  onClick={() => handleViewAll(gender)}
+                  className="text-[11px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
+                >
+                  Shop
+                </button>
+
                 {(['Mujer', 'Hombre'] as Gender[]).map((g) => (
                   <button
                     key={g}
@@ -113,6 +138,17 @@ export function SiteHeader({
                     )}
                   </button>
                 ))}
+
+                {/* BASICS */}
+                <button
+                  onClick={() => {
+                    onGenderChange(gender);
+                    setTimeout(() => setActiveCategory('BÁSICOS'), 50);
+                  }}
+                  className="text-[11px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
+                >
+                  Basics
+                </button>
               </nav>
             </div>
 
@@ -135,19 +171,26 @@ export function SiteHeader({
               </Link>
             </div>
 
-            {/* ── Right icons ── */}
+            {/* ── Right icons (desktop only) ── */}
             <div className="flex items-center justify-end gap-4 md:gap-5 flex-1">
+              {/* Search */}
+              <button
+                onClick={() => {
+                  const el = document.getElementById('alonzo-search-input');
+                  if (el) { el.focus(); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+                }}
+                className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
+              >
+                <Search size={17} strokeWidth={1.5} />
+              </button>
+              {/* User / Profile */}
               <button
                 onClick={onProfileOpen}
-                className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center gap-2"
+                className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
                 <User size={17} strokeWidth={1.5} />
-                {mounted && client && (
-                  <span className="hidden lg:block text-[10px] tracking-wide font-medium capitalize truncate max-w-[140px]">
-                    {client.name}
-                  </span>
-                )}
               </button>
+              {/* Cart */}
               <button
                 onClick={onCartOpen}
                 className="hidden md:block text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
@@ -162,7 +205,6 @@ export function SiteHeader({
             </div>
           </div>
         </div>
-        <div className="h-px bg-alonzo-gray-200" />
 
         {/* ══════ Desktop Mega Menu ══════ */}
         {hoveredGender && dropdownCats.length > 0 && (
@@ -173,27 +215,29 @@ export function SiteHeader({
           >
             <div className="bg-white border-b border-alonzo-gray-200">
               <div className="max-w-[1400px] mx-auto px-10 py-8 flex gap-16">
+                {/* Ver todo */}
                 <div className="flex flex-col gap-3">
                   <button
                     onClick={() => handleViewAll(hoveredGender)}
-                    className="text-[11px] tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left"
+                    className="text-[11px] tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left mega-item-reveal"
+                    style={{ animationDelay: '0ms' }}
                   >
                     Ver todo
                   </button>
                 </div>
-                {columns.map((col, ci) => (
-                  <div key={ci} className="flex flex-col gap-2.5">
-                    {col.map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => handleCategoryClick(hoveredGender, cat)}
-                        className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap"
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                ))}
+                {/* Categories – staggered reveal */}
+                <div className="flex flex-col gap-2.5">
+                  {dropdownCats.map((cat, idx) => (
+                    <button
+                      key={cat}
+                      onClick={() => handleCategoryClick(hoveredGender, cat)}
+                      className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap mega-item-reveal"
+                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -224,121 +268,135 @@ export function SiteHeader({
             className="absolute top-0 left-0 bottom-0 w-[85%] max-w-[340px] bg-white flex flex-col animate-slide-in-left"
             style={{ animationDuration: '0.25s' }}
           >
-            {/* ── Main menu (no sub open) ── */}
-            {!drawerSub && (
-              <>
-                {/* Close button */}
-                <div className="flex items-center justify-between px-5 h-12 border-b border-alonzo-gray-200">
-                  <button onClick={() => setDrawerOpen(false)}>
-                    <X size={20} strokeWidth={1.5} className="text-alonzo-charcoal" />
-                  </button>
-                </div>
+            {/* Close button */}
+            <div className="flex items-center justify-between px-5 h-12 border-b border-alonzo-gray-200">
+              <button onClick={() => setDrawerOpen(false)}>
+                <X size={20} strokeWidth={1.5} className="text-alonzo-charcoal" />
+              </button>
+            </div>
 
-                {/* Menu items */}
-                <div className="flex-1 overflow-y-auto">
-                  {/* Mujer */}
+            {/* Menu items */}
+            <div className="flex-1 overflow-y-auto">
+              {/* ── Mujer ── */}
+              <button
+                onClick={() => setDrawerSub(drawerSub === 'Mujer' ? null : 'Mujer')}
+                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+              >
+                <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
+                  Mujer
+                </span>
+                <ChevronDown
+                  size={16}
+                  className={`text-alonzo-gray-400 transition-transform duration-300 ${drawerSub === 'Mujer' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {/* Mujer categories – inline expand */}
+              {drawerSub === 'Mujer' && (
+                <div className="bg-gray-50/60">
                   <button
-                    onClick={() => setDrawerSub('Mujer')}
-                    className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                    onClick={() => handleViewAll('Mujer')}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '0ms' }}
                   >
-                    <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
-                      Mujer
-                    </span>
-                    <ChevronRight size={16} className="text-alonzo-gray-400" />
-                  </button>
-
-                  {/* Hombre */}
-                  <button
-                    onClick={() => setDrawerSub('Hombre')}
-                    className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
-                  >
-                    <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
-                      Hombre
-                    </span>
-                    <ChevronRight size={16} className="text-alonzo-gray-400" />
-                  </button>
-                </div>
-
-                {/* Bottom links */}
-                <div className="border-t border-alonzo-gray-200">
-                  <button
-                    onClick={() => { setDrawerOpen(false); onProfileOpen(); }}
-                    className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
-                  >
-                    <User size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
-                    <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
-                      {client ? client.name : 'Iniciar sesión'}
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => { setDrawerOpen(false); onCartOpen(); }}
-                    className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
-                  >
-                    <ShoppingBag size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
-                    <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
-                      Carrito {mounted && totalItems > 0 ? `(${totalItems})` : ''}
-                    </span>
-                  </button>
-                  <a
-                    href="/terms"
-                    onClick={() => setDrawerOpen(false)}
-                    className="w-full flex items-center px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
-                  >
-                    <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
-                      Términos y condiciones
-                    </span>
-                  </a>
-                  <a
-                    href="/privacy"
-                    onClick={() => setDrawerOpen(false)}
-                    className="w-full flex items-center px-5 py-3.5 text-left"
-                  >
-                    <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
-                      Política de privacidad
-                    </span>
-                  </a>
-                </div>
-              </>
-            )}
-
-            {/* ── Sub menu (gender categories) ── */}
-            {drawerSub && (
-              <>
-                {/* Back button */}
-                <div className="flex items-center gap-3 px-5 h-12 border-b border-alonzo-gray-200">
-                  <button onClick={() => setDrawerSub(null)}>
-                    <ArrowLeft size={18} strokeWidth={1.5} className="text-alonzo-charcoal" />
-                  </button>
-                  <span className="text-[13px] tracking-[0.08em] uppercase font-medium text-alonzo-charcoal">
-                    {drawerSub}
-                  </span>
-                </div>
-
-                {/* Categories */}
-                <div className="flex-1 overflow-y-auto">
-                  <button
-                    onClick={() => handleViewAll(drawerSub)}
-                    className="w-full px-5 py-4 border-b border-alonzo-gray-200 text-left"
-                  >
-                    <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                    <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Ver todo
                     </span>
                   </button>
-
-                  {(categoriesByGender[drawerSub] || []).map((cat) => (
+                  {(categoriesByGender['Mujer'] || []).map((cat, idx) => (
                     <button
                       key={cat}
-                      onClick={() => handleCategoryClick(drawerSub, cat)}
-                      className="w-full px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                      onClick={() => handleCategoryClick('Mujer', cat)}
+                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
                     >
-                      <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-gray-600">
+                      <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-gray-500">
                         {cat}
                       </span>
                     </button>
                   ))}
                 </div>
-              </>
-            )}
+              )}
+
+              {/* ── Hombre ── */}
+              <button
+                onClick={() => setDrawerSub(drawerSub === 'Hombre' ? null : 'Hombre')}
+                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+              >
+                <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
+                  Hombre
+                </span>
+                <ChevronDown
+                  size={16}
+                  className={`text-alonzo-gray-400 transition-transform duration-300 ${drawerSub === 'Hombre' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {/* Hombre categories – inline expand */}
+              {drawerSub === 'Hombre' && (
+                <div className="bg-gray-50/60">
+                  <button
+                    onClick={() => handleViewAll('Hombre')}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '0ms' }}
+                  >
+                    <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                      Ver todo
+                    </span>
+                  </button>
+                  {(categoriesByGender['Hombre'] || []).map((cat, idx) => (
+                    <button
+                      key={cat}
+                      onClick={() => handleCategoryClick('Hombre', cat)}
+                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                    >
+                      <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-gray-500">
+                        {cat}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Bottom links */}
+            <div className="border-t border-alonzo-gray-200">
+              <button
+                onClick={() => { setDrawerOpen(false); onProfileOpen(); }}
+                className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+              >
+                <User size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
+                <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
+                  {client ? client.name : 'Iniciar sesión'}
+                </span>
+              </button>
+              <button
+                onClick={() => { setDrawerOpen(false); onCartOpen(); }}
+                className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+              >
+                <ShoppingBag size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
+                <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
+                  Carrito {mounted && totalItems > 0 ? `(${totalItems})` : ''}
+                </span>
+              </button>
+              <a
+                href="/terms"
+                onClick={() => setDrawerOpen(false)}
+                className="w-full flex items-center px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+              >
+                <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
+                  Términos y condiciones
+                </span>
+              </a>
+              <a
+                href="/privacy"
+                onClick={() => setDrawerOpen(false)}
+                className="w-full flex items-center px-5 py-3.5 text-left"
+              >
+                <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
+                  Política de privacidad
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -350,6 +408,24 @@ export function SiteHeader({
         }
         .animate-slide-in-left {
           animation: slideInLeft 0.25s ease-out;
+        }
+        @keyframes megaItemReveal {
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .mega-item-reveal {
+          opacity: 0;
+          animation: megaItemReveal 0.3s ease-out forwards;
+        }
+        .mobile-menu-reveal {
+          opacity: 0;
+          animation: megaItemReveal 0.3s ease-out forwards;
         }
       `}</style>
     </>

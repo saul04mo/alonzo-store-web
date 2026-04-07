@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
 
 interface ProductCardProps {
@@ -15,6 +16,8 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
   const [loaded, setLoaded] = useState(false);
+  const addItem = useCartStore((s) => s.addItem);
+  const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
 
   const rawPrice = product.variants.length > 0
     ? parseFloat(product.variants[0].price)
@@ -24,14 +27,53 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
   const imageUrl = product.imageUrl || 'https://via.placeholder.com/400x600';
 
+  // Build size info with stock + find the matching variant
+  const sizeMap = new Map<string, { stock: number; variantIndex: number }>();
+  product.variants.forEach((v, idx) => {
+    if (v.size) {
+      const stock = parseInt(v.stock) || 0;
+      const existing = sizeMap.get(v.size);
+      if (!existing || stock > existing.stock) {
+        sizeMap.set(v.size, { stock, variantIndex: idx });
+      }
+    }
+  });
+
+  const uniqueSizes = Array.from(sizeMap.entries()).map(([size, info]) => ({
+    size,
+    inStock: info.stock > 0,
+    variantIndex: info.variantIndex,
+  }));
+
+  const handleSizeClick = (e: React.MouseEvent, sizeInfo: typeof uniqueSizes[0]) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (!sizeInfo.inStock) return;
+
+    const variant = product.variants[sizeInfo.variantIndex];
+    const itemKey = `${product.id}-${variant.size}-${variant.color}`;
+    addItem({
+      key: itemKey,
+      productId: product.id,
+      titulo: product.name,
+      img: product.imageUrl,
+      precio: variant.price,
+      qty: 1,
+      size: variant.size,
+      color: variant.color,
+      variantIndex: sizeInfo.variantIndex,
+    });
+    setCartDrawerOpen(true);
+  };
+
   return (
     <button
       onClick={onClick}
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
     >
-      {/* Image — 3:4 aspect ratio */}
+      {/* Image — 4:5 aspect ratio */}
       <div
-        className={`relative w-full pt-[133%] overflow-hidden rounded-sm ${
+        className={`relative w-full pt-[125%] overflow-hidden rounded-sm ${
           !loaded ? 'skeleton-shimmer' : 'bg-alonzo-gray-100'
         }`}
       >
@@ -56,20 +98,42 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
               : `-$${product.offer!.value}`}
           </div>
         )}
+
+        {/* Sizes Overlay (Hover) - Centered with specific layout */}
+        {uniqueSizes.length > 0 && (
+          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-alonzo-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10 flex">
+            {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
+              <div
+                key={size}
+                onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
+                className={`flex items-center justify-center min-w-[36px] sm:min-w-[44px] h-[36px] sm:h-[44px] text-[11px] sm:text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
+                  idx > 0 ? 'border-l border-alonzo-gray-300' : ''
+                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white'}`}
+              >
+                {size}
+                {!inStock && (
+                  <svg className="absolute inset-0 w-full h-full text-alonzo-gray-300 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <line x1="0" y1="100" x2="100" y2="0" stroke="currentColor" strokeWidth="1" />
+                  </svg>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Product info */}
-      <div className="mt-3 space-y-1">
-        <p className="text-xs text-alonzo-gray-600 tracking-wide leading-relaxed line-clamp-2 group-hover:text-alonzo-black transition-colors">
+      <div className="mt-3 space-y-1.5 px-1 text-left">
+        <p className="text-[11px] font-medium text-slate-500 uppercase tracking-widest leading-relaxed line-clamp-2 group-hover:text-alonzo-black transition-colors">
           {product.name}
         </p>
         {hasOffer ? (
           <div className="flex items-center gap-2">
-            <p className="text-xs font-medium text-red-600">$ {finalPrice.toFixed(2)}</p>
-            <p className="text-[10px] text-gray-400 line-through">$ {rawPrice.toFixed(2)}</p>
+            <p className="text-[11px] font-medium text-red-600">${finalPrice.toFixed(2)}</p>
+            <p className="text-[10px] text-slate-400 line-through">${rawPrice.toFixed(2)}</p>
           </div>
         ) : (
-          <p className="text-xs font-medium text-alonzo-black">$ {rawPrice.toFixed(2)}</p>
+          <p className="text-[11px] font-normal text-slate-400">${rawPrice.toFixed(2)}</p>
         )}
       </div>
     </button>

@@ -1,5 +1,5 @@
 'use client';
-import { useClientStore } from '@/stores';
+import { useClientStore, useUIStore } from '@/stores';
 import { LogOut, Package, ShieldCheck, MapPin, ChevronRight, Heart, Ticket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { auth, signOut } from '@/lib/firebase-client';
@@ -8,6 +8,7 @@ import { useWishlist } from '@/lib/useWishlist';
 
 export function AccountPage() {
   const { client, clearClient } = useClientStore();
+  const setAuthOpen = useUIStore((s) => s.setAuthOpen);
   const router = useRouter();
   const toast = useToast();
   const { count: wishlistCount } = useWishlist();
@@ -29,12 +30,20 @@ export function AccountPage() {
       <div className="max-w-[1400px] mx-auto px-4 md:px-10 py-20 text-center font-sans">
         <h1 className="text-2xl font-medium mb-4">Mi Cuenta</h1>
         <p className="text-gray-500 mb-8">Debes iniciar sesión para ver tu perfil.</p>
-        <button 
-          onClick={() => router.push('/')} 
-          className="bg-black text-white px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-gray-800 transition-colors"
-        >
-          Ir al inicio
-        </button>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button 
+            onClick={() => router.push('/')} 
+            className="border-2 border-black text-black px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-gray-50 transition-colors w-full sm:w-auto"
+          >
+            Ir al inicio
+          </button>
+          <button 
+            onClick={() => setAuthOpen(true)} 
+            className="bg-black text-white px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-gray-800 transition-colors w-full sm:w-auto"
+          >
+            Iniciar sesión
+          </button>
+        </div>
       </div>
     );
   }
@@ -122,24 +131,6 @@ export function AccountPage() {
             Finaliza tu sesión actual de forma segura
           </p>
         </button>
-      </div>
-
-      {/* Secondary links (as seen in Farfetch) */}
-      <div className="mt-16 pt-12 border-t border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div>
-          <h4 className="text-[11px] font-bold tracking-[0.2em] text-gray-400 mb-6 uppercase">Sobre Alonzo</h4>
-          <ul className="space-y-4 text-xs font-medium text-gray-600">
-            <li><button onClick={() => router.push('/terms')} className="hover:text-black transition-colors uppercase tracking-wider">Términos y condiciones</button></li>
-            <li><button onClick={() => router.push('/privacy')} className="hover:text-black transition-colors uppercase tracking-wider">Política de privacidad</button></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="text-[11px] font-bold tracking-[0.2em] text-gray-400 mb-6 uppercase">Ayuda</h4>
-          <ul className="space-y-4 text-xs font-medium text-gray-600">
-            <li><button className="hover:text-black transition-colors uppercase tracking-wider">Contacto</button></li>
-            <li><button className="hover:text-black transition-colors uppercase tracking-wider">Preguntas frecuentes</button></li>
-          </ul>
-        </div>
       </div>
     </div>
   );

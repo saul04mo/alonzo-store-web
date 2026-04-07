@@ -6,3 +6,6 @@ export { BottomNav } from './BottomNav';
 export { AnnouncementBar } from './AnnouncementBar';
 export { SiteHeader } from './SiteHeader';
 export { HeroSection } from './HeroSection';
+export { HeroBanner } from './HeroBanner';
+export { SiteFooter } from './SiteFooter';
+export { CartDrawer } from './CartDrawer';
