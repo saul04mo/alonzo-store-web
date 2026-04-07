@@ -21,7 +21,7 @@ export function HeroBanner() {
   }, [setGender, setHasBrowsed, setActiveCategory]);
 
   return (
-    <div className="relative w-full h-[80vh] md:h-[95vh] bg-alonzo-gray-100 overflow-hidden">
+    <div className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden">
       {/* Background Image */}
       <img
         src="/images/hero-banner.png"
@@ -38,7 +38,7 @@ export function HeroBanner() {
           <img 
             src="/images/logoAlonzo.png" 
             alt="ALONZO" 
-            className="h-10 md:h-16 w-auto mb-4 object-contain brightness-0 invert"
+            className="h-8 md:h-12 w-auto mb-4 object-contain brightness-0 invert"
           />
           <p className="text-sm md:text-base tracking-[0.15em] mb-8 font-light text-white/90 uppercase drop-shadow-md">
             Newest Collection

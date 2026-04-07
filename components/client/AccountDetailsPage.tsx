@@ -6,6 +6,9 @@ import { useToast } from '@/components/ui';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 
+import { auth } from '@/lib/firebase-client';
+import { onAuthStateChanged } from 'firebase/auth';
+
 export function AccountDetailsPage() {
   const toast = useToast();
   const router = useRouter();
@@ -23,7 +26,12 @@ export function AccountDetailsPage() {
       setRif(client.rif_ci || '');
       setName(client.name || '');
       setPhone(client.phone || '');
-      setEmail(client.email || '');
+      
+      // Fallback for email in case auth State hasn't loaded
+      if (client.email) {
+        setEmail(client.email);
+      }
+      
       setAddress(client.address || '');
       
       // Scroll to hash if present (e.g. #addresses)
@@ -37,6 +45,16 @@ export function AccountDetailsPage() {
       router.push('/account');
     }
   }, [client, router]);
+
+  // Robustly fetch email directly from Firebase Auth
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user?.email) {
+        setEmail(user.email);
+      }
+    });
+    return () => unsub();
+  }, []);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();

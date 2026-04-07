@@ -100,11 +100,11 @@ export function SiteHeader({
   return (
     <>
       <header className={`${baseHeaderClass} ${headerLayoutClass} ${headerBgClass}`}>
-        <div className="max-w-[1400px] mx-auto px-4 md:px-10">
-          <div className="flex items-center justify-between h-12 md:h-14">
+        <div className="w-full max-w-[1920px] mx-auto px-4 md:px-8 h-full">
+          <div className="flex items-center justify-between h-14 md:h-16">
 
             {/* ── Left: Hamburger (mobile) / Nav (desktop) ── */}
-            <div className="flex items-center gap-7 flex-1">
+            <div className="flex items-center gap-7 flex-1 h-full">
               {/* Mobile hamburger */}
               <button
                 onClick={() => { setDrawerOpen(true); setDrawerSub(null); }}
@@ -114,29 +114,33 @@ export function SiteHeader({
               </button>
 
               {/* Desktop nav */}
-              <nav className="hidden md:flex items-center gap-7">
+              <nav className="hidden md:flex items-center gap-7 h-full">
                 {/* SHOP */}
                 <button
                   onClick={() => handleViewAll(gender)}
-                  className="text-[11px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
+                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
                 >
                   Shop
                 </button>
 
                 {(['Mujer', 'Hombre'] as Gender[]).map((g) => (
-                  <button
+                  <div
                     key={g}
+                    className="h-full flex items-center"
                     onMouseEnter={() => openMenu(g)}
                     onMouseLeave={startClose}
-                    onClick={() => handleViewAll(g)}
-                    className={`text-[11px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 hover:text-alonzo-black relative ${gender === g ? 'text-alonzo-black' : 'text-alonzo-gray-600'
-                      }`}
                   >
-                    {g === 'Mujer' ? 'Mujer' : 'Hombre'}
-                    {hoveredGender === g && (
-                      <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black" />
-                    )}
-                  </button>
+                    <button
+                      onClick={() => handleViewAll(g)}
+                      className={`text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 hover:text-alonzo-black relative ${gender === g ? 'text-alonzo-black' : 'text-alonzo-gray-600'
+                        }`}
+                    >
+                      {g === 'Mujer' ? 'Mujer' : 'Hombre'}
+                      {hoveredGender === g && (
+                        <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black" />
+                      )}
+                    </button>
+                  </div>
                 ))}
 
                 {/* BASICS */}
@@ -145,7 +149,7 @@ export function SiteHeader({
                     onGenderChange(gender);
                     setTimeout(() => setActiveCategory('BÁSICOS'), 50);
                   }}
-                  className="text-[11px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
+                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
                 >
                   Basics
                 </button>
@@ -158,12 +162,12 @@ export function SiteHeader({
                 <img
                   src="/images/logoAlonzo.png"
                   alt="ALONZO"
-                  className="h-7 md:h-10 w-auto object-contain"
+                  className="h-8 md:h-12 w-auto object-contain"
                   onError={(e) => {
                     const el = e.target as HTMLImageElement;
                     el.style.display = 'none';
                     const fb = document.createElement('span');
-                    fb.className = 'text-lg md:text-xl font-bold tracking-[0.25em] text-alonzo-black';
+                    fb.className = 'text-xl md:text-2xl font-bold tracking-[0.25em] text-alonzo-black';
                     fb.textContent = 'ALONZO';
                     el.parentElement?.appendChild(fb);
                   }}
@@ -172,7 +176,7 @@ export function SiteHeader({
             </div>
 
             {/* ── Right icons (desktop only) ── */}
-            <div className="flex items-center justify-end gap-4 md:gap-5 flex-1">
+            <div className="flex items-center justify-end gap-5 md:gap-7 flex-1">
               {/* Search */}
               <button
                 onClick={() => {
@@ -181,23 +185,23 @@ export function SiteHeader({
                 }}
                 className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
-                <Search size={17} strokeWidth={1.5} />
+                <Search size={21} strokeWidth={1.5} />
               </button>
               {/* User / Profile */}
               <button
                 onClick={onProfileOpen}
                 className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
-                <User size={17} strokeWidth={1.5} />
+                <User size={21} strokeWidth={1.5} />
               </button>
               {/* Cart */}
               <button
                 onClick={onCartOpen}
                 className="hidden md:block text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
               >
-                <ShoppingBag size={17} strokeWidth={1.5} />
+                <ShoppingBag size={21} strokeWidth={1.5} />
                 {mounted && totalItems > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-alonzo-black text-white text-[7px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-2 bg-alonzo-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                     {totalItems}
                   </span>
                 )}
@@ -206,37 +210,48 @@ export function SiteHeader({
           </div>
         </div>
 
-        {/* ══════ Desktop Mega Menu ══════ */}
+        {/* ══════ Desktop Mega Menu (Full Width, Aligned Content) ══════ */}
         {hoveredGender && dropdownCats.length > 0 && (
           <div
-            className="hidden md:block absolute left-0 right-0 z-[89]"
+            className="hidden md:block absolute left-0 right-0 z-[89] top-full bg-white border-b border-alonzo-gray-200 shadow-sm"
             onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); }}
             onMouseLeave={startClose}
           >
-            <div className="bg-white border-b border-alonzo-gray-200">
-              <div className="max-w-[1400px] mx-auto px-10 py-8 flex gap-16">
-                {/* Ver todo */}
-                <div className="flex flex-col gap-3">
-                  <button
-                    onClick={() => handleViewAll(hoveredGender)}
-                    className="text-[11px] tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left mega-item-reveal"
-                    style={{ animationDelay: '0ms' }}
-                  >
-                    Ver todo
-                  </button>
+            <div className="w-full max-w-[1920px] mx-auto px-4 md:px-8">
+              <div className="flex items-start py-10">
+                {/* Spacer block to perfectly align the content under the hovered nav item */}
+                <div className="flex items-center gap-7 invisible h-0">
+                  <span className="text-[13px] tracking-[0.18em] uppercase font-medium">Shop</span>
+                  {hoveredGender === 'Hombre' && (
+                    <span className="text-[13px] tracking-[0.18em] uppercase font-medium">Mujer</span>
+                  )}
                 </div>
-                {/* Categories – staggered reveal */}
-                <div className="flex flex-col gap-2.5">
-                  {dropdownCats.map((cat, idx) => (
+
+                {/* Actual Menu Content */}
+                <div className="ml-7 flex gap-16 min-w-[340px]">
+                  {/* Ver todo */}
+                  <div className="flex flex-col gap-3">
                     <button
-                      key={cat}
-                      onClick={() => handleCategoryClick(hoveredGender, cat)}
-                      className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap mega-item-reveal"
-                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                      onClick={() => handleViewAll(hoveredGender)}
+                      className="text-[11px] tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
+                      style={{ animationDelay: '0ms' }}
                     >
-                      {cat}
+                      Ver todo
                     </button>
-                  ))}
+                  </div>
+                  {/* Categories */}
+                  <div className="flex flex-col gap-2.5">
+                    {dropdownCats.map((cat, idx) => (
+                      <button
+                        key={cat}
+                        onClick={() => handleCategoryClick(hoveredGender, cat)}
+                        className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap mega-item-reveal"
+                        style={{ animationDelay: `${(idx + 1) * 40}ms` }}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
