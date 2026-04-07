@@ -1,5 +1,6 @@
 'use client';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import Image from 'next/image';
 import { useUIStore } from '@/stores';
 import type { Gender } from '@/types';
 
@@ -7,6 +8,8 @@ export function HeroBanner() {
   const setGender = useUIStore((s) => s.setGender);
   const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
+  
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleGenderSelect = useCallback((g: Gender) => {
     setGender(g);
@@ -22,11 +25,17 @@ export function HeroBanner() {
 
   return (
     <div className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden">
-      {/* Background Image */}
-      <img
+      {/* Background Image Optimized */}
+      <Image
         src="/images/hero-banner.png"
         alt="Nueva Colección"
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        fill
+        priority
+        sizes="100vw"
+        onLoad={() => setImageLoaded(true)}
+        className={`object-cover object-top transition-opacity duration-1000 ease-out ${
+          imageLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
       />
       
       {/* Gradient Overlay for bottom text readability - Changed to a subtle center radial gradient for better centered text contrast */}
