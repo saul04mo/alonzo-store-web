@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Heart, ChevronDown, Truck, X, Minus, Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
@@ -177,11 +178,14 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="w-full md:w-[55%]">
             {/* Main image */}
-            <div className="aspect-[3/4] overflow-hidden bg-alonzo-gray-100 rounded-sm">
-              <img
+            <div className="relative aspect-[3/4] overflow-hidden bg-alonzo-gray-100 rounded-sm">
+              <Image
                 src={mainImage || product.imageUrl}
                 alt={product.name}
-                className="w-full h-full object-cover object-top transition-opacity duration-500"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 55vw"
+                className="object-cover object-top transition-opacity duration-500"
               />
             </div>
 
@@ -191,14 +195,16 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 {/* Main image thumb */}
                 <button
                   onClick={() => setMainImage(product.imageUrl)}
-                  className={`w-[68px] h-[68px] md:w-[80px] md:h-[80px] flex-shrink-0 overflow-hidden rounded-sm border-2 transition-colors ${
+                  className={`relative w-[68px] h-[68px] md:w-[80px] md:h-[80px] flex-shrink-0 overflow-hidden rounded-sm border-2 transition-colors ${
                     mainImage === product.imageUrl ? 'border-alonzo-black' : 'border-transparent hover:border-alonzo-gray-300'
                   }`}
                 >
-                  <img
+                  <Image
                     src={product.imageUrl}
                     alt={product.name}
-                    className="w-full h-full object-cover object-top"
+                    fill
+                    sizes="(max-width: 768px) 68px, 80px"
+                    className="object-cover object-top"
                   />
                 </button>
               </div>
