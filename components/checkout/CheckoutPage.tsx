@@ -398,7 +398,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
               disabled={!canFinish || processing}
               onClick={handleSubmit}
             >
-              {processing ? 'Procesando...' : 'Confirmar método de pago'}
+              {processing ? 'Procesando...' : 'Confirmar pago'}
             </button>
 
             {errorMsg && (
@@ -503,13 +503,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
               </div>
             )}
             {!exchangeRate && <div className="mb-4" />}
-
-            <button
-              className="w-full py-3.5 bg-gray-100 text-gray-500 text-sm font-medium rounded-lg mb-4 cursor-not-allowed"
-              disabled
-            >
-              Realizar un pedido
-            </button>
 
             <p className="text-xs text-gray-500 mb-4 leading-relaxed text-center">
               Al realizar tu pedido, aceptas nuestros{' '}
