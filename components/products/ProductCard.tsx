@@ -112,8 +112,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
               >
                 {size}
                 {!inStock && (
-                  <svg className="absolute inset-0 w-full h-full text-alonzo-gray-300 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <line x1="0" y1="100" x2="100" y2="0" stroke="currentColor" strokeWidth="1" />
+                  <svg className="absolute inset-0 w-full h-full text-alonzo-gray-400 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="1.5" />
                   </svg>
                 )}
               </div>

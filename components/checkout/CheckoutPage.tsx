@@ -221,7 +221,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       });
       clearCart();
       onSuccess(result.invoiceData, result.numericId, result.docId);
-      router.push('/');
     } catch (err) {
       console.error(err);
       setErrorMsg('Error de conexión. Intenta de nuevo.');

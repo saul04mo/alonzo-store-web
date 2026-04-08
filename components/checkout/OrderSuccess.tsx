@@ -45,6 +45,7 @@ export function OrderSuccess({
       await submitRating({
         invoiceId: docId,
         clientId,
+        numericId,
         rating,
         comment,
       });

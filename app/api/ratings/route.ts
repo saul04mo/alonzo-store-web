@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   if (!user) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
 
   const body = await request.json();
-  const { invoiceId, rating, comment } = body;
+  const { invoiceId, rating, comment, numericId } = body;
 
   if (!invoiceId || typeof rating !== 'number' || rating < 1 || rating > 5) {
     return NextResponse.json({ error: 'Datos inválidos' }, { status: 400 });
@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
     await adminDb.collection('order_ratings').add({
       invoiceId,
       clientId: user.uid,
+      numericId: numericId || null,
       rating,
       comment: comment || '',
       createdAt: Timestamp.now(),

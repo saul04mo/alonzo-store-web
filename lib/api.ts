@@ -185,7 +185,7 @@ export async function fetchClientOrdersByRif(rif: string, limitCount = 10): Prom
 // ─────────────────────────────────────────────
 // Submit rating (vía API route)
 // ─────────────────────────────────────────────
-export async function submitRating(data: { invoiceId: string; clientId?: string; rating: number; comment: string }) {
+export async function submitRating(data: { invoiceId: string; clientId?: string; numericId?: number; rating: number; comment: string }) {
   const res = await authFetch('/api/ratings', {
     method: 'POST',
     body: JSON.stringify(data),

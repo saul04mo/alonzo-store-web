@@ -238,25 +238,31 @@ export async function POST(request: NextRequest) {
         },
         date: Timestamp.now(),
         items: cart.map((item: any) => {
-          const unitPrice = parseFloat(item.precio);
           const variant = productReads[item.productId]?.data?.variants?.[item.variantIndex];
+          const serverPrice = variant ? parseFloat(variant.price) : parseFloat(item.precio);
+          const serverSize = variant?.size || item.size || '';
+          const serverColor = variant?.color || item.color || '';
+          // Build label matching POS format: "S" or "S / Azul" (skip color if empty)
+          const variantLabel = serverColor
+            ? `${serverSize} / ${serverColor}`
+            : serverSize || 'N/A';
           return {
             // ── Standard fields (same as POS) ──
             productId: item.productId,
             productName: item.titulo,
-            priceAtSale: unitPrice,
+            priceAtSale: serverPrice,
             quantity: item.qty,
             variantIndex: item.variantIndex,
-            variantLabel: `${item.size || 'N/A'} / ${item.color || 'N/A'}`,
+            variantLabel,
             discount: { type: 'none', value: 0 },
             // ── Legacy fields (backward compat) ──
             titulo: item.titulo,
             name: item.titulo,
-            price: unitPrice,
-            rowTotal: unitPrice * item.qty,
+            price: serverPrice,
+            rowTotal: serverPrice * item.qty,
             qty: item.qty,
-            size: item.size || '',
-            color: item.color || '',
+            size: serverSize,
+            color: serverColor,
             img: item.img || '',
           };
         }),
