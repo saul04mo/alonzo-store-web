@@ -186,20 +186,12 @@ export async function POST(request: NextRequest) {
       const effectiveDeliveryCost = appliedCouponData?.freeShipping ? 0 : deliveryCostUsd;
       const serverTotalAfterCoupon = Math.max(0, serverSubtotal - offerDiscount - couponDiscount + effectiveDeliveryCost);
 
-      // 5c. Atomic numericId
-      const counterRef = adminDb.collection('config').doc('orderCounter');
+      // 5c. Atomic numericId — SAME counter as POS (config/invoiceCounter)
+      const counterRef = adminDb.collection('config').doc('invoiceCounter');
       const counterSnap = await transaction.get(counterRef);
-      let newNumericId: number;
-
-      if (counterSnap.exists) {
-        newNumericId = (counterSnap.data()?.current || 0) + 1;
-      } else {
-        const lastQ = adminDb.collection('invoices').orderBy('numericId', 'desc').limit(1);
-        const lastSnap = await transaction.get(lastQ);
-        newNumericId = (lastSnap.empty ? 0 : lastSnap.docs[0].data().numericId) + 1;
-      }
-
-      transaction.set(counterRef, { current: newNumericId }, { merge: true });
+      const currentId = counterSnap.exists ? (counterSnap.data()?.lastNumericId || 0) : 0;
+      const newNumericId = currentId + 1;
+      transaction.set(counterRef, { lastNumericId: newNumericId }, { merge: true });
 
       // 5d. Actualizar stock
       for (const [pid, variants] of Object.entries(stockUpdates)) {
@@ -279,6 +271,7 @@ export async function POST(request: NextRequest) {
         observation: 'Venta Online',
         appliedCoupon: appliedCouponData || null,
         appliedPromotions: [],
+        stockDeducted: true, // Stock already deducted in this transaction — prevents validateOrder from double-deducting
       };
 
       const invoiceRef = adminDb.collection('invoices').doc();
