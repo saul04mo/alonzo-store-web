@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { MapPin, ChevronDown, ChevronUp, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
 import { BottomSheet, useToast } from '@/components/ui';
@@ -123,6 +123,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
 
   // UI
   const [processing, setProcessing] = useState(false);
+  const processingRef = useRef(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   // Coupon
@@ -182,6 +183,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
 
   const handleSubmit = async () => {
+    if (processingRef.current) return; // Ref guard — prevents double-click race condition
     setErrorMsg('');
     if (!rif || !name || !address) { setErrorMsg('Por favor completa nombre, RIF y dirección.'); return; }
     if (deliveryType === 'delivery' && mapDeliveryCost === 0) {
@@ -194,6 +196,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     });
     if (needsProof && !proofFile) { setErrorMsg('Debes subir el capture o foto del pago para finalizar.'); return; }
 
+    processingRef.current = true;
     setProcessing(true);
     try {
       const payments = Object.keys(paymentSelection)
@@ -225,7 +228,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     } catch (err) {
       console.error(err);
       setErrorMsg('Error de conexión. Intenta de nuevo.');
-    } finally { setProcessing(false); }
+    } finally { processingRef.current = false; setProcessing(false); }
   };
 
   const inputClass =
