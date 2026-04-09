@@ -3,9 +3,9 @@ import { adminDb } from '@/lib/firebase-admin';
 import { blacklistedProductIds, blacklistedCategories } from '@/config';
 import type { Product } from '@/types';
 
-// Cache en memoria (5 minutos TTL)
+// Cache en memoria (30 segundos TTL)
 let cache: Record<string, { data: Product[]; ts: number }> = {};
-const TTL = 5 * 60 * 1000;
+const TTL = 30 * 1000;
 
 export async function GET(request: NextRequest) {
   const gender = request.nextUrl.searchParams.get('gender') || undefined;
@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
       if (blacklistedProductIds.has(id)) return;
       const category = (data.category || '').trim().toUpperCase();
       if (blacklistedCategories.has(category)) return;
+      if (data.active === false) return;
 
       products.push({
         id,

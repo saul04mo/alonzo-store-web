@@ -3,9 +3,9 @@ import { adminDb } from '@/lib/firebase-admin';
 import { blacklistedProductIds, blacklistedCategories } from '@/config';
 import type { Product } from '@/types';
 
-// Cache en memoria (3 minutos TTL)
+// Cache en memoria (30 segundos TTL)
 const cache: Record<string, { data: Product; ts: number }> = {};
-const TTL = 3 * 60 * 1000;
+const TTL = 30 * 1000;
 
 export async function GET(
   request: NextRequest,
@@ -37,6 +37,10 @@ export async function GET(
     const category = (data.category || '').trim().toUpperCase();
 
     if (blacklistedCategories.has(category)) {
+      return NextResponse.json({ error: 'Producto no disponible' }, { status: 404 });
+    }
+
+    if (data.active === false) {
       return NextResponse.json({ error: 'Producto no disponible' }, { status: 404 });
     }
 

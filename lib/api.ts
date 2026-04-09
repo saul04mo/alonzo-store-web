@@ -26,7 +26,7 @@ async function authFetch(url: string, options: RequestInit = {}) {
 // ─────────────────────────────────────────────
 const productCache: Record<string, { data: Product[]; ts: number }> = {};
 const singleCache: Record<string, { data: Product; ts: number }> = {};
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 30 * 1000; // 30 seconds
 
 export async function fetchProducts(gender?: string): Promise<Product[]> {
   const cacheKey = gender || 'all';
