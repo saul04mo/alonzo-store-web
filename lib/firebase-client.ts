@@ -5,6 +5,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -71,7 +73,8 @@ export async function uploadToStorage(path: string, file: File) {
 // Exportar lo que se necesita de manera estática (Auth + Firestore)
 export {
   app, auth, googleProvider,
-  signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signInWithPopup, signInWithRedirect, getRedirectResult,
+  createUserWithEmailAndPassword, signInWithEmailAndPassword,
   onAuthStateChanged, signOut, sendPasswordResetEmail,
   db,
   collection, getDocs, getDoc, query, where, doc, limit, onSnapshot, orderBy, setDoc,

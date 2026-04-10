@@ -5,6 +5,8 @@ import {
   auth,
   googleProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from '@/lib/firebase-client';
@@ -13,6 +15,12 @@ import { Client } from '@/types';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase-client';
 import { useToast } from '@/components/ui';
+
+// Detect mobile browser
+function isMobile(): boolean {
+  if (typeof window === 'undefined') return false;
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+}
 
 interface AuthModalProps {
   open: boolean;
@@ -32,6 +40,35 @@ export function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
   
   const { setClient } = useClientStore();
   const toast = useToast();
+
+  // Handle Google redirect result (mobile returns here after sign-in)
+  useEffect(() => {
+    getRedirectResult(auth).then(async (result) => {
+      if (!result) return;
+      const user = result.user;
+      const userRef = doc(db, 'clients', user.uid);
+      const userSnap = await getDoc(userRef);
+      let clientData: Client;
+      if (userSnap.exists()) {
+        clientData = userSnap.data() as Client;
+      } else {
+        clientData = {
+          id: user.uid,
+          name: user.displayName || 'Usuario',
+          email: user.email || '',
+          phone: '', address: '', rif_ci: '',
+        };
+        await setDoc(userRef, clientData);
+      }
+      setClient(clientData);
+      onSuccess();
+      onClose();
+    }).catch((err) => {
+      if (err.code && err.code !== 'auth/popup-closed-by-user') {
+        console.error('Redirect result error:', err);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (open) {
@@ -60,6 +97,13 @@ export function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
+      // Mobile: use redirect (popups are blocked on most mobile browsers)
+      if (isMobile()) {
+        await signInWithRedirect(auth, googleProvider);
+        return; // Page will redirect, no need to continue
+      }
+
+      // Desktop: use popup
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       
