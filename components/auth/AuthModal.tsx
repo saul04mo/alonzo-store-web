@@ -97,13 +97,7 @@ export function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      // Mobile: use redirect (popups are blocked on most mobile browsers)
-      if (isMobile()) {
-        await signInWithRedirect(auth, googleProvider);
-        return; // Page will redirect, no need to continue
-      }
-
-      // Desktop: use popup
+      // Try popup first (works on desktop and some mobile browsers)
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       
@@ -129,8 +123,18 @@ export function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
       setClient(clientData);
       onSuccess();
       onClose();
-    } catch (error) {
-      handleAuthError(error);
+    } catch (error: any) {
+      // If popup was blocked or closed, try redirect (common on mobile)
+      if (error?.code === 'auth/popup-blocked' || error?.code === 'auth/popup-closed-by-user' || error?.code === 'auth/cancelled-popup-request') {
+        try {
+          await signInWithRedirect(auth, googleProvider);
+          return; // Page will redirect to Google
+        } catch (redirectErr) {
+          handleAuthError(redirectErr);
+        }
+      } else {
+        handleAuthError(error);
+      }
     } finally {
       setIsLoading(false);
     }

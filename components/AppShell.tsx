@@ -16,7 +16,7 @@ import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { OnboardingModal } from '@/components/auth/OnboardingModal';
-import { auth, onAuthStateChanged, db, doc, getDoc } from '@/lib/firebase-client';
+import { auth, onAuthStateChanged, getRedirectResult, db, doc, getDoc } from '@/lib/firebase-client';
 import { prefetchAllProducts, fetchProducts } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
 import type { Product, ProductVariant, Client } from '@/types';
@@ -80,6 +80,27 @@ function ShellContent({ children }: { children: React.ReactNode }) {
 
   // Auth state listener
   useEffect(() => {
+    // Handle redirect result (for mobile Google sign-in)
+    getRedirectResult(auth).then(async (result) => {
+      if (result?.user) {
+        console.log('Google redirect sign-in successful:', result.user.email);
+        const { setDoc } = await import('firebase/firestore');
+        const userRef = doc(db, 'clients', result.user.uid);
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) {
+          await setDoc(userRef, {
+            name: result.user.displayName || 'Usuario',
+            email: result.user.email || '',
+            phone: '', address: '', rif_ci: '',
+          });
+        }
+      }
+    }).catch((err) => {
+      if (err?.code !== 'auth/popup-closed-by-user') {
+        console.error('Redirect result error:', err);
+      }
+    });
+
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
@@ -93,6 +114,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
               setShowOnboarding(true);
             }
           } else {
+            const { setDoc } = await import('firebase/firestore');
             const newClient = {
               id: user.uid,
               name: user.displayName || 'Usuario',
@@ -101,6 +123,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
               address: '',
               rif_ci: '',
             };
+            await setDoc(userRef, newClient);
             setClient(newClient);
             setShowOnboarding(true);
           }
