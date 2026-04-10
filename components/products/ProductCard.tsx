@@ -66,9 +66,21 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     setCartDrawerOpen(true);
   };
 
+  // Preload full-size image on hover for instant detail page
+  const handleMouseEnter = () => {
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.as = 'image';
+    link.href = imageUrl;
+    if (!document.querySelector(`link[href="${imageUrl}"]`)) {
+      document.head.appendChild(link);
+    }
+  };
+
   return (
     <button
       onClick={onClick}
+      onMouseEnter={handleMouseEnter}
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
     >
       {/* Image — 4:5 aspect ratio */}
@@ -85,7 +97,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           onLoad={() => setLoaded(true)}
           className={`
             absolute inset-0 w-full h-full object-cover object-center
-            transition-all duration-700 ease-out
+            transition-all duration-300 ease-out
             ${loaded ? 'opacity-100 group-hover:scale-[1.03]' : 'opacity-0'}
           `}
         />
