@@ -296,17 +296,54 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
   };
 
   // Use GPS
+  const [gpsLoading, setGpsLoading] = useState(false);
+
   const handleUseMyLocation = () => {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        placeMarker(latitude, longitude, 'Mi ubicación');
-        reverseGeocode(latitude, longitude);
-      },
-      () => alert('No se pudo obtener tu ubicación.'),
-      { enableHighAccuracy: true }
-    );
+    if (!navigator.geolocation) {
+      alert('Tu navegador no soporta geolocalización.');
+      return;
+    }
+
+    setGpsLoading(true);
+
+    const onSuccess = (pos: GeolocationPosition) => {
+      setGpsLoading(false);
+      const { latitude, longitude } = pos.coords;
+      placeMarker(latitude, longitude, 'Mi ubicación');
+      reverseGeocode(latitude, longitude);
+    };
+
+    const onError = (err: GeolocationPositionError) => {
+      setGpsLoading(false);
+      // Try low accuracy as fallback
+      if (err.code === err.TIMEOUT) {
+        navigator.geolocation.getCurrentPosition(
+          onSuccess,
+          (err2) => {
+            const msgs: Record<number, string> = {
+              1: 'Permiso de ubicación denegado. Activa el GPS y permite el acceso en tu navegador.',
+              2: 'No se pudo determinar tu ubicación. Verifica que el GPS esté activo.',
+              3: 'La solicitud de ubicación tardó demasiado. Intenta de nuevo.',
+            };
+            alert(msgs[err2.code] || 'No se pudo obtener tu ubicación.');
+          },
+          { enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 }
+        );
+        return;
+      }
+      const msgs: Record<number, string> = {
+        1: 'Permiso de ubicación denegado. Activa el GPS y permite el acceso en la configuración de tu navegador.',
+        2: 'No se pudo determinar tu ubicación. Verifica que el GPS esté activo.',
+        3: 'La solicitud de ubicación tardó demasiado. Intenta de nuevo.',
+      };
+      alert(msgs[err.code] || 'No se pudo obtener tu ubicación.');
+    };
+
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 30000,
+    });
   };
 
   return (
@@ -360,10 +397,14 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
       <button
         type="button"
         onClick={handleUseMyLocation}
-        className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors font-medium"
+        disabled={gpsLoading}
+        className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors font-medium disabled:text-gray-400"
       >
-        <Navigation size={14} />
-        Usar mi ubicación actual
+        {gpsLoading ? (
+          <><span className="w-3.5 h-3.5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" /> Obteniendo ubicación...</>
+        ) : (
+          <><Navigation size={14} /> Usar mi ubicación actual</>
+        )}
       </button>
 
       {/* Map */}
