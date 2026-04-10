@@ -1,59 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Multiple OSRM servers to try in order
-const OSRM_SERVERS = [
-    'https://router.project-osrm.org',
-    'https://routing.openstreetmap.de/routed-car',
-];
-
-const TIMEOUT_MS = 5000; // 5 seconds max per server
-
-async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Response> {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-        const res = await fetch(url, { signal: controller.signal });
-        return res;
-    } finally {
-        clearTimeout(timer);
-    }
-}
+const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
 
 export async function GET(req: NextRequest) {
-    const { searchParams } = new URL(req.url);
-    const coords = searchParams.get('coords'); // "lng1,lat1;lng2,lat2"
-    const overview = searchParams.get('overview') || 'full';
-    const geometries = searchParams.get('geometries') || 'geojson';
+  const { searchParams } = new URL(req.url);
+  const q = searchParams.get('q');
+  const limit = searchParams.get('limit') || '5';
+  const countrycodes = searchParams.get('countrycodes') || 've';
+  const format = searchParams.get('format') || 'json';
 
-    if (!coords) {
-        return NextResponse.json({ error: 'coords param required (lng1,lat1;lng2,lat2)' }, { status: 400 });
+  if (!q || q.length < 2) {
+    return NextResponse.json([]);
+  }
+
+  try {
+    const url = `${NOMINATIM_URL}?format=${format}&q=${encodeURIComponent(q)}&limit=${limit}&countrycodes=${countrycodes}&addressdetails=1`;
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'ALONZO-Store/1.0 (contact@alonzo.com)',
+        'Accept-Language': 'es',
+      },
+    });
+
+    if (!res.ok) {
+      console.error(`Nominatim search failed: ${res.status}`);
+      return NextResponse.json([], { status: 200 });
     }
 
-    for (const server of OSRM_SERVERS) {
-        try {
-            const url = `${server}/route/v1/driving/${coords}?overview=${overview}&geometries=${geometries}`;
-            const res = await fetchWithTimeout(url, TIMEOUT_MS);
-
-            if (!res.ok) {
-                console.warn(`OSRM server ${server} returned ${res.status}`);
-                continue;
-            }
-
-            const data = await res.json();
-            if (data.code === 'Ok') {
-                return NextResponse.json(data);
-            }
-
-            console.warn(`OSRM server ${server} returned code: ${data.code}`);
-        } catch (error: any) {
-            const reason = error?.name === 'AbortError' ? 'timeout' : error?.message;
-            console.warn(`OSRM server ${server} failed: ${reason}`);
-        }
-    }
-
-    // All servers failed — return a specific code so the client can use Haversine fallback
-    return NextResponse.json(
-        { code: 'Error', message: 'All OSRM servers unavailable' },
-        { status: 503 }
-    );
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch (err: any) {
+    console.error('Nominatim search error:', err.message);
+    return NextResponse.json([], { status: 200 });
+  }
 }
