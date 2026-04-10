@@ -16,6 +16,7 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
   const [loaded, setLoaded] = useState(false);
+  const [showSizes, setShowSizes] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
 
@@ -77,10 +78,25 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     }
   };
 
+  // On mobile: first tap shows sizes, tap again goes to detail
+  // On desktop: click goes to detail (sizes show on hover)
+  const handleCardClick = (e: React.MouseEvent) => {
+    // If on mobile (< 640px) and sizes exist and not yet showing
+    if (window.innerWidth < 640 && uniqueSizes.length > 0 && !showSizes) {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowSizes(true);
+      return;
+    }
+    // Otherwise go to detail
+    onClick();
+  };
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleCardClick}
       onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => setShowSizes(false)}
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
     >
       {/* Image — 4:5 aspect ratio */}
@@ -111,16 +127,18 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* Sizes Overlay (Desktop hover only) */}
+        {/* Sizes Overlay — hover on desktop, tap on mobile */}
         {uniqueSizes.length > 0 && (
-          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-alonzo-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10 hidden sm:flex">
+          <div className={`absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-alonzo-gray-300 transition-opacity duration-300 ease-out z-10 flex
+            ${showSizes ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'}
+          `}>
             {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
                 key={size}
                 onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-                className={`flex items-center justify-center min-w-[44px] h-[44px] text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
+                className={`flex items-center justify-center min-w-[32px] sm:min-w-[44px] h-[32px] sm:h-[44px] text-[11px] sm:text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
                   idx > 0 ? 'border-l border-alonzo-gray-300' : ''
-                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white'}`}
+                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white active:bg-alonzo-black active:text-white'}`}
               >
                 {size}
                 {!inStock && (
@@ -133,23 +151,6 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
       </div>
-
-      {/* Sizes bar (Mobile only — below image) */}
-      {uniqueSizes.length > 0 && (
-        <div className="flex sm:hidden mt-1.5 overflow-x-auto gap-1">
-          {uniqueSizes.map(({ size, inStock, variantIndex }) => (
-            <div
-              key={size}
-              onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-              className={`flex items-center justify-center min-w-[28px] h-[24px] text-[9px] font-semibold border rounded-sm cursor-pointer ${
-                !inStock ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-gray-600 border-gray-300 active:bg-black active:text-white'
-              }`}
-            >
-              {size}
-            </div>
-          ))}
-        </div>
-      )}
 
       {/* Product info */}
       <div className="mt-3 space-y-1.5 px-1 text-left">
