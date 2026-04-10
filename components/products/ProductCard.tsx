@@ -111,14 +111,14 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* Sizes Overlay (Hover) - Centered with specific layout */}
+        {/* Sizes Overlay (Desktop hover only) */}
         {uniqueSizes.length > 0 && (
-          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-alonzo-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10 flex">
+          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-alonzo-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10 hidden sm:flex">
             {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
                 key={size}
                 onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-                className={`flex items-center justify-center min-w-[36px] sm:min-w-[44px] h-[36px] sm:h-[44px] text-[11px] sm:text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
+                className={`flex items-center justify-center min-w-[44px] h-[44px] text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
                   idx > 0 ? 'border-l border-alonzo-gray-300' : ''
                 } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white'}`}
               >
@@ -133,6 +133,23 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
       </div>
+
+      {/* Sizes bar (Mobile only — below image) */}
+      {uniqueSizes.length > 0 && (
+        <div className="flex sm:hidden mt-1.5 overflow-x-auto gap-1">
+          {uniqueSizes.map(({ size, inStock, variantIndex }) => (
+            <div
+              key={size}
+              onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
+              className={`flex items-center justify-center min-w-[28px] h-[24px] text-[9px] font-semibold border rounded-sm cursor-pointer ${
+                !inStock ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-gray-600 border-gray-300 active:bg-black active:text-white'
+              }`}
+            >
+              {size}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Product info */}
       <div className="mt-3 space-y-1.5 px-1 text-left">
