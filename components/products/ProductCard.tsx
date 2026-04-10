@@ -127,16 +127,18 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* Sizes Overlay — desktop hover only (inside overflow-hidden) */}
+        {/* Sizes Overlay — hover on desktop, tap on mobile */}
         {uniqueSizes.length > 0 && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-alonzo-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10 hidden sm:flex">
+          <div className={`absolute bottom-2 sm:bottom-6 left-1 right-1 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 bg-white/95 border border-alonzo-gray-300 transition-opacity duration-300 ease-out z-10 flex flex-wrap sm:flex-nowrap justify-center
+            ${showSizes ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100 pointer-events-none sm:pointer-events-auto'}
+          `}>
             {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
                 key={size}
                 onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-                className={`flex items-center justify-center min-w-[44px] h-[44px] text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
+                className={`flex items-center justify-center flex-1 sm:flex-none sm:min-w-[44px] min-w-0 h-[28px] sm:h-[44px] text-[9px] sm:text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
                   idx > 0 ? 'border-l border-alonzo-gray-300' : ''
-                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white'}`}
+                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white active:bg-alonzo-black active:text-white'}`}
               >
                 {size}
                 {!inStock && (
@@ -149,23 +151,6 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
       </div>
-
-      {/* Sizes — mobile only (outside overflow-hidden, below image) */}
-      {uniqueSizes.length > 0 && showSizes && (
-        <div className="flex sm:hidden flex-wrap gap-1 mt-1.5 animate-fade-in">
-          {uniqueSizes.map(({ size, inStock, variantIndex }) => (
-            <div
-              key={size}
-              onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-              className={`flex items-center justify-center min-w-[30px] h-[26px] px-1.5 text-[10px] font-semibold border rounded-sm cursor-pointer transition-colors ${
-                !inStock ? 'text-gray-300 border-gray-200 cursor-not-allowed' : 'text-gray-700 border-gray-300 bg-white active:bg-black active:text-white'
-              }`}
-            >
-              {size}
-            </div>
-          ))}
-        </div>
-      )}
 
       {/* Product info */}
       <div className="mt-3 space-y-1.5 px-1 text-left">
