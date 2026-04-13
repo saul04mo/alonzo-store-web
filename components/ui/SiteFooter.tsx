@@ -39,7 +39,74 @@ export function SiteFooter() {
   const client = useClientStore((s) => s.client);
 
   return (
-    <footer className="hidden md:block border-t border-alonzo-gray-300 bg-white">
+    <footer className="border-t border-alonzo-gray-300 bg-white">
+      {/* ── Mobile footer ── */}
+      <div className="md:hidden px-6 pt-8 pb-20">
+        {/* CTA */}
+        <h3 className="text-xs font-bold tracking-widest text-alonzo-black mb-2">
+          ÚNETE A ALONZO PRESTIGE
+        </h3>
+        <p className="text-[10px] text-alonzo-gray-600 tracking-wider leading-relaxed mb-4">
+          GANA PUNTOS Y RECOMPENSAS EN TODAS TUS COMPRAS
+        </p>
+        {client ? (
+          <Link href="/account" className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-widest text-alonzo-black mb-6">
+            <ChevronRight size={12} /> MI CUENTA
+          </Link>
+        ) : (
+          <button onClick={() => setAuthOpen(true)} className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-widest text-alonzo-black mb-6 uppercase">
+            <ChevronRight size={12} /> REGÍSTRATE
+          </button>
+        )}
+
+        {/* Sections stacked */}
+        {footerSections.map((section) => (
+          <div key={section.title} className="mb-5">
+            <h4 className="text-[10px] font-bold tracking-widest text-alonzo-black mb-2.5">
+              {section.title}
+            </h4>
+            <ul className="space-y-2">
+              {section.links.map((link) => (
+                <li key={link.label}>
+                  {link.external ? (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-[10px] text-alonzo-gray-600 tracking-wider">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className="text-[10px] text-alonzo-gray-600 tracking-wider">
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        {/* Country + contact */}
+        <div className="flex items-center gap-4 mb-4">
+          <p className="text-[10px] text-alonzo-gray-600 tracking-wider flex items-center gap-1.5">
+            <span className="text-[10px]">🇻🇪</span> VE / USD $
+          </p>
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-[10px] text-alonzo-gray-600 tracking-wider">
+            📱 WHATSAPP
+          </a>
+        </div>
+
+        {/* Social icons */}
+        <div className="flex items-center gap-4 mb-5">
+          <a href="https://www.instagram.com/alonzo.ve/" target="_blank" rel="noopener noreferrer" className="text-alonzo-charcoal"><Instagram size={18} /></a>
+          <a href="https://www.facebook.com/alonzovenezuela" target="_blank" rel="noopener noreferrer" className="text-alonzo-charcoal"><Facebook size={18} /></a>
+        </div>
+
+        {/* Copyright */}
+        <p className="text-[9px] text-alonzo-gray-500 tracking-wider">
+          © ALONZO STORE. Venezuela · Todos los derechos reservados.
+        </p>
+      </div>
+
+      {/* ── Desktop footer ── */}
+      <div className="hidden md:block">
       {/* ── Main footer grid ── */}
       <div className="max-w-[1400px] mx-auto px-10 pt-14 pb-10">
         <div className="grid grid-cols-12 gap-8">
@@ -166,6 +233,7 @@ export function SiteFooter() {
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
