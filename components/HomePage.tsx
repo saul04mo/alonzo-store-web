@@ -32,18 +32,22 @@ export function HomePage() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // Read URL params on mount
+  // Sync state from URL (on mount + back/forward navigation)
   useEffect(() => {
     const urlGender = searchParams.get('gender');
     const urlCategory = searchParams.get('category');
     if (urlGender === 'Mujer' || urlGender === 'Hombre') {
-      setGender(urlGender as Gender);
+      if (urlGender !== gender) setGender(urlGender as Gender);
     }
     if (urlCategory) {
-      setActiveCategory(urlCategory.toUpperCase());
-      setHasBrowsed(true);
+      const cat = urlCategory.toUpperCase();
+      if (cat !== activeCategory) setActiveCategory(cat);
+      if (!hasBrowsed) setHasBrowsed(true);
+    } else if (hasBrowsed && !urlCategory) {
+      setHasBrowsed(false);
+      setActiveCategory('');
     }
-  }, []);
+  }, [searchParams]);
 
   // Update URL when category changes
   useEffect(() => {
@@ -52,9 +56,13 @@ export function HomePage() {
     if (hasBrowsed && activeCategory) {
       params.set('gender', gender);
       params.set('category', activeCategory);
-      router.replace(`/?${params.toString()}`, { scroll: false });
-    } else if (!hasBrowsed) {
-      router.replace('/', { scroll: false });
+      const newUrl = `/?${params.toString()}`;
+      // Only push if URL actually changed
+      if (window.location.search !== `?${params.toString()}`) {
+        router.push(newUrl, { scroll: false });
+      }
+    } else if (!hasBrowsed && window.location.search) {
+      router.push('/', { scroll: false });
     }
   }, [activeCategory, hasBrowsed, gender, mounted]);
 
