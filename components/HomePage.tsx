@@ -143,7 +143,14 @@ export function HomePage() {
       .join(' ');
   }, [activeCategory]);
 
-  const categoryDescription = categoryDescriptions[activeCategory] || '';
+  const categoryDescription = useMemo(() => {
+    if (!activeCategory) return '';
+    // Exact match first
+    if (categoryDescriptions[activeCategory]) return categoryDescriptions[activeCategory];
+    // Partial match (e.g. "PANTALONES MUJER" matches "PANTALONES")
+    const key = Object.keys(categoryDescriptions).find((k) => activeCategory.includes(k) || k.includes(activeCategory));
+    return key ? categoryDescriptions[key] : '';
+  }, [activeCategory]);
   const showHero = !hasBrowsed && !searchTerm;
 
   if (!mounted) return <div className="min-h-screen bg-white" />;
@@ -155,18 +162,18 @@ export function HomePage() {
       <div id="products-section" className={`${hasBrowsed ? 'py-4 md:py-6' : 'py-6 md:py-10'}`}>
         {/* Category header (shown when browsing a category) */}
         {hasBrowsed && activeCategory && !searchTerm && (
-          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-6 md:pt-10">
+          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-8 md:pt-10">
             {/* Title + count */}
-            <h1 className="text-2xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-4 md:mb-5">
+            <h1 className="text-xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3 md:mb-5">
               {categoryDisplayName}
-              <span className="text-alonzo-gray-400 font-normal text-lg md:text-xl ml-3">
+              <span className="text-alonzo-gray-400 font-normal text-base md:text-xl ml-2 md:ml-3">
                 {filteredProducts.length}
               </span>
             </h1>
 
             {/* Description */}
             {categoryDescription && (
-              <p className="text-sm text-alonzo-gray-500 max-w-2xl mb-8 md:mb-10 leading-relaxed">
+              <p className="text-xs md:text-sm text-alonzo-gray-500 max-w-2xl mb-6 md:mb-10 leading-relaxed">
                 {categoryDescription}
               </p>
             )}

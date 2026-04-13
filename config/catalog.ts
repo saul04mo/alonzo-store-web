@@ -35,14 +35,22 @@ export const hombreCategoryOrder: Record<string, number> = {
 
 // Category descriptions (shown when a category is selected)
 export const categoryDescriptions: Record<string, string> = {
+  // Hombre
   PANTALONES: 'Explora nuestra colección de pantalones cargo, joggers y más. Diseñados para el día a día con estilo urbano.',
   CAMISAS: 'Camisas, franelas y t-shirts con diseños exclusivos. Streetwear de alta calidad para cada ocasión.',
   'CHAQUETA MEN': 'Chaquetas y outerwear con cortes modernos. Perfectas para complementar cualquier look.',
   CHAQUETA: 'Chaquetas y outerwear con cortes modernos. Perfectas para complementar cualquier look.',
   ACCESORIOS: 'Complementa tu outfit con nuestros accesorios exclusivos.',
-  CONJUNTOS: 'Sets coordinados listos para usar. Estilo completo en una sola compra.',
-  BODIES: 'Bodies y tops con siluetas modernas. Diseñados para resaltar.',
-  FALDAS: 'Faldas con cortes únicos y telas premium.',
+  // Mujer
+  'PANTALONES MUJER': 'Pantalones con cortes que estilizan y telas de alta calidad. Del casual al elegante en un solo guardarropa.',
+  'CONJUNTOS': 'Sets coordinados listos para usar. Estilo completo en una sola compra.',
+  'BODIES': 'Bodies y tops con siluetas modernas. Diseñados para resaltar tu figura.',
+  'FALDAS': 'Faldas con cortes únicos y telas premium para cada ocasión.',
+  'CORSET': 'Corsets y tops estructurados con un toque contemporáneo.',
+  'VESTIDOS': 'Vestidos para cada momento. Desde lo casual hasta lo especial.',
+  'BLUSAS': 'Blusas con diseños frescos y femeninos. Versatilidad en cada prenda.',
+  'CHAQUETA MUJER': 'Chaquetas y outerwear femenino. El toque final de cada look.',
+  // General
   'BÁSICOS': 'Piezas esenciales que nunca pasan de moda. La base de todo buen guardarropa.',
 };
 
