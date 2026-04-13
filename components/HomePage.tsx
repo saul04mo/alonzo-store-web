@@ -118,31 +118,32 @@ export function HomePage() {
       <div id="products-section" className="py-6 md:py-10">
         {/* Category header (shown when browsing a category) */}
         {hasBrowsed && activeCategory && !searchTerm && (
-          <div className="px-4 md:px-6 lg:px-8 mb-6 md:mb-8">
+          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-10 pt-2">
             {/* Title + count */}
-            <div className="mb-2">
-              <h1 className="text-xl md:text-2xl font-semibold text-alonzo-charcoal tracking-wide">
-                {categoryDisplayName}
-                <span className="text-alonzo-gray-400 font-normal text-base ml-2">
-                  {filteredProducts.length}
-                </span>
-              </h1>
-            </div>
+            <h1 className="text-2xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3">
+              {categoryDisplayName}
+              <span className="text-alonzo-gray-400 font-normal text-lg md:text-xl ml-3">
+                {filteredProducts.length}
+              </span>
+            </h1>
 
             {/* Description */}
             {categoryDescription && (
-              <p className="text-sm md:text-base text-alonzo-gray-500 max-w-2xl mb-5 leading-relaxed">
+              <p className="text-sm text-alonzo-gray-500 max-w-2xl mb-6 leading-relaxed">
                 {categoryDescription}
               </p>
             )}
 
+            {/* Divider */}
+            <div className="h-px bg-alonzo-gray-200 mb-4" />
+
             {/* View toggle + Filter */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs text-alonzo-gray-500 mr-2 hidden sm:inline">View</span>
+              <div className="flex items-center gap-3">
+                <span className="text-xs text-alonzo-gray-500 mr-1">View</span>
                 <button
                   onClick={() => setGridCols(2)}
-                  className={`p-2 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="2 columnas"
                 >
                   <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
@@ -152,7 +153,7 @@ export function HomePage() {
                 </button>
                 <button
                   onClick={() => setGridCols(3)}
-                  className={`p-2 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="3 columnas"
                 >
                   <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
@@ -162,7 +163,7 @@ export function HomePage() {
                 </button>
                 <button
                   onClick={() => setGridCols(4)}
-                  className={`p-2 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="4 columnas"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -179,9 +180,6 @@ export function HomePage() {
                 <SlidersHorizontal size={16} />
               </button>
             </div>
-
-            {/* Divider */}
-            <div className="h-px bg-alonzo-gray-200 mt-3" />
           </div>
         )}
 
