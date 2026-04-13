@@ -76,7 +76,7 @@ export function SiteFooter() {
         {/* Country + contact */}
         <div className="flex items-center gap-4 mb-4">
           <p className="text-[10px] text-alonzo-gray-600 tracking-wider flex items-center gap-1.5">
-            <span className="text-[10px]">🇻🇪</span> VE / USD $
+            <span className="text-[10px]">🇻🇪</span> VE / EUR €
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export function SiteFooter() {
                 {/* Venezuela flag emoji fallback */}
                 <span className="flex items-center justify-center w-full h-full text-[10px]">🇻🇪</span>
               </span>
-              VE / USD $ | ESPAÑOL
+              VE / EUR € | ESPAÑOL
             </p>
           </div>
         </div>
