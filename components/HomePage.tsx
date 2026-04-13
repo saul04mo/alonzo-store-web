@@ -115,7 +115,7 @@ export function HomePage() {
     <>
       {showHero && <HeroBanner />}
 
-      <div id="products-section" className="py-6 md:py-10">
+      <div id="products-section" className={`${hasBrowsed ? 'py-4 md:py-6' : 'py-6 md:py-10'}`}>
         {/* Category header (shown when browsing a category) */}
         {hasBrowsed && activeCategory && !searchTerm && (
           <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-6 md:pt-10">

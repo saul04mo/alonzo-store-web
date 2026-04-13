@@ -11,9 +11,9 @@ interface ProductGridProps {
 }
 
 const gridClasses: Record<number, string> = {
-  2: 'grid-cols-2 gap-x-1 gap-y-12 md:gap-x-3 md:gap-y-16',
-  3: 'grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-12 md:gap-x-3 md:gap-y-16',
-  4: 'grid-cols-2 lg:grid-cols-4 gap-x-1 gap-y-12 md:gap-x-2 md:gap-y-16',
+  2: 'grid-cols-2 gap-x-3 gap-y-12 md:gap-x-5 md:gap-y-16',
+  3: 'grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-12 md:gap-x-5 md:gap-y-16',
+  4: 'grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-12 md:gap-x-4 md:gap-y-16',
 };
 
 export function ProductGrid({ products, loading, onProductClick, sectionTitle, gridCols }: ProductGridProps) {
@@ -21,7 +21,7 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle, g
 
   if (loading) {
     return (
-      <div className="w-full px-2 md:px-4 lg:px-6">
+      <div className="w-full px-3 md:px-6 lg:px-10">
         {sectionTitle && <SectionTitle title={sectionTitle} />}
         <div className={`grid ${gridClasses[cols]}`}>
           {Array.from({ length: 8 }).map((_, i) => (
@@ -40,7 +40,7 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle, g
 
   if (products.length === 0) {
     return (
-      <div className="w-full px-2 md:px-4 lg:px-6 py-16">
+      <div className="w-full px-3 md:px-6 lg:px-10 py-16">
         <p className="text-center text-alonzo-gray-500 text-sm tracking-wider">
           Sin resultados.
         </p>
@@ -49,7 +49,7 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle, g
   }
 
   return (
-    <div className="w-full px-1 md:px-2">
+    <div className="w-full px-3 md:px-6 lg:px-10">
       {sectionTitle && <SectionTitle title={sectionTitle} />}
       <div className={`grid ${gridClasses[cols]}`}>
         {products.map((product) => (
