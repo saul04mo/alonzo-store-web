@@ -106,14 +106,24 @@ export function SiteHeader({
         <div className="w-full mx-auto px-3 md:px-6 lg:px-10 h-full">
           <div className="flex items-center justify-between h-14 md:h-16">
 
-            {/* ── Left: Hamburger (mobile) / Nav (desktop) ── */}
-            <div className="flex items-center gap-7 flex-1 h-full">
+            {/* ── Left: Hamburger + Search (mobile) / Nav (desktop) ── */}
+            <div className="flex items-center gap-4 md:gap-7 flex-1 h-full">
               {/* Mobile hamburger */}
               <button
                 onClick={() => { setDrawerOpen(true); setDrawerSub(null); }}
                 className="md:hidden text-alonzo-charcoal"
               >
                 <Menu size={22} strokeWidth={1.5} />
+              </button>
+              {/* Mobile search */}
+              <button
+                onClick={() => {
+                  const el = document.getElementById('alonzo-search-input');
+                  if (el) { el.focus(); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+                }}
+                className="md:hidden text-alonzo-charcoal"
+              >
+                <Search size={22} strokeWidth={1.5} />
               </button>
 
               {/* Desktop nav */}
@@ -179,9 +189,9 @@ export function SiteHeader({
               </Link>
             </div>
 
-            {/* ── Right icons (desktop only) ── */}
-            <div className="flex items-center justify-end gap-5 md:gap-7 flex-1">
-              {/* Search */}
+            {/* ── Right icons ── */}
+            <div className="flex items-center justify-end gap-4 md:gap-7 flex-1">
+              {/* Search (desktop only — mobile has it on the left) */}
               <button
                 onClick={() => {
                   const el = document.getElementById('alonzo-search-input');
@@ -194,16 +204,16 @@ export function SiteHeader({
               {/* User / Profile */}
               <button
                 onClick={onProfileOpen}
-                className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
+                className="text-alonzo-charcoal hover:text-alonzo-black transition-colors flex items-center"
               >
-                <User size={23} strokeWidth={1.5} />
+                <User size={22} strokeWidth={1.5} className="md:w-[23px] md:h-[23px]" />
               </button>
               {/* Cart */}
               <button
                 onClick={onCartOpen}
-                className="hidden md:block text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
+                className="text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
               >
-                <ShoppingBag size={23} strokeWidth={1.5} />
+                <ShoppingBag size={22} strokeWidth={1.5} className="md:w-[23px] md:h-[23px]" />
                 {mounted && totalItems > 0 && (
                   <span className="absolute -top-1.5 -right-2 bg-alonzo-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                     {totalItems}
