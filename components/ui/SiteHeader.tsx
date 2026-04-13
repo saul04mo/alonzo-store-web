@@ -29,6 +29,7 @@ export function SiteHeader({
   const { client } = useClientStore();
   const categoriesByGender = useUIStore((s) => s.categoriesByGender);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
+  const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
   const [mounted, setMounted] = useState(false);
 
   // Desktop mega menu
@@ -62,6 +63,7 @@ export function SiteHeader({
   const handleCategoryClick = (g: Gender, cat: string) => {
     onGenderChange(g);
     setTimeout(() => setActiveCategory(cat), 50);
+    setHasBrowsed(true);
     setHoveredGender(null);
     setDrawerOpen(false);
     setDrawerSub(null);
@@ -70,6 +72,7 @@ export function SiteHeader({
   const handleViewAll = (g: Gender) => {
     onGenderChange(g);
     setActiveCategory('');
+    setHasBrowsed(false);
     setHoveredGender(null);
     setDrawerOpen(false);
     setDrawerSub(null);
@@ -148,6 +151,7 @@ export function SiteHeader({
                   onClick={() => {
                     onGenderChange(gender);
                     setTimeout(() => setActiveCategory('BÁSICOS'), 50);
+                    setHasBrowsed(true);
                   }}
                   className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
                 >
@@ -158,7 +162,7 @@ export function SiteHeader({
 
             {/* ── Center logo ── */}
             <div className="absolute left-1/2 -translate-x-1/2">
-              <Link href="/" className="flex items-center">
+              <Link href="/" onClick={() => { setHasBrowsed(false); setActiveCategory(''); }} className="flex items-center">
                 <img
                   src="/images/logoAlonzo.png"
                   alt="ALONZO"
