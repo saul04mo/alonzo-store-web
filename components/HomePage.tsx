@@ -137,13 +137,13 @@ export function HomePage() {
             {/* View toggle + Filter */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-xs text-alonzo-gray-500 mr-1">View</span>
+                <span className="text-sm text-alonzo-gray-500 mr-1">View</span>
                 <button
                   onClick={() => setGridCols(2)}
                   className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="2 columnas"
                 >
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
                     <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
                     <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
                   </svg>
@@ -153,7 +153,7 @@ export function HomePage() {
                   className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="3 columnas"
                 >
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
                     <rect x="1" y="1" width="4" height="6" rx="0.5"/><rect x="6" y="1" width="4" height="6" rx="0.5"/><rect x="11" y="1" width="4" height="6" rx="0.5"/>
                     <rect x="1" y="9" width="4" height="6" rx="0.5"/><rect x="6" y="9" width="4" height="6" rx="0.5"/><rect x="11" y="9" width="4" height="6" rx="0.5"/>
                   </svg>
@@ -163,7 +163,7 @@ export function HomePage() {
                   className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="4 columnas"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <rect x="1" y="1" width="3" height="3" rx="0.5"/><rect x="5.5" y="1" width="3" height="3" rx="0.5"/>
                     <rect x="10" y="1" width="3" height="3" rx="0.5"/><rect x="1" y="5.5" width="3" height="3" rx="0.5"/>
                     <rect x="5.5" y="5.5" width="3" height="3" rx="0.5"/><rect x="10" y="5.5" width="3" height="3" rx="0.5"/>
@@ -172,9 +172,9 @@ export function HomePage() {
                   </svg>
                 </button>
               </div>
-              <button className="flex items-center gap-2 text-xs text-alonzo-gray-600 hover:text-alonzo-black transition-colors">
+              <button className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors">
                 <span>Filter</span>
-                <SlidersHorizontal size={16} />
+                <SlidersHorizontal size={20} />
               </button>
             </div>
           </div>
