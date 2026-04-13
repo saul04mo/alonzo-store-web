@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { PromotionsBanner } from '@/components/products/PromotionsBanner';
 import { HeroBanner } from '@/components/ui';
@@ -15,6 +15,7 @@ type GridCols = 2 | 3 | 4;
 
 export function HomePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [gridCols, setGridCols] = useState<GridCols>(4);
@@ -31,11 +32,39 @@ export function HomePage() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
+  // Read URL params on mount
+  useEffect(() => {
+    const urlGender = searchParams.get('gender');
+    const urlCategory = searchParams.get('category');
+    if (urlGender === 'Mujer' || urlGender === 'Hombre') {
+      setGender(urlGender as Gender);
+    }
+    if (urlCategory) {
+      setActiveCategory(urlCategory.toUpperCase());
+      setHasBrowsed(true);
+    }
+  }, []);
+
+  // Update URL when category changes
+  useEffect(() => {
+    if (!mounted) return;
+    const params = new URLSearchParams();
+    if (hasBrowsed && activeCategory) {
+      params.set('gender', gender);
+      params.set('category', activeCategory);
+      router.replace(`/?${params.toString()}`, { scroll: false });
+    } else if (!hasBrowsed) {
+      router.replace('/', { scroll: false });
+    }
+  }, [activeCategory, hasBrowsed, gender, mounted]);
+
   // Load products
   useEffect(() => {
     setLoading(true);
     setProducts([]);
-    setActiveCategory('');
+    if (!searchParams.get('category')) {
+      setActiveCategory('');
+    }
     fetchProducts(gender)
       .then(setProducts)
       .catch(console.error)
