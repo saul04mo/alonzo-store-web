@@ -33,6 +33,19 @@ export const hombreCategoryOrder: Record<string, number> = {
   ACCESORIOS: 4,
 };
 
+// Category descriptions (shown when a category is selected)
+export const categoryDescriptions: Record<string, string> = {
+  PANTALONES: 'Explora nuestra colección de pantalones cargo, joggers y más. Diseñados para el día a día con estilo urbano.',
+  CAMISAS: 'Camisas, franelas y t-shirts con diseños exclusivos. Streetwear de alta calidad para cada ocasión.',
+  'CHAQUETA MEN': 'Chaquetas y outerwear con cortes modernos. Perfectas para complementar cualquier look.',
+  CHAQUETA: 'Chaquetas y outerwear con cortes modernos. Perfectas para complementar cualquier look.',
+  ACCESORIOS: 'Complementa tu outfit con nuestros accesorios exclusivos.',
+  CONJUNTOS: 'Sets coordinados listos para usar. Estilo completo en una sola compra.',
+  BODIES: 'Bodies y tops con siluetas modernas. Diseñados para resaltar.',
+  FALDAS: 'Faldas con cortes únicos y telas premium.',
+  'BÁSICOS': 'Piezas esenciales que nunca pasan de moda. La base de todo buen guardarropa.',
+};
+
 // Size guide image mapping
 export function getSizeGuideImage(category: string, gender: string): string | null {
   const cat = category.toUpperCase();

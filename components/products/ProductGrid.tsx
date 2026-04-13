@@ -7,14 +7,23 @@ interface ProductGridProps {
   loading: boolean;
   onProductClick: (product: Product) => void;
   sectionTitle?: string;
+  gridCols?: 2 | 3 | 4;
 }
 
-export function ProductGrid({ products, loading, onProductClick, sectionTitle }: ProductGridProps) {
+const gridClasses: Record<number, string> = {
+  2: 'grid-cols-2 gap-x-1 gap-y-12 md:gap-x-3 md:gap-y-16',
+  3: 'grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-12 md:gap-x-3 md:gap-y-16',
+  4: 'grid-cols-2 lg:grid-cols-4 gap-x-1 gap-y-12 md:gap-x-2 md:gap-y-16',
+};
+
+export function ProductGrid({ products, loading, onProductClick, sectionTitle, gridCols }: ProductGridProps) {
+  const cols = gridCols || 4;
+
   if (loading) {
     return (
       <div className="w-full px-2 md:px-4 lg:px-6">
         {sectionTitle && <SectionTitle title={sectionTitle} />}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+        <div className={`grid ${gridClasses[cols]}`}>
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i}>
               <div className="relative w-full pt-[133%] rounded-sm skeleton-shimmer" />
@@ -42,7 +51,7 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle }:
   return (
     <div className="w-full px-1 md:px-2">
       {sectionTitle && <SectionTitle title={sectionTitle} />}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-1 gap-y-12 md:gap-x-2 md:gap-y-16">
+      <div className={`grid ${gridClasses[cols]}`}>
         {products.map((product) => (
           <ProductCard
             key={product.id}

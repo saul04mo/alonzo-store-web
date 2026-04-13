@@ -4,5 +4,6 @@ export {
   blacklistedProductIds,
   blacklistedCategories,
   hombreCategoryOrder,
+  categoryDescriptions,
   getSizeGuideImage,
 } from './catalog';

@@ -6,14 +6,18 @@ import { ProductGrid } from '@/components/products/ProductGrid';
 import { PromotionsBanner } from '@/components/products/PromotionsBanner';
 import { HeroBanner } from '@/components/ui';
 import { fetchProducts, seedProduct } from '@/lib/api';
-import { hombreCategoryOrder } from '@/config';
+import { hombreCategoryOrder, categoryDescriptions } from '@/config';
 import { useUIStore } from '@/stores';
+import { SlidersHorizontal } from 'lucide-react';
 import type { Product, Gender } from '@/types';
+
+type GridCols = 2 | 3 | 4;
 
 export function HomePage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [gridCols, setGridCols] = useState<GridCols>(2);
   const gender = useUIStore((s) => s.gender);
   const setGender = useUIStore((s) => s.setGender);
   const searchTerm = useUIStore((s) => s.searchTerm);
@@ -85,27 +89,119 @@ export function HomePage() {
     return products;
   }, [products, activeCategory, searchTerm]);
 
-  const genderLabel = gender === 'Mujer' ? 'Moda para mujer' : 'Moda para hombre';
   const handleProductClick = useCallback(
     (product: Product) => {
-      seedProduct(product); // instant cache hit on detail page
+      seedProduct(product);
       router.push(`/product/${product.id}`);
     },
     [router]
   );
 
+  // Category display name (capitalize first letter of each word)
+  const categoryDisplayName = useMemo(() => {
+    if (!activeCategory) return '';
+    return activeCategory
+      .split(' ')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(' ');
+  }, [activeCategory]);
+
+  const categoryDescription = categoryDescriptions[activeCategory] || '';
+  const showHero = !hasBrowsed && !searchTerm;
+
   if (!mounted) return <div className="min-h-screen bg-white" />;
 
   return (
     <>
-      {!searchTerm && <HeroBanner />}
+      {showHero && <HeroBanner />}
+
       <div id="products-section" className="py-6 md:py-10">
+        {/* Category header (shown when browsing a category) */}
+        {hasBrowsed && activeCategory && !searchTerm && (
+          <div className="px-4 md:px-6 lg:px-8 mb-6 md:mb-8">
+            {/* Title + count */}
+            <div className="mb-2">
+              <h1 className="text-lg md:text-xl font-semibold text-alonzo-charcoal tracking-wide">
+                {categoryDisplayName}
+                <span className="text-alonzo-gray-400 font-normal text-sm ml-2">
+                  {filteredProducts.length}
+                </span>
+              </h1>
+            </div>
+
+            {/* Description */}
+            {categoryDescription && (
+              <p className="text-xs md:text-sm text-alonzo-gray-500 max-w-xl mb-4 leading-relaxed">
+                {categoryDescription}
+              </p>
+            )}
+
+            {/* View toggle + Filter */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <span className="text-[11px] text-alonzo-gray-500 mr-2 hidden sm:inline">View</span>
+                <button
+                  onClick={() => setGridCols(2)}
+                  className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  title="2 columnas"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
+                    <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setGridCols(3)}
+                  className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  title="3 columnas"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <rect x="1" y="1" width="4" height="6" rx="0.5"/><rect x="6" y="1" width="4" height="6" rx="0.5"/><rect x="11" y="1" width="4" height="6" rx="0.5"/>
+                    <rect x="1" y="9" width="4" height="6" rx="0.5"/><rect x="6" y="9" width="4" height="6" rx="0.5"/><rect x="11" y="9" width="4" height="6" rx="0.5"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setGridCols(4)}
+                  className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  title="4 columnas"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="1" y="1" width="3" height="3" rx="0.5"/><rect x="5.5" y="1" width="3" height="3" rx="0.5"/>
+                    <rect x="10" y="1" width="3" height="3" rx="0.5"/><rect x="1" y="5.5" width="3" height="3" rx="0.5"/>
+                    <rect x="5.5" y="5.5" width="3" height="3" rx="0.5"/><rect x="10" y="5.5" width="3" height="3" rx="0.5"/>
+                    <rect x="1" y="10" width="3" height="3" rx="0.5"/><rect x="5.5" y="10" width="3" height="3" rx="0.5"/>
+                    <rect x="10" y="10" width="3" height="3" rx="0.5"/>
+                  </svg>
+                </button>
+              </div>
+              <button className="flex items-center gap-1.5 text-[11px] text-alonzo-gray-600 hover:text-alonzo-black transition-colors">
+                <span>Filter</span>
+                <SlidersHorizontal size={14} />
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px bg-alonzo-gray-200 mt-3" />
+          </div>
+        )}
+
+        {/* Search results title */}
+        {searchTerm && (
+          <div className="px-4 md:px-6 lg:px-8 mb-6">
+            <h1 className="text-lg font-semibold text-alonzo-charcoal">
+              Resultados para "{searchTerm}"
+              <span className="text-alonzo-gray-400 font-normal text-sm ml-2">{filteredProducts.length}</span>
+            </h1>
+          </div>
+        )}
+
         <PromotionsBanner />
         <ProductGrid
           products={filteredProducts}
           loading={loading}
           onProductClick={handleProductClick}
-          sectionTitle={searchTerm ? `Resultados para "${searchTerm}"` : genderLabel}
+          sectionTitle={!hasBrowsed && !searchTerm ? (gender === 'Mujer' ? 'Moda para mujer' : 'Moda para hombre') : undefined}
+          gridCols={hasBrowsed ? gridCols : undefined}
         />
       </div>
     </>
