@@ -103,7 +103,7 @@ export function SiteHeader({
   return (
     <>
       <header className={`${baseHeaderClass} ${headerLayoutClass} ${headerBgClass}`}>
-        <div className="w-full max-w-[1920px] mx-auto px-4 md:px-8 h-full">
+        <div className="w-full mx-auto px-3 md:px-6 lg:px-10 h-full">
           <div className="flex items-center justify-between h-14 md:h-16">
 
             {/* ── Left: Hamburger (mobile) / Nav (desktop) ── */}
@@ -113,7 +113,7 @@ export function SiteHeader({
                 onClick={() => { setDrawerOpen(true); setDrawerSub(null); }}
                 className="md:hidden text-alonzo-charcoal"
               >
-                <Menu size={20} strokeWidth={1.5} />
+                <Menu size={22} strokeWidth={1.5} />
               </button>
 
               {/* Desktop nav */}
@@ -189,21 +189,21 @@ export function SiteHeader({
                 }}
                 className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
-                <Search size={21} strokeWidth={1.5} />
+                <Search size={23} strokeWidth={1.5} />
               </button>
               {/* User / Profile */}
               <button
                 onClick={onProfileOpen}
                 className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
-                <User size={21} strokeWidth={1.5} />
+                <User size={23} strokeWidth={1.5} />
               </button>
               {/* Cart */}
               <button
                 onClick={onCartOpen}
                 className="hidden md:block text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
               >
-                <ShoppingBag size={21} strokeWidth={1.5} />
+                <ShoppingBag size={23} strokeWidth={1.5} />
                 {mounted && totalItems > 0 && (
                   <span className="absolute -top-1.5 -right-2 bg-alonzo-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                     {totalItems}
@@ -221,7 +221,7 @@ export function SiteHeader({
             onMouseEnter={() => { if (closeTimer.current) clearTimeout(closeTimer.current); }}
             onMouseLeave={startClose}
           >
-            <div className="w-full max-w-[1920px] mx-auto px-4 md:px-8">
+            <div className="w-full mx-auto px-3 md:px-6 lg:px-10">
               <div className="flex items-start pt-0 pb-8">
                 {/* Spacer block to perfectly align the content under the hovered nav item */}
                 <div className="flex items-center gap-7 invisible h-0">
