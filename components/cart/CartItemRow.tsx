@@ -91,8 +91,8 @@ export function CartItemRow({ item, index, offer }: CartItemRowProps) {
             <div className="text-right">
               {hasOffer ? (
                 <>
-                  <span className="text-base font-semibold text-red-600">${discountedPrice.toFixed(2)}</span>
-                  <span className="block text-xs text-gray-400 line-through">${originalPrice.toFixed(2)}</span>
+                  <span className="text-base font-semibold text-red-600">€{discountedPrice.toFixed(2)}</span>
+                  <span className="block text-xs text-gray-400 line-through">€{originalPrice.toFixed(2)}</span>
                 </>
               ) : (
                 <span className="text-base font-semibold">${item.precio}</span>

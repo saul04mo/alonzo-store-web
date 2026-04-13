@@ -81,7 +81,7 @@ function OrderCard({ order }: { order: Invoice }) {
             <strong>Pagos:</strong>
             {order.payments.map((p, i) => (
               <div key={i}>
-                - {p.method} ${p.amountUsd.toFixed(2)}
+                - {p.method} €{p.amountUsd.toFixed(2)}
                 {p.ref ? ` (Ref: ${p.ref})` : ''}
               </div>
             ))}

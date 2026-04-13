@@ -302,7 +302,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
         {deliveryZones.map((group, gi) => (
           <div key={gi}>
             <div className="bg-alonzo-gray-200 px-3 py-2 text-2xs font-bold rounded mt-2.5">
-              COSTO: ${group.price.toFixed(2)}
+              COSTO: €{group.price.toFixed(2)}
             </div>
             {group.zones.map((zone) => (
               <button

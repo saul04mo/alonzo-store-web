@@ -112,7 +112,7 @@ export function CartDrawer() {
                     </div>
                     <div className="flex items-center justify-between mt-1">
                       <p className="text-xs font-semibold text-alonzo-charcoal">
-                        $ {(parseFloat(item.precio) * item.qty).toFixed(2)}
+                        € {(parseFloat(item.precio) * item.qty).toFixed(2)}
                       </p>
                       {/* Qty controls */}
                       <div className="flex items-center gap-0 border border-alonzo-gray-200 rounded-sm">
@@ -156,7 +156,7 @@ export function CartDrawer() {
                 Subtotal
               </span>
               <span className="text-sm font-semibold text-alonzo-charcoal">
-                $ {totalMoney().toFixed(2)}
+                € {totalMoney().toFixed(2)}
               </span>
             </div>
             {/* CTA Buttons */}

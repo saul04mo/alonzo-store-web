@@ -159,11 +159,11 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         </p>
         {hasOffer ? (
           <div className="flex items-center gap-2">
-            <p className="text-[11px] font-medium text-red-600">${finalPrice.toFixed(2)}</p>
-            <p className="text-[10px] text-slate-400 line-through">${rawPrice.toFixed(2)}</p>
+            <p className="text-[11px] font-medium text-red-600">€{finalPrice.toFixed(2)}</p>
+            <p className="text-[10px] text-slate-400 line-through">€{rawPrice.toFixed(2)}</p>
           </div>
         ) : (
-          <p className="text-[11px] font-normal text-slate-400">${rawPrice.toFixed(2)}</p>
+          <p className="text-[11px] font-normal text-slate-400">€{rawPrice.toFixed(2)}</p>
         )}
       </div>
     </button>

@@ -143,11 +143,11 @@ export function WishlistPage() {
                     <div className="mt-1.5">
                       {hasOffer ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-semibold text-red-600">${discPrice!.toFixed(2)}</span>
-                          <span className="text-xs text-gray-400 line-through">${rawPrice.toFixed(2)}</span>
+                          <span className="text-sm font-semibold text-red-600">€{discPrice!.toFixed(2)}</span>
+                          <span className="text-xs text-gray-400 line-through">€{rawPrice.toFixed(2)}</span>
                         </div>
                       ) : (
-                        <p className="text-sm font-semibold text-gray-900">${rawPrice.toFixed(2)}</p>
+                        <p className="text-sm font-semibold text-gray-900">€{rawPrice.toFixed(2)}</p>
                       )}
                     </div>
                   </div>
