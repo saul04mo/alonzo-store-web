@@ -330,15 +330,15 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {/* ADD TO CART button */}
             <button
               onClick={handleAddToCart}
-              className="w-full py-4 mt-5 bg-alonzo-gray-500 hover:bg-alonzo-black text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
+              className="w-full py-4 mt-5 bg-alonzo-black hover:bg-alonzo-charcoal text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
             >
-              Add to Cart
+              Añadir al carrito
             </button>
 
             {/* SIZE GUIDE button */}
             <button
               onClick={() => setSizeGuideOpen(true)}
-              className="w-full py-4 mt-3 border border-alonzo-gray-400 hover:border-alonzo-black text-alonzo-charcoal hover:text-alonzo-black text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
+              className="w-full py-4 mt-3 bg-alonzo-gray-500 hover:bg-alonzo-black text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
             >
               Guía de tallas
             </button>
