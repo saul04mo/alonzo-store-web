@@ -17,7 +17,7 @@ export function HomePage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [gridCols, setGridCols] = useState<GridCols>(2);
+  const [gridCols, setGridCols] = useState<GridCols>(4);
   const gender = useUIStore((s) => s.gender);
   const setGender = useUIStore((s) => s.setGender);
   const searchTerm = useUIStore((s) => s.searchTerm);
@@ -121,9 +121,9 @@ export function HomePage() {
           <div className="px-4 md:px-6 lg:px-8 mb-6 md:mb-8">
             {/* Title + count */}
             <div className="mb-2">
-              <h1 className="text-lg md:text-xl font-semibold text-alonzo-charcoal tracking-wide">
+              <h1 className="text-xl md:text-2xl font-semibold text-alonzo-charcoal tracking-wide">
                 {categoryDisplayName}
-                <span className="text-alonzo-gray-400 font-normal text-sm ml-2">
+                <span className="text-alonzo-gray-400 font-normal text-base ml-2">
                   {filteredProducts.length}
                 </span>
               </h1>
@@ -131,38 +131,38 @@ export function HomePage() {
 
             {/* Description */}
             {categoryDescription && (
-              <p className="text-xs md:text-sm text-alonzo-gray-500 max-w-xl mb-4 leading-relaxed">
+              <p className="text-sm md:text-base text-alonzo-gray-500 max-w-2xl mb-5 leading-relaxed">
                 {categoryDescription}
               </p>
             )}
 
             {/* View toggle + Filter */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <span className="text-[11px] text-alonzo-gray-500 mr-2 hidden sm:inline">View</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs text-alonzo-gray-500 mr-2 hidden sm:inline">View</span>
                 <button
                   onClick={() => setGridCols(2)}
-                  className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  className={`p-2 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
                   title="2 columnas"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
                     <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
                     <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
                   </svg>
                 </button>
                 <button
                   onClick={() => setGridCols(3)}
-                  className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  className={`p-2 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
                   title="3 columnas"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
                     <rect x="1" y="1" width="4" height="6" rx="0.5"/><rect x="6" y="1" width="4" height="6" rx="0.5"/><rect x="11" y="1" width="4" height="6" rx="0.5"/>
                     <rect x="1" y="9" width="4" height="6" rx="0.5"/><rect x="6" y="9" width="4" height="6" rx="0.5"/><rect x="11" y="9" width="4" height="6" rx="0.5"/>
                   </svg>
                 </button>
                 <button
                   onClick={() => setGridCols(4)}
-                  className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
+                  className={`p-2 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600'}`}
                   title="4 columnas"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -174,9 +174,9 @@ export function HomePage() {
                   </svg>
                 </button>
               </div>
-              <button className="flex items-center gap-1.5 text-[11px] text-alonzo-gray-600 hover:text-alonzo-black transition-colors">
+              <button className="flex items-center gap-2 text-xs text-alonzo-gray-600 hover:text-alonzo-black transition-colors">
                 <span>Filter</span>
-                <SlidersHorizontal size={14} />
+                <SlidersHorizontal size={16} />
               </button>
             </div>
 
