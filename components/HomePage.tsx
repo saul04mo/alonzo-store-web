@@ -118,9 +118,9 @@ export function HomePage() {
       <div id="products-section" className="py-6 md:py-10">
         {/* Category header (shown when browsing a category) */}
         {hasBrowsed && activeCategory && !searchTerm && (
-          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-10 pt-2">
+          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-6 md:pt-10">
             {/* Title + count */}
-            <h1 className="text-2xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3">
+            <h1 className="text-2xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-4 md:mb-5">
               {categoryDisplayName}
               <span className="text-alonzo-gray-400 font-normal text-lg md:text-xl ml-3">
                 {filteredProducts.length}
@@ -129,13 +129,10 @@ export function HomePage() {
 
             {/* Description */}
             {categoryDescription && (
-              <p className="text-sm text-alonzo-gray-500 max-w-2xl mb-6 leading-relaxed">
+              <p className="text-sm text-alonzo-gray-500 max-w-2xl mb-8 md:mb-10 leading-relaxed">
                 {categoryDescription}
               </p>
             )}
-
-            {/* Divider */}
-            <div className="h-px bg-alonzo-gray-200 mb-4" />
 
             {/* View toggle + Filter */}
             <div className="flex items-center justify-between">
