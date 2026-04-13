@@ -260,6 +260,14 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               </div>
             )}
 
+            {/* Size guide button (small, below price) */}
+            <button
+              onClick={() => setSizeGuideOpen(true)}
+              className="mt-3 px-4 py-2 border border-alonzo-gray-300 hover:border-alonzo-black text-[10px] tracking-[0.15em] uppercase font-medium text-alonzo-gray-600 hover:text-alonzo-black rounded-sm transition-colors duration-200"
+            >
+              Guía de tallas
+            </button>
+
             {/* Size label + guide link */}
             {hasVariants && (
               <div className="flex items-center justify-between mt-6 mb-2">
@@ -333,14 +341,6 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               className="w-full py-4 mt-5 bg-alonzo-black hover:bg-alonzo-charcoal text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
             >
               Añadir al carrito
-            </button>
-
-            {/* SIZE GUIDE button */}
-            <button
-              onClick={() => setSizeGuideOpen(true)}
-              className="w-full py-4 mt-3 bg-alonzo-gray-500 hover:bg-alonzo-black text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
-            >
-              Guía de tallas
             </button>
 
             {/* Description */}
