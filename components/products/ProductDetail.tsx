@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Heart, ChevronDown, Truck, X, Minus, Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
-import { getSizeGuideImage } from '@/config';
 import { useWishlist } from '@/lib/useWishlist';
 import type { Product, ProductVariant } from '@/types';
 
@@ -90,7 +89,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const hasVariants = product.variants.length > 0;
   const price = hasVariants ? product.variants[0].price : product.price || '0.00';
   const selectedVariant = selectedVariantIdx !== null ? product.variants[selectedVariantIdx] : null;
-  const sizeGuideImg = getSizeGuideImage(product.category, product.gender);
+  const sizeGuideImg = '/images/GuiaDeTallas.jpeg';
 
   // Offer calculations
   const hasOffer = product.offer && product.offer.value > 0;
@@ -272,7 +271,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                     onClick={() => setSizeGuideOpen(true)}
                     className="text-[11px] text-alonzo-gray-500 underline underline-offset-2 hover:text-alonzo-black transition-colors italic"
                   >
-                    Size Table
+                    Guía de tallas
                   </button>
                 )}
               </div>
