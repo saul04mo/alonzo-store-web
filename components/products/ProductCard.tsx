@@ -131,14 +131,23 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* + Button — bottom right: always visible on mobile, hover on desktop */}
-        {uniqueSizes.length > 0 && !showSizes && (
+        {/* +/× Button — bottom right: always visible on mobile, hover on desktop */}
+        {uniqueSizes.length > 0 && (
           <div
-            onMouseEnter={handlePlusEnter}
-            onClick={(e) => { e.stopPropagation(); setShowSizes(true); }}
-            className="absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-20 transition-all duration-200 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer"
+            onMouseEnter={!showSizes ? handlePlusEnter : handleSizesEnter}
+            onMouseLeave={showSizes ? handleSizesLeave : undefined}
+            onClick={(e) => { e.stopPropagation(); setShowSizes(!showSizes); }}
+            className={`absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
+              showSizes ? 'opacity-100' : 'opacity-100 sm:opacity-0 sm:group-hover:opacity-100'
+            }`}
           >
-            <Plus size={16} strokeWidth={2} className="text-alonzo-charcoal" />
+            {showSizes ? (
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-alonzo-charcoal">
+                <line x1="3" y1="3" x2="11" y2="11" /><line x1="11" y1="3" x2="3" y2="11" />
+              </svg>
+            ) : (
+              <Plus size={16} strokeWidth={2} className="text-alonzo-charcoal" />
+            )}
           </div>
         )}
 
