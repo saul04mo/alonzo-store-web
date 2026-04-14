@@ -260,6 +260,12 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               </div>
             )}
 
+            {/* Description */}
+            <p className="text-[11px] leading-relaxed text-alonzo-gray-500 tracking-wide mt-3">
+              {product.name} de la colección {product.category}. Diseñado con los más altos
+              estándares de calidad y fabricación premium. Corte moderno con acabado profesional.
+            </p>
+
             {/* Size guide button (small, right-aligned below price) */}
             <div className="flex justify-end mt-3">
               <button
@@ -344,14 +350,6 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             >
               Añadir al carrito
             </button>
-
-            {/* Description */}
-            <div className="mt-6 border-t border-alonzo-gray-200 pt-4">
-              <p className="text-[11px] leading-relaxed text-alonzo-gray-600 tracking-wide">
-                {product.name} de la colección {product.category}. Diseñado con los más altos
-                estándares de calidad y fabricación premium. Corte moderno con acabado profesional.
-              </p>
-            </div>
 
             {/* Accordion sections */}
             <div className="mt-4 border-t border-alonzo-gray-200">
