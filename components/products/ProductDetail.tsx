@@ -179,7 +179,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="w-full md:w-[55%]">
             {/* Main image — full viewport height */}
-            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden bg-alonzo-gray-100 rounded-sm">
+            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm">
               <Image
                 src={mainImage || product.imageUrl}
                 alt={product.name}
