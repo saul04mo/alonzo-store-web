@@ -131,9 +131,10 @@ export function SiteHeader({
                 {/* SHOP */}
                 <button
                   onClick={() => handleViewAll(gender)}
-                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
+                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
                 >
                   Shop
+                  <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                 </button>
 
                 {(['Mujer', 'Hombre'] as Gender[]).map((g) => (
@@ -163,9 +164,10 @@ export function SiteHeader({
                     setTimeout(() => setActiveCategory('BÁSICOS'), 50);
                     setHasBrowsed(true);
                   }}
-                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative"
+                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
                 >
                   Basics
+                  <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                 </button>
               </nav>
             </div>
