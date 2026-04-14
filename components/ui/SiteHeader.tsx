@@ -308,45 +308,15 @@ export function SiteHeader({
 
             {/* Menu items */}
             <div className="flex-1 overflow-y-auto">
-              {/* ── Mujer ── */}
+              {/* ── Shop ── */}
               <button
-                onClick={() => setDrawerSub(drawerSub === 'Mujer' ? null : 'Mujer')}
-                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                onClick={() => handleViewAll(gender)}
+                className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left"
               >
                 <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
-                  Mujer
+                  Shop
                 </span>
-                <ChevronDown
-                  size={16}
-                  className={`text-alonzo-gray-400 transition-transform duration-300 ${drawerSub === 'Mujer' ? 'rotate-180' : ''}`}
-                />
               </button>
-              {/* Mujer categories – inline expand */}
-              {drawerSub === 'Mujer' && (
-                <div className="bg-gray-50/60">
-                  <button
-                    onClick={() => handleViewAll('Mujer')}
-                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                    style={{ animationDelay: '0ms' }}
-                  >
-                    <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
-                      Ver todo
-                    </span>
-                  </button>
-                  {(categoriesByGender['Mujer'] || []).map((cat, idx) => (
-                    <button
-                      key={cat}
-                      onClick={() => handleCategoryClick('Mujer', cat)}
-                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
-                    >
-                      <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-gray-500">
-                        {cat}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
 
               {/* ── Hombre ── */}
               <button
@@ -387,6 +357,62 @@ export function SiteHeader({
                   ))}
                 </div>
               )}
+
+              {/* ── Mujer ── */}
+              <button
+                onClick={() => setDrawerSub(drawerSub === 'Mujer' ? null : 'Mujer')}
+                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+              >
+                <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
+                  Mujer
+                </span>
+                <ChevronDown
+                  size={16}
+                  className={`text-alonzo-gray-400 transition-transform duration-300 ${drawerSub === 'Mujer' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {/* Mujer categories – inline expand */}
+              {drawerSub === 'Mujer' && (
+                <div className="bg-gray-50/60">
+                  <button
+                    onClick={() => handleViewAll('Mujer')}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '0ms' }}
+                  >
+                    <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                      Ver todo
+                    </span>
+                  </button>
+                  {(categoriesByGender['Mujer'] || []).map((cat, idx) => (
+                    <button
+                      key={cat}
+                      onClick={() => handleCategoryClick('Mujer', cat)}
+                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                    >
+                      <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-gray-500">
+                        {cat}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* ── Basics ── */}
+              <button
+                onClick={() => {
+                  onGenderChange(gender);
+                  setTimeout(() => setActiveCategory('BÁSICOS'), 50);
+                  setHasBrowsed(true);
+                  setDrawerOpen(false);
+                  setDrawerSub(null);
+                }}
+                className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left"
+              >
+                <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
+                  Basics
+                </span>
+              </button>
             </div>
 
             {/* Bottom links */}
