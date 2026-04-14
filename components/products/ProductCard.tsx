@@ -137,8 +137,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             onMouseEnter={!showSizes ? handlePlusEnter : handleSizesEnter}
             onMouseLeave={showSizes ? handleSizesLeave : undefined}
             onClick={(e) => { e.stopPropagation(); setShowSizes(!showSizes); }}
-            className={`absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
-              showSizes ? 'opacity-100' : 'opacity-100 sm:opacity-0 sm:group-hover:opacity-100'
+            className={`absolute right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
+              showSizes
+                ? 'bottom-[42px] sm:bottom-[46px] opacity-100'
+                : 'bottom-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100'
             }`}
           >
             {showSizes ? (
