@@ -1,10 +1,9 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
-import { SearchOverlay } from './SearchOverlay';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import type { Gender } from '@/types';
 
 interface SiteHeaderProps {
@@ -36,7 +35,6 @@ export function SiteHeader({
   // Desktop mega menu
   const [hoveredGender, setHoveredGender] = useState<Gender | null>(null);
   const [headerHovered, setHeaderHovered] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>();
 
   // Mobile drawer
@@ -82,6 +80,7 @@ export function SiteHeader({
   };
 
   const pathname = usePathname();
+  const router = useRouter();
   const dropdownCats = hoveredGender ? (categoriesByGender[hoveredGender] || []) : [];
   const columns: string[][] = [];
   for (let i = 0; i < dropdownCats.length; i += 6) {
@@ -124,7 +123,7 @@ export function SiteHeader({
               </button>
               {/* Mobile search */}
               <button
-                onClick={() => setSearchOpen(true)}
+                onClick={() => router.push('/search')}
                 className="md:hidden text-alonzo-charcoal"
               >
                 <Search size={22} strokeWidth={1.5} />
@@ -199,7 +198,7 @@ export function SiteHeader({
             <div className="flex items-center justify-end gap-4 md:gap-7 flex-1">
               {/* Search (desktop only — mobile has it on the left) */}
               <button
-                onClick={() => setSearchOpen(true)}
+                onClick={() => router.push('/search')}
                 className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
                 <Search size={23} strokeWidth={1.5} />
@@ -460,8 +459,6 @@ export function SiteHeader({
           animation: megaItemReveal 0.3s ease-out forwards;
         }
       `}</style>
-
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
