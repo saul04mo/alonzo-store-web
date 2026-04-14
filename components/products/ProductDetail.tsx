@@ -173,13 +173,13 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
   return (
     <>
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-4 md:py-8">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-0 md:py-0">
         <div className="flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-14">
 
           {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="w-full md:w-[55%]">
-            {/* Main image */}
-            <div className="relative aspect-[3/4] overflow-hidden bg-alonzo-gray-100 rounded-sm">
+            {/* Main image — full viewport height */}
+            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden bg-alonzo-gray-100 rounded-sm">
               <Image
                 src={mainImage || product.imageUrl}
                 alt={product.name}
