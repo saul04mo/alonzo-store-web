@@ -129,14 +129,14 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
         {/* Sizes Overlay — hover on desktop, tap on mobile */}
         {uniqueSizes.length > 0 && (
-          <div className={`absolute bottom-2 sm:bottom-6 left-1 right-1 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 bg-white/95 border border-alonzo-gray-300 transition-opacity duration-300 ease-out z-10 flex flex-wrap sm:flex-nowrap justify-center
+          <div className={`absolute bottom-2 sm:bottom-4 left-1 right-1 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 bg-white/95 border border-alonzo-gray-300 transition-opacity duration-300 ease-out z-10 flex flex-wrap sm:flex-nowrap justify-center
             ${showSizes ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100 pointer-events-none sm:pointer-events-auto'}
           `}>
             {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
                 key={size}
                 onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-                className={`flex items-center justify-center flex-1 sm:flex-none sm:min-w-[44px] min-w-0 h-[28px] sm:h-[44px] text-[9px] sm:text-[13px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
+                className={`flex items-center justify-center flex-1 sm:flex-none sm:min-w-[34px] min-w-0 h-[26px] sm:h-[32px] text-[9px] sm:text-[11px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
                   idx > 0 ? 'border-l border-alonzo-gray-300' : ''
                 } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white active:bg-alonzo-black active:text-white'}`}
               >

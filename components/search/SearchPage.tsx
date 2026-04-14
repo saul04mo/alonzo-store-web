@@ -7,16 +7,6 @@ import { useUIStore } from '@/stores';
 import { ProductCard } from '@/components/products/ProductCard';
 import type { Product, Gender } from '@/types';
 
-const POPULAR_SEARCHES = [
-  'Pantalones',
-  'Camisas',
-  'Chaquetas',
-  'Conjuntos',
-  'Básicos',
-  'Faldas',
-  'Vestidos',
-];
-
 export function SearchPage() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -89,11 +79,6 @@ export function SearchPage() {
     inputRef.current?.focus();
   };
 
-  const handlePopularClick = (term: string) => {
-    setQuery(term);
-    inputRef.current?.focus();
-  };
-
   return (
     <div className="min-h-screen bg-white">
       {/* ── Search bar ── */}
@@ -160,24 +145,6 @@ export function SearchPage() {
               </button>
             ))}
           </div>
-
-          {/* Popular searches */}
-          <div>
-            <p className="text-[10px] tracking-[0.15em] uppercase text-alonzo-gray-400 mb-3 font-medium">
-              Búsquedas populares
-            </p>
-            <div className="space-y-1">
-              {POPULAR_SEARCHES.map((term) => (
-                <button
-                  key={term}
-                  onClick={() => handlePopularClick(term)}
-                  className="block text-[12px] text-alonzo-gray-600 hover:text-alonzo-black transition-colors py-1 tracking-wide"
-                >
-                  '{term}'
-                </button>
-              ))}
-            </div>
-          </div>
         </aside>
 
         {/* ── Mobile filters (horizontal) ── */}
@@ -194,16 +161,6 @@ export function SearchPage() {
                 }`}
               >
                 {g}
-              </button>
-            ))}
-            <div className="w-px h-5 bg-alonzo-gray-300 shrink-0" />
-            {POPULAR_SEARCHES.slice(0, 4).map((term) => (
-              <button
-                key={term}
-                onClick={() => handlePopularClick(term)}
-                className="px-3 py-1.5 border border-alonzo-gray-300 rounded-sm text-[11px] tracking-[0.08em] text-alonzo-gray-600 hover:border-alonzo-black hover:text-alonzo-black shrink-0 transition-colors"
-              >
-                {term}
               </button>
             ))}
           </div>
@@ -284,7 +241,7 @@ export function SearchPage() {
                 No se encontraron resultados para "{query}"
               </p>
               <p className="text-[11px] text-alonzo-gray-400 mt-2">
-                Intenta con otro término o usa las búsquedas populares
+                Intenta con otro término o filtra por género
               </p>
             </div>
           ) : (
