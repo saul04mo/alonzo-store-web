@@ -34,6 +34,7 @@ export function SiteHeader({
 
   // Desktop mega menu
   const [hoveredGender, setHoveredGender] = useState<Gender | null>(null);
+  const [headerHovered, setHeaderHovered] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>();
 
   // Mobile drawer
@@ -94,7 +95,7 @@ export function SiteHeader({
   }, []);
 
   const isHomeHero = pathname === '/' && !searchTerm;
-  const isTransparent = isHomeHero && !isScrolled && !drawerOpen && !hoveredGender;
+  const isTransparent = isHomeHero && !isScrolled && !drawerOpen && !hoveredGender && !headerHovered;
 
   const baseHeaderClass = "w-full top-0 z-[90] transition-colors duration-300";
   const headerLayoutClass = isHomeHero ? "fixed" : "sticky";
@@ -102,7 +103,11 @@ export function SiteHeader({
 
   return (
     <>
-      <header className={`${baseHeaderClass} ${headerLayoutClass} ${headerBgClass}`}>
+      <header
+        className={`${baseHeaderClass} ${headerLayoutClass} ${headerBgClass}`}
+        onMouseEnter={() => setHeaderHovered(true)}
+        onMouseLeave={() => setHeaderHovered(false)}
+      >
         <div className="w-full mx-auto px-3 md:px-6 lg:px-10 h-full">
           <div className="flex items-center justify-between h-14 md:h-16">
 
