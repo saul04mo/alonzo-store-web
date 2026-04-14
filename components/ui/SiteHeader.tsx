@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
+import { SearchOverlay } from './SearchOverlay';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -35,6 +36,7 @@ export function SiteHeader({
   // Desktop mega menu
   const [hoveredGender, setHoveredGender] = useState<Gender | null>(null);
   const [headerHovered, setHeaderHovered] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>();
 
   // Mobile drawer
@@ -122,10 +124,7 @@ export function SiteHeader({
               </button>
               {/* Mobile search */}
               <button
-                onClick={() => {
-                  const el = document.getElementById('alonzo-search-input');
-                  if (el) { el.focus(); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-                }}
+                onClick={() => setSearchOpen(true)}
                 className="md:hidden text-alonzo-charcoal"
               >
                 <Search size={22} strokeWidth={1.5} />
@@ -200,10 +199,7 @@ export function SiteHeader({
             <div className="flex items-center justify-end gap-4 md:gap-7 flex-1">
               {/* Search (desktop only — mobile has it on the left) */}
               <button
-                onClick={() => {
-                  const el = document.getElementById('alonzo-search-input');
-                  if (el) { el.focus(); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-                }}
+                onClick={() => setSearchOpen(true)}
                 className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
               >
                 <Search size={23} strokeWidth={1.5} />
@@ -464,6 +460,8 @@ export function SiteHeader({
           animation: megaItemReveal 0.3s ease-out forwards;
         }
       `}</style>
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
