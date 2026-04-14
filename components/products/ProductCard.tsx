@@ -131,12 +131,12 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* + Button — bottom right */}
+        {/* + Button — bottom right: always visible on mobile, hover on desktop */}
         {uniqueSizes.length > 0 && !showSizes && (
           <div
             onMouseEnter={handlePlusEnter}
-            onClick={(e) => e.stopPropagation()}
-            className="absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-20 transition-all duration-200 opacity-0 sm:group-hover:opacity-100 cursor-pointer"
+            onClick={(e) => { e.stopPropagation(); setShowSizes(true); }}
+            className="absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-20 transition-all duration-200 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 cursor-pointer"
           >
             <Plus size={16} strokeWidth={2} className="text-alonzo-charcoal" />
           </div>
