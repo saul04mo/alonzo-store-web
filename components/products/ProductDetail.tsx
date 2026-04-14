@@ -1,11 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Heart, ChevronDown, Truck, X, Minus, Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
+import { fetchProducts, seedProduct } from '@/lib/api';
+import { getSizeGuideImage } from '@/config';
 import { useWishlist } from '@/lib/useWishlist';
+import { ProductCard } from '@/components/products/ProductCard';
 import type { Product, ProductVariant } from '@/types';
 
 interface ProductDetailPageProps {
@@ -42,6 +45,28 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     setImageLoaded(false);
     if (product) setMainImage(product.imageUrl);
   }, [product?.id]);
+
+  // Recommended products
+  const [recommended, setRecommended] = useState<Product[]>([]);
+  useEffect(() => {
+    if (!product) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const all = await fetchProducts(product.gender);
+        if (cancelled) return;
+        // Same category first, then same gender, exclude current
+        const others = all.filter((p) => p.id !== product.id);
+        const sameCategory = others.filter((p) => p.category === product.category);
+        const diffCategory = others.filter((p) => p.category !== product.category);
+        // Shuffle each group
+        const shuffle = (arr: Product[]) => arr.sort(() => Math.random() - 0.5);
+        const picks = [...shuffle(sameCategory), ...shuffle(diffCategory)].slice(0, 4);
+        setRecommended(picks);
+      } catch { /* fail silently */ }
+    })();
+    return () => { cancelled = true; };
+  }, [product?.id, product?.gender, product?.category]);
 
   // Loading state
   if (loading) {
@@ -417,6 +442,27 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           </div>
         </div>
       </div>
+
+      {/* ══════ Recommended Products ══════ */}
+      {recommended.length > 0 && (
+        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-10 md:py-14">
+          <h2 className="text-[11px] tracking-[0.18em] uppercase font-medium text-alonzo-gray-500 mb-6">
+            También te puede gustar
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+            {recommended.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onClick={() => {
+                  seedProduct(p);
+                  router.push(`/product/${p.id}`);
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Size guide popup */}
       {sizeGuideOpen && sizeGuideImg && (
