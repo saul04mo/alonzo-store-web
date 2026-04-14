@@ -187,7 +187,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 priority
                 sizes="(max-width: 768px) 100vw, 55vw"
                 onLoad={() => setImageLoaded(true)}
-                className={`object-cover object-top transition-opacity duration-300 ease-out ${
+                className={`object-contain object-center transition-opacity duration-300 ease-out ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
               />
