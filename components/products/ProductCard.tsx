@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { Plus, X } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
 
@@ -18,6 +18,7 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 export function ProductCard({ product, onClick }: ProductCardProps) {
   const [loaded, setLoaded] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
+  const hideTimer = useRef<ReturnType<typeof setTimeout>>();
   const addItem = useCartStore((s) => s.addItem);
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
 
@@ -29,7 +30,6 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
   const imageUrl = product.imageUrl || 'https://via.placeholder.com/400x600';
 
-  // Build size info with stock + find the matching variant
   const sizeMap = new Map<string, { stock: number; variantIndex: number }>();
   product.variants.forEach((v, idx) => {
     if (v.size) {
@@ -69,7 +69,6 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     setCartDrawerOpen(true);
   };
 
-  // Preload full-size image on hover for instant detail page
   const handleMouseEnter = () => {
     const link = document.createElement('link');
     link.rel = 'prefetch';
@@ -80,17 +79,28 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     }
   };
 
-  const handlePlusClick = (e: React.MouseEvent) => {
+  // Hover on + button → show sizes
+  const handlePlusEnter = (e: React.MouseEvent) => {
     e.stopPropagation();
-    e.preventDefault();
-    setShowSizes(!showSizes);
+    clearTimeout(hideTimer.current);
+    setShowSizes(true);
+  };
+
+  // Leave sizes area → hide after small delay
+  const handleSizesLeave = () => {
+    hideTimer.current = setTimeout(() => setShowSizes(false), 120);
+  };
+
+  // Enter sizes bar → cancel hide
+  const handleSizesEnter = () => {
+    clearTimeout(hideTimer.current);
   };
 
   return (
     <div
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={() => setShowSizes(false)}
+      onMouseLeave={() => { clearTimeout(hideTimer.current); setShowSizes(false); }}
     >
       {/* Image — 4:5 aspect ratio */}
       <div
@@ -121,37 +131,32 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        {/* + Button — bottom right, visible on hover / always on mobile */}
-        {uniqueSizes.length > 0 && (
-          <button
-            onClick={handlePlusClick}
-            className={`absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white/90 hover:bg-white border border-alonzo-gray-300 rounded-full flex items-center justify-center z-20 transition-all duration-200 ${
-              showSizes
-                ? 'opacity-100'
-                : 'opacity-100 sm:opacity-0 sm:group-hover:opacity-100'
-            }`}
+        {/* + Button — bottom right */}
+        {uniqueSizes.length > 0 && !showSizes && (
+          <div
+            onMouseEnter={handlePlusEnter}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-20 transition-all duration-200 opacity-0 sm:group-hover:opacity-100 cursor-pointer"
           >
-            {showSizes ? (
-              <X size={14} strokeWidth={2} className="text-alonzo-charcoal" />
-            ) : (
-              <Plus size={16} strokeWidth={2} className="text-alonzo-charcoal" />
-            )}
-          </button>
+            <Plus size={16} strokeWidth={2} className="text-alonzo-charcoal" />
+          </div>
         )}
 
-        {/* Sizes panel — appears when + is clicked */}
+        {/* Sizes bar — horizontal, bottom of image */}
         {showSizes && uniqueSizes.length > 0 && (
           <div
-            className="absolute bottom-12 sm:bottom-14 right-2 bg-white border border-alonzo-gray-300 shadow-md z-20 flex flex-col min-w-[100px] sizes-reveal"
+            className="absolute bottom-0 left-0 right-0 bg-white/95 border-t border-alonzo-gray-300 z-20 flex justify-center sizes-reveal"
             onClick={(e) => e.stopPropagation()}
+            onMouseEnter={handleSizesEnter}
+            onMouseLeave={handleSizesLeave}
           >
             {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
                 key={size}
                 onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}
-                className={`flex items-center justify-center h-[30px] sm:h-[34px] px-4 text-[10px] sm:text-[11px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
-                  idx > 0 ? 'border-t border-alonzo-gray-200' : ''
-                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white active:bg-alonzo-black active:text-white'}`}
+                className={`flex items-center justify-center flex-1 h-[30px] sm:h-[34px] text-[9px] sm:text-[11px] font-semibold uppercase relative cursor-pointer transition-colors duration-150 ${
+                  idx > 0 ? 'border-l border-alonzo-gray-200' : ''
+                } ${!inStock ? 'text-alonzo-gray-400 cursor-not-allowed' : 'text-alonzo-charcoal hover:bg-alonzo-black hover:text-white'}`}
               >
                 {size}
                 {!inStock && (
