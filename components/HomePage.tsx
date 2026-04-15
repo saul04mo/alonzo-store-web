@@ -117,21 +117,24 @@ export function HomePage() {
     }
   }, [categories, activeCategory]);
 
-  // Filtered
-  const filteredProducts = useMemo(() => {
-    let result = products;
+  // Base products (after category/search, before filter drawer)
+  const baseProducts = useMemo(() => {
     if (searchTerm.trim()) {
       const term = searchTerm.toUpperCase();
-      result = products.filter((p) => p.name.toUpperCase().includes(term));
-    } else if (activeCategory) {
-      const filtered = products.filter((p) => p.category.trim().toUpperCase() === activeCategory);
-      if (filtered.length > 0) result = filtered;
+      return products.filter((p) => p.name.toUpperCase().includes(term));
     }
-    return applyFilters(result, filters);
-  }, [products, activeCategory, searchTerm, filters]);
+    if (activeCategory) {
+      const filtered = products.filter((p) => p.category.trim().toUpperCase() === activeCategory);
+      if (filtered.length > 0) return filtered;
+    }
+    return products;
+  }, [products, activeCategory, searchTerm]);
+
+  // Final filtered (with filter drawer applied)
+  const filteredProducts = useMemo(() => applyFilters(baseProducts, filters), [baseProducts, filters]);
 
   // Available sizes for filter drawer
-  const availableSizes = useMemo(() => extractSizes(products), [products]);
+  const availableSizes = useMemo(() => extractSizes(baseProducts), [baseProducts]);
 
   const handleProductClick = useCallback(
     (product: Product) => {
@@ -271,9 +274,9 @@ export function HomePage() {
         open={filterOpen}
         onClose={() => setFilterOpen(false)}
         filters={filters}
-        onChange={setFilters}
+        onApply={setFilters}
         availableSizes={availableSizes}
-        resultCount={filteredProducts.length}
+        products={baseProducts}
       />
     </>
   );
