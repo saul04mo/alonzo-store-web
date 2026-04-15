@@ -2,7 +2,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Heart, ChevronDown, Truck, X, Minus, Plus } from 'lucide-react';
+import { Heart, ChevronDown, Truck, X, Minus, Plus, Share2 } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
 import { fetchProducts, seedProduct } from '@/lib/api';
@@ -196,6 +196,20 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     setActiveAccordion(activeAccordion === key ? null : key);
   };
 
+  const handleShare = async () => {
+    const url = `${window.location.origin}/product/${product!.id}`;
+    const text = `${product!.name} — €${discountedPrice.toFixed(2)} en ALONZO Store`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: product!.name, text, url });
+      } catch {}
+    } else {
+      await navigator.clipboard.writeText(url);
+      toast.show('Link copiado');
+    }
+  };
+
   return (
     <>
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-0 md:py-0">
@@ -267,6 +281,12 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                     strokeWidth={1.5}
                     className={product && isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600 transition-colors'}
                   />
+                </button>
+                <button
+                  onClick={handleShare}
+                  className="shrink-0 text-alonzo-gray-400 hover:text-alonzo-gray-600 transition-colors"
+                >
+                  <Share2 size={18} strokeWidth={1.5} />
                 </button>
               </div>
             </div>
