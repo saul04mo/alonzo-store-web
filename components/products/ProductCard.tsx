@@ -137,18 +137,18 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             onMouseEnter={!showSizes ? handlePlusEnter : handleSizesEnter}
             onMouseLeave={showSizes ? handleSizesLeave : undefined}
             onClick={(e) => { e.stopPropagation(); setShowSizes(!showSizes); }}
-            className={`absolute right-2 w-8 h-8 sm:w-9 sm:h-9 bg-white hover:bg-alonzo-gray-100 border border-alonzo-gray-300 rounded-full flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
+            className={`absolute right-2 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
               showSizes
                 ? 'bottom-[42px] sm:bottom-[46px] opacity-100'
                 : 'bottom-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100'
             }`}
           >
             {showSizes ? (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-alonzo-charcoal">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
                 <line x1="3" y1="3" x2="11" y2="11" /><line x1="11" y1="3" x2="3" y2="11" />
               </svg>
             ) : (
-              <Plus size={16} strokeWidth={2} className="text-alonzo-charcoal" />
+              <Plus size={18} strokeWidth={2.5} className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
             )}
           </div>
         )}
