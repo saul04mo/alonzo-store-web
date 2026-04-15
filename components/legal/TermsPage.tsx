@@ -49,7 +49,7 @@ export function TermsPage() {
           <h2 className="text-xl font-semibold text-gray-900 mb-4">3. Compras y Pagos</h2>
           <ul className="list-disc pl-5 space-y-2">
             <li>Todos los precios están sujetos a cambios sin previo aviso.</li>
-            <li>Aceptamos pagos en USD e intercambios en Bolívares al tipo de cambio indicado en el momento de la compra.</li>
+            <li>Aceptamos pagos en EUR e intercambios en Bolívares al tipo de cambio indicado en el momento de la compra.</li>
             <li>Para métodos de pago manuales (Zelle, Pago Móvil), el cliente debe proporcionar el comprobante correspondiente. Los pedidos no serán procesados hasta verificar los fondos.</li>
           </ul>
         </section>

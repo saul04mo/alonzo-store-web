@@ -125,7 +125,7 @@ export function WishlistPage() {
                   />
                   {hasOffer && (
                     <div className="absolute top-1 left-1 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-sm">
-                      {product.offer!.type === 'percentage' ? `-${product.offer!.value}%` : `-$${product.offer!.value}`}
+                      {product.offer!.type === 'percentage' ? `-${product.offer!.value}%` : `-€${product.offer!.value}`}
                     </div>
                   )}
                 </div>

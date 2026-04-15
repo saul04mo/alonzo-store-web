@@ -132,7 +132,7 @@ export function CartPage({ onCheckout }: CartPageProps) {
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold font-sans text-base">Total</span>
                 <span className="font-bold text-lg font-sans">
-                  USD {formatUSD(total)}
+                  {formatUSD(total)}
                 </span>
               </div>
               {exchangeRate > 0 && (

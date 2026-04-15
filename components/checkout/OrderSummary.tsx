@@ -49,9 +49,9 @@ export function OrderSummary({
       )}
       <Row label="TOTAL PAGADO" value={formatUSD(totalPaid)} />
 
-      {/* Total USD */}
+      {/* Total EUR */}
       <div className="flex justify-between items-start border-t border-alonzo-gray-300 pt-2.5 mt-2.5">
-        <span className="text-xs font-bold text-alonzo-black mt-0.5">TOTAL A PAGAR ($):</span>
+        <span className="text-xs font-bold text-alonzo-black mt-0.5">TOTAL A PAGAR (€):</span>
         <span className="text-[15px] font-bold text-alonzo-black">{formatUSD(total)}</span>
       </div>
 

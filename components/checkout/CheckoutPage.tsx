@@ -437,7 +437,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                       />
                       {hasOffer && (
                         <div className="absolute top-1 left-1 bg-red-600 text-white text-[7px] font-bold px-1 py-0.5 rounded-sm">
-                          {product!.offer!.type === 'percentage' ? `-${product!.offer!.value}%` : `-$${product!.offer!.value}`}
+                          {product!.offer!.type === 'percentage' ? `-${product!.offer!.value}%` : `-€${product!.offer!.value}`}
                         </div>
                       )}
                     </div>
@@ -493,7 +493,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
 
             <div className="flex justify-between text-base font-bold text-gray-900 border-t border-gray-200 pt-4 mb-1">
               <span>Total</span>
-              <span>USD {formatUSD(total)}</span>
+              <span>{formatUSD(total)}</span>
             </div>
             {exchangeRate > 0 && (
               <div className="flex justify-between text-sm text-gray-400 mb-4">

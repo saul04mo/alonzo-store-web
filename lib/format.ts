@@ -1,5 +1,5 @@
 export function formatUSD(amount: number): string {
-  return `$ ${amount.toFixed(2)}`;
+  return `€ ${amount.toFixed(2)}`;
 }
 
 export function formatBs(amount: number): string {
@@ -64,9 +64,9 @@ export function buildOrderWhatsAppMessage(
   });
 
   msg += `----------------\n`;
-  msg += `Sub Total: $ ${subtotal.toFixed(2)}\n`;
-  msg += `Costo del Delivery: $ ${deliveryCost.toFixed(2)}\n`;
-  msg += `*TOTAL A PAGAR: $ ${invoice.total.toFixed(2)}*\n\n`;
+  msg += `Sub Total: € ${subtotal.toFixed(2)}\n`;
+  msg += `Costo del Delivery: € ${deliveryCost.toFixed(2)}\n`;
+  msg += `*TOTAL A PAGAR: € ${invoice.total.toFixed(2)}*\n\n`;
   msg += `*FORMA DE PAGO*\n`;
 
   if (invoice.payments && invoice.payments.length > 0) {

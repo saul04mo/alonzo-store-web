@@ -44,7 +44,7 @@ export function PaymentGrid({
     const newSel: PaymentSelection = {};
     newSel[id] = { amount: '', ref: '' };
 
-    // Auto-fill amount for USD methods
+    // Auto-fill amount for EUR methods
     if (method?.currency === 'usd' && totalUsd > 0) {
       newSel[id].amount = totalUsd.toFixed(2);
     }

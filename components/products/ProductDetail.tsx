@@ -280,7 +280,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 <span className="bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
                   {product.offer!.type === 'percentage'
                     ? `-${product.offer!.value}%`
-                    : `-$${product.offer!.value}`}
+                    : `-€${product.offer!.value}`}
                 </span>
               </div>
             )}

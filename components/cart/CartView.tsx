@@ -74,7 +74,7 @@ export function CartView({ open, onClose, onCheckout }: CartViewProps) {
               <div className="flex justify-between items-center mb-8">
                 <span className="font-semibold font-sans">Total</span>
                 <span className="font-bold text-lg font-sans">
-                  USD {formatUSD(totalMoney())}
+                  EUR {formatUSD(totalMoney())}
                 </span>
               </div>
 

@@ -41,7 +41,7 @@ export function CartItemRow({ item, index, offer }: CartItemRowProps) {
         />
         {hasOffer && (
           <div className="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
-            {offer.type === 'percentage' ? `-${offer.value}%` : `-$${offer.value}`}
+            {offer.type === 'percentage' ? `-${offer.value}%` : `-€${offer.value}`}
           </div>
         )}
       </div>
@@ -95,7 +95,7 @@ export function CartItemRow({ item, index, offer }: CartItemRowProps) {
                   <span className="block text-xs text-gray-400 line-through">€{originalPrice.toFixed(2)}</span>
                 </>
               ) : (
-                <span className="text-base font-semibold">${item.precio}</span>
+                <span className="text-base font-semibold">€{item.precio}</span>
               )}
             </div>
             {/* Botón de eliminar */}

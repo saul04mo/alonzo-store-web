@@ -127,7 +127,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           <div className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm tracking-wider">
             {product.offer!.type === 'percentage'
               ? `-${product.offer!.value}%`
-              : `-$${product.offer!.value}`}
+              : `-€${product.offer!.value}`}
           </div>
         )}
 
