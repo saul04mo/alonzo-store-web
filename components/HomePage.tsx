@@ -169,18 +169,18 @@ export function HomePage() {
       <div id="products-section" className={`${hasBrowsed ? 'py-4 md:py-6' : 'py-6 md:py-10'}`}>
         {/* Category header (shown when browsing a category) */}
         {hasBrowsed && activeCategory && !searchTerm && (
-          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-2 md:pt-10">
+          <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-8 md:pt-10">
             {/* Title + count */}
-            <h1 className="text-base md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-2 md:mb-5">
+            <h1 className="text-xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3 md:mb-5">
               {categoryDisplayName}
-              <span className="text-alonzo-gray-400 font-normal text-sm md:text-xl ml-2 md:ml-3">
+              <span className="text-alonzo-gray-400 font-normal text-base md:text-xl ml-2 md:ml-3">
                 {filteredProducts.length}
               </span>
             </h1>
 
             {/* Description */}
             {categoryDescription && (
-              <p className="text-[11px] md:text-sm text-alonzo-gray-500 max-w-2xl mb-4 md:mb-10 leading-relaxed">
+              <p className="text-xs md:text-sm text-alonzo-gray-500 max-w-2xl mb-6 md:mb-10 leading-relaxed">
                 {categoryDescription}
               </p>
             )}
@@ -188,7 +188,7 @@ export function HomePage() {
             {/* View toggle + Filter */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-xs md:text-sm text-alonzo-gray-500 mr-1">View</span>
+                <span className="text-sm text-alonzo-gray-500 mr-1">View</span>
                 <button
                   onClick={() => setGridCols(1)}
                   className={`p-1.5 rounded transition-colors sm:hidden ${gridCols === 1 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
@@ -235,10 +235,10 @@ export function HomePage() {
               </div>
               <button
                 onClick={() => setFilterOpen(true)}
-                className="flex items-center gap-1.5 text-xs md:text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors relative"
+                className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors relative"
               >
                 <span>Filter</span>
-                <SlidersHorizontal size={16} className="md:w-5 md:h-5" />
+                <SlidersHorizontal size={20} />
                 {(filters.sortBy !== 'default' || filters.sizes.length > 0 || filters.onSale) && (
                   <span className="absolute -top-1 -right-1 w-2 h-2 bg-alonzo-black rounded-full" />
                 )}
