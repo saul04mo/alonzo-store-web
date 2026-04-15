@@ -14,8 +14,8 @@ let cachedAnnouncements: Announcement[] | null = null;
 export function AnnouncementBar() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(cachedAnnouncements || []);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [visible, setVisible] = useState(true);
   const [dismissed, setDismissed] = useState(false);
+  const [animating, setAnimating] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
@@ -42,10 +42,10 @@ export function AnnouncementBar() {
   useEffect(() => {
     if (announcements.length <= 1) return;
     intervalRef.current = setInterval(() => {
-      setVisible(false);
+      setAnimating(true);
       setTimeout(() => {
         setCurrentIdx((prev) => (prev + 1) % announcements.length);
-        setVisible(true);
+        setAnimating(false);
       }, 300);
     }, 4000);
     return () => clearInterval(intervalRef.current);
@@ -56,11 +56,14 @@ export function AnnouncementBar() {
   const current = announcements[currentIdx];
 
   return (
-    <div className="w-full bg-alonzo-black text-white flex items-center justify-center relative px-8 h-[22px]">
+    <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px] flex items-center justify-center px-8">
       {current && (
-        <p className={`text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium transition-all duration-300 leading-none ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}>
+        <p
+          key={currentIdx}
+          className={`text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none absolute inset-0 flex items-center justify-center px-8 transition-all duration-300 ${
+            animating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'
+          }`}
+        >
           {current.link ? (
             <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
               {current.text}
@@ -72,7 +75,7 @@ export function AnnouncementBar() {
       )}
       <button
         onClick={() => setDismissed(true)}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10"
       >
         <X size={12} strokeWidth={2} />
       </button>
