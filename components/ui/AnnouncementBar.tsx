@@ -41,15 +41,22 @@ export function AnnouncementBar() {
     })();
   }, []);
 
+  // Speed: ~60px per second regardless of screen size
+  const [duration, setDuration] = useState(15);
+  useEffect(() => {
+    const w = window.innerWidth;
+    setDuration(Math.round((w + 300) / 60));
+  }, []);
+
   // Cycle to next announcement after animation
   useEffect(() => {
     if (!ready || announcements.length <= 1) return;
     const timer = setTimeout(() => {
       setCurrentIdx((prev) => (prev + 1) % announcements.length);
       setTick((t) => t + 1);
-    }, 20000);
+    }, duration * 1000);
     return () => clearTimeout(timer);
-  }, [currentIdx, tick, ready, announcements.length]);
+  }, [currentIdx, tick, ready, announcements.length, duration]);
 
   if (dismissed) return null;
 
@@ -62,7 +69,7 @@ export function AnnouncementBar() {
           key={`${currentIdx}-${tick}`}
           className="absolute h-full flex items-center whitespace-nowrap"
           style={{
-            animation: 'annMarquee 20s linear forwards',
+            animation: `annMarquee ${duration}s linear forwards`,
           }}
         >
           <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none px-4">
