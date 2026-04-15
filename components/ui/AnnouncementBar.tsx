@@ -47,7 +47,7 @@ export function AnnouncementBar() {
     const timer = setTimeout(() => {
       setCurrentIdx((prev) => (prev + 1) % announcements.length);
       setTick((t) => t + 1);
-    }, 12000);
+    }, 20000);
     return () => clearTimeout(timer);
   }, [currentIdx, tick, ready, announcements.length]);
 
@@ -62,7 +62,7 @@ export function AnnouncementBar() {
           key={`${currentIdx}-${tick}`}
           className="absolute h-full flex items-center whitespace-nowrap"
           style={{
-            animation: 'annMarquee 12s linear forwards',
+            animation: 'annMarquee 20s linear forwards',
           }}
         >
           <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none px-4">
