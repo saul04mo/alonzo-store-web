@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { db, collection, getDocs } from '@/lib/firebase-client';
 
@@ -16,12 +16,10 @@ export function AnnouncementBar() {
   const [dismissed, setDismissed] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [tick, setTick] = useState(0);
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [animStyle, setAnimStyle] = useState<React.CSSProperties>({});
+  const [ready, setReady] = useState(!!cachedAnnouncements);
 
   useEffect(() => {
-    if (cachedAnnouncements) return;
+    if (cachedAnnouncements) { setReady(true); return; }
     (async () => {
       try {
         const snap = await getDocs(collection(db, 'announcements'));
@@ -35,73 +33,46 @@ export function AnnouncementBar() {
         items.sort((a, b) => a.order - b.order);
         cachedAnnouncements = items;
         setAnnouncements(items);
+        setReady(true);
       } catch (err) {
         console.error('AnnouncementBar:', err);
+        setReady(true);
       }
     })();
   }, []);
 
-  // Start animation whenever index or tick changes
+  // Cycle to next announcement after animation
   useEffect(() => {
-    if (announcements.length === 0) return;
-    const span = spanRef.current;
-    const container = containerRef.current;
-    if (!span || !container) return;
-
-    // Measure
-    const containerW = container.offsetWidth;
-    const textW = span.offsetWidth;
-    const distance = containerW + textW;
-    const speed = 60; // px per second
-    const duration = distance / speed;
-
-    // Reset to start position
-    setAnimStyle({
-      transform: `translateX(${containerW}px)`,
-      transition: 'none',
-    });
-
-    // Start sliding after a frame
-    const raf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setAnimStyle({
-          transform: `translateX(-${textW}px)`,
-          transition: `transform ${duration}s linear`,
-        });
-      });
-    });
-
-    // When done, go to next
+    if (!ready || announcements.length <= 1) return;
     const timer = setTimeout(() => {
-      setCurrentIdx((prev) => (prev + 1) % Math.max(announcements.length, 1));
+      setCurrentIdx((prev) => (prev + 1) % announcements.length);
       setTick((t) => t + 1);
-    }, duration * 1000 + 100);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(timer);
-    };
-  }, [currentIdx, tick, announcements.length]);
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, [currentIdx, tick, ready, announcements.length]);
 
   if (dismissed) return null;
 
   const current = announcements[currentIdx];
 
   return (
-    <div ref={containerRef} className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
+    <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
       {current && (
-        <span
-          ref={spanRef}
+        <div
           key={`${currentIdx}-${tick}`}
-          style={animStyle}
-          className="absolute h-full flex items-center text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap will-change-transform"
+          className="absolute h-full flex items-center whitespace-nowrap"
+          style={{
+            animation: 'annMarquee 12s linear forwards',
+          }}
         >
-          {current.link ? (
-            <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{current.text}</a>
-          ) : (
-            current.text
-          )}
-        </span>
+          <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none px-4">
+            {current.link ? (
+              <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{current.text}</a>
+            ) : (
+              current.text
+            )}
+          </span>
+        </div>
       )}
       <button
         onClick={() => setDismissed(true)}
