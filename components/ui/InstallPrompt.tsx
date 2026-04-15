@@ -1,13 +1,34 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { X, Download, Share } from 'lucide-react';
+import { db, doc, getDoc } from '@/lib/firebase-client';
 
 export function InstallPrompt() {
   const [show, setShow] = useState(false);
   const [isIos, setIsIos] = useState(false);
+  const [enabled, setEnabled] = useState<boolean | null>(null);
   const promptRef = useRef<any>(null);
 
+  // Check if feature is enabled in Firestore
   useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDoc(doc(db, 'config', 'webSettings'));
+        if (snap.exists() && snap.data().installPromptEnabled === false) {
+          setEnabled(false);
+        } else {
+          setEnabled(true);
+        }
+      } catch {
+        setEnabled(true); // Default to enabled if can't read
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    // Wait until we know if it's enabled
+    if (enabled !== true) return;
+
     // Don't show if already dismissed
     if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
 
@@ -15,12 +36,11 @@ export function InstallPrompt() {
     if (window.matchMedia('(display-mode: standalone)').matches) return;
     if ((window.navigator as any).standalone === true) return;
 
-    // Detect iOS (any browser on iOS is WebKit)
+    // Detect iOS
     const isIosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (isIosDevice) {
-      // Show after 3 seconds on iOS
       const timer = setTimeout(() => {
         setIsIos(true);
         setShow(true);
@@ -28,7 +48,7 @@ export function InstallPrompt() {
       return () => clearTimeout(timer);
     }
 
-    // Android/Chrome — capture beforeinstallprompt
+    // Android/Chrome
     const handler = (e: Event) => {
       e.preventDefault();
       promptRef.current = e;
@@ -36,7 +56,7 @@ export function InstallPrompt() {
     };
     window.addEventListener('beforeinstallprompt', handler);
     return () => window.removeEventListener('beforeinstallprompt', handler);
-  }, []);
+  }, [enabled]);
 
   const handleInstall = async () => {
     const prompt = promptRef.current;
