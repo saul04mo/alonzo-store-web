@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { db, collection, getDocs } from '@/lib/firebase-client';
 
@@ -16,6 +16,9 @@ export function AnnouncementBar() {
   const [dismissed, setDismissed] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [tick, setTick] = useState(0);
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [animStyle, setAnimStyle] = useState<React.CSSProperties>({});
 
   useEffect(() => {
     if (cachedAnnouncements) return;
@@ -38,22 +41,60 @@ export function AnnouncementBar() {
     })();
   }, []);
 
-  const handleAnimEnd = () => {
-    setCurrentIdx((prev) => (prev + 1) % Math.max(announcements.length, 1));
-    setTick((t) => t + 1);
-  };
+  // Start animation whenever index or tick changes
+  useEffect(() => {
+    if (announcements.length === 0) return;
+    const span = spanRef.current;
+    const container = containerRef.current;
+    if (!span || !container) return;
+
+    // Measure
+    const containerW = container.offsetWidth;
+    const textW = span.offsetWidth;
+    const distance = containerW + textW;
+    const speed = 60; // px per second
+    const duration = distance / speed;
+
+    // Reset to start position
+    setAnimStyle({
+      transform: `translateX(${containerW}px)`,
+      transition: 'none',
+    });
+
+    // Start sliding after a frame
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setAnimStyle({
+          transform: `translateX(-${textW}px)`,
+          transition: `transform ${duration}s linear`,
+        });
+      });
+    });
+
+    // When done, go to next
+    const timer = setTimeout(() => {
+      setCurrentIdx((prev) => (prev + 1) % Math.max(announcements.length, 1));
+      setTick((t) => t + 1);
+    }, duration * 1000 + 100);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timer);
+    };
+  }, [currentIdx, tick, announcements.length]);
 
   if (dismissed) return null;
 
   const current = announcements[currentIdx];
 
   return (
-    <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
+    <div ref={containerRef} className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
       {current && (
         <span
+          ref={spanRef}
           key={`${currentIdx}-${tick}`}
-          onAnimationEnd={handleAnimEnd}
-          className="ann-marquee absolute h-full flex items-center text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap will-change-transform"
+          style={animStyle}
+          className="absolute h-full flex items-center text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap will-change-transform"
         >
           {current.link ? (
             <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{current.text}</a>
@@ -68,16 +109,6 @@ export function AnnouncementBar() {
       >
         <X size={12} strokeWidth={2} />
       </button>
-      <style jsx>{`
-        @keyframes annMarquee {
-          0% { transform: translateX(100vw); }
-          100% { transform: translateX(calc(-100%)); }
-        }
-        .ann-marquee {
-          animation: annMarquee 18s linear forwards;
-          left: 0;
-        }
-      `}</style>
     </div>
   );
 }
