@@ -5,11 +5,12 @@ import { db, doc, getDoc } from '@/lib/firebase-client';
 
 export function InstallPrompt() {
   const [show, setShow] = useState(false);
-  const [isIos, setIsIos] = useState(false);
+  const [platform, setPlatform] = useState<'ios' | 'android' | 'desktop' | null>(null);
   const [enabled, setEnabled] = useState<boolean | null>(null);
   const promptRef = useRef<any>(null);
+  const [installed, setInstalled] = useState(false);
 
-  // Check if feature is enabled in Firestore
+  // Check if feature is enabled
   useEffect(() => {
     (async () => {
       try {
@@ -20,57 +21,65 @@ export function InstallPrompt() {
           setEnabled(true);
         }
       } catch {
-        setEnabled(true); // Default to enabled if can't read
+        setEnabled(true);
       }
     })();
   }, []);
 
   useEffect(() => {
-    // Wait until we know if it's enabled
     if (enabled !== true) return;
-
-    // Don't show if already dismissed
     if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
 
-    // Don't show if already installed as PWA
+    // Already installed
     if (window.matchMedia('(display-mode: standalone)').matches) return;
     if ((window.navigator as any).standalone === true) return;
 
-    // Detect iOS
-    const isIosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    // Detect platform
+    const ua = navigator.userAgent;
+    const isIos = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/.test(ua);
 
-    if (isIosDevice) {
-      const timer = setTimeout(() => {
-        setIsIos(true);
+    if (isIos) {
+      setPlatform('ios');
+      setTimeout(() => setShow(true), 3000);
+    } else if (isAndroid) {
+      setPlatform('android');
+      // Try to capture native prompt
+      const handler = (e: Event) => {
+        e.preventDefault();
+        promptRef.current = e;
+      };
+      window.addEventListener('beforeinstallprompt', handler);
+      // Show banner after 3 seconds regardless
+      setTimeout(() => setShow(true), 3000);
+      return () => window.removeEventListener('beforeinstallprompt', handler);
+    } else {
+      // Desktop
+      setPlatform('desktop');
+      const handler = (e: Event) => {
+        e.preventDefault();
+        promptRef.current = e;
         setShow(true);
-      }, 3000);
-      return () => clearTimeout(timer);
+      };
+      window.addEventListener('beforeinstallprompt', handler);
+      return () => window.removeEventListener('beforeinstallprompt', handler);
     }
-
-    // Android/Chrome
-    const handler = (e: Event) => {
-      e.preventDefault();
-      promptRef.current = e;
-      setShow(true);
-    };
-    window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
   }, [enabled]);
 
   const handleInstall = async () => {
-    const prompt = promptRef.current;
-    if (!prompt) return;
-    try {
-      prompt.prompt();
-      const result = await prompt.userChoice;
-      if (result.outcome === 'accepted') {
-        promptRef.current = null;
-      }
-    } catch (e) {
-      console.error('Install error:', e);
+    if (promptRef.current) {
+      try {
+        promptRef.current.prompt();
+        const result = await promptRef.current.userChoice;
+        if (result.outcome === 'accepted') {
+          setInstalled(true);
+          setTimeout(() => handleDismiss(), 2000);
+          return;
+        }
+      } catch {}
     }
-    handleDismiss();
+    // If native prompt not available, show instructions
+    // Already showing instructions via platform state
   };
 
   const handleDismiss = () => {
@@ -80,6 +89,16 @@ export function InstallPrompt() {
 
   if (!show) return null;
 
+  if (installed) {
+    return (
+      <div className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-[340px] z-[85] animate-slide-up">
+        <div className="bg-emerald-600 rounded-xl shadow-xl p-4 text-center text-white text-sm font-medium">
+          ¡ALONZO instalada correctamente!
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-[340px] z-[85] animate-slide-up">
       <div className="bg-white rounded-xl shadow-xl border border-alonzo-gray-200 p-4 flex items-start gap-3">
@@ -88,13 +107,34 @@ export function InstallPrompt() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[12px] font-semibold text-alonzo-charcoal">Instalar ALONZO</p>
-          {isIos ? (
+
+          {platform === 'ios' && (
             <p className="text-[11px] text-alonzo-gray-500 mt-1 leading-relaxed">
               Toca <Share size={13} className="inline -mt-0.5 text-blue-500" /> y luego <strong>"Agregar a inicio"</strong>
             </p>
-          ) : (
+          )}
+
+          {platform === 'android' && (
             <>
               <p className="text-[11px] text-alonzo-gray-500 mt-0.5">Accede rápido desde tu pantalla de inicio</p>
+              <button
+                onClick={handleInstall}
+                className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95"
+              >
+                <Download size={12} />
+                Instalar
+              </button>
+              {!promptRef.current && (
+                <p className="text-[10px] text-alonzo-gray-400 mt-2 leading-relaxed">
+                  O toca <strong>⋮</strong> → <strong>"Instalar app"</strong>
+                </p>
+              )}
+            </>
+          )}
+
+          {platform === 'desktop' && (
+            <>
+              <p className="text-[11px] text-alonzo-gray-500 mt-0.5">Accede rápido desde tu escritorio</p>
               <button
                 onClick={handleInstall}
                 className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95"
