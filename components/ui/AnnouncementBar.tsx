@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { onSnapshot, collection } from 'firebase/firestore';
-import { db } from '@/lib/firebase-client';
+import { db, collection, onSnapshot } from '@/lib/firebase-client';
 
 interface Announcement {
   text: string;
@@ -37,7 +36,7 @@ export function AnnouncementBar() {
         setAnnouncements(items);
         setCurrentIdx(0);
       },
-      () => { /* fail silently */ }
+      (err) => { console.error('AnnouncementBar error:', err); }
     );
     return () => unsub();
   }, []);
