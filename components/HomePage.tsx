@@ -11,7 +11,7 @@ import { useUIStore } from '@/stores';
 import { SlidersHorizontal } from 'lucide-react';
 import type { Product, Gender } from '@/types';
 
-type GridCols = 2 | 3 | 4;
+type GridCols = 1 | 2 | 3 | 4;
 
 export function HomePage() {
   const router = useRouter();
@@ -182,6 +182,16 @@ export function HomePage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="text-sm text-alonzo-gray-500 mr-1">View</span>
+                <button
+                  onClick={() => setGridCols(1)}
+                  className={`p-1.5 rounded transition-colors sm:hidden ${gridCols === 1 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
+                  title="1 columna"
+                >
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
+                    <rect x="3" y="1" width="10" height="6" rx="1"/>
+                    <rect x="3" y="9" width="10" height="6" rx="1"/>
+                  </svg>
+                </button>
                 <button
                   onClick={() => setGridCols(2)}
                   className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}

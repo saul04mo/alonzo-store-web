@@ -7,10 +7,11 @@ interface ProductGridProps {
   loading: boolean;
   onProductClick: (product: Product) => void;
   sectionTitle?: string;
-  gridCols?: 2 | 3 | 4;
+  gridCols?: 1 | 2 | 3 | 4;
 }
 
 const gridClasses: Record<number, string> = {
+  1: 'grid-cols-1 gap-y-8 max-w-[400px] mx-auto',
   2: 'grid-cols-2 gap-x-3 gap-y-12 md:gap-x-5 md:gap-y-16',
   3: 'grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-12 md:gap-x-5 md:gap-y-16',
   4: 'grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-12 md:gap-x-4 md:gap-y-16',
