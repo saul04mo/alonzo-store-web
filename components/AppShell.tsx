@@ -167,7 +167,6 @@ function ShellContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <AnnouncementBar />
       <SiteHeader
         gender={gender}
         onGenderChange={handleGenderChange}

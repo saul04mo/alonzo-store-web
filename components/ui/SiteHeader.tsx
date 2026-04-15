@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
+import { AnnouncementBar } from './AnnouncementBar';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -109,6 +110,7 @@ export function SiteHeader({
         onMouseEnter={() => setHeaderHovered(true)}
         onMouseLeave={() => setHeaderHovered(false)}
       >
+        <AnnouncementBar />
         <div className="w-full mx-auto px-3 md:px-6 lg:px-10 h-full">
           <div className="flex items-center justify-between h-14 md:h-16">
 
