@@ -15,7 +15,7 @@ export function AnnouncementBar() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(cachedAnnouncements || []);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [dismissed, setDismissed] = useState(false);
-  const [animating, setAnimating] = useState(false);
+  const [slide, setSlide] = useState<'center' | 'out-left' | 'in-right'>('center');
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
@@ -42,11 +42,19 @@ export function AnnouncementBar() {
   useEffect(() => {
     if (announcements.length <= 1) return;
     intervalRef.current = setInterval(() => {
-      setAnimating(true);
+      // Slide current text out to the left
+      setSlide('out-left');
       setTimeout(() => {
+        // Change text and position it on the right
         setCurrentIdx((prev) => (prev + 1) % announcements.length);
-        setAnimating(false);
-      }, 300);
+        setSlide('in-right');
+        // Immediately trigger slide to center
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setSlide('center');
+          });
+        });
+      }, 350);
     }, 4000);
     return () => clearInterval(intervalRef.current);
   }, [announcements.length]);
@@ -55,14 +63,17 @@ export function AnnouncementBar() {
 
   const current = announcements[currentIdx];
 
+  const slideClass =
+    slide === 'out-left' ? 'ann-slide-out-left' :
+    slide === 'in-right' ? 'ann-slide-in-right' :
+    'ann-slide-center';
+
   return (
     <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px] flex items-center justify-center px-8">
       {current && (
         <p
-          key={currentIdx}
-          className={`text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none absolute inset-0 flex items-center justify-center px-8 transition-all duration-300 ${
-            animating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'
-          }`}
+          key={`${currentIdx}-${slide}`}
+          className={`text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none absolute inset-0 flex items-center justify-center px-8 whitespace-nowrap ${slideClass}`}
         >
           {current.link ? (
             <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
@@ -79,6 +90,23 @@ export function AnnouncementBar() {
       >
         <X size={12} strokeWidth={2} />
       </button>
+      <style jsx>{`
+        .ann-slide-center {
+          transform: translateX(0);
+          opacity: 1;
+          transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+        }
+        .ann-slide-out-left {
+          transform: translateX(-100%);
+          opacity: 0;
+          transition: transform 0.35s ease-in, opacity 0.35s ease-in;
+        }
+        .ann-slide-in-right {
+          transform: translateX(100%);
+          opacity: 0;
+          transition: none;
+        }
+      `}</style>
     </div>
   );
 }
