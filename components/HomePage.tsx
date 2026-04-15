@@ -9,6 +9,8 @@ import { fetchProducts, seedProduct } from '@/lib/api';
 import { hombreCategoryOrder, categoryDescriptions } from '@/config';
 import { useUIStore } from '@/stores';
 import { SlidersHorizontal } from 'lucide-react';
+import { FilterDrawer, applyFilters, extractSizes, defaultFilters } from '@/components/ui/FilterDrawer';
+import type { FilterState } from '@/components/ui/FilterDrawer';
 import type { Product, Gender } from '@/types';
 
 type GridCols = 1 | 2 | 3 | 4;
@@ -19,6 +21,8 @@ export function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [gridCols, setGridCols] = useState<GridCols>(4);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const gender = useUIStore((s) => s.gender);
   const setGender = useUIStore((s) => s.setGender);
   const searchTerm = useUIStore((s) => s.searchTerm);
@@ -115,16 +119,19 @@ export function HomePage() {
 
   // Filtered
   const filteredProducts = useMemo(() => {
+    let result = products;
     if (searchTerm.trim()) {
       const term = searchTerm.toUpperCase();
-      return products.filter((p) => p.name.toUpperCase().includes(term));
-    }
-    if (activeCategory) {
+      result = products.filter((p) => p.name.toUpperCase().includes(term));
+    } else if (activeCategory) {
       const filtered = products.filter((p) => p.category.trim().toUpperCase() === activeCategory);
-      if (filtered.length > 0) return filtered;
+      if (filtered.length > 0) result = filtered;
     }
-    return products;
-  }, [products, activeCategory, searchTerm]);
+    return applyFilters(result, filters);
+  }, [products, activeCategory, searchTerm, filters]);
+
+  // Available sizes for filter drawer
+  const availableSizes = useMemo(() => extractSizes(products), [products]);
 
   const handleProductClick = useCallback(
     (product: Product) => {
@@ -226,9 +233,15 @@ export function HomePage() {
                   </svg>
                 </button>
               </div>
-              <button className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors">
+              <button
+                onClick={() => setFilterOpen(true)}
+                className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors relative"
+              >
                 <span>Filter</span>
                 <SlidersHorizontal size={20} />
+                {(filters.sortBy !== 'default' || filters.sizes.length > 0 || filters.onSale) && (
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-alonzo-black rounded-full" />
+                )}
               </button>
             </div>
           </div>
@@ -253,6 +266,15 @@ export function HomePage() {
           gridCols={hasBrowsed ? gridCols : undefined}
         />
       </div>
+
+      <FilterDrawer
+        open={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        filters={filters}
+        onChange={setFilters}
+        availableSizes={availableSizes}
+        resultCount={filteredProducts.length}
+      />
     </>
   );
 }
