@@ -56,7 +56,7 @@ export function AnnouncementBar() {
   const current = announcements[currentIdx];
 
   return (
-    <div className="w-full bg-alonzo-black text-white flex items-center justify-center relative px-8 py-[5px]">
+    <div className="w-full bg-alonzo-black text-white flex items-center justify-center relative px-8 h-[22px]">
       {current && (
         <p className={`text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium transition-all duration-300 leading-none ${
           visible ? 'opacity-100' : 'opacity-0'
