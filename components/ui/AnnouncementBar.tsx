@@ -74,7 +74,7 @@ export function AnnouncementBar() {
           100% { transform: translateX(calc(-100%)); }
         }
         .ann-marquee {
-          animation: annMarquee 10s linear forwards;
+          animation: annMarquee 18s linear forwards;
           left: 0;
         }
       `}</style>
