@@ -144,11 +144,11 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             }`}
           >
             {showSizes ? (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-alonzo-black">
                 <line x1="3" y1="3" x2="11" y2="11" /><line x1="11" y1="3" x2="3" y2="11" />
               </svg>
             ) : (
-              <Plus size={18} strokeWidth={2.5} className="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
+              <Plus size={18} strokeWidth={2.5} className="text-alonzo-black" />
             )}
           </div>
         )}
