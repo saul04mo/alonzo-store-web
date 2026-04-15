@@ -13,11 +13,7 @@ let cachedAnnouncements: Announcement[] | null = null;
 
 export function AnnouncementBar() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(cachedAnnouncements || []);
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [nextIdx, setNextIdx] = useState<number | null>(null);
-  const [phase, setPhase] = useState<'show' | 'leaving' | 'entering'>('show');
   const [dismissed, setDismissed] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
     if (cachedAnnouncements) return;
@@ -40,61 +36,46 @@ export function AnnouncementBar() {
     })();
   }, []);
 
-  useEffect(() => {
-    if (announcements.length <= 1) return;
-    intervalRef.current = setInterval(() => {
-      const next = (currentIdx + 1) % announcements.length;
-      setNextIdx(next);
-      setPhase('leaving');
-
-      // After current slides out left, start next sliding in from right
-      setTimeout(() => {
-        setCurrentIdx(next);
-        setNextIdx(null);
-        setPhase('entering');
-
-        // Settle to center
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setPhase('show');
-          });
-        });
-      }, 400);
-    }, 4000);
-    return () => clearInterval(intervalRef.current);
-  }, [announcements.length, currentIdx]);
-
   if (dismissed || announcements.length === 0) return null;
 
-  const current = announcements[currentIdx];
-
-  const textStyle =
-    phase === 'leaving'  ? 'translate-x-[-100%] opacity-0 transition-all duration-[400ms] ease-in' :
-    phase === 'entering' ? 'translate-x-[100%] opacity-0' :
-    'translate-x-0 opacity-100 transition-all duration-[400ms] ease-out';
+  // Each announcement gets plenty of space, then repeats
+  const spacer = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0';
 
   return (
     <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
-      {current && (
-        <p
-          key={currentIdx}
-          className={`absolute inset-0 flex items-center justify-center px-8 text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap ${textStyle}`}
-        >
-          {current.link ? (
-            <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
-              {current.text}
-            </a>
-          ) : (
-            current.text
-          )}
-        </p>
-      )}
+      <div className="ann-track h-full flex items-center">
+        {[0, 1].map((copy) => (
+          <span key={copy} className="ann-segment text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap">
+            {announcements.map((a, i) => (
+              <span key={`${copy}-${i}`}>
+                {a.link ? (
+                  <a href={a.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{a.text}</a>
+                ) : (
+                  a.text
+                )}
+                {spacer}
+              </span>
+            ))}
+          </span>
+        ))}
+      </div>
       <button
         onClick={() => setDismissed(true)}
         className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10"
       >
         <X size={12} strokeWidth={2} />
       </button>
+      <style jsx>{`
+        .ann-track {
+          display: flex;
+          width: max-content;
+          animation: annScroll var(--ann-duration, 20s) linear infinite;
+        }
+        @keyframes annScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 }
