@@ -1,63 +1,64 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { X, Download } from 'lucide-react';
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt(): Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
+import { useState, useEffect, useRef } from 'react';
+import { X, Download, Share } from 'lucide-react';
 
 export function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [dismissed, setDismissed] = useState(false);
+  const [show, setShow] = useState(false);
   const [isIos, setIsIos] = useState(false);
+  const promptRef = useRef<any>(null);
 
   useEffect(() => {
-    // Check if already dismissed in this session
-    if (sessionStorage.getItem('alonzo-pwa-dismissed')) {
-      setDismissed(true);
-      return;
-    }
+    // Don't show if already dismissed
+    if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
 
-    // Check if already installed
+    // Don't show if already installed as PWA
     if (window.matchMedia('(display-mode: standalone)').matches) return;
+    if ((window.navigator as any).standalone === true) return;
 
-    // iOS detection (no beforeinstallprompt)
-    const ua = navigator.userAgent;
-    const isIosDevice = /iPad|iPhone|iPod/.test(ua) && !(window as any).MSStream;
-    const isSafari = /Safari/.test(ua) && !/Chrome/.test(ua);
-    if (isIosDevice && isSafari) {
-      setIsIos(true);
-      return;
+    // Detect iOS (any browser on iOS is WebKit)
+    const isIosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIosDevice) {
+      // Show after 3 seconds on iOS
+      const timer = setTimeout(() => {
+        setIsIos(true);
+        setShow(true);
+      }, 3000);
+      return () => clearTimeout(timer);
     }
 
-    // Chrome/Edge/Samsung — listen for install prompt
+    // Android/Chrome — capture beforeinstallprompt
     const handler = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      promptRef.current = e;
+      setShow(true);
     };
     window.addEventListener('beforeinstallprompt', handler);
     return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setDeferredPrompt(null);
+    const prompt = promptRef.current;
+    if (!prompt) return;
+    try {
+      prompt.prompt();
+      const result = await prompt.userChoice;
+      if (result.outcome === 'accepted') {
+        promptRef.current = null;
+      }
+    } catch (e) {
+      console.error('Install error:', e);
     }
     handleDismiss();
   };
 
   const handleDismiss = () => {
-    setDismissed(true);
+    setShow(false);
     sessionStorage.setItem('alonzo-pwa-dismissed', '1');
   };
 
-  // Don't show if dismissed, already installed, or no prompt available
-  if (dismissed) return null;
-  if (!deferredPrompt && !isIos) return null;
+  if (!show) return null;
 
   return (
     <div className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-[340px] z-[85] animate-slide-up">
@@ -68,19 +69,15 @@ export function InstallPrompt() {
         <div className="flex-1 min-w-0">
           <p className="text-[12px] font-semibold text-alonzo-charcoal">Instalar ALONZO</p>
           {isIos ? (
-            <p className="text-[11px] text-alonzo-gray-500 mt-0.5 leading-relaxed">
-              Toca <span className="inline-block w-4 h-4 align-text-bottom">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-full h-full">
-                  <path d="M12 5v14M5 12l7-7 7 7"/><rect x="3" y="15" width="18" height="6" rx="2"/>
-                </svg>
-              </span> y luego <strong>"Agregar a inicio"</strong>
+            <p className="text-[11px] text-alonzo-gray-500 mt-1 leading-relaxed">
+              Toca <Share size={13} className="inline -mt-0.5 text-blue-500" /> y luego <strong>"Agregar a inicio"</strong>
             </p>
           ) : (
             <>
               <p className="text-[11px] text-alonzo-gray-500 mt-0.5">Accede rápido desde tu pantalla de inicio</p>
               <button
                 onClick={handleInstall}
-                className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors"
+                className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95"
               >
                 <Download size={12} />
                 Instalar
@@ -88,8 +85,8 @@ export function InstallPrompt() {
             </>
           )}
         </div>
-        <button onClick={handleDismiss} className="text-alonzo-gray-400 hover:text-alonzo-black transition-colors shrink-0">
-          <X size={16} />
+        <button onClick={handleDismiss} className="text-alonzo-gray-400 hover:text-alonzo-black transition-colors shrink-0 p-1">
+          <X size={18} />
         </button>
       </div>
     </div>
