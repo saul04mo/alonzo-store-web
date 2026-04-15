@@ -78,3 +78,11 @@
   0% { transform: translateX(100vw); }
   100% { transform: translateX(-100%); }
 }
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+  animation: slideUp 0.35s ease-out;
+}

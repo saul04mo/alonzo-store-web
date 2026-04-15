@@ -11,6 +11,7 @@ import {
   SiteHeader,
   SiteFooter,
   CartDrawer,
+  InstallPrompt,
 } from '@/components/ui';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
@@ -46,6 +47,13 @@ function ShellContent({ children }: { children: React.ReactNode }) {
   // Cart expiry
   useEffect(() => {
     useCartStore.getState().checkExpiry();
+  }, []);
+
+  // Register Service Worker
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
   }, []);
 
   // Pre-fetch all products + categories on app start
@@ -182,6 +190,8 @@ function ShellContent({ children }: { children: React.ReactNode }) {
       <SiteFooter />
 
       <CartDrawer />
+
+      <InstallPrompt />
 
       <SizeSelector
         product={selectedProduct}

@@ -9,3 +9,4 @@ export { HeroSection } from './HeroSection';
 export { HeroBanner } from './HeroBanner';
 export { SiteFooter } from './SiteFooter';
 export { CartDrawer } from './CartDrawer';
+export { InstallPrompt } from './InstallPrompt';

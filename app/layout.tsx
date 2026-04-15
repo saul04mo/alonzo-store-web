@@ -14,7 +14,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'ALONZO Store',
   description: 'Moda para hombre y mujer — ALONZO Store Venezuela',
-  icons: { icon: '/images/letralogo.jpg', apple: '/images/letralogo.jpg' },
+  icons: { icon: '/icons/icon-192x192.png', apple: '/icons/icon-192x192.png' },
+  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
