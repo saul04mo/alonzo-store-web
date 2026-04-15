@@ -11,11 +11,34 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const SITE_URL = 'https://alonzo-store-web.netlify.app';
+
 export const metadata: Metadata = {
-  title: 'ALONZO Store',
-  description: 'Moda para hombre y mujer — ALONZO Store Venezuela',
+  title: {
+    default: 'ALONZO Store — Moda para Hombre y Mujer',
+    template: '%s | ALONZO Store',
+  },
+  description: 'Tienda de moda urbana y streetwear. Pantalones, camisas, chaquetas y más. Envíos a toda Venezuela.',
   icons: { icon: '/icons/icon-192x192.png', apple: '/icons/icon-192x192.png' },
   manifest: '/manifest.json',
+  metadataBase: new URL(SITE_URL),
+  openGraph: {
+    type: 'website',
+    siteName: 'ALONZO Store',
+    title: 'ALONZO Store — Moda para Hombre y Mujer',
+    description: 'Tienda de moda urbana y streetwear. Pantalones, camisas, chaquetas y más. Envíos a toda Venezuela.',
+    url: SITE_URL,
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630, alt: 'ALONZO Store' }],
+    locale: 'es_VE',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ALONZO Store — Moda para Hombre y Mujer',
+    description: 'Tienda de moda urbana y streetwear. Envíos a toda Venezuela.',
+    images: ['/images/og-image.jpg'],
+  },
+  robots: { index: true, follow: true },
+  keywords: ['moda', 'ropa', 'streetwear', 'Venezuela', 'ALONZO', 'pantalones', 'camisas', 'chaquetas', 'tienda online'],
 };
 
 export const viewport: Viewport = {
