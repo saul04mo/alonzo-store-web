@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { db, collection, getDocs } from '@/lib/firebase-client';
 
@@ -13,10 +13,7 @@ let cachedAnnouncements: Announcement[] | null = null;
 
 export function AnnouncementBar() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(cachedAnnouncements || []);
-  const [currentIdx, setCurrentIdx] = useState(0);
   const [dismissed, setDismissed] = useState(false);
-  const [slide, setSlide] = useState<'center' | 'out-left' | 'in-right'>('center');
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
     if (cachedAnnouncements) return;
@@ -39,51 +36,21 @@ export function AnnouncementBar() {
     })();
   }, []);
 
-  useEffect(() => {
-    if (announcements.length <= 1) return;
-    intervalRef.current = setInterval(() => {
-      // Slide current text out to the left
-      setSlide('out-left');
-      setTimeout(() => {
-        // Change text and position it on the right
-        setCurrentIdx((prev) => (prev + 1) % announcements.length);
-        setSlide('in-right');
-        // Immediately trigger slide to center
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setSlide('center');
-          });
-        });
-      }, 350);
-    }, 4000);
-    return () => clearInterval(intervalRef.current);
-  }, [announcements.length]);
+  if (dismissed || announcements.length === 0) return null;
 
-  if (dismissed) return null;
-
-  const current = announcements[currentIdx];
-
-  const slideClass =
-    slide === 'out-left' ? 'ann-slide-out-left' :
-    slide === 'in-right' ? 'ann-slide-in-right' :
-    'ann-slide-center';
+  // Build marquee text: join all announcements with separator
+  const separator = '     ★     ';
+  const marqueeText = announcements.map((a) => a.text).join(separator);
+  // Duplicate for seamless loop
+  const fullText = marqueeText + separator + marqueeText;
 
   return (
-    <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px] flex items-center justify-center px-8">
-      {current && (
-        <p
-          key={`${currentIdx}-${slide}`}
-          className={`text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none absolute inset-0 flex items-center justify-center px-8 whitespace-nowrap ${slideClass}`}
-        >
-          {current.link ? (
-            <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
-              {current.text}
-            </a>
-          ) : (
-            current.text
-          )}
-        </p>
-      )}
+    <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
+      <div className="marquee-track">
+        <span className="marquee-content text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap">
+          {fullText}
+        </span>
+      </div>
       <button
         onClick={() => setDismissed(true)}
         className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10"
@@ -91,20 +58,19 @@ export function AnnouncementBar() {
         <X size={12} strokeWidth={2} />
       </button>
       <style jsx>{`
-        .ann-slide-center {
-          transform: translateX(0);
-          opacity: 1;
-          transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+        .marquee-track {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          width: max-content;
+          animation: marqueeScroll 25s linear infinite;
         }
-        .ann-slide-out-left {
-          transform: translateX(-100%);
-          opacity: 0;
-          transition: transform 0.35s ease-in, opacity 0.35s ease-in;
+        .marquee-content {
+          display: inline-block;
         }
-        .ann-slide-in-right {
-          transform: translateX(100%);
-          opacity: 0;
-          transition: none;
+        @keyframes marqueeScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
     </div>
