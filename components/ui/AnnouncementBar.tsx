@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { db, collection, getDocs } from '@/lib/firebase-client';
 
@@ -15,8 +15,9 @@ export function AnnouncementBar() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(cachedAnnouncements || []);
   const [dismissed, setDismissed] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [sliding, setSliding] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const textRef = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<Animation | null>(null);
 
   useEffect(() => {
     if (cachedAnnouncements) return;
@@ -39,44 +40,61 @@ export function AnnouncementBar() {
     })();
   }, []);
 
-  useEffect(() => {
-    if (announcements.length <= 1) return;
-    intervalRef.current = setInterval(() => {
-      setSliding(true);
-      setTimeout(() => {
-        setSliding(false);
+  const startAnimation = useCallback(() => {
+    const text = textRef.current;
+    const container = containerRef.current;
+    if (!text || !container || announcements.length === 0) return;
+
+    const textW = text.offsetWidth;
+    const containerW = container.offsetWidth;
+    const distance = containerW + textW;
+    const speed = 60; // pixels per second
+    const duration = (distance / speed) * 1000;
+
+    if (animRef.current) animRef.current.cancel();
+
+    const anim = text.animate([
+      { transform: `translateX(${containerW}px)` },
+      { transform: `translateX(-${textW}px)` },
+    ], {
+      duration,
+      easing: 'linear',
+    });
+
+    anim.onfinish = () => {
+      if (announcements.length > 1) {
         setCurrentIdx((prev) => (prev + 1) % announcements.length);
-      }, 800);
-    }, 4000);
-    return () => clearInterval(intervalRef.current);
-  }, [announcements.length]);
+      } else {
+        startAnimation();
+      }
+    };
+
+    animRef.current = anim;
+  }, [announcements]);
+
+  useEffect(() => {
+    startAnimation();
+    return () => { if (animRef.current) animRef.current.cancel(); };
+  }, [currentIdx, startAnimation]);
 
   if (dismissed || announcements.length === 0) return null;
 
   const current = announcements[currentIdx];
-  const nextIdx = (currentIdx + 1) % announcements.length;
-  const next = announcements[nextIdx];
-
-  const renderText = (ann: Announcement) =>
-    ann.link ? (
-      <a href={ann.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{ann.text}</a>
-    ) : ann.text;
 
   return (
-    <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
-      {/* Sliding container: two items side by side, shifts left by 100% */}
-      <div
-        className="flex h-full transition-transform duration-[800ms] ease-in-out"
-        style={{ width: '200%', transform: sliding ? 'translateX(-50%)' : 'translateX(0)' }}
-      >
-        <div className="w-1/2 flex items-center justify-center px-8 text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap">
-          {renderText(current)}
-        </div>
-        <div className="w-1/2 flex items-center justify-center px-8 text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap">
-          {renderText(next)}
-        </div>
+    <div ref={containerRef} className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
+      <div className="h-full flex items-center">
+        <span
+          ref={textRef}
+          className="text-[8px] sm:text-[9px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap absolute"
+        >
+          {current.link ? (
+            <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{current.text}</a>
+          ) : (
+            current.text
+          )}
+        </span>
       </div>
-
       <button
         onClick={() => setDismissed(true)}
         className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10"
