@@ -53,12 +53,16 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle, g
     <div className="w-full px-3 md:px-6 lg:px-10">
       {sectionTitle && <SectionTitle title={sectionTitle} />}
       <div className={`grid ${gridClasses[cols]}`}>
-        {products.map((product) => (
-          <ProductCard
+        {products.map((product, idx) => (
+          <div
             key={product.id}
-            product={product}
-            onClick={() => onProductClick(product)}
-          />
+            className={idx < 8 ? `stagger-up stagger-${idx + 1}` : 'page-fade-soft'}
+          >
+            <ProductCard
+              product={product}
+              onClick={() => onProductClick(product)}
+            />
+          </div>
         ))}
       </div>
     </div>

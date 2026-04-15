@@ -47,13 +47,13 @@ export function HeroBanner() {
           <img 
             src="/images/logoAlonzo.png" 
             alt="ALONZO" 
-            className="h-8 md:h-12 w-auto mb-4 object-contain brightness-0 invert"
+            className="h-8 md:h-12 w-auto mb-4 object-contain brightness-0 invert stagger-up stagger-1"
           />
-          <p className="text-sm md:text-base tracking-[0.15em] mb-8 font-light text-white/90 uppercase drop-shadow-md">
+          <p className="text-sm md:text-base tracking-[0.15em] mb-8 font-light text-white/90 uppercase drop-shadow-md stagger-up stagger-2">
             Newest Collection
           </p>
 
-          <div className="flex items-center justify-center gap-3 md:gap-4">
+          <div className="flex items-center justify-center gap-3 md:gap-4 stagger-up stagger-3">
             <button
               onClick={() => handleGenderSelect('Mujer')}
               className="py-3 px-8 border border-white bg-black/20 text-white text-[11px] tracking-[0.15em] uppercase font-semibold hover:bg-white hover:text-alonzo-black transition-colors duration-300 backdrop-blur-sm"

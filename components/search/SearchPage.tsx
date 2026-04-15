@@ -183,12 +183,13 @@ export function SearchPage() {
                   {results.length} producto{results.length !== 1 ? 's' : ''}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
-                  {results.map((p) => (
-                    <ProductCard
-                      key={p.id}
-                      product={p}
-                      onClick={() => handleProductClick(p)}
-                    />
+                  {results.map((p, idx) => (
+                    <div key={p.id} className={idx < 8 ? `stagger-up stagger-${idx + 1}` : 'page-fade-soft'}>
+                      <ProductCard
+                        product={p}
+                        onClick={() => handleProductClick(p)}
+                      />
+                    </div>
                   ))}
                 </div>
               </>
@@ -226,12 +227,13 @@ export function SearchPage() {
                 {results.length} producto{results.length !== 1 ? 's' : ''}
               </p>
               <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {results.map((p) => (
-                  <ProductCard
-                    key={p.id}
-                    product={p}
-                    onClick={() => handleProductClick(p)}
-                  />
+                {results.map((p, idx) => (
+                  <div key={p.id} className={idx < 8 ? `stagger-up stagger-${idx + 1}` : 'page-fade-soft'}>
+                    <ProductCard
+                      product={p}
+                      onClick={() => handleProductClick(p)}
+                    />
+                  </div>
                 ))}
               </div>
             </>

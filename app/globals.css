@@ -86,3 +86,42 @@
 .animate-slide-up {
   animation: slideUp 0.35s ease-out;
 }
+
+/* Page transitions */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pageFadeInSoft {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes staggerUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+.page-fade-in {
+  animation: pageFadeIn 0.4s ease-out both;
+}
+.page-fade-soft {
+  animation: pageFadeInSoft 0.35s ease-out both;
+}
+.page-scale-in {
+  animation: scaleIn 0.35s ease-out both;
+}
+.stagger-up {
+  opacity: 0;
+  animation: staggerUp 0.45s ease-out forwards;
+}
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }

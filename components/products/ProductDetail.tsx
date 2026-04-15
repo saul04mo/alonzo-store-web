@@ -202,7 +202,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
         <div className="flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-14">
 
           {/* ══════ LEFT: Image Gallery ══════ */}
-          <div className="w-full md:w-[55%]">
+          <div className="w-full md:w-[55%] page-scale-in">
             {/* Main image — full viewport height */}
             <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm">
               <Image
@@ -241,7 +241,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           </div>
 
           {/* ══════ RIGHT: Product Info ══════ */}
-          <div className="w-full md:w-[45%] md:sticky md:top-24 md:self-start">
+          <div className="w-full md:w-[45%] md:sticky md:top-24 md:self-start page-fade-in">
 
             {/* Product name + price */}
             <div className="flex items-start justify-between gap-4">
@@ -445,20 +445,21 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
       {/* ══════ Recommended Products ══════ */}
       {recommended.length > 0 && (
-        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-10 md:py-14">
+        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-10 md:py-14 page-fade-in">
           <h2 className="text-[11px] tracking-[0.18em] uppercase font-medium text-alonzo-gray-500 mb-6">
             También te puede gustar
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
-            {recommended.map((p) => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                onClick={() => {
-                  seedProduct(p);
-                  router.push(`/product/${p.id}`);
-                }}
-              />
+            {recommended.map((p, idx) => (
+              <div key={p.id} className={`stagger-up stagger-${idx + 1}`}>
+                <ProductCard
+                  product={p}
+                  onClick={() => {
+                    seedProduct(p);
+                    router.push(`/product/${p.id}`);
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>

@@ -63,7 +63,7 @@ export function CartPage({ onCheckout }: CartPageProps) {
   };
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 py-10 font-sans min-h-[60vh]">
+    <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 py-10 font-sans min-h-[60vh] page-fade-in">
       <button 
         onClick={() => router.back()} 
         className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-black transition-colors mb-6 font-medium"

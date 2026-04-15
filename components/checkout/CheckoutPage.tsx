@@ -234,7 +234,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     'w-full border border-gray-200 rounded-lg px-4 py-3.5 text-base outline-none transition-all focus:border-black focus:ring-1 focus:ring-black/5 placeholder:text-gray-400 bg-white';
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 py-8 font-sans min-h-[70vh]">
+    <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 py-8 font-sans min-h-[70vh] page-fade-in">
       {/* Back */}
       <button
         onClick={() => router.back()}
