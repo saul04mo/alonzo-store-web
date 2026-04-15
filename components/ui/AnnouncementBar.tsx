@@ -49,23 +49,23 @@ export function AnnouncementBar() {
     return () => clearInterval(intervalRef.current);
   }, [announcements.length]);
 
-  if (announcements.length === 0) return null;
   const current = announcements[currentIdx];
-  if (!current) return null;
 
   return (
-    <div className="w-full bg-alonzo-black text-white text-center py-1.5 overflow-hidden">
-      <p className={`text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium transition-all duration-300 leading-none ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
-      }`}>
-        {current.link ? (
-          <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
-            {current.text}
-          </a>
-        ) : (
-          current.text
-        )}
-      </p>
+    <div className="w-full bg-alonzo-black text-white text-center py-1.5 overflow-hidden h-[26px]">
+      {current && (
+        <p className={`text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium transition-all duration-300 leading-none ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
+        }`}>
+          {current.link ? (
+            <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">
+              {current.text}
+            </a>
+          ) : (
+            current.text
+          )}
+        </p>
+      )}
     </div>
   );
 }
