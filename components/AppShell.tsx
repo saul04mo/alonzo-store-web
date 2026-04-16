@@ -18,6 +18,7 @@ import { SizeSelector } from '@/components/products/SizeSelector';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { OnboardingModal } from '@/components/auth/OnboardingModal';
 import { auth, onAuthStateChanged, getRedirectResult, db, doc, getDoc } from '@/lib/firebase-client';
+import { useWebSettings } from '@/lib/useWebSettings';
 import { prefetchAllProducts, fetchProducts } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
 import type { Product, ProductVariant, Client } from '@/types';
@@ -27,6 +28,9 @@ function ShellContent({ children }: { children: React.ReactNode }) {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+
+  // Load web settings early — re-renders all children when Firestore responds
+  const webSettings = useWebSettings();
 
   const { addItem } = useCartStore();
   const client = useClientStore((s) => s.client);
