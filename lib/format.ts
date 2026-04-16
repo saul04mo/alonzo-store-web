@@ -1,5 +1,8 @@
+import { getWebSettings } from '@/lib/useWebSettings';
+
 export function formatUSD(amount: number): string {
-  return `€ ${amount.toFixed(2)}`;
+  const { currencySymbol } = getWebSettings();
+  return `${currencySymbol} ${amount.toFixed(2)}`;
 }
 
 export function formatBs(amount: number): string {

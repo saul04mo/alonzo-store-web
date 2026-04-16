@@ -3,20 +3,7 @@
 import Link from 'next/link';
 import { Instagram, Facebook, ChevronRight } from 'lucide-react';
 import { useUIStore, useClientStore } from '@/stores';
-
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '584123380976';
-
-const footerSections = [
-  {
-    title: 'ATENCIÓN AL CLIENTE',
-    links: [
-      { label: '● LIVE CHAT', href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, necesito ayuda.')}`, external: true },
-      { label: 'CENTRO DE AYUDA', href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Necesito soporte con mi pedido.')}`, external: true },
-      { label: 'RASTREAR PEDIDO', href: '/account', external: false },
-      { label: 'HACER DEVOLUCIÓN', href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero solicitar una devolución.')}`, external: true },
-    ],
-  },
-];
+import { useWebSettings } from '@/lib/useWebSettings';
 
 const socialLinks = [
   { icon: 'instagram', href: 'https://www.instagram.com/alonzo.ve/' },
@@ -27,6 +14,19 @@ const socialLinks = [
 export function SiteFooter() {
   const setAuthOpen = useUIStore((s) => s.setAuthOpen);
   const client = useClientStore((s) => s.client);
+  const { whatsappNumber } = useWebSettings();
+
+  const footerSections = [
+    {
+      title: 'ATENCIÓN AL CLIENTE',
+      links: [
+        { label: '● LIVE CHAT', href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola, necesito ayuda.')}`, external: true },
+        { label: 'CENTRO DE AYUDA', href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Necesito soporte con mi pedido.')}`, external: true },
+        { label: 'RASTREAR PEDIDO', href: '/account', external: false },
+        { label: 'HACER DEVOLUCIÓN', href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Quiero solicitar una devolución.')}`, external: true },
+      ],
+    },
+  ];
 
   return (
     <footer className="border-t border-alonzo-gray-300 bg-white">

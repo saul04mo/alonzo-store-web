@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
-
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '584123380976';
+import { useWebSettings } from '@/lib/useWebSettings';
 
 export function WhatsAppButton() {
   const [expanded, setExpanded] = useState(false);
+  const { whatsappNumber } = useWebSettings();
 
   const handleClick = () => {
     if (expanded) {
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, tengo una consulta sobre un producto.')}`;
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola, tengo una consulta sobre un producto.')}`;
       window.open(url, '_blank');
     }
     setExpanded(!expanded);

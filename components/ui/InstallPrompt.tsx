@@ -1,40 +1,21 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { X, Download, Share } from 'lucide-react';
-import { db, doc, getDoc } from '@/lib/firebase-client';
+import { useWebSettings } from '@/lib/useWebSettings';
 
 export function InstallPrompt() {
   const [show, setShow] = useState(false);
   const [platform, setPlatform] = useState<'ios' | 'android' | 'desktop' | null>(null);
-  const [enabled, setEnabled] = useState<boolean | null>(null);
+  const { installPromptEnabled } = useWebSettings();
   const promptRef = useRef<any>(null);
   const [installed, setInstalled] = useState(false);
 
-  // Check if feature is enabled
   useEffect(() => {
-    (async () => {
-      try {
-        const snap = await getDoc(doc(db, 'config', 'webSettings'));
-        if (snap.exists() && snap.data().installPromptEnabled === false) {
-          setEnabled(false);
-        } else {
-          setEnabled(true);
-        }
-      } catch {
-        setEnabled(true);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (enabled !== true) return;
+    if (!installPromptEnabled) return;
     if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
-
-    // Already installed
     if (window.matchMedia('(display-mode: standalone)').matches) return;
     if ((window.navigator as any).standalone === true) return;
 
-    // Detect platform
     const ua = navigator.userAgent;
     const isIos = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/.test(ua);
@@ -44,48 +25,29 @@ export function InstallPrompt() {
       setTimeout(() => setShow(true), 3000);
     } else if (isAndroid) {
       setPlatform('android');
-      // Try to capture native prompt
-      const handler = (e: Event) => {
-        e.preventDefault();
-        promptRef.current = e;
-      };
+      const handler = (e: Event) => { e.preventDefault(); promptRef.current = e; };
       window.addEventListener('beforeinstallprompt', handler);
-      // Show banner after 3 seconds regardless
       setTimeout(() => setShow(true), 3000);
       return () => window.removeEventListener('beforeinstallprompt', handler);
     } else {
-      // Desktop
       setPlatform('desktop');
-      const handler = (e: Event) => {
-        e.preventDefault();
-        promptRef.current = e;
-        setShow(true);
-      };
+      const handler = (e: Event) => { e.preventDefault(); promptRef.current = e; setShow(true); };
       window.addEventListener('beforeinstallprompt', handler);
       return () => window.removeEventListener('beforeinstallprompt', handler);
     }
-  }, [enabled]);
+  }, [installPromptEnabled]);
 
   const handleInstall = async () => {
     if (promptRef.current) {
       try {
         promptRef.current.prompt();
         const result = await promptRef.current.userChoice;
-        if (result.outcome === 'accepted') {
-          setInstalled(true);
-          setTimeout(() => handleDismiss(), 2000);
-          return;
-        }
+        if (result.outcome === 'accepted') { setInstalled(true); setTimeout(() => handleDismiss(), 2000); return; }
       } catch {}
     }
-    // If native prompt not available, show instructions
-    // Already showing instructions via platform state
   };
 
-  const handleDismiss = () => {
-    setShow(false);
-    sessionStorage.setItem('alonzo-pwa-dismissed', '1');
-  };
+  const handleDismiss = () => { setShow(false); sessionStorage.setItem('alonzo-pwa-dismissed', '1'); };
 
   if (!show) return null;
 
@@ -107,40 +69,25 @@ export function InstallPrompt() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-[12px] font-semibold text-alonzo-charcoal">Instalar ALONZO</p>
-
           {platform === 'ios' && (
             <p className="text-[11px] text-alonzo-gray-500 mt-1 leading-relaxed">
               Toca <Share size={13} className="inline -mt-0.5 text-blue-500" /> y luego <strong>"Agregar a inicio"</strong>
             </p>
           )}
-
           {platform === 'android' && (
             <>
               <p className="text-[11px] text-alonzo-gray-500 mt-0.5">Accede rápido desde tu pantalla de inicio</p>
-              <button
-                onClick={handleInstall}
-                className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95"
-              >
-                <Download size={12} />
-                Instalar
+              <button onClick={handleInstall} className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95">
+                <Download size={12} /> Instalar
               </button>
-              {!promptRef.current && (
-                <p className="text-[10px] text-alonzo-gray-400 mt-2 leading-relaxed">
-                  O toca <strong>⋮</strong> → <strong>"Instalar app"</strong>
-                </p>
-              )}
+              {!promptRef.current && <p className="text-[10px] text-alonzo-gray-400 mt-2">O toca <strong>⋮</strong> → <strong>"Instalar app"</strong></p>}
             </>
           )}
-
           {platform === 'desktop' && (
             <>
               <p className="text-[11px] text-alonzo-gray-500 mt-0.5">Accede rápido desde tu escritorio</p>
-              <button
-                onClick={handleInstall}
-                className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95"
-              >
-                <Download size={12} />
-                Instalar
+              <button onClick={handleInstall} className="mt-2 flex items-center gap-1.5 px-3 py-1.5 bg-alonzo-black text-white text-[10px] tracking-[0.1em] uppercase font-semibold rounded-md hover:bg-alonzo-charcoal transition-colors active:scale-95">
+                <Download size={12} /> Instalar
               </button>
             </>
           )}
