@@ -113,10 +113,17 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       {/* Image — 4:5 aspect ratio */}
       <div
         className={`relative w-full pt-[125%] overflow-hidden rounded-sm ${
-          !loaded ? 'skeleton-shimmer' : 'bg-alonzo-gray-100'
+          !loaded ? 'bg-alonzo-gray-100' : 'bg-alonzo-gray-100'
         }`}
         onClick={onClick}
       >
+        {/* Blur placeholder — shows before image loads */}
+        {!loaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-alonzo-gray-100">
+            <img src="/images/logoAlonzo.png" alt="" className="w-10 h-10 object-contain opacity-[0.06]" />
+          </div>
+        )}
+
         <img
           src={imageUrl}
           alt={product.name}
@@ -125,8 +132,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           onLoad={() => setLoaded(true)}
           className={`
             absolute inset-0 w-full h-full object-cover object-center
-            transition-all duration-500 ease-out
-            ${loaded ? 'opacity-100' : 'opacity-0'}
+            transition-all duration-700 ease-out
+            ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[1.02] blur-sm'}
             ${hovered && secondImage && secondLoaded ? 'opacity-0' : ''}
           `}
         />
@@ -141,8 +148,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             onLoad={() => setSecondLoaded(true)}
             className={`
               absolute inset-0 w-full h-full object-cover object-center
-              transition-opacity duration-500 ease-out
-              ${hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
+              transition-all duration-700 ease-out
+              ${hovered && secondLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'}
             `}
           />
         )}

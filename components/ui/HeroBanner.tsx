@@ -33,8 +33,8 @@ export function HeroBanner() {
           src={heroImage}
           alt="Hero Banner"
           onLoad={() => setImageLoaded(true)}
-          className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-1000 ease-out ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-1000 ease-out ${
+            imageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-md scale-[1.02]'
           }`}
         />
       ) : (
@@ -45,8 +45,8 @@ export function HeroBanner() {
           priority
           sizes="100vw"
           onLoad={() => setImageLoaded(true)}
-          className={`object-cover object-top transition-opacity duration-1000 ease-out ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
+          className={`object-cover object-top transition-all duration-1000 ease-out ${
+            imageLoaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-md scale-[1.02]'
           }`}
         />
       )}

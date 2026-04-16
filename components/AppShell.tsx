@@ -12,6 +12,7 @@ import {
   SiteFooter,
   CartDrawer,
   InstallPrompt,
+  TopLoader,
 } from '@/components/ui';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
@@ -179,6 +180,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-white">
+      <TopLoader />
       <SiteHeader
         gender={gender}
         onGenderChange={handleGenderChange}
