@@ -163,12 +163,11 @@ export async function createOrder(params: CreateOrderParams): Promise<{
 // ─────────────────────────────────────────────
 // Fetch orders (client-side via Firestore — protected by rules)
 // ─────────────────────────────────────────────
-export async function fetchClientOrders(clientId: string, limitCount = 5): Promise<Invoice[]> {
-  const { db, collection, getDocs, query, where, orderBy, limit } = await import('@/lib/firebase-client');
+export async function fetchClientOrders(clientId: string, limitCount = 20): Promise<Invoice[]> {
+  const { db, collection, getDocs, query, where, limit } = await import('@/lib/firebase-client');
   const q = query(
     collection(db, 'invoices'),
     where('clientId', '==', clientId),
-    orderBy('numericId', 'desc'),
     limit(limitCount)
   );
   const snap = await getDocs(q);

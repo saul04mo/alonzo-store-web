@@ -42,17 +42,26 @@ export function AccountOrdersPage() {
     const load = async () => {
       setLoading(true);
       try {
-        const byId = await fetchClientOrders(client.id, limitCount);
-        let all = [...byId];
+        const allMap = new Map<string, Invoice>();
 
+        // Query 1: by clientId (web orders)
+        try {
+          const byId = await fetchClientOrders(client.id, limitCount);
+          byId.forEach((o) => allMap.set(o.id || String(o.numericId), o));
+        } catch (e) { console.warn('fetchClientOrders failed:', e); }
+
+        // Query 2: by RIF (POS orders)
         if (client.rif_ci) {
-          const byRif = await fetchClientOrdersByRif(client.rif_ci, limitCount);
-          byRif.forEach((o) => {
-            if (!all.some((a) => a.id === o.id || a.numericId === o.numericId)) all.push(o);
-          });
+          try {
+            const byRif = await fetchClientOrdersByRif(client.rif_ci, limitCount);
+            byRif.forEach((o) => {
+              const key = o.id || String(o.numericId);
+              if (!allMap.has(key)) allMap.set(key, o);
+            });
+          } catch (e) { console.warn('fetchClientOrdersByRif failed:', e); }
         }
 
-        all.sort((a, b) => b.numericId - a.numericId);
+        const all = Array.from(allMap.values()).sort((a, b) => b.numericId - a.numericId);
         setHasMore(all.length >= limitCount);
         setOrders(all);
       } catch (err) {

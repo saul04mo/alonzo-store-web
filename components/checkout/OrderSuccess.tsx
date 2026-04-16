@@ -215,10 +215,10 @@ export function OrderSuccess({
             className="flex-1 py-3 border border-gray-200 text-xs font-semibold text-gray-600 rounded-lg hover:border-gray-400 transition-colors">
             Seguir comprando
           </button>
-          <button onClick={() => { onClose(); window.location.href = '/account/orders'; }}
-            className="flex-1 py-3 bg-alonzo-black text-white text-xs font-semibold rounded-lg hover:bg-alonzo-charcoal transition-colors">
+          <a href="/account/orders"
+            className="flex-1 py-3 bg-alonzo-black text-white text-xs font-semibold rounded-lg hover:bg-alonzo-charcoal transition-colors text-center no-underline">
             Ver mis pedidos
-          </button>
+          </a>
         </div>
       </div>
     </div>
