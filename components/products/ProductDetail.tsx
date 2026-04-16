@@ -31,7 +31,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const { toggle: toggleWishlist, isInWishlist } = useWishlist();
 
   // Gallery
-  const [currentImageIdx, setCurrentImageIdx] = useState(0);
+  const [currentImageIdx, setCurrentImageIdx] = useState(0); // kept for reset only
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [zooming, setZooming] = useState(false);
   const touchStartX = useRef(0);
@@ -55,6 +55,8 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     setActiveAccordion(null);
     setImageLoaded(false);
     setCurrentImageIdx(0);
+    setSlideIdx(1);
+    setTransitioning(true);
   }, [product?.id]);
 
   // Recommended products
@@ -79,16 +81,47 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     return () => { cancelled = true; };
   }, [product?.id, product?.gender, product?.category]);
 
-  // Gallery navigation (must be before early returns — hooks can't be conditional)
+  // Gallery navigation — infinite loop
+  const [slideIdx, setSlideIdx] = useState(1); // starts at 1 because of prepended clone
+  const [transitioning, setTransitioning] = useState(true);
+
+  // Extended array: [last, ...all, first] for seamless loop
+  const extImages = useMemo(() => {
+    if (allImages.length <= 1) return allImages;
+    return [allImages[allImages.length - 1], ...allImages, allImages[0]];
+  }, [allImages]);
+
   const goNext = useCallback(() => {
-    setImageLoaded(false);
-    setCurrentImageIdx((prev) => (prev + 1) % Math.max(allImages.length, 1));
+    if (allImages.length <= 1) return;
+    setTransitioning(true);
+    setSlideIdx((prev) => prev + 1);
   }, [allImages.length]);
 
   const goPrev = useCallback(() => {
-    setImageLoaded(false);
-    setCurrentImageIdx((prev) => (prev - 1 + Math.max(allImages.length, 1)) % Math.max(allImages.length, 1));
+    if (allImages.length <= 1) return;
+    setTransitioning(true);
+    setSlideIdx((prev) => prev - 1);
   }, [allImages.length]);
+
+  // After transition: snap to real position if on a clone
+  const handleTransitionEnd = useCallback(() => {
+    if (allImages.length <= 1) return;
+    if (slideIdx >= allImages.length + 1) {
+      // Went past last → snap to first (index 1)
+      setTransitioning(false);
+      setSlideIdx(1);
+    } else if (slideIdx <= 0) {
+      // Went before first → snap to last
+      setTransitioning(false);
+      setSlideIdx(allImages.length);
+    }
+  }, [slideIdx, allImages.length]);
+
+  // Real index for dots/counter
+  const realIdx = allImages.length <= 1 ? 0 :
+    slideIdx <= 0 ? allImages.length - 1 :
+    slideIdx >= allImages.length + 1 ? 0 :
+    slideIdx - 1;
 
   // Loading state
   if (loading) {
@@ -262,23 +295,24 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {/* Image container — fixed frame */}
             <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm bg-alonzo-gray-100">
 
-              {/* Horizontal slider — same for mobile and desktop */}
+              {/* Horizontal slider — infinite loop */}
               <div
                 className="absolute inset-0 flex"
                 style={{
-                  transform: `translateX(-${currentImageIdx * 100}%)`,
-                  transition: 'transform 0.4s ease-out',
+                  transform: `translateX(-${(allImages.length > 1 ? slideIdx : 0) * 100}%)`,
+                  transition: transitioning ? 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)' : 'none',
                 }}
+                onTransitionEnd={handleTransitionEnd}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
-                {allImages.map((img, idx) => (
+                {(allImages.length > 1 ? extImages : allImages).map((img, idx) => (
                   <div key={idx} className="w-full h-full flex-shrink-0 relative">
                     <Image
                       src={img}
                       alt={`${product.name} - ${idx + 1}`}
                       fill
-                      priority={idx === 0}
+                      priority={idx <= 2}
                       sizes="(max-width: 768px) 100vw, 55vw"
                       className="object-cover object-center"
                     />
@@ -310,9 +344,9 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                   {allImages.map((_, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setCurrentImageIdx(idx)}
+                      onClick={() => { setTransitioning(true); setSlideIdx(idx + 1); }}
                       className={`h-1.5 rounded-full transition-all duration-300 ${
-                        idx === currentImageIdx ? 'bg-alonzo-black w-4' : 'bg-alonzo-gray-400/60 w-1.5'
+                        idx === realIdx ? 'bg-alonzo-black w-4' : 'bg-alonzo-gray-400/60 w-1.5'
                       }`}
                     />
                   ))}
@@ -322,7 +356,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               {/* Image counter (desktop) */}
               {allImages.length > 1 && (
                 <span className="absolute bottom-3 right-3 text-[10px] text-alonzo-gray-500 bg-white/80 px-2 py-0.5 rounded-full z-10 hidden md:block">
-                  {currentImageIdx + 1} / {allImages.length}
+                  {realIdx + 1} / {allImages.length}
                 </span>
               )}
             </div>
