@@ -29,6 +29,9 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   const finalPrice = hasOffer ? calcDiscountedPrice(rawPrice, product.offer) : rawPrice;
 
   const imageUrl = product.imageUrl || 'https://via.placeholder.com/400x600';
+  const secondImage = product.images?.length > 1 ? product.images[1] : null;
+  const [hovered, setHovered] = useState(false);
+  const [secondLoaded, setSecondLoaded] = useState(false);
 
   const sizeMap = new Map<string, { stock: number; variantIndex: number }>();
   product.variants.forEach((v, idx) => {
@@ -70,13 +73,16 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   };
 
   const handleMouseEnter = () => {
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.as = 'image';
-    link.href = imageUrl;
-    if (!document.querySelector(`link[href="${imageUrl}"]`)) {
-      document.head.appendChild(link);
-    }
+    // Preload images for instant detail page
+    [imageUrl, secondImage].filter(Boolean).forEach((src) => {
+      if (src && !document.querySelector(`link[href="${src}"]`)) {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+      }
+    });
   };
 
   // Hover on + button → show sizes
@@ -99,8 +105,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <div
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={() => { clearTimeout(hideTimer.current); setShowSizes(false); }}
+      onMouseEnter={() => { handleMouseEnter(); setHovered(true); }}
+      onMouseLeave={() => { clearTimeout(hideTimer.current); setShowSizes(false); setHovered(false); }}
     >
       {/* Image — 4:5 aspect ratio */}
       <div
@@ -117,10 +123,27 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           onLoad={() => setLoaded(true)}
           className={`
             absolute inset-0 w-full h-full object-cover object-center
-            transition-all duration-300 ease-out
-            ${loaded ? 'opacity-100 group-hover:scale-[1.03]' : 'opacity-0'}
+            transition-all duration-500 ease-out
+            ${loaded ? 'opacity-100' : 'opacity-0'}
+            ${hovered && secondImage && secondLoaded ? 'opacity-0' : ''}
           `}
         />
+
+        {/* Second image — visible on hover */}
+        {secondImage && (
+          <img
+            src={secondImage}
+            alt={`${product.name} - 2`}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setSecondLoaded(true)}
+            className={`
+              absolute inset-0 w-full h-full object-cover object-center
+              transition-opacity duration-500 ease-out
+              ${hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
+            `}
+          />
+        )}
 
         {/* Offer badge */}
         {hasOffer && (
