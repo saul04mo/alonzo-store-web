@@ -6,11 +6,12 @@ import { useWebSettings } from '@/lib/useWebSettings';
 export function InstallPrompt() {
   const [show, setShow] = useState(false);
   const [platform, setPlatform] = useState<'ios' | 'android' | 'desktop' | null>(null);
-  const { installPromptEnabled } = useWebSettings();
+  const { installPromptEnabled, loaded } = useWebSettings();
   const promptRef = useRef<any>(null);
   const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
+    if (!loaded) return;
     if (!installPromptEnabled) return;
     if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
     if (window.matchMedia('(display-mode: standalone)').matches) return;
@@ -35,7 +36,7 @@ export function InstallPrompt() {
       window.addEventListener('beforeinstallprompt', handler);
       return () => window.removeEventListener('beforeinstallprompt', handler);
     }
-  }, [installPromptEnabled]);
+  }, [installPromptEnabled, loaded]);
 
   const handleInstall = async () => {
     if (promptRef.current) {

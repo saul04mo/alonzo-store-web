@@ -25,12 +25,14 @@ const DEFAULTS: WebSettings = {
 };
 
 let cached: WebSettings | null = null;
+let loaded = false;
 
-export function useWebSettings(): WebSettings {
+export function useWebSettings(): WebSettings & { loaded: boolean } {
   const [settings, setSettings] = useState<WebSettings>(cached || DEFAULTS);
+  const [isLoaded, setIsLoaded] = useState(loaded);
 
   useEffect(() => {
-    if (cached) return;
+    if (cached) { setIsLoaded(true); return; }
     (async () => {
       try {
         const snap = await getDoc(doc(db, 'config', 'webSettings'));
@@ -48,14 +50,18 @@ export function useWebSettings(): WebSettings {
           };
           cached = merged;
           setSettings(merged);
+        } else {
+          cached = DEFAULTS;
         }
       } catch {
-        // Use defaults
+        cached = DEFAULTS;
       }
+      loaded = true;
+      setIsLoaded(true);
     })();
   }, []);
 
-  return settings;
+  return { ...settings, loaded: isLoaded };
 }
 
 // For non-hook contexts (format functions)
