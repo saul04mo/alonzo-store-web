@@ -262,10 +262,13 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {/* Image container — fixed frame */}
             <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm bg-alonzo-gray-100">
 
-              {/* Mobile: horizontal slider with transition */}
+              {/* Horizontal slider — same for mobile and desktop */}
               <div
-                className="md:hidden absolute inset-0 flex transition-transform duration-400 ease-out"
-                style={{ transform: `translateX(-${currentImageIdx * 100}%)` }}
+                className="absolute inset-0 flex"
+                style={{
+                  transform: `translateX(-${currentImageIdx * 100}%)`,
+                  transition: 'transform 0.4s ease-out',
+                }}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
@@ -276,26 +279,11 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                       alt={`${product.name} - ${idx + 1}`}
                       fill
                       priority={idx === 0}
-                      sizes="100vw"
+                      sizes="(max-width: 768px) 100vw, 55vw"
                       className="object-cover object-center"
                     />
                   </div>
                 ))}
-              </div>
-
-              {/* Desktop: single image */}
-              <div className="hidden md:block absolute inset-0">
-                <Image
-                  src={allImages[currentImageIdx] || product.imageUrl}
-                  alt={`${product.name} - ${currentImageIdx + 1}`}
-                  fill
-                  priority
-                  sizes="55vw"
-                  onLoad={() => setImageLoaded(true)}
-                  className={`object-cover object-center transition-opacity duration-300 ease-out ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
               </div>
 
               {/* Navigation arrows (all devices, 2+ images) */}
