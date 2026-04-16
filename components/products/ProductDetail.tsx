@@ -283,13 +283,8 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 ))}
               </div>
 
-              {/* Desktop: single image with zoom */}
-              <div
-                className="hidden md:block absolute inset-0 cursor-crosshair"
-                onMouseEnter={() => setZooming(true)}
-                onMouseLeave={() => setZooming(false)}
-                onMouseMove={handleMouseMove}
-              >
+              {/* Desktop: single image */}
+              <div className="hidden md:block absolute inset-0">
                 <Image
                   src={allImages[currentImageIdx] || product.imageUrl}
                   alt={`${product.name} - ${currentImageIdx + 1}`}
@@ -300,14 +295,6 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                   className={`object-cover object-center transition-opacity duration-300 ease-out ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
-                  style={zooming ? {
-                    transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
-                    transform: 'scale(2)',
-                    transition: 'transform 0.1s ease-out',
-                  } : {
-                    transform: 'scale(1)',
-                    transition: 'transform 0.3s ease-out',
-                  }}
                 />
               </div>
 
@@ -316,17 +303,15 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                    className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-white/70 hover:bg-white rounded-full shadow-sm z-10 transition-opacity active:scale-95"
-                    onMouseEnter={(e) => { setZooming(false); }}
+                    className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10 active:scale-95 text-alonzo-charcoal/70 hover:text-alonzo-black transition-colors"
                   >
-                    <ChevronLeft size={18} strokeWidth={1.5} />
+                    <ChevronLeft size={20} strokeWidth={2} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); goNext(); }}
-                    className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-white/70 hover:bg-white rounded-full shadow-sm z-10 transition-opacity active:scale-95"
-                    onMouseEnter={(e) => { setZooming(false); }}
+                    className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10 active:scale-95 text-alonzo-charcoal/70 hover:text-alonzo-black transition-colors"
                   >
-                    <ChevronRight size={18} strokeWidth={1.5} />
+                    <ChevronRight size={20} strokeWidth={2} />
                   </button>
                 </>
               )}
