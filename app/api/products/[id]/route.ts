@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import { getCacheTTL } from '@/lib/cache-config';
 import { blacklistedProductIds, blacklistedCategories } from '@/config';
 import type { Product } from '@/types';
 
-// Cache en memoria (30 segundos TTL)
 const cache: Record<string, { data: Product; ts: number }> = {};
-const TTL = 30 * 1000;
 
 export async function GET(
   request: NextRequest,
@@ -17,7 +16,8 @@ export async function GET(
     return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
   }
 
-  // Check cache
+  const TTL = await getCacheTTL();
+
   if (cache[id] && Date.now() - cache[id].ts < TTL) {
     return NextResponse.json(cache[id].data);
   }

@@ -1,17 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import { getCacheTTL } from '@/lib/cache-config';
 import { blacklistedProductIds, blacklistedCategories } from '@/config';
 import type { Product } from '@/types';
 
-// Cache en memoria (30 segundos TTL)
 let cache: Record<string, { data: Product[]; ts: number }> = {};
-const TTL = 30 * 1000;
 
 export async function GET(request: NextRequest) {
   const gender = request.nextUrl.searchParams.get('gender') || undefined;
   const cacheKey = gender || 'all';
+  const TTL = await getCacheTTL();
 
-  // Check cache
   if (cache[cacheKey] && Date.now() - cache[cacheKey].ts < TTL) {
     return NextResponse.json(cache[cacheKey].data);
   }
