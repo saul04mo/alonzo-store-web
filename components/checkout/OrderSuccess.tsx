@@ -1,11 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckCircle, Star, MessageCircle, Truck, Store, Copy, ShoppingBag } from 'lucide-react';
 import { useToast } from '@/components/ui';
 import { submitRating } from '@/lib/api';
 import { buildOrderWhatsAppMessage, buildWhatsAppLink, cs } from '@/lib/format';
 import { useWebSettings } from '@/lib/useWebSettings';
 import type { Invoice } from '@/types';
+
+const STORE_ADDRESS = 'ALONZO Store — Retiro en tienda. Te contactaremos para coordinar.';
 
 interface OrderSuccessProps {
   open: boolean;
@@ -30,6 +32,14 @@ export function OrderSuccess({
   const [comment, setComment] = useState('');
   const [ratingSubmitted, setRatingSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = ''; };
+    }
+  }, [open]);
 
   if (!open || !invoiceData) return null;
 
@@ -141,9 +151,11 @@ export function OrderSuccess({
             </div>
             <div>
               <p className="text-xs font-semibold text-gray-900">{deliveryLabel}</p>
-              {invoiceData.clientSnapshot?.address && (
+              {invoiceData.deliveryType === 'pickup' ? (
+                <p className="text-[10px] text-gray-400 mt-0.5">{STORE_ADDRESS}</p>
+              ) : invoiceData.clientSnapshot?.address ? (
                 <p className="text-[10px] text-gray-400 mt-0.5">{invoiceData.clientSnapshot.address}</p>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
