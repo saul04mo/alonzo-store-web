@@ -1,5 +1,6 @@
 'use client';
 import { Heart } from 'lucide-react';
+import { cs } from '@/lib/format';
 import { useCartStore } from '@/stores';
 import type { CartItem } from '@/types';
 
@@ -41,7 +42,7 @@ export function CartItemRow({ item, index, offer }: CartItemRowProps) {
         />
         {hasOffer && (
           <div className="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
-            {offer.type === 'percentage' ? `-${offer.value}%` : `-€${offer.value}`}
+            {offer.type === 'percentage' ? `-${offer.value}%` : `-${cs()}${offer.value}`}
           </div>
         )}
       </div>
@@ -91,11 +92,11 @@ export function CartItemRow({ item, index, offer }: CartItemRowProps) {
             <div className="text-right">
               {hasOffer ? (
                 <>
-                  <span className="text-base font-semibold text-red-600">€{discountedPrice.toFixed(2)}</span>
-                  <span className="block text-xs text-gray-400 line-through">€{originalPrice.toFixed(2)}</span>
+                  <span className="text-base font-semibold text-red-600">{cs()}{discountedPrice.toFixed(2)}</span>
+                  <span className="block text-xs text-gray-400 line-through">{cs()}{originalPrice.toFixed(2)}</span>
                 </>
               ) : (
-                <span className="text-base font-semibold">€{item.precio}</span>
+                <span className="text-base font-semibold">{cs()}{item.precio}</span>
               )}
             </div>
             {/* Botón de eliminar */}

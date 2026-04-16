@@ -1,5 +1,6 @@
 'use client';
 import { useState, useCallback, useMemo, useEffect } from 'react';
+import { cs } from '@/lib/format';
 import { MapPin, ChevronDown } from 'lucide-react';
 import { Modal, ModalHeader, BottomSheet, useToast } from '@/components/ui';
 import { useCartStore, useClientStore, useConfigStore } from '@/stores';
@@ -302,7 +303,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
         {deliveryZones.map((group, gi) => (
           <div key={gi}>
             <div className="bg-alonzo-gray-200 px-3 py-2 text-2xs font-bold rounded mt-2.5">
-              COSTO: €{group.price.toFixed(2)}
+              COSTO: {cs()}{group.price.toFixed(2)}
             </div>
             {group.zones.map((zone) => (
               <button

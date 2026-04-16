@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { cs } from '@/lib/format';
 import { useRouter } from 'next/navigation';
 import { MapPin, ChevronDown, ChevronUp, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
 import { BottomSheet, useToast } from '@/components/ui';
@@ -437,7 +438,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                       />
                       {hasOffer && (
                         <div className="absolute top-1 left-1 bg-red-600 text-white text-[7px] font-bold px-1 py-0.5 rounded-sm">
-                          {product!.offer!.type === 'percentage' ? `-${product!.offer!.value}%` : `-€${product!.offer!.value}`}
+                          {product!.offer!.type === 'percentage' ? `-${product!.offer!.value}%` : `-${cs()}${product!.offer!.value}`}
                         </div>
                       )}
                     </div>

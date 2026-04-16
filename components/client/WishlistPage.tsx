@@ -1,5 +1,6 @@
 'use client';
 
+import { cs } from '@/lib/format';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Heart, ChevronLeft, ShoppingCart, Trash2 } from 'lucide-react';
@@ -125,7 +126,7 @@ export function WishlistPage() {
                   />
                   {hasOffer && (
                     <div className="absolute top-1 left-1 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-sm">
-                      {product.offer!.type === 'percentage' ? `-${product.offer!.value}%` : `-€${product.offer!.value}`}
+                      {product.offer!.type === 'percentage' ? `-${product.offer!.value}%` : `-${cs()}${product.offer!.value}`}
                     </div>
                   )}
                 </div>
@@ -143,11 +144,11 @@ export function WishlistPage() {
                     <div className="mt-1.5">
                       {hasOffer ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-semibold text-red-600">€{discPrice!.toFixed(2)}</span>
-                          <span className="text-xs text-gray-400 line-through">€{rawPrice.toFixed(2)}</span>
+                          <span className="text-sm font-semibold text-red-600">{cs()}{discPrice!.toFixed(2)}</span>
+                          <span className="text-xs text-gray-400 line-through">{cs()}{rawPrice.toFixed(2)}</span>
                         </div>
                       ) : (
-                        <p className="text-sm font-semibold text-gray-900">€{rawPrice.toFixed(2)}</p>
+                        <p className="text-sm font-semibold text-gray-900">{cs()}{rawPrice.toFixed(2)}</p>
                       )}
                     </div>
                   </div>

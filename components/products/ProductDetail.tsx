@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { cs } from '@/lib/format';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Heart, ChevronDown, ChevronLeft, ChevronRight, Truck, X, Minus, Plus, Share2 } from 'lucide-react';
@@ -273,7 +274,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
   const handleShare = async () => {
     const url = `${window.location.origin}/product/${product!.id}`;
-    const text = `${product!.name} — €${discountedPrice.toFixed(2)} en ALONZO Store`;
+    const text = `${product!.name} — ${cs()}${discountedPrice.toFixed(2)} en ALONZO Store`;
 
     if (navigator.share) {
       try {
@@ -373,11 +374,11 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               <div className="flex items-center gap-3 shrink-0">
                 {hasOffer ? (
                   <p className="text-base md:text-lg font-semibold text-red-600 whitespace-nowrap">
-                    €{discountedPrice.toFixed(2)}
+                    {cs()}{discountedPrice.toFixed(2)}
                   </p>
                 ) : (
                   <p className="text-base md:text-lg font-semibold text-alonzo-charcoal whitespace-nowrap">
-                    €{displayPrice.toFixed(2)}
+                    {cs()}{displayPrice.toFixed(2)}
                   </p>
                 )}
                 <button
@@ -403,12 +404,12 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {hasOffer && (
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-sm text-alonzo-gray-400 line-through">
-                  €{displayPrice.toFixed(2)}
+                  {cs()}{displayPrice.toFixed(2)}
                 </span>
                 <span className="bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
                   {product.offer!.type === 'percentage'
                     ? `-${product.offer!.value}%`
-                    : `-€${product.offer!.value}`}
+                    : `-${cs()}${product.offer!.value}`}
                 </span>
               </div>
             )}

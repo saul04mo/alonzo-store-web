@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
+import { cs } from '@/lib/format';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
@@ -150,7 +151,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           <div className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm tracking-wider">
             {product.offer!.type === 'percentage'
               ? `-${product.offer!.value}%`
-              : `-€${product.offer!.value}`}
+              : `-${cs()}${product.offer!.value}`}
           </div>
         )}
 
@@ -211,11 +212,11 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         </p>
         {hasOffer ? (
           <div className="flex items-center gap-2">
-            <p className="text-[11px] font-medium text-red-600">€{finalPrice.toFixed(2)}</p>
-            <p className="text-[10px] text-slate-400 line-through">€{rawPrice.toFixed(2)}</p>
+            <p className="text-[11px] font-medium text-red-600">{cs()}{finalPrice.toFixed(2)}</p>
+            <p className="text-[10px] text-slate-400 line-through">{cs()}{rawPrice.toFixed(2)}</p>
           </div>
         ) : (
-          <p className="text-[11px] font-normal text-slate-400">€{rawPrice.toFixed(2)}</p>
+          <p className="text-[11px] font-normal text-slate-400">{cs()}{rawPrice.toFixed(2)}</p>
         )}
       </div>
 

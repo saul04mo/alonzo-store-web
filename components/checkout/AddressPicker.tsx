@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { cs } from '@/lib/format';
 import type L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin, Navigation, Search, X } from 'lucide-react';
@@ -436,7 +437,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
           </div>
           {showCostPricing && distanceInfo.cost > 0 && (
             <div className="text-right">
-              <p className="text-lg font-bold text-gray-900">€{distanceInfo.cost.toFixed(2)}</p>
+              <p className="text-lg font-bold text-gray-900">{cs()}{distanceInfo.cost.toFixed(2)}</p>
               <p className="text-xs text-gray-500">Costo de envío</p>
             </div>
           )}

@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { cs } from '@/lib/format';
 import { Modal, ModalHeader } from '@/components/ui';
 import { fetchClientOrders } from '@/lib/api';
 import { formatDate, formatUSD } from '@/lib/format';
@@ -81,7 +82,7 @@ function OrderCard({ order }: { order: Invoice }) {
             <strong>Pagos:</strong>
             {order.payments.map((p, i) => (
               <div key={i}>
-                - {p.method} €{p.amountUsd.toFixed(2)}
+                - {p.method} {cs()}{p.amountUsd.toFixed(2)}
                 {p.ref ? ` (Ref: ${p.ref})` : ''}
               </div>
             ))}

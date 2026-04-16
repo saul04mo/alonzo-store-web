@@ -1,5 +1,6 @@
 'use client';
 
+import { cs } from '@/lib/format';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Ticket, Copy, CheckCircle, Clock, Gift } from 'lucide-react';
@@ -144,7 +145,7 @@ export function MyCouponsPage() {
                   <div className="flex flex-wrap gap-3 mt-2.5 text-[10px] text-gray-500">
                     {coupon.minPurchase > 0 && (
                       <span className="flex items-center gap-1">
-                        <Gift size={10} /> Compra mínima: €{coupon.minPurchase.toFixed(2)}
+                        <Gift size={10} /> Compra mínima: {cs()}{coupon.minPurchase.toFixed(2)}
                       </span>
                     )}
                     {coupon.freeShipping && (
