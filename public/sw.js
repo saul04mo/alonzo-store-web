@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alonzo-v1';
+const CACHE_NAME = 'alonzo-v2';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
@@ -31,7 +31,11 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET and API/auth requests
   if (request.method !== 'GET') return;
   if (url.pathname.startsWith('/api/')) return;
-  if (url.hostname.includes('firestore') || url.hostname.includes('googleapis')) return;
+
+  // Skip all Firebase, Google, and external API requests
+  const skipHosts = ['firestore', 'googleapis', 'firebaseio', 'firebaseapp', 'google.com', 'gstatic'];
+  if (skipHosts.some((h) => url.hostname.includes(h))) return;
+  if (url.origin !== self.location.origin && !url.hostname.includes('firebasestorage')) return;
 
   // Images: cache first (they don't change often)
   if (request.destination === 'image' || url.pathname.match(/\.(png|jpg|jpeg|webp|svg|gif)$/)) {
