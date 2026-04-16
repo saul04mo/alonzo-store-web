@@ -33,6 +33,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   const secondImage = product.images?.length > 1 ? product.images[1] : null;
   const [hovered, setHovered] = useState(false);
   const [secondLoaded, setSecondLoaded] = useState(false);
+  const canHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches;
 
   const sizeMap = new Map<string, { stock: number; variantIndex: number }>();
   product.variants.forEach((v, idx) => {
@@ -106,7 +107,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <div
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
-      onMouseEnter={() => { handleMouseEnter(); setHovered(true); }}
+      onMouseEnter={() => { handleMouseEnter(); if (canHover) setHovered(true); }}
       onMouseLeave={() => { clearTimeout(hideTimer.current); setShowSizes(false); setHovered(false); }}
     >
       {/* Image — 4:5 aspect ratio */}
