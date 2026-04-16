@@ -50,9 +50,11 @@ export async function GET(
       category: data.category?.trim() || '',
       gender: data.gender || 'Hombre',
       imageUrl: data.imageUrl || '',
+      images: data.imageUrls?.length ? data.imageUrls : (data.imageUrl ? [data.imageUrl] : []),
       price: data.price,
       variants: data.variants || [],
       sizeGuideImage: data.sizeGuideImage,
+      offer: data.offer && data.offer.value > 0 ? data.offer : undefined,
     };
 
     cache[id] = { data: product, ts: Date.now() };

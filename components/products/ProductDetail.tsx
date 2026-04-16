@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Heart, ChevronDown, Truck, X, Minus, Plus, Share2 } from 'lucide-react';
+import { Heart, ChevronDown, ChevronLeft, ChevronRight, Truck, X, Minus, Plus, Share2 } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
 import { fetchProducts, seedProduct } from '@/lib/api';
@@ -27,9 +27,20 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const [selectedVariantIdx, setSelectedVariantIdx] = useState<number | null>(null);
   const [qty, setQty] = useState(1);
   const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
-  const [mainImage, setMainImage] = useState('');
   const [imageLoaded, setImageLoaded] = useState(false);
   const { toggle: toggleWishlist, isInWishlist } = useWishlist();
+
+  // Gallery
+  const [currentImageIdx, setCurrentImageIdx] = useState(0);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+  const [zooming, setZooming] = useState(false);
+  const touchStartX = useRef(0);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  const allImages = useMemo(() => {
+    if (!product) return [];
+    return product.images?.length ? product.images : [product.imageUrl];
+  }, [product]);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -43,7 +54,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     setQty(1);
     setActiveAccordion(null);
     setImageLoaded(false);
-    if (product) setMainImage(product.imageUrl);
+    setCurrentImageIdx(0);
   }, [product?.id]);
 
   // Recommended products
@@ -196,6 +207,37 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     setActiveAccordion(activeAccordion === key ? null : key);
   };
 
+  // Gallery navigation
+  const goNext = useCallback(() => {
+    setImageLoaded(false);
+    setCurrentImageIdx((prev) => (prev + 1) % allImages.length);
+  }, [allImages.length]);
+
+  const goPrev = useCallback(() => {
+    setImageLoaded(false);
+    setCurrentImageIdx((prev) => (prev - 1 + allImages.length) % allImages.length);
+  }, [allImages.length]);
+
+  // Touch swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goNext();
+      else goPrev();
+    }
+  };
+
+  // Zoom on desktop
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPos({ x, y });
+  };
+
   const handleShare = async () => {
     const url = `${window.location.origin}/product/${product!.id}`;
     const text = `${product!.name} — €${discountedPrice.toFixed(2)} en ALONZO Store`;
@@ -217,11 +259,19 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
           {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="w-full md:w-[55%] page-scale-in">
-            {/* Main image — full viewport height */}
-            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm">
+            {/* Main image with zoom + swipe */}
+            <div
+              ref={galleryRef}
+              className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm cursor-crosshair"
+              onMouseEnter={() => setZooming(true)}
+              onMouseLeave={() => setZooming(false)}
+              onMouseMove={handleMouseMove}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               <Image
-                src={mainImage || product.imageUrl}
-                alt={product.name}
+                src={allImages[currentImageIdx] || product.imageUrl}
+                alt={`${product.name} - ${currentImageIdx + 1}`}
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 55vw"
@@ -229,27 +279,82 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 className={`object-contain object-center transition-opacity duration-300 ease-out ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
+                style={zooming ? {
+                  transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
+                  transform: 'scale(2)',
+                  transition: 'transform 0.1s ease-out',
+                } : {
+                  transform: 'scale(1)',
+                  transition: 'transform 0.3s ease-out',
+                }}
               />
+
+              {/* Navigation arrows (desktop, 2+ images) */}
+              {allImages.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); goPrev(); }}
+                    className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                    style={{ opacity: undefined }}
+                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; setZooming(false); }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0'; }}
+                  >
+                    <ChevronLeft size={20} strokeWidth={1.5} />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); goNext(); }}
+                    className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 opacity-0 transition-opacity"
+                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; setZooming(false); }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0'; }}
+                  >
+                    <ChevronRight size={20} strokeWidth={1.5} />
+                  </button>
+                </>
+              )}
+
+              {/* Dot indicators (mobile, 2+ images) */}
+              {allImages.length > 1 && (
+                <div className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                  {allImages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => { setImageLoaded(false); setCurrentImageIdx(idx); }}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${
+                        idx === currentImageIdx ? 'bg-alonzo-black w-4' : 'bg-alonzo-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Image counter */}
+              {allImages.length > 1 && (
+                <span className="absolute bottom-3 right-3 text-[10px] text-alonzo-gray-500 bg-white/80 px-2 py-0.5 rounded-full z-10 hidden md:block">
+                  {currentImageIdx + 1} / {allImages.length}
+                </span>
+              )}
             </div>
 
-            {/* Thumbnails row */}
-            {product.variants.length > 0 && (
-              <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
-                {/* Main image thumb */}
-                <button
-                  onClick={() => setMainImage(product.imageUrl)}
-                  className={`relative w-[68px] h-[68px] md:w-[80px] md:h-[80px] flex-shrink-0 overflow-hidden rounded-sm border-2 transition-colors ${
-                    mainImage === product.imageUrl ? 'border-alonzo-black' : 'border-transparent hover:border-alonzo-gray-300'
-                  }`}
-                >
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 768px) 68px, 80px"
-                    className="object-cover object-top"
-                  />
-                </button>
+            {/* Thumbnails row (desktop, 2+ images) */}
+            {allImages.length > 1 && (
+              <div className="hidden md:flex gap-2 mt-3 overflow-x-auto pb-1">
+                {allImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => { setImageLoaded(false); setCurrentImageIdx(idx); }}
+                    className={`relative w-[72px] h-[90px] flex-shrink-0 overflow-hidden rounded-sm border-2 transition-colors ${
+                      idx === currentImageIdx ? 'border-alonzo-black' : 'border-transparent hover:border-alonzo-gray-300'
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${product.name} - ${idx + 1}`}
+                      fill
+                      sizes="72px"
+                      className="object-cover object-top"
+                    />
+                  </button>
+                ))}
               </div>
             )}
           </div>

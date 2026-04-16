@@ -15,6 +15,7 @@ export interface Product {
   category: string;
   gender: 'Hombre' | 'Mujer';
   imageUrl: string;
+  images: string[];
   price?: string;
   variants: ProductVariant[];
   sizeGuideImage?: string;
