@@ -259,53 +259,76 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
           {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="w-full md:w-[55%] page-scale-in">
-            {/* Main image with zoom + swipe */}
-            <div
-              ref={galleryRef}
-              className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm cursor-crosshair"
-              onMouseEnter={() => setZooming(true)}
-              onMouseLeave={() => setZooming(false)}
-              onMouseMove={handleMouseMove}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            >
-              <Image
-                src={allImages[currentImageIdx] || product.imageUrl}
-                alt={`${product.name} - ${currentImageIdx + 1}`}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 55vw"
-                onLoad={() => setImageLoaded(true)}
-                className={`object-contain object-center transition-opacity duration-300 ease-out ${
-                  imageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                style={zooming ? {
-                  transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
-                  transform: 'scale(2)',
-                  transition: 'transform 0.1s ease-out',
-                } : {
-                  transform: 'scale(1)',
-                  transition: 'transform 0.3s ease-out',
-                }}
-              />
+            {/* Image container — fixed frame */}
+            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm bg-alonzo-gray-100">
+
+              {/* Mobile: horizontal slider with transition */}
+              <div
+                className="md:hidden absolute inset-0 flex transition-transform duration-400 ease-out"
+                style={{ transform: `translateX(-${currentImageIdx * 100}%)` }}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                {allImages.map((img, idx) => (
+                  <div key={idx} className="w-full h-full flex-shrink-0 relative">
+                    <Image
+                      src={img}
+                      alt={`${product.name} - ${idx + 1}`}
+                      fill
+                      priority={idx === 0}
+                      sizes="100vw"
+                      className="object-cover object-center"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop: single image with zoom */}
+              <div
+                className="hidden md:block absolute inset-0 cursor-crosshair"
+                onMouseEnter={() => setZooming(true)}
+                onMouseLeave={() => setZooming(false)}
+                onMouseMove={handleMouseMove}
+              >
+                <Image
+                  src={allImages[currentImageIdx] || product.imageUrl}
+                  alt={`${product.name} - ${currentImageIdx + 1}`}
+                  fill
+                  priority
+                  sizes="55vw"
+                  onLoad={() => setImageLoaded(true)}
+                  className={`object-cover object-center transition-opacity duration-300 ease-out ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={zooming ? {
+                    transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
+                    transform: 'scale(2)',
+                    transition: 'transform 0.1s ease-out',
+                  } : {
+                    transform: 'scale(1)',
+                    transition: 'transform 0.3s ease-out',
+                  }}
+                />
+              </div>
 
               {/* Navigation arrows (desktop, 2+ images) */}
               {allImages.length > 1 && (
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                    className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ opacity: undefined }}
+                    className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 transition-opacity"
                     onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; setZooming(false); }}
-                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; }}
+                    style={{ opacity: 0.6 }}
                   >
                     <ChevronLeft size={20} strokeWidth={1.5} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); goNext(); }}
-                    className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 opacity-0 transition-opacity"
+                    className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 transition-opacity"
                     onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; setZooming(false); }}
-                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; }}
+                    style={{ opacity: 0.6 }}
                   >
                     <ChevronRight size={20} strokeWidth={1.5} />
                   </button>
@@ -318,16 +341,16 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                   {allImages.map((_, idx) => (
                     <button
                       key={idx}
-                      onClick={() => { setImageLoaded(false); setCurrentImageIdx(idx); }}
-                      className={`w-1.5 h-1.5 rounded-full transition-all ${
-                        idx === currentImageIdx ? 'bg-alonzo-black w-4' : 'bg-alonzo-gray-400'
+                      onClick={() => setCurrentImageIdx(idx)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        idx === currentImageIdx ? 'bg-alonzo-black w-4' : 'bg-alonzo-gray-400/60 w-1.5'
                       }`}
                     />
                   ))}
                 </div>
               )}
 
-              {/* Image counter */}
+              {/* Image counter (desktop) */}
               {allImages.length > 1 && (
                 <span className="absolute bottom-3 right-3 text-[10px] text-alonzo-gray-500 bg-white/80 px-2 py-0.5 rounded-full z-10 hidden md:block">
                   {currentImageIdx + 1} / {allImages.length}

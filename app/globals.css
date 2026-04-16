@@ -72,6 +72,9 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
   }
+  .duration-400 {
+    transition-duration: 400ms;
+  }
 }
 
 @keyframes annMarquee {
