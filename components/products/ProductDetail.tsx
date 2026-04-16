@@ -79,6 +79,17 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     return () => { cancelled = true; };
   }, [product?.id, product?.gender, product?.category]);
 
+  // Gallery navigation (must be before early returns — hooks can't be conditional)
+  const goNext = useCallback(() => {
+    setImageLoaded(false);
+    setCurrentImageIdx((prev) => (prev + 1) % Math.max(allImages.length, 1));
+  }, [allImages.length]);
+
+  const goPrev = useCallback(() => {
+    setImageLoaded(false);
+    setCurrentImageIdx((prev) => (prev - 1 + Math.max(allImages.length, 1)) % Math.max(allImages.length, 1));
+  }, [allImages.length]);
+
   // Loading state
   if (loading) {
     return (
@@ -206,17 +217,6 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const toggleAccordion = (key: string) => {
     setActiveAccordion(activeAccordion === key ? null : key);
   };
-
-  // Gallery navigation
-  const goNext = useCallback(() => {
-    setImageLoaded(false);
-    setCurrentImageIdx((prev) => (prev + 1) % allImages.length);
-  }, [allImages.length]);
-
-  const goPrev = useCallback(() => {
-    setImageLoaded(false);
-    setCurrentImageIdx((prev) => (prev - 1 + allImages.length) % allImages.length);
-  }, [allImages.length]);
 
   // Touch swipe
   const handleTouchStart = (e: React.TouchEvent) => {
