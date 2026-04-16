@@ -420,10 +420,16 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             )}
 
             {/* Description */}
-            <p className="text-[11px] leading-relaxed text-alonzo-gray-500 tracking-wide mt-3">
-              {product.name} de la colección {product.category}. Diseñado con los más altos
-              estándares de calidad y fabricación premium. Corte moderno con acabado profesional.
-            </p>
+            {product.description ? (
+              <p className="text-[11px] leading-relaxed text-alonzo-gray-500 tracking-wide mt-3">
+                {product.description}
+              </p>
+            ) : (
+              <p className="text-[11px] leading-relaxed text-alonzo-gray-500 tracking-wide mt-3">
+                {product.name} de la colección {product.category}. Diseñado con los más altos
+                estándares de calidad y fabricación premium.
+              </p>
+            )}
 
             {/* Size guide button (small, right-aligned below price) */}
             <div className="flex justify-end mt-3">

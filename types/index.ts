@@ -12,6 +12,7 @@ export interface ProductVariant {
 export interface Product {
   id: string;
   name: string;
+  description?: string;
   category: string;
   gender: 'Hombre' | 'Mujer';
   imageUrl: string;

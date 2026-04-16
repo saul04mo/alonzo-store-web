@@ -47,6 +47,7 @@ export async function GET(
     const product: Product = {
       id,
       name: data.name || 'SIN NOMBRE',
+      description: data.description || '',
       category: data.category?.trim() || '',
       gender: data.gender || 'Hombre',
       imageUrl: data.imageUrl || '',

@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
       products.push({
         id,
         name: data.name || 'SIN NOMBRE',
+        description: data.description || '',
         category: data.category?.trim() || '',
         gender: data.gender || 'Hombre',
         imageUrl: data.imageUrl || '',
