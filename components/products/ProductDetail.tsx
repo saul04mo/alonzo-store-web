@@ -311,33 +311,29 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 />
               </div>
 
-              {/* Navigation arrows (desktop, 2+ images) */}
+              {/* Navigation arrows (all devices, 2+ images) */}
               {allImages.length > 1 && (
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                    className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 transition-opacity"
-                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; setZooming(false); }}
-                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; }}
-                    style={{ opacity: 0.6 }}
+                    className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-white/70 hover:bg-white rounded-full shadow-sm z-10 transition-opacity active:scale-95"
+                    onMouseEnter={(e) => { setZooming(false); }}
                   >
-                    <ChevronLeft size={20} strokeWidth={1.5} />
+                    <ChevronLeft size={18} strokeWidth={1.5} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); goNext(); }}
-                    className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 items-center justify-center bg-white/80 hover:bg-white rounded-full shadow-sm z-10 transition-opacity"
-                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; setZooming(false); }}
-                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; }}
-                    style={{ opacity: 0.6 }}
+                    className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-white/70 hover:bg-white rounded-full shadow-sm z-10 transition-opacity active:scale-95"
+                    onMouseEnter={(e) => { setZooming(false); }}
                   >
-                    <ChevronRight size={20} strokeWidth={1.5} />
+                    <ChevronRight size={18} strokeWidth={1.5} />
                   </button>
                 </>
               )}
 
-              {/* Dot indicators (mobile, 2+ images) */}
+              {/* Dot indicators (2+ images) */}
               {allImages.length > 1 && (
-                <div className="md:hidden absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
                   {allImages.map((_, idx) => (
                     <button
                       key={idx}
@@ -357,29 +353,6 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 </span>
               )}
             </div>
-
-            {/* Thumbnails row (desktop, 2+ images) */}
-            {allImages.length > 1 && (
-              <div className="hidden md:flex gap-2 mt-3 overflow-x-auto pb-1">
-                {allImages.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => { setImageLoaded(false); setCurrentImageIdx(idx); }}
-                    className={`relative w-[72px] h-[90px] flex-shrink-0 overflow-hidden rounded-sm border-2 transition-colors ${
-                      idx === currentImageIdx ? 'border-alonzo-black' : 'border-transparent hover:border-alonzo-gray-300'
-                    }`}
-                  >
-                    <Image
-                      src={img}
-                      alt={`${product.name} - ${idx + 1}`}
-                      fill
-                      sizes="72px"
-                      className="object-cover object-top"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* ══════ RIGHT: Product Info ══════ */}
