@@ -80,8 +80,8 @@ export function PaymentGrid({
 
   return (
     <div className="space-y-4">
-      {/* Method selector */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+      {/* Method selector — cards grid */}
+      <div className="grid grid-cols-3 gap-2.5">
         {paymentMethods.map((opt) => {
           const Icon = iconMap[opt.icon] || CreditCard;
           const isActive = opt.id === selectedMethod;
@@ -89,14 +89,16 @@ export function PaymentGrid({
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
-              className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-200 ${
+              className={`flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border transition-all duration-200 h-[85px] ${
                 isActive
-                  ? 'border-alonzo-black bg-alonzo-black text-white'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-gray-400'
+                  ? 'border-alonzo-black bg-gray-50 shadow-sm'
+                  : 'border-gray-200 bg-white hover:border-gray-300'
               }`}
             >
-              <Icon size={15} strokeWidth={1.5} />
-              <span className="text-[11px] font-semibold whitespace-nowrap">{opt.name}</span>
+              <Icon size={20} strokeWidth={1.5} className={isActive ? 'text-alonzo-black' : 'text-gray-400'} />
+              <span className={`text-[10px] text-center font-semibold leading-tight ${isActive ? 'text-alonzo-black' : 'text-gray-500'}`}>
+                {opt.name}
+              </span>
             </button>
           );
         })}
