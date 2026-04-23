@@ -5,6 +5,9 @@ import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
 
+// Global cache — survives component remounts (back navigation)
+const loadedImages = new Set<string>();
+
 interface ProductCardProps {
   product: Product;
   onClick: () => void;
@@ -17,15 +20,7 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 }
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
-  const [loaded, setLoaded] = useState(() => {
-    // Check if image is already cached by browser
-    if (typeof window !== 'undefined' && product.imageUrl) {
-      const img = new Image();
-      img.src = product.imageUrl;
-      return img.complete && img.naturalWidth > 0;
-    }
-    return false;
-  });
+  const [loaded, setLoaded] = useState(() => loadedImages.has(product.imageUrl || ''));
   const [showSizes, setShowSizes] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
@@ -39,7 +34,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   const imageUrl = product.imageUrl || 'https://via.placeholder.com/400x600';
   const secondImage = product.images?.length > 1 ? product.images[1] : null;
   const [hovered, setHovered] = useState(false);
-  const [secondLoaded, setSecondLoaded] = useState(false);
+  const [secondLoaded, setSecondLoaded] = useState(() => loadedImages.has(secondImage || ''));
   const canHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches;
 
   const sizeMap = new Map<string, { stock: number; variantIndex: number }>();
@@ -125,7 +120,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           alt={product.name}
           loading="lazy"
           decoding="async"
-          onLoad={() => setLoaded(true)}
+          onLoad={() => { loadedImages.add(imageUrl); setLoaded(true); }}
           className={`
             absolute inset-0 w-full h-full object-cover object-center
             transition-all duration-700 ease-out
@@ -141,7 +136,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             alt={`${product.name} - 2`}
             loading="lazy"
             decoding="async"
-            onLoad={() => setSecondLoaded(true)}
+            onLoad={() => { if (secondImage) loadedImages.add(secondImage); setSecondLoaded(true); }}
             className={`
               absolute inset-0 w-full h-full object-cover object-center
               transition-all duration-700 ease-out
