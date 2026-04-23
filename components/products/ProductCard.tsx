@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { cs } from '@/lib/format';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
@@ -17,9 +17,16 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 }
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(() => {
+    // Check if image is already cached by browser
+    if (typeof window !== 'undefined' && product.imageUrl) {
+      const img = new Image();
+      img.src = product.imageUrl;
+      return img.complete && img.naturalWidth > 0;
+    }
+    return false;
+  });
   const [showSizes, setShowSizes] = useState(false);
-  const hideTimer = useRef<ReturnType<typeof setTimeout>>();
   const addItem = useCartStore((s) => s.addItem);
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
 
@@ -88,27 +95,16 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   };
 
   // Hover on + button → show sizes
-  const handlePlusEnter = (e: React.MouseEvent) => {
+  const toggleSizes = (e: React.MouseEvent) => {
     e.stopPropagation();
-    clearTimeout(hideTimer.current);
-    setShowSizes(true);
-  };
-
-  // Leave sizes area → hide after small delay
-  const handleSizesLeave = () => {
-    hideTimer.current = setTimeout(() => setShowSizes(false), 120);
-  };
-
-  // Enter sizes bar → cancel hide
-  const handleSizesEnter = () => {
-    clearTimeout(hideTimer.current);
+    setShowSizes(!showSizes);
   };
 
   return (
     <div
       className="flex flex-col text-left cursor-pointer group mb-2 md:mb-4"
       onMouseEnter={() => { handleMouseEnter(); if (canHover) setHovered(true); }}
-      onMouseLeave={() => { clearTimeout(hideTimer.current); setShowSizes(false); setHovered(false); }}
+      onMouseLeave={() => { setShowSizes(false); setHovered(false); }}
     >
       {/* Image — 4:5 aspect ratio */}
       <div
@@ -166,9 +162,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {/* +/× Button — bottom right: always visible on mobile, hover on desktop */}
         {uniqueSizes.length > 0 && (
           <div
-            onMouseEnter={!showSizes ? handlePlusEnter : handleSizesEnter}
-            onMouseLeave={showSizes ? handleSizesLeave : undefined}
-            onClick={(e) => { e.stopPropagation(); setShowSizes(!showSizes); }}
+            onClick={toggleSizes}
             className={`absolute right-2 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
               showSizes
                 ? 'bottom-[42px] sm:bottom-[46px] opacity-100'
@@ -190,8 +184,6 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           <div
             className="absolute bottom-0 left-0 right-0 bg-white/95 border-t border-alonzo-gray-300 z-20 flex justify-center sizes-reveal"
             onClick={(e) => e.stopPropagation()}
-            onMouseEnter={handleSizesEnter}
-            onMouseLeave={handleSizesLeave}
           >
             {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
