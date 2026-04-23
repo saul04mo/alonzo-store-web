@@ -158,7 +158,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
       <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-20 text-center">
         <p className="text-gray-500 mb-4">{error || 'Producto no encontrado'}</p>
         <button
-          onClick={() => router.push('/')}
+          onClick={() => router.back()}
           className="text-sm underline text-black"
         >
           Volver a la tienda

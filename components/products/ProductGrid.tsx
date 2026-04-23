@@ -1,6 +1,10 @@
 'use client';
+import { useRef } from 'react';
 import type { Product } from '@/types';
 import { ProductCard } from './ProductCard';
+
+// Track if grid has already animated — skip on back navigation
+let hasAnimated = false;
 
 interface ProductGridProps {
   products: Product[];
@@ -19,6 +23,12 @@ const gridClasses: Record<number, string> = {
 
 export function ProductGrid({ products, loading, onProductClick, sectionTitle, gridCols }: ProductGridProps) {
   const cols = gridCols || 4;
+  const skipAnimation = useRef(hasAnimated);
+
+  // Mark as animated after first render with products
+  if (products.length > 0 && !loading) {
+    hasAnimated = true;
+  }
 
   if (loading) {
     return (
@@ -56,7 +66,7 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle, g
         {products.map((product, idx) => (
           <div
             key={product.id}
-            className={idx < 8 ? `stagger-up stagger-${idx + 1}` : 'page-fade-soft'}
+            className={skipAnimation.current ? '' : (idx < 8 ? `stagger-up stagger-${idx + 1}` : 'page-fade-soft')}
           >
             <ProductCard
               product={product}

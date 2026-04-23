@@ -20,7 +20,8 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 }
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
-  const [loaded, setLoaded] = useState(() => loadedImages.has(product.imageUrl || ''));
+  const wasCached = loadedImages.has(product.imageUrl || '');
+  const [loaded, setLoaded] = useState(wasCached);
   const [showSizes, setShowSizes] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
@@ -123,7 +124,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           onLoad={() => { loadedImages.add(imageUrl); setLoaded(true); }}
           className={`
             absolute inset-0 w-full h-full object-cover object-center
-            transition-all duration-700 ease-out
+            ${wasCached ? '' : 'transition-all duration-700 ease-out'}
             ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[1.02] blur-sm'}
             ${hovered && secondImage && secondLoaded ? 'opacity-0' : ''}
           `}
