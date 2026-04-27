@@ -373,16 +373,16 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
             {/* Product name + price */}
             <div className="flex items-start justify-between gap-4">
-              <h1 className="text-sm md:text-base tracking-[0.08em] uppercase font-semibold text-alonzo-charcoal leading-snug">
+              <h1 className="text-sm md:text-base font-serif tracking-[0.08em] uppercase font-semibold text-alonzo-charcoal leading-snug">
                 {product.name}
               </h1>
               <div className="flex items-center gap-3 shrink-0">
                 {hasOffer ? (
-                  <p className="text-base md:text-lg font-semibold text-red-600 whitespace-nowrap">
+                  <p className="text-lg md:text-xl font-serif font-light text-red-600 whitespace-nowrap">
                     {cs()}{discountedPrice.toFixed(2)}
                   </p>
                 ) : (
-                  <p className="text-base md:text-lg font-semibold text-alonzo-charcoal whitespace-nowrap">
+                  <p className="text-lg md:text-xl font-serif font-light text-alonzo-charcoal whitespace-nowrap">
                     {cs()}{displayPrice.toFixed(2)}
                   </p>
                 )}
@@ -408,7 +408,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {/* Offer badge */}
             {hasOffer && (
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-sm text-alonzo-gray-400 line-through">
+                <span className="text-sm font-serif text-alonzo-gray-400 line-through">
                   {cs()}{displayPrice.toFixed(2)}
                 </span>
                 <span className="bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
@@ -435,7 +435,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             <div className="flex justify-end mt-3">
               <button
                 onClick={() => setSizeGuideOpen(true)}
-                className="px-4 py-2 border border-alonzo-gray-300 hover:border-alonzo-black text-[10px] tracking-[0.15em] uppercase font-medium text-alonzo-gray-600 hover:text-alonzo-black rounded-sm transition-colors duration-200"
+                className="px-4 py-2 border border-alonzo-gray-300 hover:border-alonzo-black text-[10px] font-serif tracking-[0.15em] uppercase font-medium text-alonzo-gray-600 hover:text-alonzo-black rounded-sm transition-colors duration-200"
               >
                 Guía de tallas
               </button>
@@ -444,7 +444,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {/* Size label + guide link */}
             {hasVariants && (
               <div className="flex items-center justify-between mt-6 mb-2">
-                <p className="text-xs tracking-[0.06em] text-alonzo-charcoal font-medium">
+                <p className="text-xs font-serif tracking-[0.06em] text-alonzo-charcoal font-medium">
                   Size:
                 </p>
               </div>

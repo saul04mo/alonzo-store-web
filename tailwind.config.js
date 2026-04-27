@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-        display: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        serif: ['var(--font-cormorant)', '"Cormorant Garamond"', 'Georgia', '"Times New Roman"', 'serif'],
+        display: ['var(--font-cormorant)', '"Cormorant Garamond"', 'Georgia', '"Times New Roman"', 'serif'],
       },
       colors: {
         alonzo: {

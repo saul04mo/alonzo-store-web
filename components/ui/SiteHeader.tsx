@@ -136,7 +136,7 @@ export function SiteHeader({
                 {/* SHOP */}
                 <button
                   onClick={() => handleViewAll(gender)}
-                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
+                  className="text-[13px] font-serif tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
                 >
                   Shop
                   <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
@@ -151,7 +151,7 @@ export function SiteHeader({
                   >
                     <button
                       onClick={() => handleViewAll(g)}
-                      className={`text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 hover:text-alonzo-black relative ${gender === g ? 'text-alonzo-black' : 'text-alonzo-gray-600'
+                      className={`text-[13px] font-serif tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 hover:text-alonzo-black relative ${gender === g ? 'text-alonzo-black' : 'text-alonzo-gray-600'
                         }`}
                     >
                       {g === 'Mujer' ? 'Mujer' : 'Hombre'}
@@ -169,7 +169,7 @@ export function SiteHeader({
                     setTimeout(() => setActiveCategory('BÁSICOS'), 50);
                     setHasBrowsed(true);
                   }}
-                  className="text-[13px] tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
+                  className="text-[13px] font-serif tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
                 >
                   Basics
                   <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
@@ -251,10 +251,24 @@ export function SiteHeader({
                   <div className="flex flex-col gap-3">
                     <button
                       onClick={() => handleViewAll(hoveredGender)}
-                      className="text-[11px] tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
+                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
                       style={{ animationDelay: '0ms' }}
                     >
                       Ver todo
+                    </button>
+                    <button
+                      onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
+                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
+                      style={{ animationDelay: '40ms' }}
+                    >
+                      Nuevo
+                    </button>
+                    <button
+                      onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
+                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
+                      style={{ animationDelay: '80ms' }}
+                    >
+                      Más Vendido
                     </button>
                   </div>
                   {/* Categories */}
@@ -263,8 +277,8 @@ export function SiteHeader({
                       <button
                         key={cat}
                         onClick={() => handleCategoryClick(hoveredGender, cat)}
-                        className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap mega-item-reveal"
-                        style={{ animationDelay: `${(idx + 1) * 40}ms` }}
+                        className="text-[11px] font-serif tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap mega-item-reveal"
+                        style={{ animationDelay: `${(idx + 3) * 40}ms` }}
                       >
                         {cat}
                       </button>
@@ -315,7 +329,7 @@ export function SiteHeader({
                 onClick={() => handleViewAll(gender)}
                 className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left"
               >
-                <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
+                <span className="text-[13px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
                   Shop
                 </span>
               </button>
@@ -341,8 +355,26 @@ export function SiteHeader({
                     className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
                     style={{ animationDelay: '0ms' }}
                   >
-                    <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                    <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Ver todo
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => { handleViewAll('Hombre'); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '60ms' }}
+                  >
+                    <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                      Nuevo
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => { handleViewAll('Hombre'); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '120ms' }}
+                  >
+                    <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                      Más Vendido
                     </span>
                   </button>
                   {(categoriesByGender['Hombre'] || []).map((cat, idx) => (
@@ -350,9 +382,9 @@ export function SiteHeader({
                       key={cat}
                       onClick={() => handleCategoryClick('Hombre', cat)}
                       className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                      style={{ animationDelay: `${(idx + 3) * 60}ms` }}
                     >
-                      <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-gray-500">
+                      <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-gray-500">
                         {cat}
                       </span>
                     </button>
@@ -381,8 +413,26 @@ export function SiteHeader({
                     className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
                     style={{ animationDelay: '0ms' }}
                   >
-                    <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                    <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Ver todo
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => { handleViewAll('Mujer'); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '60ms' }}
+                  >
+                    <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                      Nuevo
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => { handleViewAll('Mujer'); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
+                    className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                    style={{ animationDelay: '120ms' }}
+                  >
+                    <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
+                      Más Vendido
                     </span>
                   </button>
                   {(categoriesByGender['Mujer'] || []).map((cat, idx) => (

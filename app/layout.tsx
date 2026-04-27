@@ -1,14 +1,21 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Cormorant_Garamond } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
 import './globals.css';
 
-// FIX #25 — next/font/google en vez de <link> bloqueante
 const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-inter',
+});
+
+// Elegant serif — headings, prices, nav (UNDERGOLD-style)
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-cormorant',
 });
 
 const SITE_URL = 'https://alonzo-store-web.netlify.app';
@@ -51,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={`${inter.variable} ${cormorant.variable}`}>
       <body className="font-sans antialiased">
         <AppShell>{children}</AppShell>
       </body>
