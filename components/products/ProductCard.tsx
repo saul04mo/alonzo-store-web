@@ -203,16 +203,16 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
       {/* Product info */}
       <div className="mt-3 space-y-1.5 px-1 text-left" onClick={onClick}>
-        <p className="text-[12px] font-serif font-medium text-slate-600 uppercase tracking-wider leading-relaxed line-clamp-2 group-hover:text-alonzo-black transition-colors">
+        <p className="text-[12px] font-sans font-medium text-alonzo-gray-600 uppercase tracking-wider leading-relaxed line-clamp-2 group-hover:text-alonzo-black transition-colors">
           {product.name}
         </p>
         {hasOffer ? (
           <div className="flex items-center gap-2">
-            <p className="text-[13px] font-serif font-light text-red-600">{cs()}{finalPrice.toFixed(2)}</p>
-            <p className="text-[11px] font-serif font-light text-slate-400 line-through">{cs()}{rawPrice.toFixed(2)}</p>
+            <p className="text-[13px] font-sans font-normal text-red-600">{cs()}{finalPrice.toFixed(2)}</p>
+            <p className="text-[11px] font-sans font-normal text-alonzo-gray-500 line-through">{cs()}{rawPrice.toFixed(2)}</p>
           </div>
         ) : (
-          <p className="text-[13px] font-serif font-light text-slate-500">{cs()}{rawPrice.toFixed(2)}</p>
+          <p className="text-[13px] font-sans font-normal text-alonzo-gray-600">{cs()}{rawPrice.toFixed(2)}</p>
         )}
       </div>
 

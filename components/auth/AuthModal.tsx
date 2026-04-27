@@ -358,7 +358,7 @@ export function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
 
             {/* Separator */}
             <div className="flex justify-center items-center mb-6">
-              <span className="text-[15px] text-gray-400 font-serif lowercase italic">o</span>
+              <span className="text-[15px] text-gray-400 font-sans lowercase italic">o</span>
             </div>
 
             {/* Social - Estilo Farfetch */}

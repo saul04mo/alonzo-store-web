@@ -25,21 +25,21 @@
 @layer components {
   /* Luxury button base */
   .btn-primary {
-    @apply w-full py-4 bg-alonzo-black text-white text-xs font-serif font-normal
+    @apply w-full py-4 bg-alonzo-black text-white text-xs font-sans font-normal
            tracking-wider uppercase transition-all duration-200
            disabled:bg-alonzo-gray-400 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-outline {
     @apply w-full py-3.5 bg-white border border-alonzo-black text-alonzo-charcoal
-           text-xs font-serif font-normal tracking-widest uppercase transition-all duration-200
+           text-xs font-sans font-normal tracking-widest uppercase transition-all duration-200
            active:bg-alonzo-black active:text-white;
   }
 
   /* Form inputs — luxury minimal */
   .input-luxury {
     @apply w-full border-0 border-b border-alonzo-gray-300 bg-transparent
-           text-base text-alonzo-charcoal font-serif font-normal uppercase
+           text-base text-alonzo-charcoal font-sans font-normal uppercase
            outline-none py-1.5 transition-colors duration-300
            focus:border-alonzo-black placeholder:text-alonzo-gray-400
            placeholder:normal-case placeholder:italic;
@@ -47,7 +47,7 @@
 
   /* Section label */
   .label-luxury {
-    @apply text-2xs text-alonzo-gray-500 uppercase tracking-widest font-serif font-semibold block mb-2;
+    @apply text-2xs text-alonzo-gray-500 uppercase tracking-widest font-sans font-semibold block mb-2;
   }
 
   /* Skeleton loading */
