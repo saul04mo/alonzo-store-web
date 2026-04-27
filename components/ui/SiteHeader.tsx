@@ -257,7 +257,7 @@ export function SiteHeader({
                       Ver todo
                     </button>
                   </div>
-                  {/* Categories + Nuevo + Más Vendido */}
+                  {/* Categories */}
                   <div className="flex flex-col gap-2.5">
                     {dropdownCats.map((cat, idx) => (
                       <button
@@ -269,16 +269,19 @@ export function SiteHeader({
                         {cat}
                       </button>
                     ))}
+                  </div>
+                  {/* Nuevo + Más Vendido */}
+                  <div className="flex flex-col gap-2.5">
                     <button
                       onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
-                      className="text-[11px] font-serif tracking-[0.1em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal mt-1"
+                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
                       style={{ animationDelay: `${(dropdownCats.length + 1) * 40}ms` }}
                     >
                       Nuevo
                     </button>
                     <button
                       onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
-                      className="text-[11px] font-serif tracking-[0.1em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
+                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
                       style={{ animationDelay: `${(dropdownCats.length + 2) * 40}ms` }}
                     >
                       Más Vendido
