@@ -256,33 +256,33 @@ export function SiteHeader({
                     >
                       Ver todo
                     </button>
-                    <button
-                      onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
-                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
-                      style={{ animationDelay: '40ms' }}
-                    >
-                      Nuevo
-                    </button>
-                    <button
-                      onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
-                      className="text-[11px] font-serif tracking-[0.15em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
-                      style={{ animationDelay: '80ms' }}
-                    >
-                      Más Vendido
-                    </button>
                   </div>
-                  {/* Categories */}
+                  {/* Categories + Nuevo + Más Vendido */}
                   <div className="flex flex-col gap-2.5">
                     {dropdownCats.map((cat, idx) => (
                       <button
                         key={cat}
                         onClick={() => handleCategoryClick(hoveredGender, cat)}
                         className="text-[11px] font-serif tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors text-left whitespace-nowrap mega-item-reveal"
-                        style={{ animationDelay: `${(idx + 3) * 40}ms` }}
+                        style={{ animationDelay: `${(idx + 1) * 40}ms` }}
                       >
                         {cat}
                       </button>
                     ))}
+                    <button
+                      onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
+                      className="text-[11px] font-serif tracking-[0.1em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal mt-1"
+                      style={{ animationDelay: `${(dropdownCats.length + 1) * 40}ms` }}
+                    >
+                      Nuevo
+                    </button>
+                    <button
+                      onClick={() => { handleViewAll(hoveredGender); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
+                      className="text-[11px] font-serif tracking-[0.1em] uppercase font-semibold text-alonzo-black hover:opacity-60 transition-opacity text-left whitespace-nowrap mega-item-reveal"
+                      style={{ animationDelay: `${(dropdownCats.length + 2) * 40}ms` }}
+                    >
+                      Más Vendido
+                    </button>
                   </div>
                 </div>
               </div>
@@ -359,10 +359,22 @@ export function SiteHeader({
                       Ver todo
                     </span>
                   </button>
+                  {(categoriesByGender['Hombre'] || []).map((cat, idx) => (
+                    <button
+                      key={cat}
+                      onClick={() => handleCategoryClick('Hombre', cat)}
+                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                    >
+                      <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-gray-500">
+                        {cat}
+                      </span>
+                    </button>
+                  ))}
                   <button
                     onClick={() => { handleViewAll('Hombre'); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
                     className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                    style={{ animationDelay: '60ms' }}
+                    style={{ animationDelay: `${((categoriesByGender['Hombre'] || []).length + 1) * 60}ms` }}
                   >
                     <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Nuevo
@@ -371,24 +383,12 @@ export function SiteHeader({
                   <button
                     onClick={() => { handleViewAll('Hombre'); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
                     className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                    style={{ animationDelay: '120ms' }}
+                    style={{ animationDelay: `${((categoriesByGender['Hombre'] || []).length + 2) * 60}ms` }}
                   >
                     <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Más Vendido
                     </span>
                   </button>
-                  {(categoriesByGender['Hombre'] || []).map((cat, idx) => (
-                    <button
-                      key={cat}
-                      onClick={() => handleCategoryClick('Hombre', cat)}
-                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                      style={{ animationDelay: `${(idx + 3) * 60}ms` }}
-                    >
-                      <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-gray-500">
-                        {cat}
-                      </span>
-                    </button>
-                  ))}
                 </div>
               )}
 
@@ -417,10 +417,22 @@ export function SiteHeader({
                       Ver todo
                     </span>
                   </button>
+                  {(categoriesByGender['Mujer'] || []).map((cat, idx) => (
+                    <button
+                      key={cat}
+                      onClick={() => handleCategoryClick('Mujer', cat)}
+                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
+                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
+                    >
+                      <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-gray-500">
+                        {cat}
+                      </span>
+                    </button>
+                  ))}
                   <button
                     onClick={() => { handleViewAll('Mujer'); setTimeout(() => setActiveCategory('NUEVO'), 50); }}
                     className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                    style={{ animationDelay: '60ms' }}
+                    style={{ animationDelay: `${((categoriesByGender['Mujer'] || []).length + 1) * 60}ms` }}
                   >
                     <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Nuevo
@@ -429,24 +441,12 @@ export function SiteHeader({
                   <button
                     onClick={() => { handleViewAll('Mujer'); setTimeout(() => setActiveCategory('MÁS VENDIDO'), 50); }}
                     className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                    style={{ animationDelay: '120ms' }}
+                    style={{ animationDelay: `${((categoriesByGender['Mujer'] || []).length + 2) * 60}ms` }}
                   >
                     <span className="text-[12px] font-serif tracking-[0.08em] uppercase text-alonzo-charcoal font-semibold">
                       Más Vendido
                     </span>
                   </button>
-                  {(categoriesByGender['Mujer'] || []).map((cat, idx) => (
-                    <button
-                      key={cat}
-                      onClick={() => handleCategoryClick('Mujer', cat)}
-                      className="w-full px-8 py-3 border-b border-alonzo-gray-200/60 text-left mobile-menu-reveal"
-                      style={{ animationDelay: `${(idx + 1) * 60}ms` }}
-                    >
-                      <span className="text-[12px] tracking-[0.08em] uppercase text-alonzo-gray-500">
-                        {cat}
-                      </span>
-                    </button>
-                  ))}
                 </div>
               )}
 
