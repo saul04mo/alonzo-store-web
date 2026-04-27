@@ -346,7 +346,8 @@ export function SiteHeader({
               {/* ── Shop ── */}
               <button
                 onClick={() => handleViewAll(gender)}
-                className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '0ms' }}
               >
                 <span className="text-[13px] font-sans tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
                   Shop
@@ -356,7 +357,8 @@ export function SiteHeader({
               {/* ── Hombre ── */}
               <button
                 onClick={() => setDrawerSub(drawerSub === 'Hombre' ? null : 'Hombre')}
-                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '60ms' }}
               >
                 <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
                   Hombre
@@ -414,7 +416,8 @@ export function SiteHeader({
               {/* ── Mujer ── */}
               <button
                 onClick={() => setDrawerSub(drawerSub === 'Mujer' ? null : 'Mujer')}
-                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center justify-between px-5 py-4 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '120ms' }}
               >
                 <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
                   Mujer
@@ -478,7 +481,8 @@ export function SiteHeader({
                   setDrawerOpen(false);
                   setDrawerSub(null);
                 }}
-                className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center px-5 py-4 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '180ms' }}
               >
                 <span className="text-[13px] tracking-[0.08em] uppercase text-alonzo-charcoal font-medium">
                   Basics
@@ -490,7 +494,8 @@ export function SiteHeader({
             <div className="border-t border-alonzo-gray-200">
               <button
                 onClick={() => { setDrawerOpen(false); onProfileOpen(); }}
-                className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '240ms' }}
               >
                 <User size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
                 <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
@@ -499,7 +504,8 @@ export function SiteHeader({
               </button>
               <button
                 onClick={() => { setDrawerOpen(false); onCartOpen(); }}
-                className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center gap-3 px-5 py-3.5 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '300ms' }}
               >
                 <ShoppingBag size={16} strokeWidth={1.5} className="text-alonzo-gray-500" />
                 <span className="text-[12px] tracking-[0.06em] uppercase text-alonzo-charcoal">
@@ -509,7 +515,8 @@ export function SiteHeader({
               <a
                 href="/terms"
                 onClick={() => setDrawerOpen(false)}
-                className="w-full flex items-center px-5 py-3.5 border-b border-alonzo-gray-200 text-left"
+                className="w-full flex items-center px-5 py-3.5 border-b border-alonzo-gray-200 text-left mobile-menu-reveal"
+                style={{ animationDelay: '360ms' }}
               >
                 <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
                   Términos y condiciones
@@ -518,7 +525,8 @@ export function SiteHeader({
               <a
                 href="/privacy"
                 onClick={() => setDrawerOpen(false)}
-                className="w-full flex items-center px-5 py-3.5 text-left"
+                className="w-full flex items-center px-5 py-3.5 text-left mobile-menu-reveal"
+                style={{ animationDelay: '420ms' }}
               >
                 <span className="text-[11px] tracking-[0.06em] uppercase text-alonzo-gray-500">
                   Política de privacidad
