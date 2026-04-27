@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Cormorant_Garamond } from 'next/font/google';
+import { Inter, Oswald } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
 import './globals.css';
 
@@ -10,12 +10,11 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-// Elegant serif — headings, prices, nav (UNDERGOLD-style)
-const cormorant = Cormorant_Garamond({
+const oswald = Oswald({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['200', '300', '400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-cormorant',
+  variable: '--font-oswald',
 });
 
 const SITE_URL = 'https://alonzo-store-web.netlify.app';
@@ -58,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang="es" className={`${inter.variable} ${oswald.variable}`}>
       <body className="font-sans antialiased">
         <AppShell>{children}</AppShell>
       </body>
