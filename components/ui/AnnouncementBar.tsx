@@ -13,56 +13,60 @@ interface Props {
   initialAnnouncements?: Announcement[];
 }
 
+const SPEED_PX_PER_SEC = 80;
+
 export function AnnouncementBar({ initialAnnouncements = [] }: Props) {
   const [dismissed, setDismissed] = useState(false);
-  const [duration, setDuration] = useState(30);
+  const [animation, setAnimation] = useState<string>('none');
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Calcula duración basada en el ancho real de UNA copia (~80 px/s)
+  // 1. Al montar, calcula la animación INTRO (de translateX(0) a translateX(-100%))
+  //    Esto deja el texto visible desde la izquierda y lo desliza hacia afuera.
+  // 2. Al terminar la intro, switchea a la animación LOOP infinita
+  //    (entra desde la derecha 100vw, sale por la izquierda -100%).
+  // Resultado: nunca se ven dos copias del texto a la vez.
   useEffect(() => {
-    if (!trackRef.current || initialAnnouncements.length === 0) return;
-    const oneCopyWidth = trackRef.current.scrollWidth / 2;
-    const seconds = Math.max(15, Math.round(oneCopyWidth / 80));
-    setDuration(seconds);
+    const track = trackRef.current;
+    if (!track || initialAnnouncements.length === 0) return;
+
+    const blockWidth = track.scrollWidth;
+    const introDuration = Math.max(8, Math.round(blockWidth / SPEED_PX_PER_SEC));
+    setAnimation(`annMarqueeIntro ${introDuration}s linear forwards`);
+
+    const handleEnd = () => {
+      const viewportWidth = window.innerWidth;
+      // El track debe recorrer (viewport + bloque entero) para entrar y salir
+      const loopDuration = Math.max(15, Math.round((viewportWidth + blockWidth) / SPEED_PX_PER_SEC));
+      setAnimation(`annMarqueeLoop ${loopDuration}s linear infinite`);
+    };
+
+    track.addEventListener('animationend', handleEnd, { once: true });
+    return () => track.removeEventListener('animationend', handleEnd);
   }, [initialAnnouncements]);
 
   if (dismissed) return null;
 
-  // Bloque que se renderiza dos veces para loop seamless.
-  // Separadores SOLO entre items (no antes ni después) para que las dos copias sean idénticas.
-  const renderBlock = (ariaHidden: boolean) => (
-    <span
-      className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none flex items-center"
-      aria-hidden={ariaHidden || undefined}
-    >
-      {initialAnnouncements.map((a, i) => (
-        <span key={i} className="inline-flex items-center">
-          {i > 0 && <span className="mx-6 opacity-60">—</span>}
-          {a.link ? (
-            <a href={a.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{a.text}</a>
-          ) : (
-            <span>{a.text}</span>
-          )}
-        </span>
-      ))}
-      <span className="mx-6 opacity-60">—</span>
-    </span>
-  );
-
-  const hasContent = initialAnnouncements.length > 0;
-
-  // El contenedor SIEMPRE se renderiza con altura fija — cero layout shift,
-  // incluso si no hay announcements o están vacíos.
+  // Contenedor con altura fija siempre — cero layout shift incluso sin contenido
   return (
     <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
-      {hasContent && (
+      {initialAnnouncements.length > 0 && (
         <div
           ref={trackRef}
           className="absolute top-0 left-0 h-full flex items-center whitespace-nowrap will-change-transform"
-          style={{ animation: `annMarquee ${duration}s linear infinite` }}
+          style={{ animation }}
         >
-          {renderBlock(false)}
-          {renderBlock(true)}
+          <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none flex items-center px-4">
+            {initialAnnouncements.map((a, i) => (
+              <span key={i} className="inline-flex items-center">
+                {i > 0 && <span className="mx-6 opacity-60">—</span>}
+                {a.link ? (
+                  <a href={a.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{a.text}</a>
+                ) : (
+                  <span>{a.text}</span>
+                )}
+              </span>
+            ))}
+          </span>
         </div>
       )}
       <button
