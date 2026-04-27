@@ -10,6 +10,39 @@
   body {
     @apply font-sans antialiased text-alonzo-charcoal;
     overscroll-behavior-y: none;
+    /* Aplica MAYÚSCULAS a todo el sitio. Excepciones puntuales más abajo. */
+    text-transform: uppercase;
+  }
+
+  /* ── Excepciones a la regla global de uppercase ──
+     Estos elementos NO deben mayuscularse porque rompería su funcionalidad
+     (el usuario tipea ahí, son datos técnicos, o son contenido del usuario).
+  */
+  input,
+  textarea,
+  select,
+  optgroup,
+  option,
+  code,
+  pre,
+  kbd,
+  samp,
+  /* Tipos específicos donde el case importa: email, password, etc. */
+  input[type="email"],
+  input[type="password"],
+  input[type="url"],
+  input[type="number"],
+  input[type="tel"],
+  /* Cualquier elemento marcado explícitamente */
+  .no-uppercase,
+  .no-uppercase * {
+    text-transform: none;
+  }
+
+  /* Placeholders también deben mantener su case original (pistas como 'tu@email.com') */
+  input::placeholder,
+  textarea::placeholder {
+    text-transform: none;
   }
 
   /* Smooth scrollbar hide for horizontal scrolls */
