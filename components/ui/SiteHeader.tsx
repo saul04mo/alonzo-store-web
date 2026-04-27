@@ -106,6 +106,18 @@ export function SiteHeader({
   const headerLayoutClass = isHomeHero ? "fixed" : "sticky";
   const headerBgClass = isTransparent ? "bg-transparent border-transparent" : "bg-white border-alonzo-gray-200 border-b";
 
+  // Helpers de color: transparente (blanco) vs opaco (gris/negro original)
+  const navItemClass = isTransparent
+    ? "text-white/80 hover:text-white"
+    : "text-alonzo-gray-600 hover:text-alonzo-black";
+  const navActiveClass = isTransparent ? "text-white" : "text-alonzo-black";
+  const iconClass = isTransparent
+    ? "text-white hover:text-white/80"
+    : "text-alonzo-charcoal hover:text-alonzo-black";
+  const underlineClass = isTransparent ? "bg-white" : "bg-alonzo-black";
+  // Logo PNG: cuando es transparente, lo invertimos a blanco con filter
+  const logoFilterClass = isTransparent ? "brightness-0 invert" : "";
+
   return (
     <>
       <header
@@ -122,14 +134,14 @@ export function SiteHeader({
               {/* Mobile hamburger */}
               <button
                 onClick={() => { setDrawerOpen(true); setDrawerSub(null); }}
-                className="md:hidden text-alonzo-charcoal"
+                className={`md:hidden transition-colors ${iconClass}`}
               >
                 <Menu size={22} strokeWidth={1.5} />
               </button>
               {/* Mobile search */}
               <button
                 onClick={() => router.push('/search')}
-                className="md:hidden text-alonzo-charcoal"
+                className={`md:hidden transition-colors ${iconClass}`}
               >
                 <Search size={22} strokeWidth={1.5} />
               </button>
@@ -139,10 +151,10 @@ export function SiteHeader({
                 {/* SHOP */}
                 <button
                   onClick={() => handleViewAll(gender)}
-                  className="text-[13px] font-sans tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
+                  className={`text-[13px] font-sans tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 relative group ${navItemClass}`}
                 >
                   Shop
-                  <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+                  <span className={`absolute bottom-3 left-0 right-0 h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left ${underlineClass}`} />
                 </button>
 
                 {(['Mujer', 'Hombre'] as Gender[]).map((g) => (
@@ -154,12 +166,11 @@ export function SiteHeader({
                   >
                     <button
                       onClick={() => handleViewAll(g)}
-                      className={`text-[13px] font-sans tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 hover:text-alonzo-black relative ${gender === g ? 'text-alonzo-black' : 'text-alonzo-gray-600'
-                        }`}
+                      className={`text-[13px] font-sans tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 relative ${gender === g ? navActiveClass : navItemClass}`}
                     >
                       {g === 'Mujer' ? 'Mujer' : 'Hombre'}
                       {hoveredGender === g && (
-                        <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black" />
+                        <span className={`absolute bottom-3 left-0 right-0 h-[1.5px] ${underlineClass}`} />
                       )}
                     </button>
                   </div>
@@ -172,10 +183,10 @@ export function SiteHeader({
                     setTimeout(() => setActiveCategory('BÁSICOS'), 50);
                     setHasBrowsed(true);
                   }}
-                  className="text-[13px] font-sans tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 text-alonzo-gray-600 hover:text-alonzo-black relative group"
+                  className={`text-[13px] font-sans tracking-[0.18em] uppercase font-medium py-4 transition-colors duration-200 relative group ${navItemClass}`}
                 >
                   Basics
-                  <span className="absolute bottom-3 left-0 right-0 h-[1.5px] bg-alonzo-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+                  <span className={`absolute bottom-3 left-0 right-0 h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left ${underlineClass}`} />
                 </button>
               </nav>
             </div>
@@ -186,7 +197,7 @@ export function SiteHeader({
                 <img
                   src="/images/logoAlonzo.png"
                   alt="ALONZO"
-                  className="h-8 md:h-12 w-auto object-contain"
+                  className={`h-8 md:h-12 w-auto object-contain transition-[filter] duration-300 ${logoFilterClass}`}
                   onError={(e) => {
                     const el = e.target as HTMLImageElement;
                     el.style.display = 'none';
@@ -204,25 +215,27 @@ export function SiteHeader({
               {/* Search (desktop only — mobile has it on the left) */}
               <button
                 onClick={() => router.push('/search')}
-                className="hidden md:flex text-alonzo-charcoal hover:text-alonzo-black transition-colors items-center"
+                className={`hidden md:flex transition-colors items-center ${iconClass}`}
               >
                 <Search size={23} strokeWidth={1.5} />
               </button>
               {/* User / Profile */}
               <button
                 onClick={onProfileOpen}
-                className="text-alonzo-charcoal hover:text-alonzo-black transition-colors flex items-center"
+                className={`transition-colors flex items-center ${iconClass}`}
               >
                 <User size={22} strokeWidth={1.5} className="md:w-[23px] md:h-[23px]" />
               </button>
               {/* Cart */}
               <button
                 onClick={onCartOpen}
-                className="text-alonzo-charcoal hover:text-alonzo-black transition-colors relative"
+                className={`transition-colors relative ${iconClass}`}
               >
                 <ShoppingBag size={22} strokeWidth={1.5} className="md:w-[23px] md:h-[23px]" />
                 {mounted && totalItems > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-alonzo-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  <span className={`absolute -top-1.5 -right-2 text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center transition-colors ${
+                    isTransparent ? 'bg-white text-alonzo-black' : 'bg-alonzo-black text-white'
+                  }`}>
                     {totalItems}
                   </span>
                 )}
