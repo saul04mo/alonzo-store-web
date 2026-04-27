@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 import { AnnouncementBar } from './AnnouncementBar';
+import type { Announcement } from '@/lib/getAnnouncements';
 import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -15,6 +16,7 @@ interface SiteHeaderProps {
   onCartOpen: () => void;
   onProfileOpen: () => void;
   searchRef?: React.RefObject<HTMLInputElement>;
+  announcements?: Announcement[];
 }
 
 export function SiteHeader({
@@ -25,6 +27,7 @@ export function SiteHeader({
   onCartOpen,
   onProfileOpen,
   searchRef,
+  announcements = [],
 }: SiteHeaderProps) {
   const totalItems = useCartStore((s) => s.totalItems());
   const { client } = useClientStore();
@@ -110,7 +113,7 @@ export function SiteHeader({
         onMouseEnter={() => setHeaderHovered(true)}
         onMouseLeave={() => setHeaderHovered(false)}
       >
-        <AnnouncementBar />
+        <AnnouncementBar initialAnnouncements={announcements} />
         <div className="w-full mx-auto px-3 md:px-6 lg:px-10 h-full">
           <div className="flex items-center justify-between h-14 md:h-16">
 

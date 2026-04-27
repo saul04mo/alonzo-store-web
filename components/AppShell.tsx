@@ -23,8 +23,9 @@ import { useWebSettings } from '@/lib/useWebSettings';
 import { prefetchAllProducts, fetchProducts } from '@/lib/api';
 import { hombreCategoryOrder } from '@/config';
 import type { Product, ProductVariant, Client } from '@/types';
+import type { Announcement } from '@/lib/getAnnouncements';
 
-function ShellContent({ children }: { children: React.ReactNode }) {
+function ShellContent({ children, announcements }: { children: React.ReactNode; announcements: Announcement[] }) {
   const toast = useToast();
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -189,6 +190,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
         onCartOpen={() => useUIStore.getState().setCartDrawerOpen(true)}
         onProfileOpen={() => (client ? router.push('/account') : setAuthOpen(true))}
         searchRef={searchRef}
+        announcements={announcements}
       />
 
       <main className="pb-24 md:pb-10">{children}</main>
@@ -242,10 +244,10 @@ function ShellContent({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({ children, announcements }: { children: React.ReactNode; announcements: Announcement[] }) {
   return (
     <ToastProvider>
-      <ShellContent>{children}</ShellContent>
+      <ShellContent announcements={announcements}>{children}</ShellContent>
     </ToastProvider>
   );
 }

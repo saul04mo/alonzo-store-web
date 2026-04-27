@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
+import { getAnnouncements } from '@/lib/getAnnouncements';
 import './globals.css';
 
 const inter = Inter({
@@ -48,11 +49,13 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const announcements = await getAnnouncements();
+
   return (
     <html lang="es" className={inter.variable}>
       <body className="font-sans antialiased">
-        <AppShell>{children}</AppShell>
+        <AppShell announcements={announcements}>{children}</AppShell>
       </body>
     </html>
   );
