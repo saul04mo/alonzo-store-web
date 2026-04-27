@@ -34,6 +34,8 @@ export function SiteHeader({
   const categoriesByGender = useUIStore((s) => s.categoriesByGender);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
   const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
+  const hasBrowsed = useUIStore((s) => s.hasBrowsed);
+  const activeCategory = useUIStore((s) => s.activeCategory);
   const [mounted, setMounted] = useState(false);
 
   // Desktop mega menu
@@ -99,7 +101,11 @@ export function SiteHeader({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isHomeHero = pathname === '/' && !searchTerm;
+  // El hero solo se muestra en home (/) cuando no hay categoría seleccionada,
+  // ni búsqueda, ni el usuario ha empezado a browsear. En ese caso el header
+  // es fixed/transparente. En cualquier otro caso (browsing, search, otras
+  // rutas) debe ser sticky para reservar espacio en el layout.
+  const isHomeHero = pathname === '/' && !searchTerm && !hasBrowsed && !activeCategory;
   const isTransparent = isHomeHero && !isScrolled && !drawerOpen && !hoveredGender && !headerHovered;
 
   const baseHeaderClass = "w-full top-0 z-[90] transition-colors duration-300";
