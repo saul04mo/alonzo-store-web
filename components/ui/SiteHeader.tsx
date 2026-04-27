@@ -252,7 +252,7 @@ export function SiteHeader({
             onMouseLeave={startClose}
           >
             <div className="w-full mx-auto px-3 md:px-6 lg:px-10">
-              <div className="flex items-start pt-0 pb-8">
+              <div className="flex items-start pt-6 pb-8">
                 {/* Spacer block to perfectly align the content under the hovered nav item */}
                 <div className="flex items-center gap-7 invisible h-0">
                   <span className="text-[13px] tracking-[0.18em] uppercase font-medium">Shop</span>
