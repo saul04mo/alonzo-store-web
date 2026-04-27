@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Oswald } from 'next/font/google';
+import { Inter, Jost } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
 import './globals.css';
 
@@ -10,11 +10,11 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const oswald = Oswald({
+const jost = Jost({
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-oswald',
+  variable: '--font-jost',
 });
 
 const SITE_URL = 'https://alonzo-store-web.netlify.app';
@@ -57,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${inter.variable} ${oswald.variable}`}>
+    <html lang="es" className={`${inter.variable} ${jost.variable}`}>
       <body className="font-sans antialiased">
         <AppShell>{children}</AppShell>
       </body>

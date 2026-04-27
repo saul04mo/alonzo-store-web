@@ -9,8 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-        serif: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
-        display: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
+        serif: ['var(--font-jost)', 'Jost', 'sans-serif'],
+        display: ['var(--font-jost)', 'Jost', 'sans-serif'],
       },
       colors: {
         alonzo: {
