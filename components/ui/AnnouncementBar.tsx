@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { db, collection, getDocs } from '@/lib/firebase-client';
 
@@ -14,12 +14,11 @@ let cachedAnnouncements: Announcement[] | null = null;
 export function AnnouncementBar() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(cachedAnnouncements || []);
   const [dismissed, setDismissed] = useState(false);
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [tick, setTick] = useState(0);
-  const [ready, setReady] = useState(!!cachedAnnouncements);
+  const [duration, setDuration] = useState(30);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (cachedAnnouncements) { setReady(true); return; }
+    if (cachedAnnouncements) return;
     (async () => {
       try {
         const snap = await getDocs(collection(db, 'announcements'));
@@ -33,57 +32,54 @@ export function AnnouncementBar() {
         items.sort((a, b) => a.order - b.order);
         cachedAnnouncements = items;
         setAnnouncements(items);
-        setReady(true);
       } catch (err) {
         console.error('AnnouncementBar:', err);
-        setReady(true);
       }
     })();
   }, []);
 
-  // Speed: ~60px per second regardless of screen size
-  const [duration, setDuration] = useState(15);
+  // Calcula duración basada en el ancho real del contenido (~80 px/s)
   useEffect(() => {
-    const w = window.innerWidth;
-    setDuration(Math.round((w + 300) / 60));
-  }, []);
+    if (!trackRef.current || announcements.length === 0) return;
+    // El track tiene 2 copias del contenido; queremos la velocidad sobre 1 copia
+    const oneCopyWidth = trackRef.current.scrollWidth / 2;
+    const seconds = Math.max(15, Math.round(oneCopyWidth / 80));
+    setDuration(seconds);
+  }, [announcements]);
 
-  // Cycle to next announcement after animation
-  useEffect(() => {
-    if (!ready || announcements.length <= 1) return;
-    const timer = setTimeout(() => {
-      setCurrentIdx((prev) => (prev + 1) % announcements.length);
-      setTick((t) => t + 1);
-    }, duration * 1000);
-    return () => clearTimeout(timer);
-  }, [currentIdx, tick, ready, announcements.length, duration]);
+  if (dismissed || announcements.length === 0) return null;
 
-  if (dismissed) return null;
-
-  const current = announcements[currentIdx];
+  // Concatena todos los announcements en una sola cadena con separador
+  const items = announcements.map((a, i) => (
+    <span key={i} className="inline-flex items-center">
+      {a.link ? (
+        <a href={a.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{a.text}</a>
+      ) : (
+        <span>{a.text}</span>
+      )}
+      <span className="mx-6 opacity-60" aria-hidden="true">—</span>
+    </span>
+  ));
 
   return (
     <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
-      {current && (
-        <div
-          key={`${currentIdx}-${tick}`}
-          className="absolute h-full flex items-center whitespace-nowrap"
-          style={{
-            animation: `annMarquee ${duration}s linear forwards`,
-          }}
-        >
-          <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none px-4">
-            {current.link ? (
-              <a href={current.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{current.text}</a>
-            ) : (
-              current.text
-            )}
-          </span>
-        </div>
-      )}
+      <div
+        ref={trackRef}
+        className="absolute top-0 left-0 h-full flex items-center whitespace-nowrap will-change-transform"
+        style={{ animation: `annMarquee ${duration}s linear infinite` }}
+      >
+        <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none flex items-center pl-4">
+          {items}
+        </span>
+        {/* Copia duplicada para loop seamless */}
+        <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none flex items-center" aria-hidden="true">
+          {items}
+        </span>
+      </div>
       <button
         onClick={() => setDismissed(true)}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10 bg-alonzo-black px-1"
+        aria-label="Cerrar anuncio"
       >
         <X size={12} strokeWidth={2} />
       </button>
