@@ -169,10 +169,10 @@ export function HomePage() {
     <>
       {showHero && <HeroBanner />}
 
-      <div id="products-section" className={`${hasBrowsed ? 'py-4 md:py-6' : 'py-6 md:py-10'}`}>
+      <div id="products-section" className={`${hasBrowsed ? 'pt-[86px] pb-4 md:pb-6' : 'py-6 md:py-10'}`}>
         {/* Category header (shown when browsing a category) */}
         {hasBrowsed && activeCategory && !searchTerm && (
-          <div key={activeCategory} className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-8 md:pt-12 page-fade-in">
+          <div key={activeCategory} className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-4 md:pt-6 page-fade-in">
             {/* Title + count */}
             <h1 className="text-xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3 md:mb-5">
               {categoryDisplayName}
