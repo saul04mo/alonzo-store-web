@@ -167,11 +167,11 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             }`}
           >
             {showSizes ? (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-alonzo-black">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="text-alonzo-gray-700">
                 <line x1="3" y1="3" x2="11" y2="11" /><line x1="11" y1="3" x2="3" y2="11" />
               </svg>
             ) : (
-              <Plus size={18} strokeWidth={2.5} className="text-alonzo-black" />
+              <Plus size={20} strokeWidth={1.5} className="text-alonzo-gray-700" />
             )}
           </div>
         )}
