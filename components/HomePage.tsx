@@ -227,12 +227,15 @@ export function HomePage() {
                   className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
                   title="4 columnas"
                 >
-                  <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="1" y="1" width="3" height="3" rx="0.5"/><rect x="5.5" y="1" width="3" height="3" rx="0.5"/>
-                    <rect x="10" y="1" width="3" height="3" rx="0.5"/><rect x="1" y="5.5" width="3" height="3" rx="0.5"/>
-                    <rect x="5.5" y="5.5" width="3" height="3" rx="0.5"/><rect x="10" y="5.5" width="3" height="3" rx="0.5"/>
-                    <rect x="1" y="10" width="3" height="3" rx="0.5"/><rect x="5.5" y="10" width="3" height="3" rx="0.5"/>
-                    <rect x="10" y="10" width="3" height="3" rx="0.5"/>
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
+                    <rect x="1" y="1" width="2.75" height="2.75" rx="0.4"/><rect x="4.75" y="1" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="8.5" y="1" width="2.75" height="2.75" rx="0.4"/><rect x="12.25" y="1" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="1" y="4.75" width="2.75" height="2.75" rx="0.4"/><rect x="4.75" y="4.75" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="8.5" y="4.75" width="2.75" height="2.75" rx="0.4"/><rect x="12.25" y="4.75" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="1" y="8.5" width="2.75" height="2.75" rx="0.4"/><rect x="4.75" y="8.5" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="8.5" y="8.5" width="2.75" height="2.75" rx="0.4"/><rect x="12.25" y="8.5" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="1" y="12.25" width="2.75" height="2.75" rx="0.4"/><rect x="4.75" y="12.25" width="2.75" height="2.75" rx="0.4"/>
+                    <rect x="8.5" y="12.25" width="2.75" height="2.75" rx="0.4"/><rect x="12.25" y="12.25" width="2.75" height="2.75" rx="0.4"/>
                   </svg>
                 </button>
               </div>
