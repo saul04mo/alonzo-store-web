@@ -17,56 +17,85 @@ const SPEED_PX_PER_SEC = 80;
 
 export function AnnouncementBar({ initialAnnouncements = [] }: Props) {
   const [dismissed, setDismissed] = useState(false);
-  const [animation, setAnimation] = useState<string>('none');
+  const [duration, setDuration] = useState(30);
+  const [repeats, setRepeats] = useState(1);
   const trackRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLSpanElement>(null);
 
-  // 1. Al montar, calcula la animación INTRO (de translateX(0) a translateX(-100%))
-  //    Esto deja el texto visible desde la izquierda y lo desliza hacia afuera.
-  // 2. Al terminar la intro, switchea a la animación LOOP infinita
-  //    (entra desde la derecha 100vw, sale por la izquierda -100%).
-  // Resultado: nunca se ven dos copias del texto a la vez.
+  // Algoritmo:
+  // 1. Mido el ancho de UNA copia del contenido
+  // 2. Si la copia es más angosta que el viewport, la replico N veces hasta
+  //    que la "unidad" sea > viewport (así el loop nunca deja gap visible)
+  // 3. Después duplico esa unidad → 2 copias seguidas → translate 0 → -50%
+  //    da loop perfectamente seamless sin huecos.
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track || initialAnnouncements.length === 0) return;
+    if (!measureRef.current || initialAnnouncements.length === 0) return;
+    const oneBlockWidth = measureRef.current.scrollWidth;
+    if (oneBlockWidth === 0) return;
 
-    const blockWidth = track.scrollWidth;
-    const introDuration = Math.max(8, Math.round(blockWidth / SPEED_PX_PER_SEC));
-    setAnimation(`annMarqueeIntro ${introDuration}s linear forwards`);
+    const viewportWidth = window.innerWidth;
+    // Cuántas veces tengo que repetir el bloque para que la "unidad" llene el viewport
+    const minRepeats = Math.max(1, Math.ceil(viewportWidth / oneBlockWidth));
+    setRepeats(minRepeats);
 
-    const handleEnd = () => {
-      const viewportWidth = window.innerWidth;
-      // El track debe recorrer (viewport + bloque entero) para entrar y salir
-      const loopDuration = Math.max(15, Math.round((viewportWidth + blockWidth) / SPEED_PX_PER_SEC));
-      setAnimation(`annMarqueeLoop ${loopDuration}s linear infinite`);
-    };
-
-    track.addEventListener('animationend', handleEnd, { once: true });
-    return () => track.removeEventListener('animationend', handleEnd);
+    // Velocidad: queremos ~80 px/s sobre el ancho de UNA unidad (no del track entero)
+    const unitWidth = oneBlockWidth * minRepeats;
+    const seconds = Math.max(15, Math.round(unitWidth / SPEED_PX_PER_SEC));
+    setDuration(seconds);
   }, [initialAnnouncements]);
 
   if (dismissed) return null;
 
-  // Contenedor con altura fija siempre — cero layout shift incluso sin contenido
+  // Render del contenido (separadores SOLO entre items + uno al final para conectar con la siguiente unidad)
+  const renderItems = () => initialAnnouncements.map((a, i) => (
+    <span key={i} className="inline-flex items-center">
+      {i > 0 && <span className="mx-6 opacity-60">—</span>}
+      {a.link ? (
+        <a href={a.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{a.text}</a>
+      ) : (
+        <span>{a.text}</span>
+      )}
+    </span>
+  ));
+
+  // Una "unidad" puede ser el contenido replicado N veces para llenar el viewport
+  const renderUnit = (ariaHidden: boolean) => (
+    <span
+      className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none flex items-center"
+      aria-hidden={ariaHidden || undefined}
+    >
+      {Array.from({ length: repeats }).map((_, r) => (
+        <span key={r} className="inline-flex items-center">
+          {r > 0 && <span className="mx-6 opacity-60">—</span>}
+          {renderItems()}
+        </span>
+      ))}
+      {/* Separador final que conecta con la siguiente unidad (idéntico en ambas copias) */}
+      <span className="mx-6 opacity-60">—</span>
+    </span>
+  );
+
+  const hasContent = initialAnnouncements.length > 0;
+
   return (
     <div className="w-full bg-alonzo-black text-white relative overflow-hidden h-[22px]">
-      {initialAnnouncements.length > 0 && (
+      {/* Span invisible solo para medir el ancho real de UN bloque */}
+      <span
+        ref={measureRef}
+        className="absolute opacity-0 pointer-events-none -z-10 text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none whitespace-nowrap"
+        aria-hidden="true"
+      >
+        {renderItems()}
+      </span>
+
+      {hasContent && (
         <div
           ref={trackRef}
           className="absolute top-0 left-0 h-full flex items-center whitespace-nowrap will-change-transform"
-          style={{ animation }}
+          style={{ animation: `annMarqueeLoop ${duration}s linear infinite` }}
         >
-          <span className="text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium leading-none flex items-center px-4">
-            {initialAnnouncements.map((a, i) => (
-              <span key={i} className="inline-flex items-center">
-                {i > 0 && <span className="mx-6 opacity-60">—</span>}
-                {a.link ? (
-                  <a href={a.link} target="_blank" rel="noopener noreferrer" className="hover:underline">{a.text}</a>
-                ) : (
-                  <span>{a.text}</span>
-                )}
-              </span>
-            ))}
-          </span>
+          {renderUnit(false)}
+          {renderUnit(true)}
         </div>
       )}
       <button

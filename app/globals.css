@@ -110,14 +110,12 @@
   }
 }
 
-/* Announcement marquee — intro (primera vez) + loop (subsiguientes) */
-@keyframes annMarqueeIntro {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
+/* Announcement marquee — loop infinito sin gaps.
+   Track tiene 2 unidades duplicadas; mover de 0 a -50% deja la mitad
+   del track exactamente donde estaba al inicio → loop seamless. */
 @keyframes annMarqueeLoop {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes slideUp {
