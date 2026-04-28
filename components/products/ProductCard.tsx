@@ -159,6 +159,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {uniqueSizes.length > 0 && (
           <div
             onClick={toggleSizes}
+            onMouseEnter={() => { if (canHover) setShowSizes(true); }}
             className={`absolute right-2 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
               showSizes
                 ? 'bottom-[42px] sm:bottom-[46px] opacity-100'
