@@ -34,6 +34,7 @@ export function SiteHeader({
   const categoriesByGender = useUIStore((s) => s.categoriesByGender);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
   const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
+  const hasBrowsed = useUIStore((s) => s.hasBrowsed);
   const [mounted, setMounted] = useState(false);
 
   // Desktop mega menu
@@ -99,10 +100,11 @@ export function SiteHeader({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Home siempre tiene header fixed/transparente (sobre el hero o sobre la grid).
-  // Cuando se hace scroll → isScrolled=true → se pone blanco con logo negro.
-  // En otras rutas (search, account, product, etc.) → sticky con bg blanco siempre.
-  const isHomeHero = pathname === '/' && !searchTerm;
+  // Header es fixed/transparente SOLO cuando el HeroBanner está renderizado
+  // detrás (mismo criterio que HomePage: showHero = !hasBrowsed && !searchTerm).
+  // En home browsing categoría → no hay hero → sticky con bg blanco.
+  // En cualquier otra ruta → sticky con bg blanco.
+  const isHomeHero = pathname === '/' && !searchTerm && !hasBrowsed;
   const isTransparent = isHomeHero && !isScrolled && !drawerOpen && !hoveredGender && !headerHovered;
 
   const baseHeaderClass = "w-full top-0 z-[90] transition-colors duration-300";
