@@ -10,13 +10,31 @@ export function InstallPrompt() {
   const promptRef = useRef<any>(null);
   const [installed, setInstalled] = useState(false);
 
+  // Listener GLOBAL que silencia el mini-infobar nativo de Chrome
+  // Android. Sin este preventDefault(), Chrome muestra su propio
+  // prompt de instalaci\u00f3n estilo Android (en el borde inferior, fuera
+  // del control del sitio) cuando detecta que el sitio cumple con
+  // los criterios de PWA. Lo capturamos y prevenimos siempre, incluso
+  // con el toggle apagado, para que NUNCA aparezca ese prompt nativo.
+  // Si el toggle est\u00e1 activado, despu\u00e9s mostramos NUESTRO banner
+  // custom (el otro useEffect abajo).
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handler = (e: Event) => {
+      e.preventDefault();
+      promptRef.current = e;
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
   useEffect(() => {
     // Esperar a que las settings se hayan cargado de Firestore.
     // Si arrancamos antes de eso, el flag default es false y no
     // mostramos nada (defensivo).
     if (!loaded) return;
-    // Respetar el toggle del admin: si está apagado en Firestore, NO
-    // mostramos el banner bajo ningún caso (ni iOS ni Android ni desktop).
+    // Respetar el toggle del admin: si est\u00e1 apagado en Firestore, NO
+    // mostramos el banner bajo ning\u00fan caso (ni iOS ni Android ni desktop).
     if (!installPromptEnabled) return;
     if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
     if (window.matchMedia('(display-mode: standalone)').matches) return;
@@ -31,15 +49,23 @@ export function InstallPrompt() {
       setTimeout(() => setShow(true), 3000);
     } else if (isAndroid) {
       setPlatform('android');
-      const handler = (e: Event) => { e.preventDefault(); promptRef.current = e; };
-      window.addEventListener('beforeinstallprompt', handler);
+      // El listener global de arriba ya captur\u00f3 el evento si
+      // existi\u00f3. Solo mostramos nuestro banner custom.
       setTimeout(() => setShow(true), 3000);
-      return () => window.removeEventListener('beforeinstallprompt', handler);
     } else {
       setPlatform('desktop');
-      const handler = (e: Event) => { e.preventDefault(); promptRef.current = e; setShow(true); };
-      window.addEventListener('beforeinstallprompt', handler);
-      return () => window.removeEventListener('beforeinstallprompt', handler);
+      // En desktop, si Chrome ya capt\u00f3 el evento (listener global),
+      // mostramos el banner. Si todav\u00eda no captur\u00f3, esperamos.
+      if (promptRef.current) {
+        setShow(true);
+      } else {
+        // Re-attach un listener temporal solo para mostrar el banner
+        // cuando llegue el evento (puede llegar despu\u00e9s del primer
+        // listener si el sitio recarga).
+        const showWhenReady = () => setShow(true);
+        window.addEventListener('beforeinstallprompt', showWhenReady, { once: true });
+        return () => window.removeEventListener('beforeinstallprompt', showWhenReady);
+      }
     }
   }, [installPromptEnabled, loaded]);
 
