@@ -11,7 +11,12 @@ export function InstallPrompt() {
   const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
+    // Esperar a que las settings se hayan cargado de Firestore.
+    // Si arrancamos antes de eso, el flag default es false y no
+    // mostramos nada (defensivo).
     if (!loaded) return;
+    // Respetar el toggle del admin: si está apagado en Firestore, NO
+    // mostramos el banner bajo ningún caso (ni iOS ni Android ni desktop).
     if (!installPromptEnabled) return;
     if (sessionStorage.getItem('alonzo-pwa-dismissed')) return;
     if (window.matchMedia('(display-mode: standalone)').matches) return;
