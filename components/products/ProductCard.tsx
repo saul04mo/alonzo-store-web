@@ -124,13 +124,14 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           onLoad={() => { loadedImages.add(imageUrl); setLoaded(true); }}
           className={`
             absolute inset-0 w-full h-full object-cover object-center
-            ${wasCached ? '' : 'transition-all duration-700 ease-out'}
+            ${wasCached ? 'transition-opacity duration-300 ease-out' : 'transition-all duration-700 ease-out'}
             ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[1.02] blur-sm'}
-            ${hovered && secondImage && secondLoaded ? 'opacity-0' : ''}
+            ${hovered && secondImage && secondLoaded ? '!opacity-0' : ''}
           `}
         />
 
-        {/* Second image — visible on hover */}
+        {/* Second image — visible on hover. Solo animamos opacity
+            (sin blur ni scale) para que el swap sea limpio y r\u00e1pido. */}
         {secondImage && (
           <img
             src={secondImage}
@@ -140,8 +141,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             onLoad={() => { if (secondImage) loadedImages.add(secondImage); setSecondLoaded(true); }}
             className={`
               absolute inset-0 w-full h-full object-cover object-center
-              transition-all duration-700 ease-out
-              ${hovered && secondLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'}
+              transition-opacity duration-300 ease-out
+              ${hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
             `}
           />
         )}
