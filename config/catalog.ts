@@ -18,11 +18,13 @@ export const blacklistedProductIds = new Set([
   'EYcF7XdAaDRpwjK0eM92',
 ]);
 
-// Category names to exclude
-export const blacklistedCategories = new Set([
-  'PANTALONES DE VESTIR',
-  'PANTALONES DE CUERO',
-]);
+// Category names to exclude.
+// IMPORTANTE: si vas a bloquear una categoría, asegurate que no esté
+// en uso en productos del POS (Facturacion-alonzo). El equipo decidió
+// mostrar TODAS las categorías que existan en inventario — no más
+// bloqueos manuales acá. Si necesitás esconder una categoría puntual,
+// más sano es no asignarle ese category a productos en el POS.
+export const blacklistedCategories = new Set<string>([]);
 
 // Custom category sort order for "Hombre"
 export const hombreCategoryOrder: Record<string, number> = {
