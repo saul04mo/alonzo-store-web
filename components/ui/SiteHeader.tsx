@@ -100,6 +100,15 @@ export function SiteHeader({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Cuando cambia el pathname (ej. de /products/X a /), forzamos
+  // recalcular isScrolled. Sin esto, el header se quedaba con
+  // bg-white al volver al home si el usuario hab\u00eda scrolleado en
+  // el producto \u2014 isScrolled era true porque el listener solo
+  // recalcula con scroll events, no con cambios de ruta.
+  useEffect(() => {
+    setIsScrolled(window.scrollY > 20);
+  }, [pathname]);
+
   // Header es fixed/transparente SOLO cuando el HeroBanner está renderizado
   // detrás (mismo criterio que HomePage: showHero = !hasBrowsed && !searchTerm).
   // En home browsing categoría → no hay hero → sticky con bg blanco.
@@ -198,7 +207,20 @@ export function SiteHeader({
 
             {/* ── Center logo ── */}
             <div className="absolute left-1/2 -translate-x-1/2">
-              <Link href="/" onClick={() => { setHasBrowsed(false); setActiveCategory(''); }} className="flex items-center">
+              <Link
+                href="/"
+                onClick={() => {
+                  setHasBrowsed(false);
+                  setActiveCategory('');
+                  // Scroll al top para que el hero se vea y el header
+                  // se vuelva transparente (sin esto, si el usuario
+                  // estaba scrolled en una p\u00e1gina previa, al volver
+                  // al home el header quedaba con bg-white encima
+                  // del hero hasta que scrolleara manualmente).
+                  if (typeof window !== 'undefined') window.scrollTo(0, 0);
+                }}
+                className="flex items-center"
+              >
                 <img
                   src="/images/logoAlonzo.png"
                   alt="ALONZO"
