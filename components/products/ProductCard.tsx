@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cs } from '@/lib/format';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
@@ -36,7 +36,22 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   const secondImage = product.images?.length > 1 ? product.images[1] : null;
   const [hovered, setHovered] = useState(false);
   const [secondLoaded, setSecondLoaded] = useState(() => loadedImages.has(secondImage || ''));
-  const canHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches;
+
+  // canHover detecta si el dispositivo tiene mouse real (desktop con
+  // mouse o trackpad). En t\u00e1ctiles puros (mobile/tablet) da false
+  // y el hover swap NUNCA se activa \u2014 evita que al tocar la card se
+  // vea un cross-fade momentaneo antes de navegar al producto.
+  // Lo calculamos en useEffect para que sea reactivo a cambios
+  // (ej: conectar/desconectar mouse a un tablet).
+  const [canHover, setCanHover] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    setCanHover(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setCanHover(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const sizeMap = new Map<string, { stock: number; variantIndex: number }>();
   product.variants.forEach((v, idx) => {
@@ -126,7 +141,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             absolute inset-0 w-full h-full object-cover object-center
             ${wasCached ? 'transition-opacity duration-300 ease-out' : 'transition-all duration-700 ease-out'}
             ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[1.02] blur-sm'}
-            ${hovered && secondImage && secondLoaded ? '!opacity-0' : ''}
+            ${canHover && hovered && secondImage && secondLoaded ? '!opacity-0' : ''}
           `}
         />
 
@@ -142,7 +157,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             className={`
               absolute inset-0 w-full h-full object-cover object-center
               transition-opacity duration-300 ease-out
-              ${hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
+              ${canHover && hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
             `}
           />
         )}
