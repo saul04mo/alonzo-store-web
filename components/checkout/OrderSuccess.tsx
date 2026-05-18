@@ -46,9 +46,12 @@ export function OrderSuccess({
   const msg = buildOrderWhatsAppMessage(numericId, invoiceData);
   const whatsappUrl = buildWhatsAppLink(whatsappNumber, msg);
 
-  const deliveryLabel = invoiceData.deliveryType === 'delivery'
+  // Aceptamos tanto los valores nuevos ('local', 'national') como los
+  // legacy ('delivery', 'nacional') por si la factura es vieja.
+  const dt = invoiceData.deliveryType;
+  const deliveryLabel = (dt === 'local' || dt === 'delivery')
     ? 'Delivery'
-    : invoiceData.deliveryType === 'nacional'
+    : (dt === 'national' || dt === 'nacional')
     ? 'Envío Nacional'
     : 'Retiro en Tienda';
 

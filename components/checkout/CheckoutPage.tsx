@@ -112,7 +112,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   }, [client]);
 
   // Delivery
-  const [deliveryType, setDeliveryType] = useState<'pickup' | 'delivery' | 'nacional'>('pickup');
+  const [deliveryType, setDeliveryType] = useState<'pickup' | 'local' | 'national'>('pickup');
   const [methodDropdownOpen, setMethodDropdownOpen] = useState(false);
   const [mapDeliveryCost, setMapDeliveryCost] = useState(0);
   const [mapDistanceKm, setMapDistanceKm] = useState<number | null>(null);
@@ -144,7 +144,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   };
 
   // Totals
-  const rawDeliveryCost = deliveryType === 'delivery' ? mapDeliveryCost : 0;
+  const rawDeliveryCost = deliveryType === 'local' ? mapDeliveryCost : 0;
   const deliveryCost = appliedCoupon?.freeShipping ? 0 : rawDeliveryCost;
   const subtotal = totalMoney();
 
@@ -187,7 +187,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     if (processingRef.current) return; // Ref guard — prevents double-click race condition
     setErrorMsg('');
     if (!rif || !name || !address) { setErrorMsg('Por favor completa nombre, RIF y dirección.'); return; }
-    if (deliveryType === 'delivery' && mapDeliveryCost === 0) {
+    if (deliveryType === 'local' && mapDeliveryCost === 0) {
       setErrorMsg('Debes seleccionar tu ubicación en el mapa para calcular el costo de envío.');
       return;
     }
@@ -355,7 +355,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
               <AddressPicker
                 initialAddress={address}
                 onAddressSelect={handleAddressSelect}
-                showCostPricing={deliveryType === 'delivery'}
+                showCostPricing={deliveryType === 'local'}
               />
             </Section>
           )}

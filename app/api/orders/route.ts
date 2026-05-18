@@ -44,7 +44,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Body inválido' }, { status: 400 });
   }
 
-  const { cart, clientData, deliveryType, deliveryCostUsd, deliveryZoneInfo, payments, exchangeRate, proofUrl, couponCode } = body;
+  const { cart, clientData, deliveryCostUsd, deliveryZoneInfo, payments, exchangeRate, proofUrl, couponCode } = body;
+  // deliveryType viene del body pero lo declaramos como let porque se
+  // normaliza más abajo (valor legacy → valor nuevo).
+  let deliveryType = body.deliveryType;
 
   // 4. Validar inputs
   if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -56,9 +59,15 @@ export async function POST(request: NextRequest) {
   if (!clientData?.name || !clientData?.rif_ci) {
     return NextResponse.json({ error: 'Faltan datos del cliente' }, { status: 400 });
   }
-  if (!['pickup', 'delivery', 'nacional'].includes(deliveryType)) {
+  // Aceptamos los valores nuevos ('local', 'national') y los legacy
+  // ('delivery', 'nacional') por compatibilidad con clientes que tengan
+  // bundles viejos cacheados. Antes de guardar normalizamos a los nuevos.
+  if (!['pickup', 'local', 'national', 'delivery', 'nacional'].includes(deliveryType)) {
     return NextResponse.json({ error: 'Tipo de envío inválido' }, { status: 400 });
   }
+  // Normalización: si vino con valor legacy, lo upgradamos al nuevo.
+  if (deliveryType === 'delivery') deliveryType = 'local';
+  if (deliveryType === 'nacional') deliveryType = 'national';
   if (typeof deliveryCostUsd !== 'number' || deliveryCostUsd < 0 || deliveryCostUsd > 100) {
     return NextResponse.json({ error: 'Costo de envío inválido' }, { status: 400 });
   }
@@ -273,7 +282,7 @@ export async function POST(request: NextRequest) {
         deliveryType,
         deliveryCostUsd: effectiveDeliveryCost,
         deliveryZone: deliveryZoneInfo || '',
-        deliveryPaidInStore: deliveryType === 'delivery',
+        deliveryPaidInStore: deliveryType === 'local',
         observation: 'Venta Online',
         appliedCoupon: appliedCouponData || null,
         appliedPromotions: [],

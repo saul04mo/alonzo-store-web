@@ -49,9 +49,12 @@ export function buildOrderWhatsAppMessage(
   }
 ): string {
   let deliveryText = 'Retiro en Tienda';
-  if (invoice.deliveryType === 'delivery')
+  // Acepta valores nuevos ('local', 'national') y legacy ('delivery',
+  // 'nacional') para no romper facturas histroricas.
+  if (invoice.deliveryType === 'local' || invoice.deliveryType === 'delivery')
     deliveryText = `Delivery (${invoice.deliveryZone || 'Zona no esp.'})`;
-  else if (invoice.deliveryType === 'nacional') deliveryText = 'Envío Nacional';
+  else if (invoice.deliveryType === 'national' || invoice.deliveryType === 'nacional')
+    deliveryText = 'Envío Nacional';
 
   const deliveryCost = invoice.deliveryCostUsd || 0;
   const subtotal = invoice.total - deliveryCost;

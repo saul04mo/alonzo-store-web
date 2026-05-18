@@ -21,10 +21,17 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   'Devolución': { label: 'Devuelto', color: 'text-gray-600', bg: 'bg-gray-100 border-gray-200', icon: XCircle },
 };
 
+// Acepta valores nuevos ('local', 'national') y legacy ('delivery',
+// 'nacional') para no romper el render de pedidos viejos.
 const DELIVERY_LABELS: Record<string, string> = {
   'pickup': 'Retiro en tienda',
-  'delivery': 'Delivery',
-  'nacional': 'Envío nacional',
+  'pick-up': 'Retiro en tienda',
+  'local': 'Delivery',
+  'delivery': 'Delivery',           // legacy
+  'national': 'Envío nacional',
+  'nacional': 'Envío nacional',     // legacy
+  'showroom': 'Showroom',
+  'web': 'Página Web',
 };
 
 export function AccountOrdersPage() {

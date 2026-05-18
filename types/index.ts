@@ -84,7 +84,7 @@ export interface DeliveryZoneGroup {
 }
 
 export interface DeliveryMethod {
-  id: 'pickup' | 'delivery' | 'nacional';
+  id: 'pickup' | 'local' | 'national';
   label: string;
   desc: string;
 }

@@ -32,7 +32,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
   const [address, setAddress] = useState('');
 
   // Delivery
-  const [deliveryType, setDeliveryType] = useState<'pickup' | 'delivery' | 'nacional'>('pickup');
+  const [deliveryType, setDeliveryType] = useState<'pickup' | 'local' | 'national'>('pickup');
   const [selectedZone, setSelectedZone] = useState<{ name: string; price: number } | null>(null);
   const [zoneSheetOpen, setZoneSheetOpen] = useState(false);
   const [methodSheetOpen, setMethodSheetOpen] = useState(false);
@@ -61,7 +61,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
 
 
   // Calculate totals
-  const rawDeliveryCost = deliveryType === 'delivery' ? (selectedZone?.price || 0) : 0;
+  const rawDeliveryCost = deliveryType === 'local' ? (selectedZone?.price || 0) : 0;
   const deliveryCost = appliedCoupon?.freeShipping ? 0 : rawDeliveryCost;
   const subtotal = totalMoney();
   const couponDiscount = appliedCoupon?.discountAmount || 0;
@@ -218,7 +218,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
           </div>
 
           {/* Zone selector (only for delivery) */}
-          {deliveryType === 'delivery' && (
+          {deliveryType === 'local' && (
             <div className="mb-5">
               <label className="label-luxury">ZONA DE ENTREGA</label>
               <button
@@ -334,7 +334,7 @@ export function CheckoutView({ open, onClose, onSuccess }: CheckoutViewProps) {
             onClick={() => {
               setDeliveryType(m.id);
               setMethodSheetOpen(false);
-              if (m.id === 'delivery' && !selectedZone) {
+              if (m.id === 'local' && !selectedZone) {
                 setTimeout(() => setZoneSheetOpen(true), 300);
               }
             }}
