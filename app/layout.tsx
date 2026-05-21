@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
 import { getAnnouncements } from '@/lib/getAnnouncements';
 import './globals.css';
@@ -9,6 +9,16 @@ const inter = Inter({
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-inter',
+});
+
+// Playfair Display — serif editorial elegante usada en el HeroBanner para
+// el título grande (estilo "fashion magazine"). Solo cargamos pesos
+// medios/altos porque solo se usa para títulos en mayúsculas.
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  display: 'swap',
+  variable: '--font-playfair',
 });
 
 const SITE_URL = 'https://alonzo-store-web.netlify.app';
@@ -53,7 +63,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const announcements = await getAnnouncements();
 
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased">
         <AppShell announcements={announcements}>{children}</AppShell>
       </body>

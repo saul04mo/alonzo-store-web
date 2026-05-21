@@ -26,6 +26,24 @@ export function HeroBanner() {
 
   const isExternal = heroImage.startsWith('http');
 
+  // Handler único: hace scroll a la sección de productos sin filtrar
+  // por género. El usuario navega después con los filtros del shop.
+  const handleShop = useCallback(() => {
+    setHasBrowsed(true);
+    setActiveCategory('');
+    const productsEl = document.getElementById('products-section');
+    if (productsEl) {
+      productsEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [setHasBrowsed, setActiveCategory]);
+
+  // (Mantenemos handleGenderSelect aunque ya no se use en el hero,
+  // por si en el futuro se reincorporan los botones por género.)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _unusedGenderHandler = handleGenderSelect;
+
+  const isExternal = heroImage.startsWith('http');
+
   return (
     <div className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden">
       {isExternal ? (
@@ -51,46 +69,37 @@ export function HeroBanner() {
         />
       )}
 
-      {/* Overlay sutil para mejorar contraste de la card */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent" />
+      {/* Gradient sutil desde abajo-izquierda hacia transparente. Esto
+          mejora la legibilidad del texto blanco sin oscurecer toda la
+          imagen — más sutil que un overlay uniforme. */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/15 to-transparent pointer-events-none" />
 
-      {/* ── Card de CTA abajo-izquierda ─────────────────────────────────
-          Inspirado en el estilo Fear of God: bloque compacto con
-          etiqueta pequeña arriba, título grande (usa heroSubtitle del
-          POS), y botones de navegación al catálogo por género.
+      {/* ── Contenido del hero: solo texto y un botón ─────────────────
+          Sin card / sin fondo oscuro. El texto va directamente sobre
+          la imagen con drop-shadow para legibilidad y la tipografía
+          editorial (Playfair Display) en el título grande.
 
-          En mobile la card queda más chica, centrada horizontalmente
-          y un poco más arriba del borde inferior. En desktop se ancla
-          abajo-izquierda con padding generoso.
+          Posición: abajo-izquierda en desktop, abajo centrado-izquierda
+          en mobile.
       */}
-      <div className="absolute z-10 bottom-6 left-4 right-4 md:bottom-12 md:left-10 md:right-auto md:max-w-[420px]">
-        <div className="bg-black/75 backdrop-blur-md p-5 md:p-7 shadow-2xl stagger-up stagger-1">
-          {/* Etiqueta superior */}
-          <p className="text-[9px] md:text-[11px] font-sans tracking-[0.25em] uppercase text-white/70 mb-2 md:mb-3">
-            New Arrivals
-          </p>
+      <div className="absolute z-10 bottom-12 left-4 right-4 md:bottom-20 md:left-12 md:right-auto md:max-w-[560px]">
+        {/* Etiqueta superior pequeña, sans-serif con tracking ancho */}
+        <p className="text-[10px] md:text-xs font-sans tracking-[0.3em] uppercase text-white font-medium mb-3 md:mb-4 drop-shadow-lg stagger-up stagger-1">
+          New Arrivals
+        </p>
 
-          {/* Título principal (editable desde POS via heroSubtitle) */}
-          <h2 className="text-2xl md:text-4xl font-display font-bold uppercase tracking-tight leading-[1.05] text-white mb-4 md:mb-6">
-            {heroSubtitle}
-          </h2>
+        {/* Título principal grande — Playfair Display, editable desde POS */}
+        <h2 className="font-editorial font-medium text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight leading-[0.95] mb-6 md:mb-8 drop-shadow-xl stagger-up stagger-2">
+          {heroSubtitle}
+        </h2>
 
-          {/* Botones de género */}
-          <div className="flex items-stretch gap-2 md:gap-3">
-            <button
-              onClick={() => handleGenderSelect('Mujer')}
-              className="flex-1 py-3 md:py-3.5 px-4 bg-white text-alonzo-black text-[11px] md:text-xs font-sans tracking-[0.15em] uppercase font-semibold hover:bg-alonzo-black hover:text-white border border-white transition-colors duration-300"
-            >
-              Mujer
-            </button>
-            <button
-              onClick={() => handleGenderSelect('Hombre')}
-              className="flex-1 py-3 md:py-3.5 px-4 bg-transparent text-white text-[11px] md:text-xs font-sans tracking-[0.15em] uppercase font-semibold hover:bg-white hover:text-alonzo-black border border-white transition-colors duration-300"
-            >
-              Hombre
-            </button>
-          </div>
-        </div>
+        {/* Botón único — blanco sólido, estilo CTA editorial */}
+        <button
+          onClick={handleShop}
+          className="inline-block px-10 md:px-14 py-3.5 md:py-4 bg-white text-alonzo-black text-[11px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase hover:bg-alonzo-black hover:text-white transition-colors duration-300 shadow-xl stagger-up stagger-3"
+        >
+          Shop Now
+        </button>
       </div>
     </div>
   );

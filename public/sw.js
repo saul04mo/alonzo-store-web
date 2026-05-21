@@ -1,7 +1,7 @@
 // IMPORTANTE: bumpear este nombre cada vez que se haga deploy con
 // cambios significativos para forzar que los browsers que ya tenían
 // la versión vieja en cache actualicen al activarse el nuevo SW.
-const CACHE_NAME = 'alonzo-v7-hero-card';
+const CACHE_NAME = 'alonzo-v8-editorial-hero';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
