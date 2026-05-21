@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { db, doc, getDoc } from '@/lib/firebase-client';
+import { db, doc, onSnapshot } from '@/lib/firebase-client';
 
 export interface WebSettings {
   whatsappNumber: string;
@@ -24,39 +24,33 @@ const DEFAULTS: WebSettings = {
   cacheTTL: 30,
 };
 
-// CACHE STRATEGY: las settings se leen UNA vez al cargar y se cachean
-// en memoria del módulo durante esa sesión del browser. Pero si el
-// admin cambia algo (ej: prompt de instalación PWA) en otra pestaña/POS,
-// el usuario tiene que hacer F5 para refrescar.
-// El cache se invalida automáticamente al cerrar/recargar la página.
-let cached: WebSettings | null = null;
-let loaded = false;
+// ── Suscripción realtime compartida entre todos los hooks ──────────
+// Antes esto era un getDoc() one-shot con cache singleton en memoria.
+// Problema: cuando el admin cambiaba un valor desde el POS (ej. la
+// imagen del banner), el cliente que ya tenía la página abierta no
+// veía el cambio NUNCA — el cache solo se invalidaba al cerrar la
+// pestaña, y aún con F5 el HTML cacheado por Netlify/Service Worker
+// podía servir lo viejo.
+//
+// Solución: onSnapshot. UN listener compartido por toda la sesión del
+// browser, y todos los hooks useWebSettings se enteran de los cambios
+// automáticamente. Costo: 1 conexión de lectura mientras la pestaña
+// esté abierta (insignificante para 1 doc tan chico).
+let snapshot: WebSettings | null = null;
+let initialized = false;
+let unsubscribe: (() => void) | null = null;
+const listeners = new Set<(s: WebSettings) => void>();
 
-/**
- * Helper para reset manual del cache si hace falta forzar relectura.
- * Útil después de cambios desde panel admin (no usado por el flujo normal).
- */
-export function invalidateWebSettingsCache(): void {
-  cached = null;
-  loaded = false;
-}
-
-export function useWebSettings(): WebSettings & { loaded: boolean } {
-  const [settings, setSettings] = useState<WebSettings>(cached || DEFAULTS);
-  const [isLoaded, setIsLoaded] = useState(loaded);
-
-  useEffect(() => {
-    if (cached) { setIsLoaded(true); return; }
-    (async () => {
-      try {
-        const snap = await getDoc(doc(db, 'config', 'webSettings'));
+function ensureSubscribed() {
+  if (initialized) return;
+  initialized = true;
+  try {
+    unsubscribe = onSnapshot(
+      doc(db, 'config', 'webSettings'),
+      (snap) => {
         if (snap.exists()) {
           const d = snap.data();
-          // installPromptEnabled: solo es TRUE si Firestore lo dice
-          // explícitamente true. Si es false, undefined, o cualquier
-          // otra cosa, default a false para evitar mostrar el banner
-          // a usuarios que ya lo tienen apagado.
-          const merged: WebSettings = {
+          snapshot = {
             whatsappNumber: d.whatsappNumber || DEFAULTS.whatsappNumber,
             currency: d.currency || DEFAULTS.currency,
             currencySymbol: d.currencySymbol || DEFAULTS.currencySymbol,
@@ -66,17 +60,61 @@ export function useWebSettings(): WebSettings & { loaded: boolean } {
             installPromptEnabled: d.installPromptEnabled === true,
             cacheTTL: typeof d.cacheTTL === 'number' ? d.cacheTTL : DEFAULTS.cacheTTL,
           };
-          cached = merged;
-          setSettings(merged);
         } else {
-          cached = DEFAULTS;
+          snapshot = DEFAULTS;
         }
-      } catch {
-        cached = DEFAULTS;
-      }
-      loaded = true;
+        // Notificar a TODOS los componentes suscritos
+        listeners.forEach((l) => l(snapshot!));
+      },
+      (err) => {
+        console.error('[useWebSettings] onSnapshot error:', err);
+        // En caso de error usamos defaults para no romper la UI
+        if (!snapshot) {
+          snapshot = DEFAULTS;
+          listeners.forEach((l) => l(snapshot!));
+        }
+      },
+    );
+  } catch (e) {
+    console.error('[useWebSettings] No se pudo iniciar listener:', e);
+    snapshot = DEFAULTS;
+  }
+}
+
+/** Reset manual del cache + listener. Útil para tests o cleanup explícito. */
+export function invalidateWebSettingsCache(): void {
+  if (unsubscribe) {
+    try { unsubscribe(); } catch {}
+  }
+  snapshot = null;
+  initialized = false;
+  unsubscribe = null;
+  listeners.clear();
+}
+
+export function useWebSettings(): WebSettings & { loaded: boolean } {
+  const [settings, setSettings] = useState<WebSettings>(snapshot || DEFAULTS);
+  const [isLoaded, setIsLoaded] = useState(snapshot !== null);
+
+  useEffect(() => {
+    ensureSubscribed();
+
+    // Si ya hay snapshot, sincronizamos el estado local inmediatamente
+    if (snapshot) {
+      setSettings(snapshot);
       setIsLoaded(true);
-    })();
+    }
+
+    // Suscribirse a futuros cambios
+    const listener = (s: WebSettings) => {
+      setSettings(s);
+      setIsLoaded(true);
+    };
+    listeners.add(listener);
+
+    return () => {
+      listeners.delete(listener);
+    };
   }, []);
 
   return { ...settings, loaded: isLoaded };
@@ -84,5 +122,5 @@ export function useWebSettings(): WebSettings & { loaded: boolean } {
 
 // For non-hook contexts (format functions)
 export function getWebSettings(): WebSettings {
-  return cached || DEFAULTS;
+  return snapshot || DEFAULTS;
 }
