@@ -4,10 +4,30 @@ import Image from 'next/image';
 import { useUIStore } from '@/stores';
 import { useWebSettings } from '@/lib/useWebSettings';
 
-export function HeroBanner() {
+interface HeroBannerProps {
+  /**
+   * Valores SSR-prerendered de heroImage y heroSubtitle. Si se proveen,
+   * el primer render usa estos en lugar de los DEFAULTS hardcoded del
+   * hook. Esto elimina el flash al hacer F5: el HTML ya viene con la
+   * URL correcta desde el server, y el onSnapshot del hook solo
+   * actualiza si algo cambia después.
+   */
+  initialHeroImage?: string;
+  initialHeroSubtitle?: string;
+}
+
+export function HeroBanner({ initialHeroImage, initialHeroSubtitle }: HeroBannerProps = {}) {
   const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
-  const { heroSubtitle, heroImage } = useWebSettings();
+  const settings = useWebSettings();
+
+  // Preferencia: si hay valor SSR, usar ese primero. Si no, lo que
+  // diga el hook (que arranca con DEFAULTS y se actualiza al recibir
+  // el primer snapshot). Una vez que el hook tiene 'loaded === true',
+  // su valor es la fuente de verdad — por si el admin cambió algo en
+  // el POS mientras la página estaba abierta.
+  const heroImage = settings.loaded ? settings.heroImage : (initialHeroImage || settings.heroImage);
+  const heroSubtitle = settings.loaded ? settings.heroSubtitle : (initialHeroSubtitle || settings.heroSubtitle);
 
   const [imageLoaded, setImageLoaded] = useState(false);
 

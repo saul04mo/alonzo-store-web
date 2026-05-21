@@ -15,7 +15,17 @@ import type { Product, Gender } from '@/types';
 
 type GridCols = 1 | 2 | 3 | 4;
 
-export function HomePage() {
+interface HomePageProps {
+  /**
+   * Settings SSR-prerendered en app/page.tsx. Se pasan al HeroBanner
+   * para que el primer paint del HTML ya tenga la URL real del banner
+   * (evita el flash de la imagen default al hacer F5).
+   */
+  initialHeroImage?: string;
+  initialHeroSubtitle?: string;
+}
+
+export function HomePage({ initialHeroImage, initialHeroSubtitle }: HomePageProps = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
@@ -167,7 +177,12 @@ export function HomePage() {
 
   return (
     <>
-      {showHero && <HeroBanner />}
+      {showHero && (
+        <HeroBanner
+          initialHeroImage={initialHeroImage}
+          initialHeroSubtitle={initialHeroSubtitle}
+        />
+      )}
 
       <div id="products-section" className={`${hasBrowsed ? 'py-4 md:py-6' : 'py-6 md:py-10'}`}>
         {/* Category header (shown when browsing a category) */}
