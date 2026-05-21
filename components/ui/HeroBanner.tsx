@@ -78,16 +78,17 @@ export function HeroBanner({ initialHeroImage, initialHeroSubtitle }: HeroBanner
           la imagen con drop-shadow para legibilidad y la tipografía
           editorial (Playfair Display) en el título grande.
       */}
-      <div className="absolute z-10 bottom-12 left-4 right-4 md:bottom-20 md:left-12 md:right-auto md:max-w-[560px]">
+      <div className="absolute z-10 bottom-12 left-4 right-4 md:bottom-16 md:left-12 md:right-auto md:max-w-[400px]">
         {/* Etiqueta superior pequeña, sans-serif con tracking ancho */}
         <p className="text-[10px] md:text-xs font-sans tracking-[0.3em] uppercase text-white font-medium mb-3 md:mb-4 drop-shadow-lg stagger-up stagger-1">
           New Arrivals
         </p>
 
-        {/* Título principal grande — Bebas Neue condensada, editable desde POS.
-            Bebas se ve mejor con tracking levemente abierto en uppercase
-            grande, y leading apretado porque las letras son altas. */}
-        <h2 className="font-editorial font-normal text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-wide leading-[0.9] mb-6 md:mb-8 drop-shadow-xl stagger-up stagger-2">
+        {/* Título principal — Bebas Neue, editable desde POS.
+            Tamaños moderados y leading suelto para look refinado tipo
+            Fear of God (no agresivo / no billboard). Si el texto del POS
+            es muy largo, va a wrappear naturalmente con respiración. */}
+        <h2 className="font-editorial font-normal text-white text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] uppercase tracking-[0.04em] leading-[1.05] mb-5 md:mb-7 drop-shadow-xl stagger-up stagger-2">
           {heroSubtitle}
         </h2>
 
