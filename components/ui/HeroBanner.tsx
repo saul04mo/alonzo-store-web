@@ -3,28 +3,13 @@ import { useCallback, useState } from 'react';
 import Image from 'next/image';
 import { useUIStore } from '@/stores';
 import { useWebSettings } from '@/lib/useWebSettings';
-import type { Gender } from '@/types';
 
 export function HeroBanner() {
-  const setGender = useUIStore((s) => s.setGender);
   const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
-  const { heroTitle, heroSubtitle, heroImage } = useWebSettings();
-  
+  const { heroSubtitle, heroImage } = useWebSettings();
+
   const [imageLoaded, setImageLoaded] = useState(false);
-
-  const handleGenderSelect = useCallback((g: Gender) => {
-    setGender(g);
-    setHasBrowsed(true);
-    setActiveCategory('');
-    
-    const productsEl = document.getElementById('products-section');
-    if (productsEl) {
-      productsEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [setGender, setHasBrowsed, setActiveCategory]);
-
-  const isExternal = heroImage.startsWith('http');
 
   // Handler único: hace scroll a la sección de productos sin filtrar
   // por género. El usuario navega después con los filtros del shop.
@@ -36,11 +21,6 @@ export function HeroBanner() {
       productsEl.scrollIntoView({ behavior: 'smooth' });
     }
   }, [setHasBrowsed, setActiveCategory]);
-
-  // (Mantenemos handleGenderSelect aunque ya no se use en el hero,
-  // por si en el futuro se reincorporan los botones por género.)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _unusedGenderHandler = handleGenderSelect;
 
   const isExternal = heroImage.startsWith('http');
 
@@ -69,18 +49,14 @@ export function HeroBanner() {
         />
       )}
 
-      {/* Gradient sutil desde abajo-izquierda hacia transparente. Esto
-          mejora la legibilidad del texto blanco sin oscurecer toda la
-          imagen — más sutil que un overlay uniforme. */}
+      {/* Gradient sutil desde abajo-izquierda hacia transparente. Mejora
+          la legibilidad del texto blanco sin oscurecer toda la imagen. */}
       <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/15 to-transparent pointer-events-none" />
 
       {/* ── Contenido del hero: solo texto y un botón ─────────────────
           Sin card / sin fondo oscuro. El texto va directamente sobre
           la imagen con drop-shadow para legibilidad y la tipografía
           editorial (Playfair Display) en el título grande.
-
-          Posición: abajo-izquierda en desktop, abajo centrado-izquierda
-          en mobile.
       */}
       <div className="absolute z-10 bottom-12 left-4 right-4 md:bottom-20 md:left-12 md:right-auto md:max-w-[560px]">
         {/* Etiqueta superior pequeña, sans-serif con tracking ancho */}
