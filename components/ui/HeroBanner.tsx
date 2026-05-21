@@ -50,30 +50,42 @@ export function HeroBanner() {
           }`}
         />
       )}
-      
-      <div className="absolute inset-0 bg-black/10" />
 
-      <div className="absolute inset-0 max-w-[1400px] mx-auto px-4 md:px-10 flex flex-col items-center justify-end pb-16 md:pb-24 z-10 text-center">
-        <div className="max-w-lg text-white flex flex-col items-center">
-          <img 
-            src="/images/logoAlonzo.png" 
-            alt="ALONZO" 
-            className="h-8 md:h-12 w-auto mb-4 object-contain brightness-0 invert stagger-up stagger-1"
-          />
-          <p className="text-sm md:text-base font-sans tracking-[0.15em] mb-8 font-light text-white/90 uppercase drop-shadow-md stagger-up stagger-2">
-            {heroSubtitle}
+      {/* Overlay sutil para mejorar contraste de la card */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent" />
+
+      {/* ── Card de CTA abajo-izquierda ─────────────────────────────────
+          Inspirado en el estilo Fear of God: bloque compacto con
+          etiqueta pequeña arriba, título grande (usa heroSubtitle del
+          POS), y botones de navegación al catálogo por género.
+
+          En mobile la card queda más chica, centrada horizontalmente
+          y un poco más arriba del borde inferior. En desktop se ancla
+          abajo-izquierda con padding generoso.
+      */}
+      <div className="absolute z-10 bottom-6 left-4 right-4 md:bottom-12 md:left-10 md:right-auto md:max-w-[420px]">
+        <div className="bg-black/75 backdrop-blur-md p-5 md:p-7 shadow-2xl stagger-up stagger-1">
+          {/* Etiqueta superior */}
+          <p className="text-[9px] md:text-[11px] font-sans tracking-[0.25em] uppercase text-white/70 mb-2 md:mb-3">
+            New Arrivals
           </p>
 
-          <div className="flex items-center justify-center gap-3 md:gap-4 stagger-up stagger-3">
+          {/* Título principal (editable desde POS via heroSubtitle) */}
+          <h2 className="text-2xl md:text-4xl font-display font-bold uppercase tracking-tight leading-[1.05] text-white mb-4 md:mb-6">
+            {heroSubtitle}
+          </h2>
+
+          {/* Botones de género */}
+          <div className="flex items-stretch gap-2 md:gap-3">
             <button
               onClick={() => handleGenderSelect('Mujer')}
-              className="py-3 px-8 border border-white bg-black/20 text-white text-[11px] font-sans tracking-[0.15em] uppercase font-semibold hover:bg-white hover:text-alonzo-black transition-colors duration-300 backdrop-blur-sm"
+              className="flex-1 py-3 md:py-3.5 px-4 bg-white text-alonzo-black text-[11px] md:text-xs font-sans tracking-[0.15em] uppercase font-semibold hover:bg-alonzo-black hover:text-white border border-white transition-colors duration-300"
             >
               Mujer
             </button>
             <button
               onClick={() => handleGenderSelect('Hombre')}
-              className="py-3 px-8 border border-white bg-black/20 text-white text-[11px] font-sans tracking-[0.15em] uppercase font-semibold hover:bg-white hover:text-alonzo-black transition-colors duration-300 backdrop-blur-sm"
+              className="flex-1 py-3 md:py-3.5 px-4 bg-transparent text-white text-[11px] md:text-xs font-sans tracking-[0.15em] uppercase font-semibold hover:bg-white hover:text-alonzo-black border border-white transition-colors duration-300"
             >
               Hombre
             </button>
