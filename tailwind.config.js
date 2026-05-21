@@ -9,12 +9,12 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-        // Editorial serif para títulos del hero y headings de tipo fashion.
-        // Playfair Display tiene contraste alto y se ve elegante en sizes
-        // grandes con tracking ajustado. Si en el futuro se cambia la
-        // marca a otra serif (ej. Cormorant), basta con cambiar la
-        // variable --font-playfair en layout.tsx.
-        editorial: ['var(--font-playfair)', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+        // Sans-serif condensada estilo streetwear/fashion editorial
+        // (Bebas Neue). Se usa en títulos del hero. Si en el futuro
+        // se cambia la marca a otra fuente similar (Oswald, Antonio,
+        // Barlow Condensed), basta con cambiar la variable
+        // --font-bebas en layout.tsx.
+        editorial: ['var(--font-bebas)', 'Impact', '"Helvetica Neue Condensed"', 'Arial Narrow', 'sans-serif'],
       },
       colors: {
         alonzo: {

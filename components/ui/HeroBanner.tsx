@@ -84,8 +84,10 @@ export function HeroBanner({ initialHeroImage, initialHeroSubtitle }: HeroBanner
           New Arrivals
         </p>
 
-        {/* Título principal grande — Playfair Display, editable desde POS */}
-        <h2 className="font-editorial font-medium text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight leading-[0.95] mb-6 md:mb-8 drop-shadow-xl stagger-up stagger-2">
+        {/* Título principal grande — Bebas Neue condensada, editable desde POS.
+            Bebas se ve mejor con tracking levemente abierto en uppercase
+            grande, y leading apretado porque las letras son altas. */}
+        <h2 className="font-editorial font-normal text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-wide leading-[0.9] mb-6 md:mb-8 drop-shadow-xl stagger-up stagger-2">
           {heroSubtitle}
         </h2>
 
