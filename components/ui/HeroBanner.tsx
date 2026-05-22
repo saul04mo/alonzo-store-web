@@ -15,11 +15,13 @@ export function HeroBanner({ initialHeroImage, initialHeroSubtitle, initialHeroI
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
   const settings = useWebSettings();
 
-  const heroImage = settings.loaded ? settings.heroImage : (initialHeroImage || settings.heroImage);
+  const heroImage = settings.loaded ? settings.heroImage : (initialHeroImage ?? undefined);
   const heroSubtitle = settings.loaded ? settings.heroSubtitle : (initialHeroSubtitle || settings.heroSubtitle);
+  // Para móvil: no hacemos fallback al default mientras Firestore no haya respondido.
+  // Así evitamos el flash de "imagen de desktop → imagen de móvil".
   const heroImageMobile = settings.loaded
     ? (settings.heroImageMobile || settings.heroImage)
-    : (initialHeroImageMobile || initialHeroImage || settings.heroImage);
+    : (initialHeroImageMobile ?? initialHeroImage ?? undefined);
 
   const [desktopLoaded, setDesktopLoaded] = useState(false);
   const [mobileLoaded, setMobileLoaded] = useState(false);
@@ -40,20 +42,26 @@ export function HeroBanner({ initialHeroImage, initialHeroSubtitle, initialHeroI
     <div className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden">
 
       {/* Imagen móvil — visible solo en < md */}
-      <img
-        src={heroImageMobile}
-        alt="Hero Banner"
-        onLoad={() => setMobileLoaded(true)}
-        className={`md:hidden ${imgClass(mobileLoaded)}`}
-      />
+      {heroImageMobile && (
+        <img
+          key={heroImageMobile}
+          src={heroImageMobile}
+          alt="Hero Banner"
+          onLoad={() => setMobileLoaded(true)}
+          className={`md:hidden ${imgClass(mobileLoaded)}`}
+        />
+      )}
 
       {/* Imagen desktop — visible solo en ≥ md */}
-      <img
-        src={heroImage}
-        alt="Hero Banner"
-        onLoad={() => setDesktopLoaded(true)}
-        className={`hidden md:block ${imgClass(desktopLoaded)}`}
-      />
+      {heroImage && (
+        <img
+          key={heroImage}
+          src={heroImage}
+          alt="Hero Banner"
+          onLoad={() => setDesktopLoaded(true)}
+          className={`hidden md:block ${imgClass(desktopLoaded)}`}
+        />
+      )}
 
       <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/15 to-transparent pointer-events-none" />
 
