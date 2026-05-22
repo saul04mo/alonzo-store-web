@@ -207,14 +207,8 @@ export function SiteHeader({
 
             {/* ── Center logo ── */}
             <div className="absolute left-1/2 -translate-x-1/2">
-              <Link
+              <a
                 href="/"
-                onClick={() => {
-                  setHasBrowsed(false);
-                  setActiveCategory('');
-                  setIsScrolled(false);
-                  if (typeof window !== 'undefined') window.scrollTo(0, 0);
-                }}
                 className="flex items-center"
               >
                 <img
@@ -230,7 +224,7 @@ export function SiteHeader({
                     el.parentElement?.appendChild(fb);
                   }}
                 />
-              </Link>
+              </a>
             </div>
 
             {/* ── Right icons ── */}
