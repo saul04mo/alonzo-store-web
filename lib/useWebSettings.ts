@@ -9,6 +9,7 @@ export interface WebSettings {
   heroTitle: string;
   heroSubtitle: string;
   heroImage: string;
+  heroImageMobile: string;
   installPromptEnabled: boolean;
   cacheTTL: number;
 }
@@ -20,6 +21,7 @@ const DEFAULTS: WebSettings = {
   heroTitle: 'ALONZO',
   heroSubtitle: 'Newest Collection',
   heroImage: '/images/hero-banner.jpg',
+  heroImageMobile: '',
   installPromptEnabled: false,
   cacheTTL: 30,
 };
@@ -57,6 +59,7 @@ function ensureSubscribed() {
             heroTitle: d.heroTitle || DEFAULTS.heroTitle,
             heroSubtitle: d.heroSubtitle || DEFAULTS.heroSubtitle,
             heroImage: d.heroImage || DEFAULTS.heroImage,
+            heroImageMobile: d.heroImageMobile || '',
             installPromptEnabled: d.installPromptEnabled === true,
             cacheTTL: typeof d.cacheTTL === 'number' ? d.cacheTTL : DEFAULTS.cacheTTL,
           };
