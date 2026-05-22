@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { cs } from '@/lib/format';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
@@ -20,6 +21,7 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 }
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
+  const router = useRouter();
   const wasCached = loadedImages.has(product.imageUrl || '');
   const [loaded, setLoaded] = useState(wasCached);
   const [showSizes, setShowSizes] = useState(false);
@@ -93,7 +95,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   };
 
   const handleMouseEnter = () => {
-    // Preload images for instant detail page
+    // Prefetch la página del detalle para navegación instantánea
+    router.prefetch(`/product/${product.id}`);
+
+    // Prefetch imágenes
     [imageUrl, secondImage].filter(Boolean).forEach((src) => {
       if (src && !document.querySelector(`link[href="${src}"]`)) {
         const link = document.createElement('link');

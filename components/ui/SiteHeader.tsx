@@ -212,11 +212,7 @@ export function SiteHeader({
                 onClick={() => {
                   setHasBrowsed(false);
                   setActiveCategory('');
-                  // Scroll al top para que el hero se vea y el header
-                  // se vuelva transparente (sin esto, si el usuario
-                  // estaba scrolled en una p\u00e1gina previa, al volver
-                  // al home el header quedaba con bg-white encima
-                  // del hero hasta que scrolleara manualmente).
+                  setIsScrolled(false);
                   if (typeof window !== 'undefined') window.scrollTo(0, 0);
                 }}
                 className="flex items-center"
