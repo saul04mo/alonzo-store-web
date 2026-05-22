@@ -16,16 +16,12 @@ import type { Product, Gender } from '@/types';
 type GridCols = 1 | 2 | 3 | 4;
 
 interface HomePageProps {
-  /**
-   * Settings SSR-prerendered en app/page.tsx. Se pasan al HeroBanner
-   * para que el primer paint del HTML ya tenga la URL real del banner
-   * (evita el flash de la imagen default al hacer F5).
-   */
   initialHeroImage?: string;
   initialHeroSubtitle?: string;
+  initialHeroImageMobile?: string;
 }
 
-export function HomePage({ initialHeroImage, initialHeroSubtitle }: HomePageProps = {}) {
+export function HomePage({ initialHeroImage, initialHeroSubtitle, initialHeroImageMobile }: HomePageProps = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
@@ -181,6 +177,7 @@ export function HomePage({ initialHeroImage, initialHeroSubtitle }: HomePageProp
         <HeroBanner
           initialHeroImage={initialHeroImage}
           initialHeroSubtitle={initialHeroSubtitle}
+          initialHeroImageMobile={initialHeroImageMobile}
         />
       )}
 

@@ -18,6 +18,7 @@ import { adminDb } from '@/lib/firebase-admin';
 export interface ServerWebSettings {
   heroSubtitle: string;
   heroImage: string;
+  heroImageMobile: string;
   whatsappNumber: string;
   currencySymbol: string;
 }
@@ -25,6 +26,7 @@ export interface ServerWebSettings {
 const DEFAULTS: ServerWebSettings = {
   heroSubtitle: 'Newest Collection',
   heroImage: '/images/hero-banner.jpg',
+  heroImageMobile: '',
   whatsappNumber: '584123380976',
   currencySymbol: '€',
 };
@@ -45,6 +47,7 @@ export async function getServerWebSettings(): Promise<ServerWebSettings> {
       const merged: ServerWebSettings = {
         heroSubtitle: d.heroSubtitle || DEFAULTS.heroSubtitle,
         heroImage: d.heroImage || DEFAULTS.heroImage,
+        heroImageMobile: d.heroImageMobile || '',
         whatsappNumber: d.whatsappNumber || DEFAULTS.whatsappNumber,
         currencySymbol: d.currencySymbol || DEFAULTS.currencySymbol,
       };

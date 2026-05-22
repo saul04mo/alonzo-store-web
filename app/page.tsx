@@ -18,6 +18,7 @@ export default async function Page() {
       <HomePage
         initialHeroImage={settings.heroImage}
         initialHeroSubtitle={settings.heroSubtitle}
+        initialHeroImageMobile={settings.heroImageMobile}
       />
     </Suspense>
   );
