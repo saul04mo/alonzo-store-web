@@ -44,7 +44,6 @@ export const useUIStore = create<UIState>()(
       name: 'alonzoUI',
       partialize: (state) => ({
         gender: state.gender,
-        hasBrowsed: state.hasBrowsed,
       }),
     }
   )
