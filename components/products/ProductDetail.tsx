@@ -294,10 +294,10 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           {/* ══════ LEFT: Image Gallery ══════ */}
           <div className="w-full md:w-[55%] page-scale-in">
             {/* Image container — fixed frame */}
-            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm bg-alonzo-gray-100">
+            <div className="relative h-[70vh] md:h-[calc(100vh-70px)] overflow-hidden rounded-sm bg-white">
 
               {/* Logo placeholder while loading */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-white">
                 <img src="/images/logoAlonzo.png" alt="" className="w-16 h-16 object-contain opacity-[0.05]" />
               </div>
 
