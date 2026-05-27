@@ -143,7 +143,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           decoding="async"
           onLoad={() => { loadedImages.add(imageUrl); setLoaded(true); }}
           className={`
-            absolute inset-0 w-full h-full object-cover object-center
+            absolute inset-0 w-full h-full object-cover object-top
             ${wasCached ? 'transition-opacity duration-300 ease-out' : 'transition-all duration-700 ease-out'}
             ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[1.02] blur-sm'}
             ${canHover && hovered && secondImage && secondLoaded ? '!opacity-0' : ''}
@@ -160,7 +160,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             decoding="async"
             onLoad={() => { if (secondImage) loadedImages.add(secondImage); setSecondLoaded(true); }}
             className={`
-              absolute inset-0 w-full h-full object-cover object-center
+              absolute inset-0 w-full h-full object-cover object-top
               transition-opacity duration-300 ease-out
               ${canHover && hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
             `}
