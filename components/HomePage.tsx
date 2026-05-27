@@ -109,12 +109,16 @@ export function HomePage({ initialHeroImage, initialHeroSubtitle, initialHeroIma
     return arr;
   }, [products, gender]);
 
-  // Store categories in UI store for the header nav
+  // Store categories in UI store for the header nav.
+  // Solo actualizamos cuando los productos ya son del género actual —
+  // evita que en el render intermedio (gender cambió pero products
+  // todavía tiene datos del género anterior) se guarden categorías
+  // del género equivocado bajo la nueva clave.
   useEffect(() => {
-    if (categories.length > 0) {
+    if (categories.length > 0 && products.length > 0 && products[0].gender === gender) {
       setCategoriesForGender(gender, categories);
     }
-  }, [categories, gender]);
+  }, [categories, gender, products]);
 
   // Auto-select first category
   useEffect(() => {
