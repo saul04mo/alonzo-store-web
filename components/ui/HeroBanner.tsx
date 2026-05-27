@@ -1,30 +1,68 @@
 'use client';
-import { useCallback, useState } from 'react';
-import Image from 'next/image';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { useUIStore } from '@/stores';
 import { useWebSettings } from '@/lib/useWebSettings';
 
 interface HeroBannerProps {
-  initialHeroImage?: string;
+  initialHeroImages?: string[];
+  initialHeroImagesMobile?: string[];
   initialHeroSubtitle?: string;
-  initialHeroImageMobile?: string;
+  initialHeroSlideInterval?: number;
 }
 
-export function HeroBanner({ initialHeroImage, initialHeroSubtitle, initialHeroImageMobile }: HeroBannerProps = {}) {
+export function HeroBanner({
+  initialHeroImages,
+  initialHeroImagesMobile,
+  initialHeroSubtitle,
+  initialHeroSlideInterval,
+}: HeroBannerProps = {}) {
   const setHasBrowsed = useUIStore((s) => s.setHasBrowsed);
   const setActiveCategory = useUIStore((s) => s.setActiveCategory);
   const settings = useWebSettings();
 
-  const heroImage = settings.loaded ? settings.heroImage : (initialHeroImage ?? undefined);
-  const heroSubtitle = settings.loaded ? settings.heroSubtitle : (initialHeroSubtitle || settings.heroSubtitle);
-  // Para móvil: no hacemos fallback al default mientras Firestore no haya respondido.
-  // Así evitamos el flash de "imagen de desktop → imagen de móvil".
-  const heroImageMobile = settings.loaded
-    ? (settings.heroImageMobile || settings.heroImage)
-    : (initialHeroImageMobile ?? initialHeroImage ?? undefined);
+  const heroImages = settings.loaded ? settings.heroImages : (initialHeroImages ?? undefined);
+  const heroSubtitle = settings.loaded
+    ? settings.heroSubtitle
+    : (initialHeroSubtitle || settings.heroSubtitle);
+  const slideInterval = settings.loaded
+    ? settings.heroSlideInterval
+    : (initialHeroSlideInterval ?? 6);
 
-  const [desktopLoaded, setDesktopLoaded] = useState(false);
-  const [mobileLoaded, setMobileLoaded] = useState(false);
+  // Imágenes móvil: si no hay array móvil, usa el de desktop
+  const heroImagesMobile = settings.loaded
+    ? (settings.heroImagesMobile.length ? settings.heroImagesMobile : settings.heroImages)
+    : (initialHeroImagesMobile?.length ? initialHeroImagesMobile : heroImages);
+
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [transitioning, setTransitioning] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const images = heroImages ?? [];
+  const imagesMobile = heroImagesMobile ?? [];
+  const count = images.length;
+
+  // Resetear índice cuando cambia el array de imágenes
+  useEffect(() => {
+    setCurrentIdx(0);
+  }, [count]);
+
+  // Auto-advance
+  useEffect(() => {
+    if (count <= 1 || paused) return;
+    timerRef.current = setInterval(() => {
+      setTransitioning(true);
+      setCurrentIdx((prev) => (prev + 1) % count);
+    }, slideInterval * 1000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [count, slideInterval, paused]);
+
+  const goTo = (idx: number) => {
+    setTransitioning(true);
+    setCurrentIdx(idx);
+    // Reiniciar timer al navegar manualmente
+    if (timerRef.current) clearInterval(timerRef.current);
+  };
 
   const handleShop = useCallback(() => {
     setHasBrowsed(true);
@@ -33,39 +71,53 @@ export function HeroBanner({ initialHeroImage, initialHeroSubtitle, initialHeroI
     if (productsEl) productsEl.scrollIntoView({ behavior: 'smooth' });
   }, [setHasBrowsed, setActiveCategory]);
 
-  const imgClass = (loaded: boolean) =>
-    `absolute inset-0 w-full h-full object-cover object-top transition-all duration-1000 ease-out ${
-      loaded ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-md scale-[1.02]'
-    }`;
-
   return (
-    <div className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden">
-
-      {/* Imagen móvil — visible solo en < md */}
-      {heroImageMobile && (
-        <img
-          key={heroImageMobile}
-          src={heroImageMobile}
-          alt="Hero Banner"
-          onLoad={() => setMobileLoaded(true)}
-          className={`md:hidden ${imgClass(mobileLoaded)}`}
-        />
+    <div
+      className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* Carrusel track */}
+      {images.length > 0 && (
+        <div
+          className="absolute inset-0 flex h-full"
+          style={{
+            width: `${count * 100}%`,
+            transform: `translateX(-${(currentIdx / count) * 100}%)`,
+            transition: transitioning ? 'transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1)' : 'none',
+          }}
+        >
+          {images.map((img, idx) => {
+            const mobileImg = imagesMobile[idx] || img;
+            return (
+              <div
+                key={img + idx}
+                className="relative h-full flex-shrink-0"
+                style={{ width: `${100 / count}%` }}
+              >
+                {/* Imagen móvil */}
+                <img
+                  src={mobileImg}
+                  alt="Hero Banner"
+                  className="md:hidden absolute inset-0 w-full h-full object-cover object-top"
+                />
+                {/* Imagen desktop */}
+                <img
+                  src={img}
+                  alt="Hero Banner"
+                  className="hidden md:block absolute inset-0 w-full h-full object-cover object-top"
+                />
+              </div>
+            );
+          })}
+        </div>
       )}
 
-      {/* Imagen desktop — visible solo en ≥ md */}
-      {heroImage && (
-        <img
-          key={heroImage}
-          src={heroImage}
-          alt="Hero Banner"
-          onLoad={() => setDesktopLoaded(true)}
-          className={`hidden md:block ${imgClass(desktopLoaded)}`}
-        />
-      )}
+      {/* Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/15 to-transparent pointer-events-none z-10" />
 
-      <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/15 to-transparent pointer-events-none" />
-
-      <div className="absolute z-10 bottom-12 left-4 right-4 md:bottom-16 md:left-12 md:right-auto md:max-w-[400px]">
+      {/* Texto */}
+      <div className="absolute z-20 bottom-12 left-4 right-4 md:bottom-16 md:left-12 md:right-auto md:max-w-[400px]">
         <p className="text-[10px] md:text-xs font-sans tracking-[0.3em] uppercase text-white font-medium mb-3 md:mb-4 drop-shadow-lg stagger-up stagger-1">
           New Arrivals
         </p>
@@ -79,6 +131,21 @@ export function HeroBanner({ initialHeroImage, initialHeroSubtitle, initialHeroI
           Shop Now
         </button>
       </div>
+
+      {/* Dot indicators */}
+      {count > 1 && (
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => goTo(idx)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === currentIdx ? 'bg-white w-5' : 'bg-white/50 w-1.5'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

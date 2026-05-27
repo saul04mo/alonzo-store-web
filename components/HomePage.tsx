@@ -16,12 +16,13 @@ import type { Product, Gender } from '@/types';
 type GridCols = 1 | 2 | 3 | 4;
 
 interface HomePageProps {
-  initialHeroImage?: string;
+  initialHeroImages?: string[];
+  initialHeroImagesMobile?: string[];
   initialHeroSubtitle?: string;
-  initialHeroImageMobile?: string;
+  initialHeroSlideInterval?: number;
 }
 
-export function HomePage({ initialHeroImage, initialHeroSubtitle, initialHeroImageMobile }: HomePageProps = {}) {
+export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHeroSubtitle, initialHeroSlideInterval }: HomePageProps = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
@@ -179,9 +180,10 @@ export function HomePage({ initialHeroImage, initialHeroSubtitle, initialHeroIma
     <>
       {showHero && (
         <HeroBanner
-          initialHeroImage={initialHeroImage}
+          initialHeroImages={initialHeroImages}
+          initialHeroImagesMobile={initialHeroImagesMobile}
           initialHeroSubtitle={initialHeroSubtitle}
-          initialHeroImageMobile={initialHeroImageMobile}
+          initialHeroSlideInterval={initialHeroSlideInterval}
         />
       )}
 

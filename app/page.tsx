@@ -16,9 +16,10 @@ export default async function Page() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-white" />}>
       <HomePage
-        initialHeroImage={settings.heroImage}
+        initialHeroImages={settings.heroImages}
+        initialHeroImagesMobile={settings.heroImagesMobile}
         initialHeroSubtitle={settings.heroSubtitle}
-        initialHeroImageMobile={settings.heroImageMobile}
+        initialHeroSlideInterval={settings.heroSlideInterval}
       />
     </Suspense>
   );

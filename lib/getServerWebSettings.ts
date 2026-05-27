@@ -19,6 +19,9 @@ export interface ServerWebSettings {
   heroSubtitle: string;
   heroImage: string;
   heroImageMobile: string;
+  heroImages: string[];
+  heroImagesMobile: string[];
+  heroSlideInterval: number;
   whatsappNumber: string;
   currencySymbol: string;
 }
@@ -27,6 +30,9 @@ const DEFAULTS: ServerWebSettings = {
   heroSubtitle: 'Newest Collection',
   heroImage: '/images/hero-banner.jpg',
   heroImageMobile: '',
+  heroImages: ['/images/hero-banner.jpg'],
+  heroImagesMobile: [],
+  heroSlideInterval: 6,
   whatsappNumber: '584123380976',
   currencySymbol: '€',
 };
@@ -44,10 +50,25 @@ export async function getServerWebSettings(): Promise<ServerWebSettings> {
     const snap = await adminDb.collection('config').doc('webSettings').get();
     if (snap.exists) {
       const d = snap.data() || {};
+      const heroImagesArr: string[] =
+        Array.isArray(d.heroImages) && d.heroImages.length
+          ? d.heroImages
+          : d.heroImage
+          ? [d.heroImage]
+          : DEFAULTS.heroImages;
+      const heroImagesMobileArr: string[] =
+        Array.isArray(d.heroImagesMobile) && d.heroImagesMobile.length
+          ? d.heroImagesMobile
+          : d.heroImageMobile
+          ? [d.heroImageMobile]
+          : [];
       const merged: ServerWebSettings = {
         heroSubtitle: d.heroSubtitle || DEFAULTS.heroSubtitle,
-        heroImage: d.heroImage || DEFAULTS.heroImage,
-        heroImageMobile: d.heroImageMobile || '',
+        heroImage: heroImagesArr[0] || DEFAULTS.heroImage,
+        heroImageMobile: heroImagesMobileArr[0] || '',
+        heroImages: heroImagesArr,
+        heroImagesMobile: heroImagesMobileArr,
+        heroSlideInterval: typeof d.heroSlideInterval === 'number' ? d.heroSlideInterval : DEFAULTS.heroSlideInterval,
         whatsappNumber: d.whatsappNumber || DEFAULTS.whatsappNumber,
         currencySymbol: d.currencySymbol || DEFAULTS.currencySymbol,
       };
