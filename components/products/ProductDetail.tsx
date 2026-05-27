@@ -320,7 +320,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                       fill
                       priority={idx <= 2}
                       sizes="(max-width: 768px) 100vw, 55vw"
-                      className="object-cover object-center"
+                      className="object-contain object-center"
                     />
                   </div>
                 ))}
