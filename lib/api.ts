@@ -26,28 +26,45 @@ async function authFetch(url: string, options: RequestInit = {}) {
 // ─────────────────────────────────────────────
 const productCache: Record<string, { data: Product[]; ts: number }> = {};
 const singleCache: Record<string, { data: Product; ts: number }> = {};
-const CACHE_TTL = 30 * 1000; // 30 seconds
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes (stale-while-revalidate, so TTL can be longer)
+
+async function loadProducts(gender: string | undefined, cacheKey: string): Promise<Product[]> {
+  const url = gender ? `/api/products?gender=${gender}` : '/api/products';
+  // Retry until 2 attempts (handles Netlify cold-start timeouts)
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Error cargando productos');
+      const products: Product[] = await res.json();
+      productCache[cacheKey] = { data: products, ts: Date.now() };
+      products.forEach((p) => { singleCache[p.id] = { data: p, ts: Date.now() }; });
+      return products;
+    } catch (err) {
+      if (attempt === 1) throw err;
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+  }
+  throw new Error('unreachable');
+}
 
 export async function fetchProducts(gender?: string): Promise<Product[]> {
   const cacheKey = gender || 'all';
+  const cached = productCache[cacheKey];
+  const isFresh = cached && Date.now() - cached.ts < CACHE_TTL;
 
-  // Return from cache if fresh
-  if (productCache[cacheKey] && Date.now() - productCache[cacheKey].ts < CACHE_TTL) {
-    return productCache[cacheKey].data;
+  if (isFresh) return cached.data;
+
+  // Stale-while-revalidate: si hay datos aunque sean viejos, devolverlos
+  // inmediatamente y refrescar en background. Esto evita que un cold
+  // start de Netlify deje el menú vacío mientras el usuario ya tiene
+  // datos en pantalla.
+  if (cached) {
+    loadProducts(gender, cacheKey).catch(() => {});
+    return cached.data;
   }
 
-  const url = gender ? `/api/products?gender=${gender}` : '/api/products';
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Error cargando productos');
-  const products: Product[] = await res.json();
-
-  // Cache the list + each individual product
-  productCache[cacheKey] = { data: products, ts: Date.now() };
-  products.forEach((p) => {
-    singleCache[p.id] = { data: p, ts: Date.now() };
-  });
-
-  return products;
+  // Primera carga: esperar la respuesta (con reintentos)
+  return loadProducts(gender, cacheKey);
 }
 
 export async function fetchProduct(id: string): Promise<Product> {
