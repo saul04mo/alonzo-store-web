@@ -151,11 +151,11 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
       const term = searchTerm.toUpperCase();
       return products.filter((p) => p.name.toUpperCase().includes(term));
     }
-    if (activeCategory) {
+    if (hasBrowsed && activeCategory) {
       return products.filter((p) => p.category.trim().toUpperCase() === activeCategory);
     }
     return products;
-  }, [products, activeCategory, searchTerm]);
+  }, [products, activeCategory, searchTerm, hasBrowsed]);
 
   // Final filtered (with filter drawer applied)
   const filteredProducts = useMemo(() => applyFilters(baseProducts, filters), [baseProducts, filters]);
