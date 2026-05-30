@@ -130,11 +130,20 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
 
   // If the active category doesn't exist in the current gender's categories,
   // reset to the first valid category once products have loaded.
+  // Guard: only act when the loaded products actually match the current gender
+  // (avoids false resets when a stale fetch from the previous gender resolves late).
   useEffect(() => {
-    if (!loading && categories.length > 0 && activeCategory && !categories.includes(activeCategory)) {
+    if (
+      !loading &&
+      categories.length > 0 &&
+      activeCategory &&
+      products.length > 0 &&
+      products[0].gender === gender &&
+      !categories.includes(activeCategory)
+    ) {
       setActiveCategory(categories[0]);
     }
-  }, [loading, categories, activeCategory]);
+  }, [loading, categories, activeCategory, products, gender]);
 
   // Base products (after category/search, before filter drawer)
   const baseProducts = useMemo(() => {
