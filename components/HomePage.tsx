@@ -128,6 +128,14 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
     }
   }, [categories, activeCategory]);
 
+  // If the active category doesn't exist in the current gender's categories,
+  // reset to the first valid category once products have loaded.
+  useEffect(() => {
+    if (!loading && categories.length > 0 && activeCategory && !categories.includes(activeCategory)) {
+      setActiveCategory(categories[0]);
+    }
+  }, [loading, categories, activeCategory]);
+
   // Base products (after category/search, before filter drawer)
   const baseProducts = useMemo(() => {
     if (searchTerm.trim()) {
@@ -135,8 +143,7 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
       return products.filter((p) => p.name.toUpperCase().includes(term));
     }
     if (activeCategory) {
-      const filtered = products.filter((p) => p.category.trim().toUpperCase() === activeCategory);
-      if (filtered.length > 0) return filtered;
+      return products.filter((p) => p.category.trim().toUpperCase() === activeCategory);
     }
     return products;
   }, [products, activeCategory, searchTerm]);
