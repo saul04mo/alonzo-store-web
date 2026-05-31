@@ -51,7 +51,10 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
       if (urlGender !== gender) setGender(urlGender as Gender);
     }
     if (urlCategory) {
-      const cat = urlCategory.toUpperCase();
+      // Guardamos la categoría tal como viene en la URL — la validación
+      // contra las categorías reales del catálogo ocurre en el efecto
+      // de auto-fix de abajo, una vez que los productos cargaron.
+      const cat = urlCategory.trim().toUpperCase();
       if (cat !== activeCategory) setActiveCategory(cat);
       if (!hasBrowsed) setHasBrowsed(true);
     } else if (hasBrowsed && !urlCategory) {
@@ -139,20 +142,29 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
 
   // If the active category doesn't exist in the current gender's categories,
   // reset to the first valid category once products have loaded.
-  // Guard: only act when the loaded products actually match the current gender
-  // (avoids false resets when a stale fetch from the previous gender resolves late).
+  //
+  // Quitamos el guard 'products[0].gender === gender' que era frágil:
+  // dependía de que TODOS los productos tuvieran el campo gender
+  // exactamente igual al store, sin tolerancia a casing o espacios.
+  // Si fallaba (productos de Firestore con gender 'mujer' minúscula, o
+  // sin el campo, o algún producto huérfano del catálogo del otro
+  // género), la categoría inválida de la URL se quedaba para siempre y
+  // el usuario veía "SIN RESULTADOS" sin saber por qué.
+  //
+  // Reemplazo: simplemente validar contra las categorías reales del
+  // catálogo cargado. Si activeCategory no está en la lista, resetear.
+  // Las categorías ya son siempre uppercase trimmed (ver el useMemo de
+  // categories) así que la comparación es directa.
   useEffect(() => {
     if (
       !loading &&
       categories.length > 0 &&
       activeCategory &&
-      products.length > 0 &&
-      products[0].gender === gender &&
       !categories.includes(activeCategory)
     ) {
       setActiveCategory(categories[0]);
     }
-  }, [loading, categories, activeCategory, products, gender]);
+  }, [loading, categories, activeCategory]);
 
   // Base products (after category/search, before filter drawer)
   const baseProducts = useMemo(() => {
