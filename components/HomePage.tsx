@@ -168,31 +168,24 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
     }
   }, [categories, activeCategory]);
 
-  // If the active category doesn't exist in the current gender's categories,
-  // reset to the first valid category once products have loaded.
+  // ── Detección de "categoría no encontrada" ─────────────────────────
   //
-  // Quitamos el guard 'products[0].gender === gender' que era frágil:
-  // dependía de que TODOS los productos tuvieran el campo gender
-  // exactamente igual al store, sin tolerancia a casing o espacios.
-  // Si fallaba (productos de Firestore con gender 'mujer' minúscula, o
-  // sin el campo, o algún producto huérfano del catálogo del otro
-  // género), la categoría inválida de la URL se quedaba para siempre y
-  // el usuario veía "SIN RESULTADOS" sin saber por qué.
+  // Antes acá había un useEffect que, si activeCategory no estaba en
+  // las categorías disponibles, hacía setActiveCategory(categories[0])
+  // — auto-redirigía silenciosamente. El feedback del cliente fue:
+  // 'si la URL pide una categoría que no tengo, debería decir como no
+  // encontrado o algo alusivo' (en lugar de irse silenciosamente a
+  // otra categoría sin avisar).
   //
-  // Reemplazo: simplemente validar contra las categorías reales del
-  // catálogo cargado. Si activeCategory no está en la lista, resetear.
-  // Las categorías ya son siempre uppercase trimmed (ver el useMemo de
-  // categories) así que la comparación es directa.
-  useEffect(() => {
-    if (
-      !loading &&
-      categories.length > 0 &&
-      activeCategory &&
-      !categories.includes(activeCategory)
-    ) {
-      setActiveCategory(categories[0]);
-    }
-  }, [loading, categories, activeCategory]);
+  // Por eso ahora calculamos un flag isCategoryNotFound y el render
+  // muestra un estado claro de 'no encontrada' con CTAs. La URL se
+  // mantiene, así el usuario puede ver qué categoría escribió mal.
+  const isCategoryNotFound =
+    !loading &&
+    hasBrowsed &&
+    !!activeCategory &&
+    categories.length > 0 &&
+    !categories.includes(activeCategory);
 
   // Base products (after category/search, before filter drawer)
   const baseProducts = useMemo(() => {
@@ -219,6 +212,21 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
     },
     [router]
   );
+
+  // Handler para el CTA del estado 'categoría no encontrada': lleva al
+  // usuario a la primera categoría disponible del género actual.
+  const handleGoToFirstCategory = useCallback(() => {
+    if (categories.length > 0) {
+      setActiveCategory(categories[0]);
+    }
+  }, [categories, setActiveCategory]);
+
+  // Handler alternativo: ver todos los productos del género (limpia
+  // categoría activa y hace que se muestre la home con el hero).
+  const handleViewAllProducts = useCallback(() => {
+    setActiveCategory('');
+    setHasBrowsed(false);
+  }, [setActiveCategory, setHasBrowsed]);
 
   // Category display name (capitalize first letter of each word)
   const categoryDisplayName = useMemo(() => {
@@ -253,8 +261,10 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
       )}
 
       <div id="products-section" className={`${hasBrowsed ? 'py-4 md:py-6' : 'py-6 md:py-10'}`}>
-        {/* Category header (shown when browsing a category) */}
-        {hasBrowsed && activeCategory && !searchTerm && (
+        {/* Category header (shown when browsing a category — pero ocultamos
+            cuando la categoría es inválida porque el estado 404 más abajo
+            ya muestra el nombre de la categoría con mejor jerarquía). */}
+        {hasBrowsed && activeCategory && !searchTerm && !isCategoryNotFound && (
           <div key={activeCategory} className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-4 md:pt-6 page-fade-in">
             {/* Title + count */}
             <h1 className="text-xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3 md:mb-5">
@@ -343,13 +353,65 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
         )}
 
         <PromotionsBanner />
-        <ProductGrid
-          products={filteredProducts}
-          loading={loading}
-          onProductClick={handleProductClick}
-          sectionTitle={!hasBrowsed && !searchTerm ? (gender === 'Mujer' ? 'Moda para mujer' : 'Moda para hombre') : undefined}
-          gridCols={hasBrowsed ? gridCols : undefined}
-        />
+
+        {/* ── Estado: categoría pedida en la URL no existe ─────────── */}
+        {isCategoryNotFound ? (
+          <div className="px-4 md:px-6 lg:px-10 py-12 md:py-20 max-w-3xl mx-auto text-center">
+            <p className="text-[10px] md:text-xs font-sans tracking-[0.3em] uppercase text-alonzo-gray-400 mb-3">
+              404 · Categoría
+            </p>
+            <h2 className="font-editorial text-3xl md:text-5xl uppercase tracking-wide text-alonzo-charcoal leading-[1.05] mb-4">
+              "{categoryDisplayName}" no encontrada
+            </h2>
+            <p className="text-sm md:text-base text-alonzo-gray-600 leading-relaxed max-w-md mx-auto mb-8">
+              No hay productos en esta categoría para {gender}. Probá con una
+              de las categorías disponibles o explorá toda la colección.
+            </p>
+
+            {/* Chips clickeables con las categorías reales del género actual */}
+            {categories.length > 0 && (
+              <div className="mb-8">
+                <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-alonzo-gray-500 mb-3">
+                  Categorías disponibles
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setActiveCategory(cat)}
+                      className="px-4 py-2 text-xs font-sans tracking-wider uppercase border border-alonzo-gray-300 text-alonzo-charcoal hover:bg-alonzo-black hover:text-white hover:border-alonzo-black transition-colors"
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <button
+                onClick={handleGoToFirstCategory}
+                className="px-8 py-3 bg-alonzo-black text-white text-xs font-sans font-semibold tracking-[0.15em] uppercase hover:bg-alonzo-gray-800 transition-colors"
+              >
+                Ver {categories[0] || 'productos'}
+              </button>
+              <button
+                onClick={handleViewAllProducts}
+                className="px-8 py-3 bg-transparent text-alonzo-charcoal text-xs font-sans font-semibold tracking-[0.15em] uppercase border border-alonzo-charcoal hover:bg-alonzo-charcoal hover:text-white transition-colors"
+              >
+                Ver toda la colección
+              </button>
+            </div>
+          </div>
+        ) : (
+          <ProductGrid
+            products={filteredProducts}
+            loading={loading}
+            onProductClick={handleProductClick}
+            sectionTitle={!hasBrowsed && !searchTerm ? (gender === 'Mujer' ? 'Moda para mujer' : 'Moda para hombre') : undefined}
+            gridCols={hasBrowsed ? gridCols : undefined}
+          />
+        )}
       </div>
 
       <FilterDrawer
