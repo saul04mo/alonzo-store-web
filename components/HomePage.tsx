@@ -89,17 +89,45 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
     }
   }, [activeCategory, hasBrowsed, gender, mounted]);
 
-  // Load products
+  // Load products — race-safe con flag 'cancelled' para evitar que un
+  // fetch viejo pise el state si gender cambió mientras estaba en curso.
+  //
+  // Bug que arreglábamos: al entrar directo a /?gender=Mujer&category=BLAZER,
+  // si el store tenía gender='Hombre' (default), el primer mount disparaba
+  // fetchProducts('Hombre'). Inmediatamente después el URL sync seteaba
+  // gender='Mujer' y disparaba fetchProducts('Mujer') en paralelo. Si el
+  // de Hombre terminaba primero, setea products con catálogo Hombre,
+  // categories se calculaba SIN 'BLAZER', y el auto-fix lo cambiaba a
+  // la primera categoría disponible (ej. PANTALONES). Como PANTALONES
+  // también existe en Mujer, cuando llegaba el fetch Mujer NO se
+  // corregía → el usuario terminaba en PANTALONES en vez de BLAZER.
+  //
+  // Fix: el cleanup del efecto setea cancelled=true. Cualquier fetch en
+  // curso ignora su resultado cuando resuelve. Sólo el fetch del último
+  // gender escribe en el state.
+  //
+  // También quité el 'setActiveCategory(\'\')' que estaba acá: el URL sync
+  // ya maneja ese caso de forma más coherente.
   useEffect(() => {
+    let cancelled = false;
     setLoading(true);
     setProducts([]);
-    if (!searchParams.get('category')) {
-      setActiveCategory('');
-    }
     fetchProducts(gender)
-      .then(setProducts)
-      .catch(console.error)
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (cancelled) return;
+        setProducts(data);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        console.error(err);
+      })
+      .finally(() => {
+        if (cancelled) return;
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [gender]);
 
   // Categories
