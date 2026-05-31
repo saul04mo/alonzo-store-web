@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { PromotionsBanner } from '@/components/products/PromotionsBanner';
@@ -60,9 +60,18 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
     }
   }, [searchParams]);
 
-  // Update URL when category changes
+  // Update URL when category changes.
+  // Skip the first run after mount: en ese momento URL sync aún no propagó
+  // sus setters, así que el closure tiene hasBrowsed=false aunque la URL
+  // sí traiga ?category=... Sin este guard se llamaba router.push('/') y
+  // se perdían los params al entrar directo con un link compartido.
+  const urlUpdateInitializedRef = useRef(false);
   useEffect(() => {
     if (!mounted) return;
+    if (!urlUpdateInitializedRef.current) {
+      urlUpdateInitializedRef.current = true;
+      return;
+    }
     const params = new URLSearchParams();
     if (hasBrowsed && activeCategory) {
       params.set('gender', gender);
