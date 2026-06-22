@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 import { Inter, Bebas_Neue } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
+import { Analytics } from '@/components/Analytics';
 import { getAnnouncements } from '@/lib/getAnnouncements';
 import './globals.css';
 
@@ -67,6 +69,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="es" className={`${inter.variable} ${bebas.variable}`}>
       <body className="font-sans antialiased">
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
         <AppShell announcements={announcements}>{children}</AppShell>
       </body>
     </html>
