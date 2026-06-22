@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { Inter, Bebas_Neue } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
 import { Analytics } from '@/components/Analytics';
+import { Clarity } from '@/components/Clarity';
 import { getAnnouncements } from '@/lib/getAnnouncements';
 import './globals.css';
 
@@ -25,7 +26,7 @@ const bebas = Bebas_Neue({
   variable: '--font-bebas',
 });
 
-const SITE_URL = 'https://alonzo-store-web.netlify.app';
+const SITE_URL = 'https://alonzocollection.com';
 
 export const metadata: Metadata = {
   title: {
@@ -72,6 +73,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>
+        <Clarity />
         <AppShell announcements={announcements}>{children}</AppShell>
       </body>
     </html>
