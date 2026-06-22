@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const snap = await adminDb.collection('products').where('active', '!=', false).get();
     snap.forEach((doc) => {
       pages.push({
-        url: `${SITE_URL}${productHref({ id: doc.id, name: doc.data().name })}`,
+        url: `${SITE_URL}${productHref({ id: doc.id, name: doc.data().name, category: doc.data().category })}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.9,

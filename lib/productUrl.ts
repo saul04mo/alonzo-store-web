@@ -14,9 +14,10 @@ export function slugify(name: string): string {
     .replace(/^-+|-+$/g, ''); // quitar guiones al inicio/fin
 }
 
-// Construye el href legible de un producto
-export function productHref(product: { id: string; name?: string }): string {
-  const slug = slugify(product.name || '');
+// Construye el href legible de un producto: /product/{categoria}-{nombre}-{id}
+export function productHref(product: { id: string; name?: string; category?: string }): string {
+  const parts = [slugify(product.category || ''), slugify(product.name || '')].filter(Boolean);
+  const slug = parts.join('-');
   return slug ? `/product/${slug}-${product.id}` : `/product/${product.id}`;
 }
 
