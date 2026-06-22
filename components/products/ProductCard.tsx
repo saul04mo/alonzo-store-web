@@ -5,6 +5,7 @@ import { cs } from '@/lib/format';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
+import { productHref } from '@/lib/productUrl';
 
 // Global cache — survives component remounts (back navigation)
 const loadedImages = new Set<string>();
@@ -96,7 +97,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
   const handleMouseEnter = () => {
     // Prefetch la página del detalle para navegación instantánea
-    router.prefetch(`/product/${product.id}`);
+    router.prefetch(productHref(product));
 
     // Prefetch imágenes
     [imageUrl, secondImage].filter(Boolean).forEach((src) => {

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { adminDb } from '@/lib/firebase-admin';
 import { blacklistedProductIds, blacklistedCategories } from '@/config';
+import { extractProductId } from '@/lib/productUrl';
 import { ProductDetailClient } from './ProductDetailClient';
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
 // Dynamic OG metadata per product
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const doc = await adminDb.collection('products').doc(params.id).get();
+    const id = extractProductId(params.id);
+    const doc = await adminDb.collection('products').doc(id).get();
     if (!doc.exists) return { title: 'Producto no encontrado' };
 
     const data = doc.data()!;
@@ -44,5 +46,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function Page({ params }: Props) {
-  return <ProductDetailClient id={params.id} />;
+  return <ProductDetailClient id={extractProductId(params.id)} />;
 }

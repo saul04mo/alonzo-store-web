@@ -6,6 +6,7 @@ import { ProductGrid } from '@/components/products/ProductGrid';
 import { PromotionsBanner } from '@/components/products/PromotionsBanner';
 import { HeroBanner } from '@/components/ui';
 import { fetchProducts, seedProduct } from '@/lib/api';
+import { productHref } from '@/lib/productUrl';
 import { hombreCategoryOrder, categoryDescriptions } from '@/config';
 import { useUIStore } from '@/stores';
 import { SlidersHorizontal } from 'lucide-react';
@@ -208,7 +209,7 @@ export function HomePage({ initialHeroImages, initialHeroImagesMobile, initialHe
   const handleProductClick = useCallback(
     (product: Product) => {
       seedProduct(product);
-      router.push(`/product/${product.id}`);
+      router.push(productHref(product));
     },
     [router]
   );

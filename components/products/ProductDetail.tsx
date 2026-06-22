@@ -7,6 +7,7 @@ import { Heart, ChevronDown, ChevronLeft, ChevronRight, Truck, X, Minus, Plus, S
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
 import { fetchProducts, seedProduct } from '@/lib/api';
+import { productHref } from '@/lib/productUrl';
 import { getSizeGuideImage } from '@/config';
 import { useWishlist } from '@/lib/useWishlist';
 import { ProductCard } from '@/components/products/ProductCard';
@@ -273,7 +274,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   };
 
   const handleShare = async () => {
-    const url = `${window.location.origin}/product/${product!.id}`;
+    const url = `${window.location.origin}${productHref(product!)}`;
     const text = `${product!.name} — ${cs()}${discountedPrice.toFixed(2)} en ALONZO Store`;
 
     if (navigator.share) {
@@ -596,7 +597,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                   product={p}
                   onClick={() => {
                     seedProduct(p);
-                    router.push(`/product/${p.id}`);
+                    router.push(productHref(p));
                   }}
                 />
               </div>

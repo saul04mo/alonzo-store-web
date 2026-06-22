@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { fetchProducts, seedProduct } from '@/lib/api';
+import { productHref } from '@/lib/productUrl';
 import { useUIStore } from '@/stores';
 import { ProductCard } from '@/components/products/ProductCard';
 import type { Product, Gender } from '@/types';
@@ -66,7 +67,7 @@ export function SearchPage() {
 
   const handleProductClick = useCallback((product: Product) => {
     seedProduct(product);
-    router.push(`/product/${product.id}`);
+    router.push(productHref(product));
   }, [router]);
 
   const handleClose = () => {

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { adminDb } from '@/lib/firebase-admin';
+import { productHref } from '@/lib/productUrl';
 
 const SITE_URL = 'https://alonzo-store-web.netlify.app';
 
@@ -16,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const snap = await adminDb.collection('products').where('active', '!=', false).get();
     snap.forEach((doc) => {
       pages.push({
-        url: `${SITE_URL}/product/${doc.id}`,
+        url: `${SITE_URL}${productHref({ id: doc.id, name: doc.data().name })}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.9,

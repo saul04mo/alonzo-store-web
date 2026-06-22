@@ -8,6 +8,7 @@ import { useWishlist } from '@/lib/useWishlist';
 import { useCartStore } from '@/stores';
 import { useToast } from '@/components/ui';
 import { fetchProducts } from '@/lib/api';
+import { productHref } from '@/lib/productUrl';
 import type { Product } from '@/types';
 
 export function WishlistPage() {
@@ -117,7 +118,7 @@ export function WishlistPage() {
                 {/* Image */}
                 <div
                   className="w-24 h-32 bg-gray-100 rounded shrink-0 overflow-hidden cursor-pointer relative"
-                  onClick={() => router.push(`/product/${product.id}`)}
+                  onClick={() => router.push(productHref(product))}
                 >
                   <img
                     src={product.imageUrl}
@@ -137,7 +138,7 @@ export function WishlistPage() {
                     <p className="text-xs text-gray-400 uppercase tracking-wider">{product.category}</p>
                     <p
                       className="text-sm font-medium text-gray-900 mt-1 cursor-pointer hover:underline"
-                      onClick={() => router.push(`/product/${product.id}`)}
+                      onClick={() => router.push(productHref(product))}
                     >
                       {product.name}
                     </p>
