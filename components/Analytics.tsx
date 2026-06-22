@@ -18,23 +18,30 @@ export function Analytics() {
 
     let cancelled = false;
 
-    (async () => {
-      const analytics = await getAnalyticsInstance();
-      if (!analytics || cancelled) return;
+    // Esperamos un instante antes de leer document.title: en navegación
+    // cliente (sin recargar), Next.js actualiza el título DESPUÉS de cambiar
+    // la ruta. Sin este delay, el page_view podría registrar el título
+    // anterior en vez del nombre del producto actual.
+    const timer = setTimeout(() => {
+      (async () => {
+        const analytics = await getAnalyticsInstance();
+        if (!analytics || cancelled) return;
 
-      const { logEvent } = await import('firebase/analytics');
-      const query = searchParams.toString();
-      const page_path = query ? `${pathname}?${query}` : pathname;
+        const { logEvent } = await import('firebase/analytics');
+        const query = searchParams.toString();
+        const page_path = query ? `${pathname}?${query}` : pathname;
 
-      logEvent(analytics, 'page_view', {
-        page_path,
-        page_location: window.location.href,
-        page_title: document.title,
-      });
-    })();
+        logEvent(analytics, 'page_view', {
+          page_path,
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+      })();
+    }, 300);
 
     return () => {
       cancelled = true;
+      clearTimeout(timer);
     };
   }, [pathname, searchParams]);
 
