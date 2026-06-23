@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Ticket, Copy, CheckCircle, Clock, Gift } from 'lucide-react';
 import { useToast } from '@/components/ui';
-import { auth } from '@/lib/firebase-client';
+import { auth, onAuthStateChanged } from '@/lib/firebase-client';
 
 interface PublicCoupon {
   code: string;
@@ -26,14 +26,22 @@ export function MyCouponsPage() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   useEffect(() => {
-    loadCoupons();
+    // Esperamos a que Firebase restaure la sesión: auth.currentUser suele
+    // ser null al montar (la restauración es asíncrona), y antes eso hacía
+    // que los cupones nunca cargaran. onAuthStateChanged dispara cuando el
+    // user ya está listo (y deja auth.currentUser válido para Firestore).
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loadCoupons(user.uid);
+      } else {
+        setLoading(false);
+      }
+    });
+    return () => unsub();
   }, []);
 
-  async function loadCoupons() {
+  async function loadCoupons(uid: string) {
     try {
-      const user = auth.currentUser;
-      if (!user) return;
-
       const { db, collection, getDocs, query, where } = await import('@/lib/firebase-client');
       const snap = await getDocs(query(collection(db, 'coupons'), where('active', '==', true)));
 
@@ -49,7 +57,7 @@ export function MyCouponsPage() {
         if (d.maxUsesTotal > 0 && (d.usedCount || 0) >= d.maxUsesTotal) return;
         // Check per-client uses
         if (d.maxUsesPerClient > 0) {
-          const clientUses = d.usageByClient?.[user.uid] || 0;
+          const clientUses = d.usageByClient?.[uid] || 0;
           if (clientUses >= d.maxUsesPerClient) return;
         }
 
@@ -62,7 +70,7 @@ export function MyCouponsPage() {
           freeShipping: d.freeShipping || false,
           expiresAt: d.expiresAt ? d.expiresAt.toDate().toLocaleDateString('es-VE', { day: '2-digit', month: 'short', year: 'numeric' }) : null,
           remainingUses: d.maxUsesPerClient > 0
-            ? d.maxUsesPerClient - (d.usageByClient?.[user.uid] || 0)
+            ? d.maxUsesPerClient - (d.usageByClient?.[uid] || 0)
             : null,
         });
       });

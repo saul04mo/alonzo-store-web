@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
 import { getCacheTTL } from '@/lib/cache-config';
-import { blacklistedProductIds, blacklistedCategories } from '@/config';
+import { fetchProductsFromFirestore } from '@/lib/getProducts';
 import type { Product } from '@/types';
 
 let cache: Record<string, { data: Product[]; ts: number }> = {};
@@ -51,34 +51,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const ref = adminDb.collection('products');
-    const q = gender ? ref.where('gender', '==', gender) : ref;
-    const snapshot = await q.get();
-
-    const products: Product[] = [];
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      const id = doc.id;
-
-      if (blacklistedProductIds.has(id)) return;
-      const category = (data.category || '').trim().toUpperCase();
-      if (blacklistedCategories.has(category)) return;
-      if (data.active === false) return;
-
-      products.push({
-        id,
-        name: data.name || 'SIN NOMBRE',
-        description: data.description || '',
-        category: data.category?.trim() || '',
-        gender: data.gender || 'Hombre',
-        imageUrl: data.imageUrl || '',
-        images: data.imageUrls?.length ? data.imageUrls : (data.imageUrl ? [data.imageUrl] : []),
-        price: data.price,
-        variants: data.variants || [],
-        sizeGuideImage: data.sizeGuideImage,
-        offer: data.offer && data.offer.value > 0 ? data.offer : undefined,
-      } as Product);
-    });
+    const products = await fetchProductsFromFirestore(gender);
 
     // Cacheamos la lista COMPLETA (sin el filtro de hidden) para que
     // si el admin cambia los toggles, no haya que invalidar cache.

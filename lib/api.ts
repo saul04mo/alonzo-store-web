@@ -83,15 +83,18 @@ export async function fetchProduct(id: string): Promise<Product> {
   return product;
 }
 
-// Pre-fetch both genders on app start (call once from AppShell)
-export function prefetchAllProducts() {
-  fetchProducts('Hombre').catch(() => { });
-  fetchProducts('Mujer').catch(() => { });
-}
-
 // Seed a single product into cache (instant detail page load)
 export function seedProduct(product: Product) {
   singleCache[product.id] = { data: product, ts: Date.now() };
+}
+
+// Seed a full product list into cache (server-rendered initial data).
+// Hace que el primer fetchProducts(gender) de la home devuelva al
+// instante, sin esperar al round-trip a Netlify.
+export function seedProducts(gender: string | undefined, products: Product[]) {
+  const cacheKey = gender || 'all';
+  productCache[cacheKey] = { data: products, ts: Date.now() };
+  products.forEach((p) => { singleCache[p.id] = { data: p, ts: Date.now() }; });
 }
 
 // ─────────────────────────────────────────────

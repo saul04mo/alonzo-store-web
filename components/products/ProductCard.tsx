@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { cs } from '@/lib/format';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
@@ -9,6 +10,11 @@ import { productHref } from '@/lib/productUrl';
 
 // Global cache — survives component remounts (back navigation)
 const loadedImages = new Set<string>();
+
+// Tamaño responsive que next/image usa para pedir la variante correcta:
+// 2 columnas en mobile (~50vw), 3 en tablet (~33vw), 4 en desktop (~25vw).
+// Sin esto, next/image asume 100vw y descarga una imagen mucho más grande.
+const CARD_SIZES = '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw';
 
 interface ProductCardProps {
   product: Product;
@@ -96,19 +102,12 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   };
 
   const handleMouseEnter = () => {
-    // Prefetch la página del detalle para navegación instantánea
+    // Prefetch la página del detalle para navegación instantánea.
+    // (Ya no prefetcheamos las imágenes a mano: next/image sirve URLs
+    // optimizadas /_next/image?url=… que no coinciden con la URL cruda
+    // de Firebase, así que aquel prefetch descargaba la versión pesada
+    // sin usarla. next/image hace su propio lazy-load eficiente.)
     router.prefetch(productHref(product));
-
-    // Prefetch imágenes
-    [imageUrl, secondImage].filter(Boolean).forEach((src) => {
-      if (src && !document.querySelector(`link[href="${src}"]`)) {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.as = 'image';
-        link.href = src;
-        document.head.appendChild(link);
-      }
-    });
   };
 
   // Hover on + button → show sizes
@@ -137,14 +136,14 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           </div>
         )}
 
-        <img
+        <Image
           src={imageUrl}
           alt={product.name}
-          loading="lazy"
-          decoding="async"
+          fill
+          sizes={CARD_SIZES}
           onLoad={() => { loadedImages.add(imageUrl); setLoaded(true); }}
           className={`
-            absolute inset-0 w-full h-full object-cover object-top
+            object-cover object-top
             ${wasCached ? 'transition-opacity duration-300 ease-out' : 'transition-all duration-700 ease-out'}
             ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-[1.02] blur-sm'}
             ${canHover && hovered && secondImage && secondLoaded ? '!opacity-0' : ''}
@@ -154,14 +153,14 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         {/* Second image — visible on hover. Solo animamos opacity
             (sin blur ni scale) para que el swap sea limpio y r\u00e1pido. */}
         {secondImage && (
-          <img
+          <Image
             src={secondImage}
             alt={`${product.name} - 2`}
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes={CARD_SIZES}
             onLoad={() => { if (secondImage) loadedImages.add(secondImage); setSecondLoaded(true); }}
             className={`
-              absolute inset-0 w-full h-full object-cover object-top
+              object-cover object-top
               transition-opacity duration-300 ease-out
               ${canHover && hovered && secondLoaded ? 'opacity-100' : 'opacity-0'}
             `}

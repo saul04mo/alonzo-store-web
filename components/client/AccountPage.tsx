@@ -1,5 +1,6 @@
 'use client';
 import { useClientStore, useUIStore } from '@/stores';
+import { useHydratedClient } from '@/lib/useHydratedClient';
 import { LogOut, Package, ShieldCheck, MapPin, ChevronRight, Heart, Ticket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { auth, signOut } from '@/lib/firebase-client';
@@ -7,11 +8,18 @@ import { useToast } from '@/components/ui';
 import { useWishlist } from '@/lib/useWishlist';
 
 export function AccountPage() {
-  const { client, clearClient } = useClientStore();
+  const { client, hydrated } = useHydratedClient();
+  const clearClient = useClientStore((s) => s.clearClient);
   const setAuthOpen = useUIStore((s) => s.setAuthOpen);
   const router = useRouter();
   const toast = useToast();
   const { count: wishlistCount } = useWishlist();
+
+  // Mientras el store rehidrata, no decidimos aún si mostrar login.
+  // Evita el flash de "Debes iniciar sesión" para un usuario logueado.
+  if (!hydrated) {
+    return <div className="max-w-[1400px] mx-auto px-4 md:px-10 py-12 md:py-20 min-h-[70vh]" />;
+  }
 
   const handleSignOut = async () => {
     try {

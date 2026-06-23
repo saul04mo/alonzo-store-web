@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useClientStore } from '@/stores';
+import { auth, onAuthStateChanged } from '@/lib/firebase-client';
 import { fetchClientOrders, fetchClientOrdersByRif } from '@/lib/api';
 import { formatUSD } from '@/lib/format';
 import { useRouter } from 'next/navigation';
@@ -36,7 +37,9 @@ const DELIVERY_LABELS: Record<string, string> = {
 
 export function AccountOrdersPage() {
   const router = useRouter();
-  const { client } = useClientStore();
+  // RIF del store (para los pedidos del POS). El id viene del user de
+  // Firebase para garantizar que la query a Firestore vaya autenticada.
+  const clientRif = useClientStore((s) => s.client?.rif_ci);
   const [orders, setOrders] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [limitCount, setLimitCount] = useState(10);
@@ -44,41 +47,60 @@ export function AccountOrdersPage() {
   const [expandedId, setExpandedId] = useState<string | number | null>(null);
 
   useEffect(() => {
-    if (!client?.id) { router.push('/account'); return; }
+    let cancelled = false;
 
-    const load = async () => {
-      setLoading(true);
-      try {
-        const allMap = new Map<string, Invoice>();
-
-        // Query 1: by clientId (web orders)
-        try {
-          const byId = await fetchClientOrders(client.id, limitCount);
-          byId.forEach((o) => allMap.set(o.id || String(o.numericId), o));
-        } catch (e) { console.warn('fetchClientOrders failed:', e); }
-
-        // Query 2: by RIF (POS orders)
-        if (client.rif_ci) {
-          try {
-            const byRif = await fetchClientOrdersByRif(client.rif_ci, limitCount);
-            byRif.forEach((o) => {
-              const key = o.id || String(o.numericId);
-              if (!allMap.has(key)) allMap.set(key, o);
-            });
-          } catch (e) { console.warn('fetchClientOrdersByRif failed:', e); }
-        }
-
-        const all = Array.from(allMap.values()).sort((a, b) => b.numericId - a.numericId);
-        setHasMore(all.length >= limitCount);
-        setOrders(all);
-      } catch (err) {
-        console.error('Error cargando pedidos:', err);
-      } finally {
-        setLoading(false);
+    // Esperamos a que Firebase restaure la sesión antes de consultar:
+    // las reglas de Firestore exigen request.auth, así que si la query
+    // corría antes de que auth.currentUser estuviera listo, la rechazaban
+    // y los pedidos quedaban vacíos. onAuthStateChanged dispara una vez
+    // que el estado de auth ya está resuelto (user real o null).
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push('/account');
+        return;
       }
+
+      (async () => {
+        setLoading(true);
+        try {
+          // Las dos consultas en paralelo.
+          const [byId, byRif] = await Promise.all([
+            fetchClientOrders(user.uid, limitCount).catch((e) => {
+              console.warn('fetchClientOrders failed:', e);
+              return [] as Invoice[];
+            }),
+            clientRif
+              ? fetchClientOrdersByRif(clientRif, limitCount).catch((e) => {
+                  console.warn('fetchClientOrdersByRif failed:', e);
+                  return [] as Invoice[];
+                })
+              : Promise.resolve([] as Invoice[]),
+          ]);
+          if (cancelled) return;
+
+          const allMap = new Map<string, Invoice>();
+          byId.forEach((o) => allMap.set(o.id || String(o.numericId), o));
+          byRif.forEach((o) => {
+            const key = o.id || String(o.numericId);
+            if (!allMap.has(key)) allMap.set(key, o);
+          });
+
+          const all = Array.from(allMap.values()).sort((a, b) => b.numericId - a.numericId);
+          setHasMore(all.length >= limitCount);
+          setOrders(all);
+        } catch (err) {
+          console.error('Error cargando pedidos:', err);
+        } finally {
+          if (!cancelled) setLoading(false);
+        }
+      })();
+    });
+
+    return () => {
+      cancelled = true;
+      unsub();
     };
-    load();
-  }, [client, router, limitCount]);
+  }, [limitCount, router, clientRif]);
 
   const getStatus = (status: string) => STATUS_CONFIG[status] || STATUS_CONFIG['Creada'];
 

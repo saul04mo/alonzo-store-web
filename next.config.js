@@ -11,6 +11,12 @@ const nextConfig = {
       { protocol: 'https', hostname: 'via.placeholder.com' },
     ],
     unoptimized: false,
+    // Solo WebP. Probamos AVIF pero codificarlo con sharp es 5-10x más
+    // lento que WebP → la imagen tardaba en aparecer (alto TTFB del
+    // optimizador), sobre todo la del detalle a pantalla completa y en
+    // `next dev`. El ahorro de peso de AVIF vs WebP era marginal frente
+    // a esa latencia. WebP ya da el gran ahorro de descarga.
+    formats: ['image/webp'],
   },
 
   // Security headers

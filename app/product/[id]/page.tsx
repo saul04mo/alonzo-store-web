@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { adminDb } from '@/lib/firebase-admin';
-import { blacklistedProductIds, blacklistedCategories } from '@/config';
+import { getProductById } from '@/lib/getProducts';
 import { extractProductId } from '@/lib/productUrl';
 import { ProductDetailClient } from './ProductDetailClient';
 
@@ -8,35 +7,34 @@ interface Props {
   params: { id: string };
 }
 
-// Dynamic OG metadata per product
+// Dynamic OG metadata per product.
+// Usa getProductById (React cache) — comparte el read de Firestore con
+// el render de Page de abajo, así es UN solo read por request.
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const id = extractProductId(params.id);
-    const doc = await adminDb.collection('products').doc(id).get();
-    if (!doc.exists) return { title: 'Producto no encontrado' };
+    const product = await getProductById(id);
+    if (!product) return { title: 'Producto no encontrado' };
 
-    const data = doc.data()!;
-    const name = data.name || 'Producto';
-    const category = data.category || '';
-    const price = data.variants?.[0]?.price || data.price || '0';
-    const image = data.imageUrl || '/images/og-image.jpg';
-    const desc = data.description
-      ? `${data.description} — ${parseFloat(price).toFixed(2)} en ALONZO Store.`
-      : `${name} de la colección ${category}. ${parseFloat(price).toFixed(2)} — Compra en ALONZO Store.`;
+    const price = product.variants?.[0]?.price || product.price || '0';
+    const image = product.imageUrl || '/images/og-image.jpg';
+    const desc = product.description
+      ? `${product.description} — ${parseFloat(price).toFixed(2)} en ALONZO Store.`
+      : `${product.name} de la colección ${product.category}. ${parseFloat(price).toFixed(2)} — Compra en ALONZO Store.`;
 
     return {
-      title: name,
+      title: product.name,
       description: desc,
       openGraph: {
-        title: `${name} — ALONZO Store`,
+        title: `${product.name} — ALONZO Store`,
         description: desc,
-        images: [{ url: image, width: 800, height: 1000, alt: name }],
+        images: [{ url: image, width: 800, height: 1000, alt: product.name }],
         type: 'website',
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${name} — ALONZO Store`,
-        description: `${name} — ${parseFloat(price).toFixed(2)}`,
+        title: `${product.name} — ALONZO Store`,
+        description: `${product.name} — ${parseFloat(price).toFixed(2)}`,
         images: [image],
       },
     };
@@ -45,6 +43,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function Page({ params }: Props) {
-  return <ProductDetailClient id={extractProductId(params.id)} />;
+export default async function Page({ params }: Props) {
+  const id = extractProductId(params.id);
+  // Producto desde el servidor → la imagen (con priority) ya viaja en el
+  // HTML inicial; sin esperar un fetch del cliente tras montar.
+  const initialProduct = await getProductById(id).catch(() => null);
+  return <ProductDetailClient id={id} initialProduct={initialProduct} />;
 }

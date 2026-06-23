@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useUIStore } from '@/stores';
 import { useWebSettings } from '@/lib/useWebSettings';
 
@@ -95,17 +96,24 @@ export function HeroBanner({
                 className="relative h-full flex-shrink-0"
                 style={{ width: `${100 / count}%` }}
               >
-                {/* Imagen móvil */}
-                <img
+                {/* Imagen móvil. priority sólo en el primer slide: es el
+                    LCP de la home, así que se precarga en vez de lazy-load. */}
+                <Image
                   src={mobileImg}
                   alt="Hero Banner"
-                  className="md:hidden absolute inset-0 w-full h-full object-cover object-top"
+                  fill
+                  sizes="100vw"
+                  priority={idx === 0}
+                  className="md:hidden object-cover object-top"
                 />
                 {/* Imagen desktop */}
-                <img
+                <Image
                   src={img}
                   alt="Hero Banner"
-                  className="hidden md:block absolute inset-0 w-full h-full object-cover object-top"
+                  fill
+                  sizes="100vw"
+                  priority={idx === 0}
+                  className="hidden md:block object-cover object-top"
                 />
               </div>
             );

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useClientStore } from '@/stores';
+import { useHydratedClient } from '@/lib/useHydratedClient';
 import { findClientByRif, saveClient } from '@/lib/api';
 import { useToast } from '@/components/ui';
 import { useRouter } from 'next/navigation';
@@ -12,7 +13,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 export function AccountDetailsPage() {
   const toast = useToast();
   const router = useRouter();
-  const { client, setClient } = useClientStore();
+  const setClient = useClientStore((s) => s.setClient);
+  const { client, hydrated } = useHydratedClient();
 
   const [rif, setRif] = useState('');
   const [name, setName] = useState('');
@@ -41,10 +43,12 @@ export function AccountDetailsPage() {
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 100);
       }
-    } else {
+    } else if (hydrated) {
+      // Solo redirigimos cuando ya rehidrató el store (si no, client es
+      // null por timing y expulsaría al usuario logueado).
       router.push('/account');
     }
-  }, [client, router]);
+  }, [client, hydrated, router]);
 
   // Robustly fetch email directly from Firebase Auth
   useEffect(() => {

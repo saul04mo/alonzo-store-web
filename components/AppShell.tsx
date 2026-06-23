@@ -6,8 +6,6 @@ import Link from 'next/link';
 import {
   ToastProvider,
   useToast,
-  BottomNav,
-  AnnouncementBar,
   SiteHeader,
   SiteFooter,
   CartDrawer,
@@ -18,11 +16,11 @@ import { useCartStore, useClientStore, useUIStore } from '@/stores';
 import { SizeSelector } from '@/components/products/SizeSelector';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { OnboardingModal } from '@/components/auth/OnboardingModal';
-import { auth, onAuthStateChanged, getRedirectResult, db, doc, getDoc } from '@/lib/firebase-client';
 import { useWebSettings } from '@/lib/useWebSettings';
-import { prefetchAllProducts, fetchProducts } from '@/lib/api';
-import { hombreCategoryOrder } from '@/config';
-import type { Product, ProductVariant, Client } from '@/types';
+import { useAuthListener } from '@/lib/useAuthListener';
+import { fetchProducts } from '@/lib/api';
+import { computeCategories } from '@/lib/categories';
+import type { Product, ProductVariant } from '@/types';
 import type { Announcement } from '@/lib/getAnnouncements';
 
 function ShellContent({ children, announcements }: { children: React.ReactNode; announcements: Announcement[] }) {
@@ -36,8 +34,6 @@ function ShellContent({ children, announcements }: { children: React.ReactNode; 
 
   const { addItem } = useCartStore();
   const client = useClientStore((s) => s.client);
-  const setClient = useClientStore((s) => s.setClient);
-  const clearClient = useClientStore((s) => s.clearClient);
 
   const gender = useUIStore((s) => s.gender);
   const setGender = useUIStore((s) => s.setGender);
@@ -48,7 +44,9 @@ function ShellContent({ children, announcements }: { children: React.ReactNode; 
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [sizeOpen, setSizeOpen] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Auth listener (login state + onboarding) — ver lib/useAuthListener.ts
+  const { showOnboarding, dismissOnboarding } = useAuthListener();
 
   // Cart expiry
   useEffect(() => {
@@ -69,88 +67,13 @@ function ShellContent({ children, announcements }: { children: React.ReactNode; 
     const loadGender = async (g: 'Hombre' | 'Mujer') => {
       try {
         const products = await fetchProducts(g);
-        const unique = new Set<string>();
-        products.forEach((p) => {
-          const cat = p.category.trim().toUpperCase();
-          if (cat && cat !== 'EXTRAS') unique.add(cat);
-        });
-        const arr = Array.from(unique);
-        if (g === 'Mujer') {
-          arr.sort((a, b) => b.localeCompare(a));
-        } else {
-          arr.sort((a, b) => {
-            const wA = hombreCategoryOrder[a] || 99;
-            const wB = hombreCategoryOrder[b] || 99;
-            return wA !== wB ? wA - wB : a.localeCompare(b);
-          });
-        }
-        setCats(g, arr);
+        setCats(g, computeCategories(products, g));
       } catch { }
     };
 
     loadGender('Hombre');
     loadGender('Mujer');
   }, []);
-
-  // Auth state listener
-  useEffect(() => {
-    // Handle redirect result (for mobile Google sign-in)
-    getRedirectResult(auth).then(async (result) => {
-      if (result?.user) {
-        console.log('Google redirect sign-in successful:', result.user.email);
-        const { setDoc } = await import('firebase/firestore');
-        const userRef = doc(db, 'clients', result.user.uid);
-        const userSnap = await getDoc(userRef);
-        if (!userSnap.exists()) {
-          await setDoc(userRef, {
-            name: result.user.displayName || 'Usuario',
-            email: result.user.email || '',
-            phone: '', address: '', rif_ci: '',
-          });
-        }
-      }
-    }).catch((err) => {
-      if (err?.code !== 'auth/popup-closed-by-user') {
-        console.error('Redirect result error:', err);
-      }
-    });
-
-    const unsub = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          const userRef = doc(db, 'clients', user.uid);
-          const userSnap = await getDoc(userRef);
-          if (userSnap.exists()) {
-            const data = { id: user.uid, ...userSnap.data() } as Client;
-            setClient(data);
-            // Check if profile is incomplete
-            if (!data.rif_ci || !data.phone) {
-              setShowOnboarding(true);
-            }
-          } else {
-            const { setDoc } = await import('firebase/firestore');
-            const newClient = {
-              id: user.uid,
-              name: user.displayName || 'Usuario',
-              email: user.email || '',
-              phone: '',
-              address: '',
-              rif_ci: '',
-            };
-            await setDoc(userRef, newClient);
-            setClient(newClient);
-            setShowOnboarding(true);
-          }
-        } catch (err) {
-          console.error('Error loading client:', err);
-        }
-      } else {
-        clearClient();
-        setShowOnboarding(false);
-      }
-    });
-    return () => unsub();
-  }, [setClient, clearClient]);
 
   const handleGenderChange = useCallback((g: 'Hombre' | 'Mujer') => {
     setGender(g);
@@ -224,7 +147,7 @@ function ShellContent({ children, announcements }: { children: React.ReactNode; 
       {showOnboarding && client && (
         <OnboardingModal
           client={client}
-          onComplete={() => setShowOnboarding(false)}
+          onComplete={dismissOnboarding}
         />
       )}
 
