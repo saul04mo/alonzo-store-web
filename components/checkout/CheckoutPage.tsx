@@ -35,22 +35,22 @@ function Section({
   number,
   title,
   summary,
-  defaultOpen = false,
+  open,
+  onToggle,
   children,
 }: {
   number: number;
   title: string;
   summary?: string;
-  defaultOpen?: boolean;
+  open: boolean;
+  onToggle: () => void;
   children: React.ReactNode;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
-
   return (
     <div className="border-b border-alonzo-gray-300 py-6">
       <button
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={onToggle}
         aria-expanded={open}
         aria-controls={`checkout-section-${number}`}
         className="w-full flex items-center justify-between text-left group"
@@ -76,6 +76,7 @@ function Section({
         id={`checkout-section-${number}`}
         role="region"
         aria-label={title}
+        inert={!open ? true : undefined}
         className={`transition-all duration-300 ease-in-out ${
           open ? 'max-h-[2000px] opacity-100 mt-6 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'
         }`}
@@ -132,6 +133,22 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const [processing, setProcessing] = useState(false);
   const processingRef = useRef(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Errores por campo (validación inline) + refs para enfocar el primero
+  const [fieldErrors, setFieldErrors] = useState<{ rif?: string; name?: string }>({});
+  const rifRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  // Acordeón controlado: el padre conoce qué sección está abierta para poder
+  // abrir la sección con error al validar y marcar las cerradas como `inert`.
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => ({
+    datos: !client,
+    envio: !client?.address,
+    direccion: true,
+    pago: false,
+  }));
+  const toggleSection = (k: string) => setOpenSections((s) => ({ ...s, [k]: !s[k] }));
+  const openSection = (k: string) => setOpenSections((s) => ({ ...s, [k]: true }));
 
   // Coupon
   const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
@@ -195,24 +212,43 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const handleSubmit = async () => {
     if (processingRef.current) return; // Ref guard — prevents double-click race condition
     setErrorMsg('');
-    if (!rif || !name) { setErrorMsg('Por favor completa tu nombre y RIF / CI.'); return; }
-    // La dirección solo es obligatoria si hay envío (no en retiro en tienda).
-    if (deliveryType !== 'pickup' && !address) { setErrorMsg('Por favor completa la dirección de entrega.'); return; }
-    if (deliveryType === 'local' && mapDeliveryCost === 0) {
-      setErrorMsg('Debes seleccionar tu ubicación en el mapa para calcular el costo de envío.');
+    setFieldErrors({});
+
+    // ── Validación de datos personales (errores inline por campo) ──
+    const fe: { rif?: string; name?: string } = {};
+    if (!rif) fe.rif = 'Ingresa tu RIF / CI.';
+    if (!name) fe.name = 'Ingresa tu nombre completo.';
+    if (fe.rif || fe.name) {
+      setFieldErrors(fe);
+      setErrorMsg('Revisa tus datos personales.');
+      openSection('datos');
+      // Esperamos a que la sección se abra antes de enfocar el campo.
+      setTimeout(() => { (fe.rif ? rifRef : nameRef).current?.focus(); }, 60);
       return;
     }
-    if (!selectedPaymentMethod) { setErrorMsg('Selecciona tu método de pago para continuar.'); return; }
+    // La dirección solo es obligatoria si hay envío (no en retiro en tienda).
+    if (deliveryType !== 'pickup' && !address) {
+      setErrorMsg('Ingresa tu dirección de entrega.');
+      openSection('direccion');
+      return;
+    }
+    if (deliveryType === 'local' && mapDeliveryCost === 0) {
+      setErrorMsg('Selecciona tu ubicación en el mapa para calcular el costo de envío.');
+      openSection('direccion');
+      return;
+    }
+    if (!selectedPaymentMethod) { setErrorMsg('Selecciona tu método de pago para continuar.'); openSection('pago'); return; }
     if (!canFinish) {
       const faltante = Math.max(0, total - totalPaid);
       setErrorMsg(`Ingresa el monto del pago. Faltan ${formatUSD(faltante)} por cubrir el total.`);
+      openSection('pago');
       return;
     }
     const needsProof = Object.keys(paymentSelection).some((id) => {
       const val = parseFloat(paymentSelection[id].amount) || 0;
       return val > 0 && id !== 'efectivo_usd';
     });
-    if (needsProof && !proofFile) { setErrorMsg('Debes subir el capture o foto del pago para finalizar.'); return; }
+    if (needsProof && !proofFile) { setErrorMsg('Debes subir el capture o foto del pago para finalizar.'); openSection('pago'); return; }
 
     processingRef.current = true;
     setProcessing(true);
@@ -293,17 +329,42 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             number={1}
             title="Datos personales"
             summary={name || 'Completa tus datos'}
-            defaultOpen={!client}
+            open={openSections.datos}
+            onToggle={() => toggleSection('datos')}
           >
             <div className="space-y-5">
               <div>
                 <label htmlFor="checkout-rif" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">RIF / CI</label>
-                <input id="checkout-rif" type="text" className={`${inputClass} ${client?.rif_ci ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="V12345678" value={rif} onChange={(e) => setRif(e.target.value)} disabled={!!client?.rif_ci} />
+                <input
+                  id="checkout-rif"
+                  ref={rifRef}
+                  type="text"
+                  aria-invalid={!!fieldErrors.rif}
+                  aria-describedby={fieldErrors.rif ? 'error-rif' : undefined}
+                  className={`${inputClass} ${client?.rif_ci ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''} ${fieldErrors.rif ? '!border-red-500' : ''}`}
+                  placeholder="V12345678"
+                  value={rif}
+                  onChange={(e) => { setRif(e.target.value); if (fieldErrors.rif) setFieldErrors((f) => ({ ...f, rif: undefined })); }}
+                  disabled={!!client?.rif_ci}
+                />
+                {fieldErrors.rif && <p id="error-rif" className="text-xs text-red-600 mt-1.5">{fieldErrors.rif}</p>}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="checkout-nombre" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">Nombre completo</label>
-                  <input id="checkout-nombre" type="text" className={`${inputClass} ${client?.name ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="Tu nombre" value={name} onChange={(e) => setName(e.target.value)} disabled={!!client?.name} />
+                  <input
+                    id="checkout-nombre"
+                    ref={nameRef}
+                    type="text"
+                    aria-invalid={!!fieldErrors.name}
+                    aria-describedby={fieldErrors.name ? 'error-nombre' : undefined}
+                    className={`${inputClass} ${client?.name ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''} ${fieldErrors.name ? '!border-red-500' : ''}`}
+                    placeholder="Tu nombre"
+                    value={name}
+                    onChange={(e) => { setName(e.target.value); if (fieldErrors.name) setFieldErrors((f) => ({ ...f, name: undefined })); }}
+                    disabled={!!client?.name}
+                  />
+                  {fieldErrors.name && <p id="error-nombre" className="text-xs text-red-600 mt-1.5">{fieldErrors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="checkout-telefono" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">Teléfono</label>
@@ -324,7 +385,8 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             number={2}
             title="Método de envío"
             summary={`${deliveryMethodLabel?.label} (${deliveryMethodLabel?.desc})`}
-            defaultOpen={!address}
+            open={openSections.envio}
+            onToggle={() => toggleSection('envio')}
           >
             <div className="space-y-4">
               <div className="relative">
@@ -389,7 +451,8 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
               number={3}
               title="Dirección de entrega"
               summary={address ? address.substring(0, 60) + '...' : 'Busca tu dirección en el mapa'}
-              defaultOpen={true}
+              open={openSections.direccion}
+              onToggle={() => toggleSection('direccion')}
             >
               <AddressPicker
                 initialAddress={address}
@@ -420,6 +483,8 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             number={deliveryType === 'pickup' ? 4 : 5}
             title="Pago"
             summary="Selecciona tu método de pago"
+            open={openSections.pago}
+            onToggle={() => toggleSection('pago')}
           >
             <PaymentGrid
               paymentMethods={paymentMethods}
