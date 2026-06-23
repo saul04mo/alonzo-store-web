@@ -355,6 +355,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-alonzo-gray-600" />
           <input
             type="text"
+            aria-label="Buscar dirección"
             className="w-full border border-alonzo-gray-300 rounded-sm pl-11 pr-10 py-3.5 text-base outline-none transition-all focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black/5 placeholder:text-alonzo-gray-500 bg-white"
             placeholder="Busca tu dirección..."
             value={query}
@@ -364,6 +365,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
           {query && (
             <button
               onClick={() => { setQuery(''); setResults([]); setShowResults(false); }}
+              aria-label="Limpiar búsqueda"
               className="absolute right-4 top-1/2 -translate-y-1/2 text-alonzo-gray-600 hover:text-alonzo-black"
             >
               <X size={16} />

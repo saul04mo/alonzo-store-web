@@ -81,6 +81,7 @@ export function CouponInput({ subtotal, onApply, onRemove, appliedCoupon }: Coup
         </div>
         <button
           onClick={onRemove}
+          aria-label="Quitar cupón"
           className="p-1.5 text-alonzo-gray-600 hover:text-alonzo-danger transition-colors shrink-0"
         >
           <X size={16} />
@@ -97,6 +98,7 @@ export function CouponInput({ subtotal, onApply, onRemove, appliedCoupon }: Coup
           <Ticket size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-alonzo-gray-600" />
           <input
             type="text"
+            aria-label="Código de cupón"
             className="w-full border border-alonzo-gray-300 rounded-sm pl-10 pr-4 py-3.5 text-base font-mono tracking-wider uppercase
                        placeholder:text-alonzo-gray-500 placeholder:normal-case placeholder:tracking-normal placeholder:font-sans
                        focus:outline-none focus:border-alonzo-black transition-colors"

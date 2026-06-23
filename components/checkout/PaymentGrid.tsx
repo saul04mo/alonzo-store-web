@@ -150,10 +150,11 @@ export function PaymentGrid({
           {/* Amount & reference */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
+              <label htmlFor={`pago-monto-${activeDef.id}`} className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
                 Monto ({activeDef.currency === 'usd' ? cs() : 'Bs.'})
               </label>
               <input
+                id={`pago-monto-${activeDef.id}`}
                 type="number"
                 inputMode="decimal"
                 className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
@@ -164,10 +165,11 @@ export function PaymentGrid({
             </div>
             {activeDef.id !== 'efectivo_usd' && (
               <div>
-                <label className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
+                <label htmlFor={`pago-ref-${activeDef.id}`} className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
                   Referencia
                 </label>
                 <input
+                  id={`pago-ref-${activeDef.id}`}
                   type="text"
                   className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
                   placeholder="Últimos 4-6 dígitos"

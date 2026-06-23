@@ -51,6 +51,8 @@ function Section({
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls={`checkout-section-${number}`}
         className="w-full flex items-center justify-between text-left group"
       >
         <div className="flex items-center gap-4">
@@ -71,6 +73,9 @@ function Section({
       </button>
 
       <div
+        id={`checkout-section-${number}`}
+        role="region"
+        aria-label={title}
         className={`transition-all duration-300 ease-in-out ${
           open ? 'max-h-[2000px] opacity-100 mt-6 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'
         }`}
@@ -292,17 +297,17 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
           >
             <div className="space-y-5">
               <div>
-                <label className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">RIF / CI</label>
-                <input type="text" className={`${inputClass} ${client?.rif_ci ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="V12345678" value={rif} onChange={(e) => setRif(e.target.value)} disabled={!!client?.rif_ci} />
+                <label htmlFor="checkout-rif" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">RIF / CI</label>
+                <input id="checkout-rif" type="text" className={`${inputClass} ${client?.rif_ci ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="V12345678" value={rif} onChange={(e) => setRif(e.target.value)} disabled={!!client?.rif_ci} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">Nombre completo</label>
-                  <input type="text" className={`${inputClass} ${client?.name ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="Tu nombre" value={name} onChange={(e) => setName(e.target.value)} disabled={!!client?.name} />
+                  <label htmlFor="checkout-nombre" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">Nombre completo</label>
+                  <input id="checkout-nombre" type="text" className={`${inputClass} ${client?.name ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="Tu nombre" value={name} onChange={(e) => setName(e.target.value)} disabled={!!client?.name} />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">Teléfono</label>
-                  <input type="tel" className={`${inputClass} ${client?.phone ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="0412..." value={phone} onChange={(e) => setPhone(e.target.value)} disabled={!!client?.phone} />
+                  <label htmlFor="checkout-telefono" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">Teléfono</label>
+                  <input id="checkout-telefono" type="tel" className={`${inputClass} ${client?.phone ? 'bg-alonzo-gray-100 text-alonzo-gray-600 cursor-not-allowed' : ''}`} placeholder="0412..." value={phone} onChange={(e) => setPhone(e.target.value)} disabled={!!client?.phone} />
                 </div>
               </div>
               {client && (
@@ -324,7 +329,11 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             <div className="space-y-4">
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => setMethodDropdownOpen(!methodDropdownOpen)}
+                  aria-haspopup="listbox"
+                  aria-expanded={methodDropdownOpen}
+                  aria-label="Método de envío"
                   className="w-full border border-alonzo-gray-300 rounded-sm px-4 py-3.5 text-base flex justify-between items-center cursor-pointer hover:border-alonzo-black transition-colors bg-white"
                 >
                   <span>

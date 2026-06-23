@@ -86,6 +86,7 @@ export function OrderSuccess({
             <span className="text-2xl font-bold text-alonzo-black tracking-wide">#{numericId}</span>
             <button
               onClick={() => { navigator.clipboard.writeText(`Pedido #${numericId} — ALONZO Store`); toast.show('Copiado'); }}
+              aria-label="Copiar número de pedido"
               className="text-alonzo-gray-600 hover:text-alonzo-black transition-colors"
             >
               <Copy size={14} />
