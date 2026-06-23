@@ -1,22 +1,41 @@
 'use client';
 import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCartStore } from '@/stores';
+import { useCartStore, useUIStore } from '@/stores';
 import { CartItemRow } from './CartItemRow';
 import { formatUSD, formatBs } from '@/lib/format';
 import { useExchangeRate } from '@/lib/useExchangeRate';
+import { useWishlist } from '@/lib/useWishlist';
+import { useToast } from '@/components/ui';
+import { auth } from '@/lib/firebase-client';
 
 interface CartPageProps {
   onCheckout: () => void;
 }
 
 export function CartPage({ onCheckout }: CartPageProps) {
-  const { items, totalItems, totalMoney } = useCartStore();
+  const { items, totalItems, totalMoney, removeItem } = useCartStore();
   const router = useRouter();
+  const { toggle, isInWishlist } = useWishlist();
+  const setAuthOpen = useUIStore((s) => s.setAuthOpen);
+  const toast = useToast();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Mover un ítem del carrito a la lista de deseos. Requiere sesión: si no la
+  // hay, abrimos el modal de auth en vez de fallar en silencio.
+  const moveToWishlist = (productId: string, index: number) => {
+    if (!auth.currentUser) {
+      toast.show('Inicia sesión para guardar en tu lista de deseos');
+      setAuthOpen(true);
+      return;
+    }
+    if (!isInWishlist(productId)) toggle(productId);
+    removeItem(index);
+    toast.show('Movido a tu lista de deseos');
+  };
 
   // Calculate offer discount desde el snapshot guardado en cada ítem.
   const offerDiscount = useMemo(() => {
@@ -65,12 +84,6 @@ export function CartPage({ onCheckout }: CartPageProps) {
       <div className="flex flex-col md:flex-row gap-10">
         {/* Left Column: Items */}
         <div className="flex-1 md:w-[65%]">
-          <div className="flex justify-between items-end border-b border-alonzo-gray-200 pb-4 mb-8">
-            <span className="text-sm font-sans text-alonzo-gray-600">
-              Es posible que tengas que pagar tasas de importación
-            </span>
-          </div>
-
           {items.length === 0 ? (
             <div className="text-center mt-20">
               <p className="text-sm text-alonzo-gray-600 mb-6">
@@ -83,7 +96,13 @@ export function CartPage({ onCheckout }: CartPageProps) {
           ) : (
             <div className="space-y-8">
               {items.map((item, index) => (
-                <CartItemRow key={item.key} item={item} index={index} offer={item.offer} />
+                <CartItemRow
+                  key={item.key}
+                  item={item}
+                  index={index}
+                  offer={item.offer}
+                  onMoveToWishlist={() => moveToWishlist(item.productId, index)}
+                />
               ))}
             </div>
           )}
@@ -120,8 +139,8 @@ export function CartPage({ onCheckout }: CartPageProps) {
               </div>
               {exchangeRate > 0 && (
                 <div className="flex justify-between items-center mb-8">
-                  <span className="text-sm text-gray-400">Ref. en Bs</span>
-                  <span className="text-sm font-medium text-gray-500">
+                  <span className="text-sm text-alonzo-gray-600">Ref. en Bs</span>
+                  <span className="text-sm font-medium text-alonzo-gray-600">
                     {formatBs(total * exchangeRate)}
                   </span>
                 </div>
