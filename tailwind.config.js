@@ -30,7 +30,6 @@ module.exports = {
             600: '#666666',
             700: '#444444',
           },
-          accent: '#c9a96e',
           success: '#2ecc71',
           danger: '#d9665a',
           warning: '#f39c12',

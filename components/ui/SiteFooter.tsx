@@ -147,7 +147,7 @@ export function SiteFooter() {
             {client ? (
               <Link
                 href="/account"
-                className="inline-flex items-center gap-1.5 text-2xs font-semibold tracking-widest text-alonzo-black hover:text-alonzo-accent transition-colors group"
+                className="inline-flex items-center gap-1.5 text-2xs font-semibold tracking-widest text-alonzo-black hover:text-alonzo-gray-600 transition-colors group"
               >
                 <ChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
                 MI CUENTA
@@ -155,7 +155,7 @@ export function SiteFooter() {
             ) : (
               <button
                 onClick={() => setAuthOpen(true)}
-                className="inline-flex items-center gap-1.5 text-2xs font-semibold tracking-widest text-alonzo-black hover:text-alonzo-accent transition-colors group uppercase text-left"
+                className="inline-flex items-center gap-1.5 text-2xs font-semibold tracking-widest text-alonzo-black hover:text-alonzo-gray-600 transition-colors group uppercase text-left"
               >
                 <ChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
                 REGÍSTRATE
