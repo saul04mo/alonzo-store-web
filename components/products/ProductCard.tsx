@@ -96,6 +96,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       size: variant.size,
       color: variant.color,
       variantIndex: sizeInfo.variantIndex,
+      offer: product.offer,
     });
     setShowSizes(false);
     setCartDrawerOpen(true);

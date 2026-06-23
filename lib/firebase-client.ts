@@ -9,6 +9,7 @@ import {
   getRedirectResult,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInAnonymously,
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
@@ -74,7 +75,7 @@ export async function uploadToStorage(path: string, file: File) {
 export {
   app, auth, googleProvider,
   signInWithPopup, signInWithRedirect, getRedirectResult,
-  createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously,
   onAuthStateChanged, signOut, sendPasswordResetEmail,
   db,
   collection, getDocs, getDoc, query, where, doc, limit, onSnapshot, orderBy, setDoc,

@@ -195,58 +195,73 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   });
   const sizes = Array.from(sizeEntries.entries());
 
-  const handleAddToCart = () => {
+  // Agrega el ítem actual al carrito. Devuelve true si quedó en el carrito
+  // (nuevo o cantidad actualizada), false si falló la validación (sin talla o
+  // sin stock disponible). No abre el drawer ni navega — eso lo deciden los
+  // handlers que la llaman (añadir vs. comprar ahora).
+  const addCurrentItem = (): boolean => {
     if (hasVariants) {
-      if (selectedVariant) {
-        const itemKey = `${product.id}-${selectedVariant.size}-${selectedVariant.color}`;
-        const cartItems = useCartStore.getState().items;
-        const existing = cartItems.find((i) => i.key === itemKey);
-
-        if (existing) {
-          if (existing.qty + qty <= parseInt(selectedVariant.stock)) {
-            const idx = cartItems.indexOf(existing);
-            for (let i = 0; i < qty; i++) {
-              useCartStore.getState().updateQty(idx, 1);
-            }
-            toast.show('Cantidad actualizada');
-          } else {
-            toast.show('Stock máximo alcanzado');
-            return;
-          }
-        } else {
-          addItem({
-            key: itemKey,
-            productId: product.id,
-            titulo: product.name,
-            img: product.imageUrl,
-            precio: selectedVariant.price,
-            qty,
-            size: selectedVariant.size,
-            color: selectedVariant.color,
-            variantIndex: selectedVariantIdx!,
-          });
-          toast.show('Añadido al carrito');
-        }
-        setCartDrawerOpen(true);
-      } else {
+      if (!selectedVariant) {
         toast.show('Selecciona una talla');
-        return;
+        return false;
       }
-    } else {
+      const itemKey = `${product.id}-${selectedVariant.size}-${selectedVariant.color}`;
+      const cartItems = useCartStore.getState().items;
+      const existing = cartItems.find((i) => i.key === itemKey);
+
+      if (existing) {
+        if (existing.qty + qty <= parseInt(selectedVariant.stock)) {
+          const idx = cartItems.indexOf(existing);
+          for (let i = 0; i < qty; i++) {
+            useCartStore.getState().updateQty(idx, 1);
+          }
+          toast.show('Cantidad actualizada');
+          return true;
+        }
+        toast.show('Stock máximo alcanzado');
+        return false;
+      }
+
       addItem({
-        key: product.id,
+        key: itemKey,
         productId: product.id,
         titulo: product.name,
         img: product.imageUrl,
-        precio: product.price || '0',
+        precio: selectedVariant.price,
         qty,
-        size: '',
-        color: '',
-        variantIndex: 0,
+        size: selectedVariant.size,
+        color: selectedVariant.color,
+        variantIndex: selectedVariantIdx!,
+        offer: product.offer,
       });
       toast.show('Añadido al carrito');
-      setCartDrawerOpen(true);
+      return true;
     }
+
+    addItem({
+      key: product.id,
+      productId: product.id,
+      titulo: product.name,
+      img: product.imageUrl,
+      precio: product.price || '0',
+      qty,
+      size: '',
+      color: '',
+      variantIndex: 0,
+      offer: product.offer,
+    });
+    toast.show('Añadido al carrito');
+    return true;
+  };
+
+  const handleAddToCart = () => {
+    if (addCurrentItem()) setCartDrawerOpen(true);
+  };
+
+  // "Comprar ahora": agrega el ítem y va directo al checkout, sin pasar por el
+  // carrito ni abrir el drawer.
+  const handleBuyNow = () => {
+    if (addCurrentItem()) router.push('/checkout');
   };
 
   const toggleAccordion = (key: string) => {
@@ -509,10 +524,18 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               </button>
             </div>
 
+            {/* BUY NOW — camino rápido directo al checkout */}
+            <button
+              onClick={handleBuyNow}
+              className="w-full py-4 mt-5 bg-alonzo-black hover:bg-alonzo-charcoal text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
+            >
+              Comprar ahora
+            </button>
+
             {/* ADD TO CART button */}
             <button
               onClick={handleAddToCart}
-              className="w-full py-4 mt-5 bg-alonzo-gray-500 hover:bg-alonzo-black text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
+              className="w-full py-3.5 mt-3 bg-white hover:bg-alonzo-gray-100 text-alonzo-black border border-alonzo-black text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
             >
               Añadir al carrito
             </button>

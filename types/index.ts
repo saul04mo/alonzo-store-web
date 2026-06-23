@@ -51,6 +51,10 @@ export interface CartItem {
   size: string;
   color: string;
   variantIndex: number;
+  // Snapshot de la oferta al momento de agregar — evita tener que descargar
+  // todo el catálogo en el carrito/checkout solo para mostrar descuentos.
+  // El servidor recalcula la oferta de forma autoritativa al crear la orden.
+  offer?: { type: 'percentage' | 'fixed'; value: number };
 }
 
 export interface Client {

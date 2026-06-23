@@ -42,7 +42,9 @@ export function useAuthListener(): { showOnboarding: boolean; dismissOnboarding:
     });
 
     const unsub = onAuthStateChanged(auth, async (user) => {
-      if (user) {
+      // Los invitados (checkout sin cuenta) usan sesión anónima: no son
+      // clientes con cuenta, así que no cargamos perfil ni mostramos onboarding.
+      if (user && !user.isAnonymous) {
         try {
           const userRef = doc(db, 'clients', user.uid);
           const userSnap = await getDoc(userRef);

@@ -1,12 +1,10 @@
 'use client';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/stores';
 import { CartItemRow } from './CartItemRow';
 import { formatUSD, formatBs } from '@/lib/format';
-import { fetchProducts } from '@/lib/api';
 import { useExchangeRate } from '@/lib/useExchangeRate';
-import type { Product } from '@/types';
 
 interface CartPageProps {
   onCheckout: () => void;
@@ -20,42 +18,27 @@ export function CartPage({ onCheckout }: CartPageProps) {
     window.scrollTo(0, 0);
   }, []);
 
-  // Fetch products for offer data
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
-  useEffect(() => {
-    fetchProducts().then(setAllProducts).catch(() => {});
-  }, []);
-
-  // Calculate offer discount
+  // Calculate offer discount desde el snapshot guardado en cada ítem.
   const offerDiscount = useMemo(() => {
     let discount = 0;
     items.forEach((item) => {
-      const product = allProducts.find((p) => p.id === item.productId);
-      if (product?.offer && product.offer.value > 0) {
+      const offer = item.offer;
+      if (offer && offer.value > 0) {
         const price = parseFloat(item.precio);
         const lineTotal = price * item.qty;
-        if (product.offer.type === 'percentage') {
-          discount += (lineTotal * product.offer.value) / 100;
+        if (offer.type === 'percentage') {
+          discount += (lineTotal * offer.value) / 100;
         } else {
-          discount += Math.min(product.offer.value * item.qty, lineTotal);
+          discount += Math.min(offer.value * item.qty, lineTotal);
         }
       }
     });
     return Math.round(discount * 100) / 100;
-  }, [items, allProducts]);
+  }, [items]);
 
   const subtotal = totalMoney();
   const total = Math.max(0, subtotal - offerDiscount);
   const exchangeRate = useExchangeRate();
-
-  // Build a map of productId -> offer for CartItemRow
-  const offerMap = useMemo(() => {
-    const map: Record<string, { type: 'percentage' | 'fixed'; value: number }> = {};
-    allProducts.forEach((p) => {
-      if (p.offer && p.offer.value > 0) map[p.id] = p.offer;
-    });
-    return map;
-  }, [allProducts]);
 
   const handleCheckout = () => {
     if (items.length === 0) return;
@@ -100,7 +83,7 @@ export function CartPage({ onCheckout }: CartPageProps) {
           ) : (
             <div className="space-y-8">
               {items.map((item, index) => (
-                <CartItemRow key={item.key} item={item} index={index} offer={offerMap[item.productId]} />
+                <CartItemRow key={item.key} item={item} index={index} offer={item.offer} />
               ))}
             </div>
           )}

@@ -8,12 +8,12 @@ import { useCartStore, useClientStore } from '@/stores';
 import { useExchangeRate } from '@/lib/useExchangeRate';
 import { deliveryMethods } from '@/config';
 import { usePaymentMethods } from '@/lib/usePaymentMethods';
-import { createOrder, fetchProducts } from '@/lib/api';
+import { createOrder } from '@/lib/api';
+import { auth, signInAnonymously } from '@/lib/firebase-client';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD, formatBs } from '@/lib/format';
 import { CouponInput, type AppliedCouponWeb } from './CouponInput';
 import type { AddressResult } from './AddressPicker';
-import type { Product } from '@/types';
 import dynamic from 'next/dynamic';
 
 // FIX #27: Lazy-load AddressPicker (Leaflet CSS+JS) — only when delivery is selected
@@ -130,12 +130,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   // Coupon
   const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
 
-  // Fetch products for offer data
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
-  useEffect(() => {
-    fetchProducts().then(setAllProducts).catch(() => {});
-  }, []);
-
   // Address from map
   const handleAddressSelect = (result: AddressResult) => {
     setAddress(result.address);
@@ -148,23 +142,24 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const deliveryCost = appliedCoupon?.freeShipping ? 0 : rawDeliveryCost;
   const subtotal = totalMoney();
 
-  // Calculate offer discounts from product data
+  // Calculate offer discounts desde el snapshot de cada ítem (el servidor
+  // recalcula de forma autoritativa al crear la orden).
   const offerDiscount = useMemo(() => {
     let discount = 0;
     items.forEach((item) => {
-      const product = allProducts.find((p) => p.id === item.productId);
-      if (product?.offer && product.offer.value > 0) {
+      const offer = item.offer;
+      if (offer && offer.value > 0) {
         const price = parseFloat(item.precio);
         const lineTotal = price * item.qty;
-        if (product.offer.type === 'percentage') {
-          discount += (lineTotal * product.offer.value) / 100;
+        if (offer.type === 'percentage') {
+          discount += (lineTotal * offer.value) / 100;
         } else {
-          discount += Math.min(product.offer.value * item.qty, lineTotal);
+          discount += Math.min(offer.value * item.qty, lineTotal);
         }
       }
     });
     return Math.round(discount * 100) / 100;
-  }, [items, allProducts]);
+  }, [items]);
 
   const couponDiscount = appliedCoupon?.discountAmount || 0;
   const totalPaid = useMemo(() => {
@@ -177,7 +172,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       }
     });
     return paid;
-  }, [paymentSelection, exchangeRate]);
+  }, [paymentSelection, exchangeRate, paymentMethods]);
 
   const total = Math.max(0, subtotal - offerDiscount - couponDiscount + deliveryCost);
   const canFinish = total - totalPaid <= 0.01;
@@ -186,7 +181,9 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const handleSubmit = async () => {
     if (processingRef.current) return; // Ref guard — prevents double-click race condition
     setErrorMsg('');
-    if (!rif || !name || !address) { setErrorMsg('Por favor completa nombre, RIF y dirección.'); return; }
+    if (!rif || !name) { setErrorMsg('Por favor completa tu nombre y RIF / CI.'); return; }
+    // La dirección solo es obligatoria si hay envío (no en retiro en tienda).
+    if (deliveryType !== 'pickup' && !address) { setErrorMsg('Por favor completa la dirección de entrega.'); return; }
     if (deliveryType === 'local' && mapDeliveryCost === 0) {
       setErrorMsg('Debes seleccionar tu ubicación en el mapa para calcular el costo de envío.');
       return;
@@ -200,6 +197,23 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     processingRef.current = true;
     setProcessing(true);
     try {
+      // Checkout como invitado: si no hay sesión de Firebase, iniciamos una
+      // sesión anónima para obtener un token válido. Esto deja intactas la
+      // validación server-side de la orden, las reglas de Firestore y la
+      // subida del comprobante (todas requieren auth), sin obligar al cliente
+      // a crear una cuenta. Requiere tener habilitado el proveedor "Anonymous"
+      // en Firebase Auth.
+      if (!auth.currentUser) {
+        try {
+          await signInAnonymously(auth);
+        } catch {
+          setErrorMsg('No pudimos procesar tu pago como invitado. Intenta de nuevo o inicia sesión.');
+          processingRef.current = false;
+          setProcessing(false);
+          return;
+        }
+      }
+
       const payments = Object.keys(paymentSelection)
         .filter((id) => parseFloat(paymentSelection[id].amount) > 0)
         .map((id) => {
@@ -419,13 +433,13 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             {/* Cart items */}
             <div className="space-y-4 mb-6">
               {items.map((item) => {
-                const product = allProducts.find((p) => p.id === item.productId);
-                const hasOffer = product?.offer && product.offer.value > 0;
+                const offer = item.offer;
+                const hasOffer = offer && offer.value > 0;
                 const originalTotal = parseFloat(item.precio) * item.qty;
                 const discountedTotal = hasOffer
-                  ? (product!.offer!.type === 'percentage'
-                      ? originalTotal - (originalTotal * product!.offer!.value / 100)
-                      : Math.max(0, originalTotal - product!.offer!.value * item.qty))
+                  ? (offer!.type === 'percentage'
+                      ? originalTotal - (originalTotal * offer!.value / 100)
+                      : Math.max(0, originalTotal - offer!.value * item.qty))
                   : originalTotal;
 
                 return (
@@ -438,7 +452,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                       />
                       {hasOffer && (
                         <div className="absolute top-1 left-1 bg-red-600 text-white text-[7px] font-bold px-1 py-0.5 rounded-sm">
-                          {product!.offer!.type === 'percentage' ? `-${product!.offer!.value}%` : `-${cs()}${product!.offer!.value}`}
+                          {offer!.type === 'percentage' ? `-${offer!.value}%` : `-${cs()}${offer!.value}`}
                         </div>
                       )}
                     </div>

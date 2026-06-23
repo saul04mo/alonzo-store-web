@@ -16,6 +16,8 @@ interface OrderSuccessProps {
   numericId: number;
   docId: string;
   clientId: string;
+  // Invitado (compra sin cuenta): no tiene historial de pedidos accesible.
+  isGuest?: boolean;
 }
 
 export function OrderSuccess({
@@ -25,6 +27,7 @@ export function OrderSuccess({
   numericId,
   docId,
   clientId,
+  isGuest = false,
 }: OrderSuccessProps) {
   const toast = useToast();
   const { whatsappNumber } = useWebSettings();
@@ -215,13 +218,15 @@ export function OrderSuccess({
         {/* Footer buttons */}
         <div className="px-8 pb-8 flex gap-3">
           <button onClick={onClose}
-            className="flex-1 py-3 border border-gray-200 text-xs font-semibold text-gray-600 rounded-lg hover:border-gray-400 transition-colors">
+            className={`py-3 border border-gray-200 text-xs font-semibold text-gray-600 rounded-lg hover:border-gray-400 transition-colors ${isGuest ? 'w-full' : 'flex-1'}`}>
             Seguir comprando
           </button>
-          <a href="/account/orders"
-            className="flex-1 py-3 bg-alonzo-black text-white text-xs font-semibold rounded-lg hover:bg-alonzo-charcoal transition-colors text-center no-underline">
-            Ver mis pedidos
-          </a>
+          {!isGuest && (
+            <a href="/account/orders"
+              className="flex-1 py-3 bg-alonzo-black text-white text-xs font-semibold rounded-lg hover:bg-alonzo-charcoal transition-colors text-center no-underline">
+              Ver mis pedidos
+            </a>
+          )}
         </div>
       </div>
     </div>
