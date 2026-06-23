@@ -352,10 +352,10 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
       {/* Search input */}
       <div className="relative">
         <div className="relative">
-          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-alonzo-gray-600" />
           <input
             type="text"
-            className="w-full border border-gray-200 rounded-lg pl-11 pr-10 py-3.5 text-base outline-none transition-all focus:border-black focus:ring-1 focus:ring-black/5 placeholder:text-gray-400 bg-white"
+            className="w-full border border-alonzo-gray-300 rounded-sm pl-11 pr-10 py-3.5 text-base outline-none transition-all focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black/5 placeholder:text-alonzo-gray-500 bg-white"
             placeholder="Busca tu dirección..."
             value={query}
             onChange={(e) => handleInputChange(e.target.value)}
@@ -364,7 +364,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
           {query && (
             <button
               onClick={() => { setQuery(''); setResults([]); setShowResults(false); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-alonzo-gray-600 hover:text-alonzo-black"
             >
               <X size={16} />
             </button>
@@ -373,14 +373,14 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
 
         {/* Results dropdown */}
         {showResults && results.length > 0 && (
-          <div className="absolute z-50 top-full left-0 right-0 bg-white border border-gray-200 rounded-lg mt-1 shadow-lg max-h-[200px] overflow-y-auto">
+          <div className="absolute z-50 top-full left-0 right-0 bg-white border border-alonzo-gray-300 rounded-sm mt-1 shadow-lg max-h-[200px] overflow-y-auto">
             {results.map((r, i) => (
               <button
                 key={i}
                 onClick={() => handleSelect(r)}
-                className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0 flex items-start gap-3"
+                className="w-full text-left px-4 py-3 text-sm text-alonzo-charcoal hover:bg-alonzo-gray-100 transition-colors border-b border-alonzo-gray-200 last:border-0 flex items-start gap-3"
               >
-                <MapPin size={14} className="text-gray-400 mt-0.5 shrink-0" />
+                <MapPin size={14} className="text-alonzo-gray-600 mt-0.5 shrink-0" />
                 <span className="line-clamp-2">{r.display_name}</span>
               </button>
             ))}
@@ -388,7 +388,7 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
         )}
 
         {searching && (
-          <div className="absolute z-50 top-full left-0 right-0 bg-white border border-gray-200 rounded-lg mt-1 shadow-lg px-4 py-3 text-sm text-gray-500">
+          <div className="absolute z-50 top-full left-0 right-0 bg-white border border-alonzo-gray-300 rounded-sm mt-1 shadow-lg px-4 py-3 text-sm text-alonzo-gray-600">
             Buscando...
           </div>
         )}
@@ -399,10 +399,10 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
         type="button"
         onClick={handleUseMyLocation}
         disabled={gpsLoading}
-        className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors font-medium disabled:text-gray-400"
+        className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors font-medium disabled:text-alonzo-gray-600"
       >
         {gpsLoading ? (
-          <><span className="w-3.5 h-3.5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" /> Obteniendo ubicación...</>
+          <><span className="w-3.5 h-3.5 border-2 border-alonzo-gray-400 border-t-transparent rounded-full animate-spin" /> Obteniendo ubicación...</>
         ) : (
           <><Navigation size={14} /> Usar mi ubicación actual</>
         )}
@@ -411,22 +411,22 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
       {/* Map */}
       <div
         ref={mapRef}
-        className="w-full h-[280px] rounded-lg border border-gray-200 overflow-hidden"
+        className="w-full h-[280px] rounded-sm border border-alonzo-gray-300 overflow-hidden"
         style={{ zIndex: 1 }}
       />
 
       {/* Distance info */}
       {distanceInfo && (
-        <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-between">
+        <div className="bg-alonzo-gray-100 rounded-sm p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-alonzo-black text-white flex items-center justify-center">
               <MapPin size={16} />
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900">
+              <p className="text-sm font-semibold text-alonzo-black">
                 {distanceInfo.label} — {distanceInfo.km} km
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-alonzo-gray-600">
                 {distanceInfo.isRoad && distanceInfo.durationMin > 0
                   ? `~${distanceInfo.durationMin} min por carretera`
                   : distanceInfo.km === 0
@@ -437,14 +437,14 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
           </div>
           {showCostPricing && distanceInfo.cost > 0 && (
             <div className="text-right">
-              <p className="text-lg font-bold text-gray-900">{cs()}{distanceInfo.cost.toFixed(2)}</p>
-              <p className="text-xs text-gray-500">Costo de envío</p>
+              <p className="text-lg font-bold text-alonzo-black">{cs()}{distanceInfo.cost.toFixed(2)}</p>
+              <p className="text-xs text-alonzo-gray-600">Costo de envío</p>
             </div>
           )}
         </div>
       )}
 
-      <p className="text-xs text-gray-400">
+      <p className="text-xs text-alonzo-gray-600">
         Puedes buscar tu dirección, usar tu GPS, o hacer clic en el mapa para marcar tu ubicación.
       </p>
     </div>

@@ -68,20 +68,20 @@ export function CouponInput({ subtotal, onApply, onRemove, appliedCoupon }: Coup
   // ── Coupon Applied State ──
   if (appliedCoupon) {
     return (
-      <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-4">
+      <div className="flex items-center justify-between bg-alonzo-gray-100 border border-alonzo-success rounded-sm p-4">
         <div className="flex items-center gap-3 min-w-0">
-          <CheckCircle2 size={18} className="text-green-600 shrink-0" />
+          <CheckCircle2 size={18} className="text-alonzo-success shrink-0" />
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-green-700">{appliedCoupon.code}</p>
-            <p className="text-xs text-green-600">{appliedCoupon.description}</p>
+            <p className="text-sm font-semibold text-alonzo-black">{appliedCoupon.code}</p>
+            <p className="text-xs text-alonzo-gray-600">{appliedCoupon.description}</p>
             {appliedCoupon.freeShipping && (
-              <p className="text-xs text-green-600 mt-0.5">+ Envío gratis incluido</p>
+              <p className="text-xs text-alonzo-gray-600 mt-0.5">+ Envío gratis incluido</p>
             )}
           </div>
         </div>
         <button
           onClick={onRemove}
-          className="p-1.5 text-green-400 hover:text-red-500 transition-colors shrink-0"
+          className="p-1.5 text-alonzo-gray-600 hover:text-alonzo-danger transition-colors shrink-0"
         >
           <X size={16} />
         </button>
@@ -94,12 +94,12 @@ export function CouponInput({ subtotal, onApply, onRemove, appliedCoupon }: Coup
     <div>
       <div className="flex gap-3">
         <div className="relative flex-1">
-          <Ticket size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Ticket size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-alonzo-gray-600" />
           <input
             type="text"
-            className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-3.5 text-base font-mono tracking-wider uppercase
-                       placeholder:text-gray-400 placeholder:normal-case placeholder:tracking-normal placeholder:font-sans
-                       focus:outline-none focus:border-black transition-colors"
+            className="w-full border border-alonzo-gray-300 rounded-sm pl-10 pr-4 py-3.5 text-base font-mono tracking-wider uppercase
+                       placeholder:text-alonzo-gray-500 placeholder:normal-case placeholder:tracking-normal placeholder:font-sans
+                       focus:outline-none focus:border-alonzo-black transition-colors"
             placeholder="Ingresa tu código de cupón"
             value={code}
             onChange={(e) => {
@@ -113,9 +113,9 @@ export function CouponInput({ subtotal, onApply, onRemove, appliedCoupon }: Coup
         <button
           onClick={handleApply}
           disabled={!code.trim() || loading}
-          className="px-6 py-3.5 bg-black text-white text-sm font-medium rounded-lg
-                     hover:bg-gray-900 transition-colors
-                     disabled:bg-gray-300 disabled:cursor-not-allowed shrink-0"
+          className="px-6 py-3.5 bg-alonzo-black text-white text-sm font-medium uppercase tracking-wider rounded-none
+                     hover:bg-alonzo-dark transition-colors
+                     disabled:bg-alonzo-gray-400 disabled:cursor-not-allowed shrink-0"
         >
           {loading ? <Loader2 size={16} className="animate-spin" /> : 'Aplicar'}
         </button>

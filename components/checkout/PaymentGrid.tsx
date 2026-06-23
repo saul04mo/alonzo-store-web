@@ -22,6 +22,7 @@ interface PaymentGridProps {
   selectedMethod: string | null;
   onMethodSelect: (id: string) => void;
   totalUsd: number;
+  exchangeRate: number;
   proofFile: File | null;
   onProofChange: (file: File | null) => void;
 }
@@ -33,6 +34,7 @@ export function PaymentGrid({
   selectedMethod,
   onMethodSelect,
   totalUsd,
+  exchangeRate,
   proofFile,
   onProofChange,
 }: PaymentGridProps) {
@@ -44,8 +46,15 @@ export function PaymentGrid({
     const method = paymentMethods.find((p) => p.id === id);
     const newSel: PaymentSelection = {};
     newSel[id] = { amount: '', ref: '' };
-    if (method?.currency === 'usd' && totalUsd > 0) {
-      newSel[id].amount = totalUsd.toFixed(2);
+    // Autocompletamos el monto con el total para que el cliente no tenga que
+    // teclearlo (sigue siendo editable por si paga combinado o parcial).
+    // USD: el total tal cual. VES: total convertido a Bs con la tasa vigente.
+    if (totalUsd > 0) {
+      if (method?.currency === 'usd') {
+        newSel[id].amount = totalUsd.toFixed(2);
+      } else if (method?.currency === 'ves' && exchangeRate > 0) {
+        newSel[id].amount = (totalUsd * exchangeRate).toFixed(2);
+      }
     }
     onChange(newSel);
     onProofChange(null);
@@ -89,14 +98,14 @@ export function PaymentGrid({
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
-              className={`flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border transition-all duration-200 h-[85px] ${
+              className={`flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-sm border transition-all duration-200 h-[85px] ${
                 isActive
-                  ? 'border-alonzo-black bg-gray-50 shadow-sm'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  ? 'border-alonzo-black bg-alonzo-gray-100'
+                  : 'border-alonzo-gray-300 bg-white hover:border-alonzo-gray-400'
               }`}
             >
-              <Icon size={20} strokeWidth={1.5} className={isActive ? 'text-alonzo-black' : 'text-gray-400'} />
-              <span className={`text-[10px] text-center font-semibold leading-tight ${isActive ? 'text-alonzo-black' : 'text-gray-500'}`}>
+              <Icon size={20} strokeWidth={1.5} className={isActive ? 'text-alonzo-black' : 'text-alonzo-gray-600'} />
+              <span className={`text-[10px] text-center font-semibold leading-tight ${isActive ? 'text-alonzo-black' : 'text-alonzo-gray-600'}`}>
                 {opt.name}
               </span>
             </button>
@@ -106,31 +115,31 @@ export function PaymentGrid({
 
       {/* Payment details */}
       {activeDef && (
-        <div className="bg-gray-50 rounded-xl p-5 space-y-4 page-fade-in">
+        <div className="bg-alonzo-gray-100 rounded-sm p-5 space-y-4 page-fade-in">
 
           {/* Account info */}
           {Object.keys(activeDef.accountInfo).length > 0 && (
-            <div className="space-y-0 rounded-lg overflow-hidden border border-gray-200">
+            <div className="space-y-0 rounded-sm overflow-hidden border border-alonzo-gray-300">
               {Object.entries(activeDef.accountInfo).map(([key, val], idx, arr) => (
                 <div
                   key={key}
                   className={`flex items-center justify-between px-4 py-3 bg-white ${
-                    idx < arr.length - 1 ? 'border-b border-gray-100' : ''
+                    idx < arr.length - 1 ? 'border-b border-alonzo-gray-200' : ''
                   }`}
                 >
                   <div>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wide">{labels[key] || key}</p>
-                    <p className="text-sm font-semibold text-gray-900">{val}</p>
+                    <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide">{labels[key] || key}</p>
+                    <p className="text-sm font-semibold text-alonzo-black">{val}</p>
                   </div>
                   <button
                     onClick={() => handleCopy(key, val)}
-                    className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-[10px] font-semibold transition-all ${
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-sm text-[10px] font-semibold transition-all ${
                       copiedKey === key
-                        ? 'bg-emerald-50 text-emerald-600'
-                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                        ? 'bg-alonzo-gray-100 text-alonzo-charcoal'
+                        : 'bg-alonzo-gray-200 text-alonzo-gray-600 hover:bg-alonzo-gray-300'
                     }`}
                   >
-                    {copiedKey === key ? <Check size={11} /> : <Copy size={11} />}
+                    {copiedKey === key ? <Check size={11} className="text-alonzo-success" /> : <Copy size={11} />}
                     {copiedKey === key ? 'Copiado' : 'Copiar'}
                   </button>
                 </div>
@@ -141,13 +150,13 @@ export function PaymentGrid({
           {/* Amount & reference */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">
+              <label className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
                 Monto ({activeDef.currency === 'usd' ? cs() : 'Bs.'})
               </label>
               <input
                 type="number"
                 inputMode="decimal"
-                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-gray-300"
+                className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
                 placeholder="0.00"
                 value={selection[activeDef.id]?.amount || ''}
                 onChange={(e) => handleUpdate(activeDef.id, 'amount', e.target.value)}
@@ -155,12 +164,12 @@ export function PaymentGrid({
             </div>
             {activeDef.id !== 'efectivo_usd' && (
               <div>
-                <label className="block text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">
+                <label className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
                   Referencia
                 </label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-900 focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-gray-300"
+                  className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
                   placeholder="Últimos 4-6 dígitos"
                   value={selection[activeDef.id]?.ref || ''}
                   onChange={(e) => handleUpdate(activeDef.id, 'ref', e.target.value)}
@@ -175,26 +184,26 @@ export function PaymentGrid({
       {selectedMethod && selectedMethod !== 'efectivo_usd' && (
         <label
           htmlFor="proof-upload"
-          className={`flex items-center justify-center gap-3 w-full py-4 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-200 ${
+          className={`flex items-center justify-center gap-3 w-full py-4 rounded-sm border-2 border-dashed cursor-pointer transition-all duration-200 ${
             proofFile
-              ? 'bg-emerald-50 border-emerald-400'
-              : 'bg-white border-gray-300 hover:border-gray-400'
+              ? 'bg-alonzo-gray-100 border-alonzo-success'
+              : 'bg-white border-alonzo-gray-400 hover:border-alonzo-gray-500'
           }`}
         >
           {proofFile ? (
             <>
-              <Check size={18} className="text-emerald-500" />
+              <Check size={18} className="text-alonzo-success" />
               <div className="text-center">
-                <p className="text-xs font-semibold text-emerald-700">Comprobante cargado</p>
-                <p className="text-[10px] text-emerald-500 mt-0.5">{proofFile.name}</p>
+                <p className="text-xs font-semibold text-alonzo-charcoal">Comprobante cargado</p>
+                <p className="text-[10px] text-alonzo-gray-600 mt-0.5">{proofFile.name}</p>
               </div>
             </>
           ) : (
             <>
-              <Upload size={18} className="text-gray-400" />
+              <Upload size={18} className="text-alonzo-gray-600" />
               <div>
-                <p className="text-xs font-semibold text-gray-600">Adjuntar comprobante</p>
-                <p className="text-[10px] text-gray-400">Foto del pago o captura de pantalla</p>
+                <p className="text-xs font-semibold text-alonzo-gray-600">Adjuntar comprobante</p>
+                <p className="text-[10px] text-alonzo-gray-600">Foto del pago o captura de pantalla</p>
               </div>
             </>
           )}
