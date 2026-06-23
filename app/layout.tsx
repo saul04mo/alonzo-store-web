@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   icons: { icon: '/icons/icon-192x192.png', apple: '/icons/icon-192x192.png' },
   manifest: '/manifest.json',
   metadataBase: new URL(SITE_URL),
+  // Canónica: consolida todas las señales en alonzocollection.com y evita que
+  // Google indexe dominios duplicados (p. ej. el subdominio de Netlify).
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     siteName: 'ALONZO Store',
@@ -64,12 +67,43 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 };
 
+// Datos estructurados (JSON-LD) — ayudan a Google a entender que "Alonzo" es
+// esta marca/tienda y a mostrar el sitio (y posibles sitelinks) por el término.
+// El array `sameAs` debe incluir tus perfiles oficiales (Instagram, Facebook,
+// etc.) — es una señal de marca fuerte. Rellénalo cuando los tengas.
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'ALONZO',
+      alternateName: ['Alonzo Collection', 'ALONZO Store'],
+      url: SITE_URL,
+      logo: `${SITE_URL}/images/logoAlonzo.png`,
+      sameAs: [] as string[],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'ALONZO',
+      inLanguage: 'es-VE',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+  ],
+};
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const announcements = await getAnnouncements();
 
   return (
     <html lang="es" className={`${inter.variable} ${bebas.variable}`}>
       <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <Suspense fallback={null}>
           <Analytics />
         </Suspense>

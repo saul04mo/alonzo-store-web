@@ -5,4 +5,4 @@ Disallow: /account/
 Disallow: /checkout/
 Disallow: /cart/
 
-Sitemap: https://alonzo-store-web.netlify.app/sitemap.xml
+Sitemap: https://alonzocollection.com/sitemap.xml

@@ -13,6 +13,7 @@ import { auth, signInAnonymously } from '@/lib/firebase-client';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD, formatBs } from '@/lib/format';
 import { CouponInput, type AppliedCouponWeb } from './CouponInput';
+import { CrossSell } from '@/components/products/CrossSell';
 import type { AddressResult } from './AddressPicker';
 import dynamic from 'next/dynamic';
 
@@ -249,6 +250,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     'w-full border border-gray-200 rounded-lg px-4 py-3.5 text-base outline-none transition-all focus:border-black focus:ring-1 focus:ring-black/5 placeholder:text-gray-400 bg-white';
 
   return (
+    <>
     <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 py-8 font-sans min-h-[70vh] page-fade-in">
       {/* Back */}
       <button
@@ -529,5 +531,9 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         </div>
       </div>
     </div>
+
+    {/* Cross-sell — última oportunidad de sumar prendas antes de pagar */}
+    <CrossSell layout="grid" limit={4} />
+    </>
   );
 }

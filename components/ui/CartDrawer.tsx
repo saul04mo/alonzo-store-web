@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { X, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useRouter } from 'next/navigation';
+import { CrossSell } from '@/components/products/CrossSell';
 
 function calcDiscountedPrice(price: number, offer?: { type: string; value: number }): number {
   if (!offer || !offer.value) return price;
@@ -144,6 +145,9 @@ export function CartDrawer() {
                   </button>
                 </div>
               ))}
+
+              {/* Cross-sell — sube el ticket sin sacar al cliente del carrito */}
+              <CrossSell layout="drawer" limit={6} />
             </div>
           )}
         </div>

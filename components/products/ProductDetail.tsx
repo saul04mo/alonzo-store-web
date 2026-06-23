@@ -524,20 +524,20 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               </button>
             </div>
 
-            {/* BUY NOW — camino rápido directo al checkout */}
-            <button
-              onClick={handleBuyNow}
-              className="w-full py-4 mt-5 bg-alonzo-black hover:bg-alonzo-charcoal text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
-            >
-              Comprar ahora
-            </button>
-
-            {/* ADD TO CART button */}
+            {/* ADD TO CART — acción principal (favorece armar un carrito mayor) */}
             <button
               onClick={handleAddToCart}
-              className="w-full py-3.5 mt-3 bg-white hover:bg-alonzo-gray-100 text-alonzo-black border border-alonzo-black text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
+              className="w-full py-4 mt-5 bg-alonzo-black hover:bg-alonzo-charcoal text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
             >
               Añadir al carrito
+            </button>
+
+            {/* BUY NOW — camino rápido secundario y discreto */}
+            <button
+              onClick={handleBuyNow}
+              className="w-full py-2.5 mt-3 text-[11px] tracking-[0.15em] uppercase font-medium text-alonzo-gray-500 hover:text-alonzo-black underline underline-offset-4 transition-colors duration-200"
+            >
+              o comprar ahora
             </button>
 
             {/* Accordion sections */}
