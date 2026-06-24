@@ -86,7 +86,7 @@ export function SearchPage() {
       <div className="sticky top-0 z-50 bg-white border-b border-alonzo-gray-200">
         <div className="flex items-center h-14 px-4 md:px-8 max-w-[1600px] mx-auto">
           <svg
-            className="w-5 h-5 text-alonzo-gray-400 shrink-0 mr-3"
+            className="w-5 h-5 text-alonzo-gray-500 shrink-0 mr-3"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -100,20 +100,22 @@ export function SearchPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar..."
-            className="flex-1 text-sm md:text-base text-alonzo-charcoal placeholder:text-alonzo-gray-400 outline-none tracking-wide bg-transparent"
+            aria-label="Buscar productos"
+            className="flex-1 text-sm md:text-base text-alonzo-charcoal placeholder:text-alonzo-gray-500 outline-none tracking-wide bg-transparent"
           />
           <div className="flex items-center gap-4 shrink-0">
             {(query || genderFilter) && (
               <button
                 onClick={handleClear}
-                className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-500 hover:text-alonzo-black transition-colors"
+                className="text-[11px] tracking-[0.1em] uppercase text-alonzo-gray-600 hover:text-alonzo-black transition-colors py-2"
               >
                 limpiar
               </button>
             )}
             <button
               onClick={handleClose}
-              className="text-alonzo-gray-500 hover:text-alonzo-black transition-colors"
+              aria-label="Cerrar búsqueda"
+              className="w-11 h-11 -mr-2 flex items-center justify-center text-alonzo-gray-600 hover:text-alonzo-black transition-colors"
             >
               <X size={20} strokeWidth={1.5} />
             </button>
@@ -155,7 +157,7 @@ export function SearchPage() {
               <button
                 key={g}
                 onClick={() => setGenderFilter(genderFilter === g ? null : g)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-sm text-[11px] tracking-[0.1em] uppercase font-medium shrink-0 transition-colors ${
+                className={`flex items-center gap-1.5 px-4 py-2.5 border rounded-sm text-[11px] tracking-[0.1em] uppercase font-medium shrink-0 transition-colors ${
                   genderFilter === g
                     ? 'bg-alonzo-black text-white border-alonzo-black'
                     : 'border-alonzo-gray-300 text-alonzo-gray-600'
@@ -180,7 +182,7 @@ export function SearchPage() {
               </div>
             ) : results.length > 0 ? (
               <>
-                <p className="text-[10px] tracking-[0.12em] uppercase text-alonzo-gray-400 mb-3">
+                <p className="text-[10px] tracking-[0.12em] uppercase text-alonzo-gray-600 mb-3">
                   {results.length} producto{results.length !== 1 ? 's' : ''}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
@@ -196,13 +198,19 @@ export function SearchPage() {
               </>
             ) : query.trim() ? (
               <div className="text-center py-16">
-                <p className="text-sm text-alonzo-gray-500">
+                <p className="text-sm text-alonzo-gray-600">
                   No se encontraron resultados para "{query}"
                 </p>
+                <p className="text-[11px] text-alonzo-gray-600 mt-2">
+                  Intenta con otro término o quita el filtro de género
+                </p>
+                <button onClick={handleClear} className="btn-outline !w-auto px-8 py-3 text-xs mt-5">
+                  Limpiar búsqueda
+                </button>
               </div>
             ) : (
               <div className="text-center py-16">
-                <p className="text-sm text-alonzo-gray-400">
+                <p className="text-sm text-alonzo-gray-600">
                   Escribe para buscar productos
                 </p>
               </div>
@@ -224,7 +232,7 @@ export function SearchPage() {
             </div>
           ) : results.length > 0 ? (
             <>
-              <p className="text-[10px] tracking-[0.12em] uppercase text-alonzo-gray-400 mb-4">
+              <p className="text-[10px] tracking-[0.12em] uppercase text-alonzo-gray-600 mb-4">
                 {results.length} producto{results.length !== 1 ? 's' : ''}
               </p>
               <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -240,16 +248,19 @@ export function SearchPage() {
             </>
           ) : query.trim() ? (
             <div className="text-center py-24">
-              <p className="text-sm text-alonzo-gray-500">
+              <p className="text-sm text-alonzo-gray-600">
                 No se encontraron resultados para "{query}"
               </p>
-              <p className="text-[11px] text-alonzo-gray-400 mt-2">
-                Intenta con otro término o filtra por género
+              <p className="text-[11px] text-alonzo-gray-600 mt-2">
+                Intenta con otro término o quita el filtro de género
               </p>
+              <button onClick={handleClear} className="btn-outline !w-auto px-8 py-3 text-xs mt-5">
+                Limpiar búsqueda
+              </button>
             </div>
           ) : (
             <div className="text-center py-24">
-              <p className="text-sm text-alonzo-gray-400">
+              <p className="text-sm text-alonzo-gray-600">
                 Escribe para buscar productos
               </p>
             </div>
