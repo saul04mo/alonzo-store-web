@@ -89,145 +89,146 @@ export function PaymentGrid({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paymentMethods]);
 
-  const activeDef = selectedMethod ? paymentMethods.find((p) => p.id === selectedMethod) : null;
-
   const labels: Record<string, string> = {
     bank: 'Banco', name: 'Nombre', phone: 'Teléfono',
     ci: 'C.I./RIF', email: 'Email', user: 'Usuario',
   };
 
   return (
-    <div className="space-y-4">
-      {/* Selector de método — una sola columna: logo + nombre (Pago Móvil por defecto) */}
-      <div className="flex flex-col gap-2">
-        {paymentMethods.map((opt) => {
-          const Icon = iconMap[opt.icon] || CreditCard;
-          const isActive = opt.id === selectedMethod;
-          return (
+    <div className="border border-alonzo-gray-300 rounded-sm divide-y divide-alonzo-gray-200 overflow-hidden">
+      {paymentMethods.map((opt) => {
+        const Icon = iconMap[opt.icon] || CreditCard;
+        const isActive = opt.id === selectedMethod;
+        return (
+          <div key={opt.id}>
+            {/* Fila del método — radio + nombre + logo */}
             <button
-              key={opt.id}
+              type="button"
               onClick={() => handleSelect(opt.id)}
-              className={`flex items-center gap-3 w-full px-4 py-3 rounded-sm border text-left transition-colors duration-200 ${
-                isActive
-                  ? 'border-alonzo-black bg-alonzo-gray-100'
-                  : 'border-alonzo-gray-300 bg-white hover:border-alonzo-gray-400'
+              aria-pressed={isActive}
+              className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors ${
+                isActive ? 'bg-alonzo-gray-100' : 'bg-white hover:bg-alonzo-gray-100'
               }`}
             >
-              <Icon size={18} strokeWidth={1.5} className={`shrink-0 ${isActive ? 'text-alonzo-black' : 'text-alonzo-gray-600'}`} />
-              <span className={`text-xs font-semibold leading-tight ${isActive ? 'text-alonzo-black' : 'text-alonzo-gray-600'}`}>
+              <span className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
+                isActive ? 'border-alonzo-black' : 'border-alonzo-gray-400'
+              }`}>
+                {isActive && <span className="w-2.5 h-2.5 rounded-full bg-alonzo-black" />}
+              </span>
+              <span className={`flex-1 text-sm font-semibold ${isActive ? 'text-alonzo-black' : 'text-alonzo-charcoal'}`}>
                 {opt.name}
               </span>
-              {isActive && <Check size={15} className="text-alonzo-black ml-auto shrink-0" />}
+              <Icon size={20} strokeWidth={1.5} className="text-alonzo-gray-600 shrink-0" />
             </button>
-          );
-        })}
-      </div>
 
-      {/* Payment details */}
-      {activeDef && (
-        <div className="bg-alonzo-gray-100 rounded-sm p-5 space-y-4 page-fade-in">
-
-          {/* Account info */}
-          {Object.keys(activeDef.accountInfo).length > 0 && (
-            <div className="space-y-0 rounded-sm overflow-hidden border border-alonzo-gray-300">
-              {Object.entries(activeDef.accountInfo).map(([key, val], idx, arr) => (
-                <div
-                  key={key}
-                  className={`flex items-center justify-between px-4 py-3 bg-white ${
-                    idx < arr.length - 1 ? 'border-b border-alonzo-gray-200' : ''
-                  }`}
-                >
-                  <div>
-                    <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide">{labels[key] || key}</p>
-                    <p className="text-sm font-semibold text-alonzo-black">{val}</p>
+            {/* Detalle expandido — solo el método seleccionado */}
+            {isActive && (
+              <div className="bg-alonzo-gray-100 px-4 pb-5 pt-1 space-y-4 page-fade-in">
+                {/* Datos de la cuenta */}
+                {Object.keys(opt.accountInfo).length > 0 && (
+                  <div className="rounded-sm overflow-hidden border border-alonzo-gray-300">
+                    {Object.entries(opt.accountInfo).map(([key, val], idx, arr) => (
+                      <div
+                        key={key}
+                        className={`flex items-center justify-between px-4 py-3 bg-white ${
+                          idx < arr.length - 1 ? 'border-b border-alonzo-gray-200' : ''
+                        }`}
+                      >
+                        <div>
+                          <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide">{labels[key] || key}</p>
+                          <p className="text-sm font-semibold text-alonzo-black">{val}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleCopy(key, val)}
+                          className={`flex items-center gap-1 px-3 py-1.5 rounded-sm text-[10px] font-semibold transition-all ${
+                            copiedKey === key
+                              ? 'bg-alonzo-gray-100 text-alonzo-charcoal'
+                              : 'bg-alonzo-gray-200 text-alonzo-gray-600 hover:bg-alonzo-gray-300'
+                          }`}
+                        >
+                          {copiedKey === key ? <Check size={11} className="text-alonzo-success" /> : <Copy size={11} />}
+                          {copiedKey === key ? 'Copiado' : 'Copiar'}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                  <button
-                    onClick={() => handleCopy(key, val)}
-                    className={`flex items-center gap-1 px-3 py-1.5 rounded-sm text-[10px] font-semibold transition-all ${
-                      copiedKey === key
-                        ? 'bg-alonzo-gray-100 text-alonzo-charcoal'
-                        : 'bg-alonzo-gray-200 text-alonzo-gray-600 hover:bg-alonzo-gray-300'
+                )}
+
+                {/* Monto y referencia */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label htmlFor={`pago-monto-${opt.id}`} className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
+                      Monto ({opt.currency === 'usd' ? cs() : 'Bs.'})
+                    </label>
+                    <input
+                      id={`pago-monto-${opt.id}`}
+                      type="number"
+                      inputMode="decimal"
+                      className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
+                      placeholder="0.00"
+                      value={selection[opt.id]?.amount || ''}
+                      onChange={(e) => handleUpdate(opt.id, 'amount', e.target.value)}
+                    />
+                  </div>
+                  {opt.id !== 'efectivo_usd' && (
+                    <div>
+                      <label htmlFor={`pago-ref-${opt.id}`} className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
+                        Referencia
+                      </label>
+                      <input
+                        id={`pago-ref-${opt.id}`}
+                        type="text"
+                        className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
+                        placeholder="Últimos 4-6 dígitos"
+                        value={selection[opt.id]?.ref || ''}
+                        onChange={(e) => handleUpdate(opt.id, 'ref', e.target.value)}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Comprobante */}
+                {opt.id !== 'efectivo_usd' && (
+                  <label
+                    htmlFor="proof-upload"
+                    className={`flex items-center justify-center gap-3 w-full py-4 rounded-sm border-2 border-dashed cursor-pointer transition-all duration-200 ${
+                      proofFile
+                        ? 'bg-white border-alonzo-success'
+                        : 'bg-white border-alonzo-gray-400 hover:border-alonzo-gray-500'
                     }`}
                   >
-                    {copiedKey === key ? <Check size={11} className="text-alonzo-success" /> : <Copy size={11} />}
-                    {copiedKey === key ? 'Copiado' : 'Copiar'}
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Amount & reference */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label htmlFor={`pago-monto-${activeDef.id}`} className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
-                Monto ({activeDef.currency === 'usd' ? cs() : 'Bs.'})
-              </label>
-              <input
-                id={`pago-monto-${activeDef.id}`}
-                type="number"
-                inputMode="decimal"
-                className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
-                placeholder="0.00"
-                value={selection[activeDef.id]?.amount || ''}
-                onChange={(e) => handleUpdate(activeDef.id, 'amount', e.target.value)}
-              />
-            </div>
-            {activeDef.id !== 'efectivo_usd' && (
-              <div>
-                <label htmlFor={`pago-ref-${activeDef.id}`} className="block text-[10px] font-semibold text-alonzo-gray-600 uppercase tracking-wide mb-1.5">
-                  Referencia
-                </label>
-                <input
-                  id={`pago-ref-${activeDef.id}`}
-                  type="text"
-                  className="w-full px-4 py-3 bg-white border border-alonzo-gray-300 rounded-sm text-sm font-medium text-alonzo-black focus:border-alonzo-black focus:ring-1 focus:ring-alonzo-black outline-none transition-colors placeholder:text-alonzo-gray-500"
-                  placeholder="Últimos 4-6 dígitos"
-                  value={selection[activeDef.id]?.ref || ''}
-                  onChange={(e) => handleUpdate(activeDef.id, 'ref', e.target.value)}
-                />
+                    {proofFile ? (
+                      <>
+                        <Check size={18} className="text-alonzo-success" />
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-alonzo-charcoal">Comprobante cargado</p>
+                          <p className="text-[10px] text-alonzo-gray-600 mt-0.5">{proofFile.name}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={18} className="text-alonzo-gray-600" />
+                        <div>
+                          <p className="text-xs font-semibold text-alonzo-gray-600">Adjuntar comprobante</p>
+                          <p className="text-[10px] text-alonzo-gray-600">Foto del pago o captura de pantalla</p>
+                        </div>
+                      </>
+                    )}
+                    <input
+                      type="file"
+                      id="proof-upload"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
+                  </label>
+                )}
               </div>
             )}
           </div>
-        </div>
-      )}
-
-      {/* Proof upload */}
-      {selectedMethod && selectedMethod !== 'efectivo_usd' && (
-        <label
-          htmlFor="proof-upload"
-          className={`flex items-center justify-center gap-3 w-full py-4 rounded-sm border-2 border-dashed cursor-pointer transition-all duration-200 ${
-            proofFile
-              ? 'bg-alonzo-gray-100 border-alonzo-success'
-              : 'bg-white border-alonzo-gray-400 hover:border-alonzo-gray-500'
-          }`}
-        >
-          {proofFile ? (
-            <>
-              <Check size={18} className="text-alonzo-success" />
-              <div className="text-center">
-                <p className="text-xs font-semibold text-alonzo-charcoal">Comprobante cargado</p>
-                <p className="text-[10px] text-alonzo-gray-600 mt-0.5">{proofFile.name}</p>
-              </div>
-            </>
-          ) : (
-            <>
-              <Upload size={18} className="text-alonzo-gray-600" />
-              <div>
-                <p className="text-xs font-semibold text-alonzo-gray-600">Adjuntar comprobante</p>
-                <p className="text-[10px] text-alonzo-gray-600">Foto del pago o captura de pantalla</p>
-              </div>
-            </>
-          )}
-          <input
-            type="file"
-            id="proof-upload"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-        </label>
-      )}
+        );
+      })}
     </div>
   );
 }
