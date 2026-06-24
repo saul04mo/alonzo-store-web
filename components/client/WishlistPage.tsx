@@ -68,7 +68,7 @@ export function WishlistPage() {
     <div className="max-w-[1000px] mx-auto px-4 md:px-10 py-12 font-sans min-h-[60vh]">
       <button
         onClick={() => router.push('/account')}
-        className="flex items-center text-[11px] font-bold tracking-widest text-gray-400 hover:text-black transition-colors mb-8 uppercase"
+        className="flex items-center text-[11px] font-bold tracking-widest text-alonzo-gray-600 hover:text-alonzo-black transition-colors mb-8 uppercase"
       >
         <ChevronLeft size={14} className="mr-1" /> VOLVER A MI CUENTA
       </button>
@@ -76,7 +76,7 @@ export function WishlistPage() {
       <h1 className="text-[24px] md:text-[28px] font-light text-black leading-tight tracking-tight mb-2">
         Mis Favoritos
       </h1>
-      <p className="text-sm text-gray-500 mb-12">
+      <p className="text-sm text-alonzo-gray-600 mb-12">
         {wishlistProducts.length > 0
           ? `Tienes ${wishlistProducts.length} producto${wishlistProducts.length > 1 ? 's' : ''} guardado${wishlistProducts.length > 1 ? 's' : ''}.`
           : 'Guarda tus productos favoritos para comprarlos después.'}
@@ -85,23 +85,23 @@ export function WishlistPage() {
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="flex gap-5 p-5 border border-gray-200 animate-pulse">
-              <div className="w-24 h-32 bg-gray-100 rounded shrink-0" />
+            <div key={i} className="flex gap-5 p-5 border border-alonzo-gray-300 animate-pulse">
+              <div className="w-24 h-32 bg-alonzo-gray-200 rounded shrink-0" />
               <div className="flex-1 space-y-3">
-                <div className="h-3 bg-gray-100 rounded w-3/4" />
-                <div className="h-3 bg-gray-100 rounded w-1/2" />
-                <div className="h-8 bg-gray-100 rounded w-full mt-6" />
+                <div className="h-3 bg-alonzo-gray-200 rounded w-3/4" />
+                <div className="h-3 bg-alonzo-gray-200 rounded w-1/2" />
+                <div className="h-8 bg-alonzo-gray-200 rounded w-full mt-6" />
               </div>
             </div>
           ))}
         </div>
       ) : wishlistProducts.length === 0 ? (
-        <div className="py-20 text-center border border-dashed border-gray-200 rounded-lg">
-          <Heart size={48} strokeWidth={1} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-sm text-gray-500 mb-6">Aún no tienes favoritos.</p>
+        <div className="py-20 text-center border border-dashed border-alonzo-gray-300 rounded-sm">
+          <Heart size={48} strokeWidth={1} className="mx-auto text-alonzo-gray-400 mb-4" />
+          <p className="text-sm text-alonzo-gray-600 mb-6">Aún no tienes favoritos.</p>
           <button
             onClick={() => router.push('/')}
-            className="bg-black text-white px-8 py-3.5 text-xs font-bold tracking-widest hover:bg-gray-800 transition-colors uppercase"
+            className="bg-alonzo-black text-white px-8 py-3.5 text-xs font-bold tracking-widest hover:bg-alonzo-dark transition-colors uppercase"
           >
             EXPLORAR PRODUCTOS
           </button>
@@ -114,10 +114,10 @@ export function WishlistPage() {
             const hasOffer = discPrice !== null;
 
             return (
-              <div key={product.id} className="flex gap-5 p-5 border border-gray-200 hover:border-black transition-colors group">
+              <div key={product.id} className="flex gap-5 p-5 border border-alonzo-gray-300 hover:border-alonzo-black transition-colors group">
                 {/* Image */}
                 <div
-                  className="w-24 h-32 bg-gray-100 rounded shrink-0 overflow-hidden cursor-pointer relative"
+                  className="w-24 h-32 bg-alonzo-gray-200 rounded-sm shrink-0 overflow-hidden cursor-pointer relative"
                   onClick={() => router.push(productHref(product))}
                 >
                   <img
@@ -135,9 +135,9 @@ export function WishlistPage() {
                 {/* Info */}
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <p className="text-xs text-gray-400 uppercase tracking-wider">{product.category}</p>
+                    <p className="text-xs text-alonzo-gray-600 uppercase tracking-wider">{product.category}</p>
                     <p
-                      className="text-sm font-medium text-gray-900 mt-1 cursor-pointer hover:underline"
+                      className="text-sm font-medium text-alonzo-black mt-1 cursor-pointer hover:underline"
                       onClick={() => router.push(productHref(product))}
                     >
                       {product.name}
@@ -146,10 +146,10 @@ export function WishlistPage() {
                       {hasOffer ? (
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-semibold text-red-600">{cs()}{discPrice!.toFixed(2)}</span>
-                          <span className="text-xs text-gray-400 line-through">{cs()}{rawPrice.toFixed(2)}</span>
+                          <span className="text-xs text-alonzo-gray-600 line-through">{cs()}{rawPrice.toFixed(2)}</span>
                         </div>
                       ) : (
-                        <p className="text-sm font-semibold text-gray-900">{cs()}{rawPrice.toFixed(2)}</p>
+                        <p className="text-sm font-semibold text-alonzo-black">{cs()}{rawPrice.toFixed(2)}</p>
                       )}
                     </div>
                   </div>
@@ -158,13 +158,13 @@ export function WishlistPage() {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-black text-white text-[10px] font-bold tracking-widest hover:bg-gray-800 transition-colors uppercase"
+                      className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-alonzo-black text-white text-[10px] font-bold tracking-widest hover:bg-alonzo-dark transition-colors uppercase"
                     >
                       <ShoppingCart size={12} /> AÑADIR
                     </button>
                     <button
                       onClick={() => handleRemove(product.id)}
-                      className="px-3 py-2.5 border border-gray-200 text-gray-400 hover:text-red-500 hover:border-red-200 transition-colors"
+                      className="px-3 py-2.5 border border-alonzo-gray-300 text-alonzo-gray-600 hover:text-red-500 hover:border-red-200 transition-colors"
                     >
                       <Trash2 size={14} />
                     </button>
