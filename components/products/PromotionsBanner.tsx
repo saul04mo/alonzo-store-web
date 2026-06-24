@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { Zap, Gift, Truck, Package, Tag } from 'lucide-react';
 import type { ActivePromotion } from '@/types';
 
-const PROMO_CONFIG: Record<string, { icon: typeof Zap; color: string; bg: string }> = {
-  nxm: { icon: Gift, color: 'text-purple-700', bg: 'bg-purple-50 border-purple-200' },
-  volume_discount: { icon: Tag, color: 'text-blue-700', bg: 'bg-blue-50 border-blue-200' },
-  min_purchase: { icon: Zap, color: 'text-green-700', bg: 'bg-green-50 border-green-200' },
-  free_shipping: { icon: Truck, color: 'text-amber-700', bg: 'bg-amber-50 border-amber-200' },
-  bundle: { icon: Package, color: 'text-rose-700', bg: 'bg-rose-50 border-rose-200' },
+const PROMO_ICONS: Record<string, typeof Zap> = {
+  nxm: Gift,
+  volume_discount: Tag,
+  min_purchase: Zap,
+  free_shipping: Truck,
+  bundle: Package,
 };
 
 function formatPromoLabel(promo: ActivePromotion): string {
@@ -53,22 +53,21 @@ export function PromotionsBanner() {
     <div className="max-w-[1400px] mx-auto px-4 md:px-10 mb-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {promotions.map((promo) => {
-          const config = PROMO_CONFIG[promo.type] || PROMO_CONFIG.min_purchase;
-          const Icon = config.icon;
+          const Icon = PROMO_ICONS[promo.type] || Tag;
 
           return (
             <div
               key={promo.id}
-              className={`flex items-center gap-3 p-3.5 rounded-lg border ${config.bg} transition-all hover:shadow-sm`}
+              className="flex items-center gap-3 p-3.5 rounded-sm border border-alonzo-gray-300 bg-white"
             >
-              <div className={`shrink-0 ${config.color}`}>
-                <Icon size={18} />
+              <div className="shrink-0 text-alonzo-black">
+                <Icon size={18} strokeWidth={1.5} />
               </div>
               <div className="min-w-0">
-                <p className={`text-xs font-bold ${config.color} tracking-wide`}>
+                <p className="text-xs font-bold text-alonzo-black tracking-wide">
                   {formatPromoLabel(promo)}
                 </p>
-                <p className="text-[10px] text-gray-500 mt-0.5 truncate">
+                <p className="text-[10px] text-alonzo-gray-600 mt-0.5 truncate">
                   {promo.description || promo.name}
                 </p>
               </div>
