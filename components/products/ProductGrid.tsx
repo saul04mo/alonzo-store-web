@@ -12,6 +12,8 @@ interface ProductGridProps {
   onProductClick: (product: Product) => void;
   sectionTitle?: string;
   gridCols?: 1 | 2 | 3 | 4;
+  /** Acción de salida cuando no hay resultados (limpiar filtros / ver todo). */
+  emptyAction?: { label: string; onClick: () => void };
 }
 
 const gridClasses: Record<number, string> = {
@@ -21,7 +23,7 @@ const gridClasses: Record<number, string> = {
   4: 'grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-12 md:gap-x-4 md:gap-y-16',
 };
 
-export function ProductGrid({ products, loading, onProductClick, sectionTitle, gridCols }: ProductGridProps) {
+export function ProductGrid({ products, loading, onProductClick, sectionTitle, gridCols, emptyAction }: ProductGridProps) {
   const cols = gridCols || 4;
   const skipAnimation = useRef(hasAnimated);
 
@@ -51,10 +53,18 @@ export function ProductGrid({ products, loading, onProductClick, sectionTitle, g
 
   if (products.length === 0) {
     return (
-      <div className="w-full px-3 md:px-6 lg:px-10 py-16">
-        <p className="text-center text-alonzo-gray-500 text-sm tracking-wider">
+      <div className="w-full px-3 md:px-6 lg:px-10 py-16 text-center">
+        <p className="text-alonzo-gray-600 text-sm tracking-wider mb-5">
           Sin resultados.
         </p>
+        {emptyAction && (
+          <button
+            onClick={emptyAction.onClick}
+            className="btn-outline !w-auto px-8 py-3 font-sans font-medium text-xs"
+          >
+            {emptyAction.label}
+          </button>
+        )}
       </div>
     );
   }

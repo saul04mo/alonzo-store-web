@@ -120,6 +120,12 @@ export function HomePage({
   const showHero = !hasBrowsed && !searchTerm;
   const filtersActive = filters.sortBy !== 'default' || filters.sizes.length > 0 || filters.onSale;
 
+  // Acción de salida del empty state: si hay filtros activos, limpiarlos;
+  // si no, volver a ver todo (sale del callejón "Sin resultados").
+  const emptyAction = filtersActive
+    ? { label: 'Limpiar filtros', onClick: () => setFilters(defaultFilters) }
+    : { label: 'Ver todo', onClick: handleViewAllProducts };
+
   // SSR: la home depende de estado persistido en el cliente.
   if (!mounted) return <div className="min-h-screen bg-white" />;
 
@@ -155,7 +161,7 @@ export function HomePage({
           <div className="px-4 md:px-6 lg:px-8 mb-6">
             <h1 className="text-lg font-semibold text-alonzo-charcoal">
               Resultados para "{searchTerm}"
-              <span className="text-alonzo-gray-400 font-normal text-sm ml-2">{filteredProducts.length}</span>
+              <span className="text-alonzo-gray-600 font-normal text-sm ml-2">{filteredProducts.length}</span>
             </h1>
           </div>
         )}
@@ -178,6 +184,7 @@ export function HomePage({
             onProductClick={handleProductClick}
             sectionTitle={!hasBrowsed && !searchTerm ? (gender === 'Mujer' ? 'Moda para mujer' : 'Moda para hombre') : undefined}
             gridCols={hasBrowsed ? gridCols : undefined}
+            emptyAction={emptyAction}
           />
         )}
       </div>

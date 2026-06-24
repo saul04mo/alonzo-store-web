@@ -32,14 +32,14 @@ export function CategoryHeader({
       {/* Title + count */}
       <h1 className="text-xl md:text-3xl font-semibold text-alonzo-charcoal tracking-wide mb-3 md:mb-5">
         {displayName}
-        <span className="text-alonzo-gray-400 font-normal text-base md:text-xl ml-2 md:ml-3">
+        <span className="text-alonzo-gray-600 font-normal text-base md:text-xl ml-2 md:ml-3">
           {count}
         </span>
       </h1>
 
       {/* Description */}
       {description && (
-        <p className="text-xs md:text-sm text-alonzo-gray-500 max-w-2xl mb-6 md:mb-10 leading-relaxed">
+        <p className="text-xs md:text-sm text-alonzo-gray-600 max-w-2xl mb-6 md:mb-10 leading-relaxed">
           {description}
         </p>
       )}
@@ -47,10 +47,10 @@ export function CategoryHeader({
       {/* View toggle + Filter */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-sm text-alonzo-gray-500 mr-1">View</span>
+          <span className="text-sm text-alonzo-gray-600 mr-1">Ver</span>
           <button
             onClick={() => onGridColsChange(1)}
-            className={`p-1.5 rounded transition-colors sm:hidden ${gridCols === 1 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
+            className={`p-1.5 rounded transition-colors sm:hidden ${gridCols === 1 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="1 columna"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -60,7 +60,7 @@ export function CategoryHeader({
           </button>
           <button
             onClick={() => onGridColsChange(2)}
-            className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
+            className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="2 columnas"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -70,7 +70,7 @@ export function CategoryHeader({
           </button>
           <button
             onClick={() => onGridColsChange(3)}
-            className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
+            className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="3 columnas"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -80,7 +80,7 @@ export function CategoryHeader({
           </button>
           <button
             onClick={() => onGridColsChange(4)}
-            className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-300 hover:text-alonzo-gray-600'}`}
+            className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="4 columnas"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -95,7 +95,7 @@ export function CategoryHeader({
           onClick={onOpenFilter}
           className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors relative"
         >
-          <span>Filter</span>
+          <span>Filtrar</span>
           <SlidersHorizontal size={20} />
           {filtersActive && (
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-alonzo-black rounded-full" />
