@@ -19,7 +19,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   'Creada': { label: 'En proceso', color: 'text-blue-700', bg: 'bg-blue-50 border-blue-200', icon: Clock },
   'Pendiente de pago': { label: 'Pago pendiente', color: 'text-amber-700', bg: 'bg-amber-50 border-amber-200', icon: Clock },
   'Cancelado': { label: 'Cancelado', color: 'text-red-600', bg: 'bg-red-50 border-red-200', icon: XCircle },
-  'Devolución': { label: 'Devuelto', color: 'text-gray-600', bg: 'bg-gray-100 border-gray-200', icon: XCircle },
+  'Devolución': { label: 'Devuelto', color: 'text-alonzo-gray-600', bg: 'bg-alonzo-gray-200 border-alonzo-gray-300', icon: XCircle },
 };
 
 // Acepta valores nuevos ('local', 'national') y legacy ('delivery',
@@ -108,16 +108,16 @@ export function AccountOrdersPage() {
     <div className="max-w-[1000px] mx-auto px-4 md:px-10 py-12 font-sans min-h-[60vh]">
       <button
         onClick={() => router.push('/account')}
-        className="flex items-center text-[11px] font-bold tracking-widest text-gray-400 hover:text-black transition-colors mb-8 uppercase"
+        className="flex items-center text-[11px] font-bold tracking-widest text-alonzo-gray-600 hover:text-alonzo-black transition-colors mb-8 uppercase"
       >
         <ChevronLeft size={14} className="mr-1" /> VOLVER A MI CUENTA
       </button>
 
       <div className="mb-12">
-        <h1 className="text-[24px] md:text-[28px] font-light text-black leading-tight tracking-tight mb-2">
+        <h1 className="text-[24px] md:text-[28px] font-light text-alonzo-black leading-tight tracking-tight mb-2">
           Mis Pedidos
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-alonzo-gray-600">
           {orders.length > 0 ? `${orders.length} pedido${orders.length > 1 ? 's' : ''} encontrado${orders.length > 1 ? 's' : ''}` : 'Consulta el estado y detalle de tus compras.'}
         </p>
       </div>
@@ -125,24 +125,24 @@ export function AccountOrdersPage() {
       {loading && orders.length === 0 ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="border border-gray-100 p-6 animate-pulse">
+            <div key={i} className="border border-alonzo-gray-200 p-6 animate-pulse">
               <div className="flex gap-4">
-                <div className="w-16 h-20 bg-gray-100 rounded shrink-0" />
+                <div className="w-16 h-20 bg-alonzo-gray-200 rounded shrink-0" />
                 <div className="flex-1 space-y-3">
-                  <div className="h-3 bg-gray-100 rounded w-1/4" />
-                  <div className="h-3 bg-gray-100 rounded w-1/2" />
-                  <div className="h-3 bg-gray-100 rounded w-1/3" />
+                  <div className="h-3 bg-alonzo-gray-200 rounded w-1/4" />
+                  <div className="h-3 bg-alonzo-gray-200 rounded w-1/2" />
+                  <div className="h-3 bg-alonzo-gray-200 rounded w-1/3" />
                 </div>
               </div>
             </div>
           ))}
         </div>
       ) : orders.length === 0 ? (
-        <div className="py-20 text-center border border-dashed border-gray-200 rounded-lg">
-          <ShoppingBag size={48} strokeWidth={1} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-sm text-gray-500 mb-6">Aún no has realizado ninguna compra.</p>
+        <div className="py-20 text-center border border-dashed border-alonzo-gray-300 rounded-sm">
+          <ShoppingBag size={48} strokeWidth={1} className="mx-auto text-alonzo-gray-400 mb-4" />
+          <p className="text-sm text-alonzo-gray-600 mb-6">Aún no has realizado ninguna compra.</p>
           <button onClick={() => router.push('/')}
-            className="bg-black text-white px-8 py-3.5 text-xs font-bold tracking-widest hover:bg-gray-800 transition-colors uppercase">
+            className="bg-alonzo-black text-white px-8 py-3.5 text-xs font-bold tracking-widest hover:bg-alonzo-dark transition-colors uppercase">
             EMPEZAR A COMPRAR
           </button>
         </div>
@@ -159,7 +159,7 @@ export function AccountOrdersPage() {
 
             return (
               <div key={order.id || order.numericId}
-                className={`border transition-all duration-300 ${isOpen ? 'border-black shadow-sm' : 'border-gray-200 hover:border-gray-400'}`}>
+                className={`border transition-all duration-300 ${isOpen ? 'border-alonzo-black shadow-sm' : 'border-alonzo-gray-300 hover:border-alonzo-gray-500'}`}>
 
                 {/* ── Collapsed Header ── */}
                 <button
@@ -171,17 +171,17 @@ export function AccountOrdersPage() {
                     {!isOpen && (
                     <div className="flex -space-x-3 shrink-0">
                       {firstImages.length > 0 ? firstImages.map((img: string, i: number) => (
-                        <div key={i} className="w-12 h-16 md:w-14 md:h-[72px] bg-gray-100 rounded overflow-hidden border-2 border-white shadow-sm relative"
+                        <div key={i} className="w-12 h-16 md:w-14 md:h-[72px] bg-alonzo-gray-200 rounded overflow-hidden border-2 border-white shadow-sm relative"
                           style={{ zIndex: firstImages.length - i }}>
                           <img src={img} alt="" className="w-full h-full object-cover" />
                         </div>
                       )) : (
-                        <div className="w-12 h-16 md:w-14 md:h-[72px] bg-gray-100 rounded flex items-center justify-center border-2 border-white">
-                          <Package size={16} strokeWidth={1} className="text-gray-300" />
+                        <div className="w-12 h-16 md:w-14 md:h-[72px] bg-alonzo-gray-200 rounded flex items-center justify-center border-2 border-white">
+                          <Package size={16} strokeWidth={1} className="text-alonzo-gray-400" />
                         </div>
                       )}
                       {items.length > 4 && (
-                        <div className="w-12 h-16 md:w-14 md:h-[72px] bg-gray-900 rounded flex items-center justify-center border-2 border-white text-white text-xs font-bold"
+                        <div className="w-12 h-16 md:w-14 md:h-[72px] bg-alonzo-black rounded flex items-center justify-center border-2 border-white text-white text-xs font-bold"
                           style={{ zIndex: 0 }}>
                           +{items.length - 4}
                         </div>
@@ -193,14 +193,14 @@ export function AccountOrdersPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                          <p className="text-[10px] font-bold text-alonzo-gray-600 uppercase tracking-widest">
                             Pedido #{order.numericId}
                           </p>
-                          <p className="text-sm font-semibold text-gray-900 mt-1">
+                          <p className="text-sm font-semibold text-alonzo-black mt-1">
                             {totalItems} artículo{totalItems > 1 ? 's' : ''} · {formatUSD(order.total)}
                           </p>
                         </div>
-                        <ChevronDown size={16} className={`text-gray-400 shrink-0 mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown size={16} className={`text-alonzo-gray-600 shrink-0 mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                       </div>
 
                       <div className="flex flex-wrap items-center gap-3 mt-3">
@@ -211,12 +211,12 @@ export function AccountOrdersPage() {
                         </span>
 
                         {/* Date */}
-                        <span className="text-[11px] text-gray-400">
+                        <span className="text-[11px] text-alonzo-gray-600">
                           {date.toLocaleDateString('es-VE', { day: 'numeric', month: 'long', year: 'numeric' })}
                         </span>
 
                         {/* Delivery type */}
-                        <span className="text-[11px] text-gray-400 hidden sm:inline-flex items-center gap-1">
+                        <span className="text-[11px] text-alonzo-gray-600 hidden sm:inline-flex items-center gap-1">
                           <Truck size={10} />
                           {DELIVERY_LABELS[order.deliveryType] || order.deliveryType}
                         </span>
@@ -228,7 +228,7 @@ export function AccountOrdersPage() {
                 {/* ── Expanded Content ── */}
                 <div className={`grid transition-all duration-500 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                   <div className="overflow-hidden">
-                    <div className="px-5 md:px-6 pb-6 border-t border-gray-100">
+                    <div className="px-5 md:px-6 pb-6 border-t border-alonzo-gray-200">
 
                       {/* Items list */}
                       <div className="py-5 space-y-4">
@@ -240,23 +240,23 @@ export function AccountOrdersPage() {
 
                           return (
                             <div key={idx} className="flex gap-4 items-center">
-                              <div className="w-14 h-[72px] bg-gray-50 rounded overflow-hidden shrink-0">
+                              <div className="w-14 h-[72px] bg-alonzo-gray-100 rounded overflow-hidden shrink-0">
                                 {item.img ? (
                                   <img src={item.img} alt={name} className="w-full h-full object-cover" />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center">
-                                    <Package size={14} strokeWidth={1} className="text-gray-300" />
+                                    <Package size={14} strokeWidth={1} className="text-alonzo-gray-400" />
                                   </div>
                                 )}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate">{name}</p>
-                                <p className="text-xs text-gray-400 mt-0.5">
+                                <p className="text-sm font-medium text-alonzo-black truncate">{name}</p>
+                                <p className="text-xs text-alonzo-gray-600 mt-0.5">
                                   {label && <span>{label} · </span>}
                                   Cant: {qty}
                                 </p>
                               </div>
-                              <p className="text-sm font-semibold text-gray-900 shrink-0">
+                              <p className="text-sm font-semibold text-alonzo-black shrink-0">
                                 {formatUSD(price * qty)}
                               </p>
                             </div>
@@ -265,17 +265,17 @@ export function AccountOrdersPage() {
                       </div>
 
                       {/* Order details grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-5 border-t border-gray-100">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-5 border-t border-alonzo-gray-200">
                         {/* Delivery */}
                         <div className="flex items-start gap-3">
-                          <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center shrink-0 mt-0.5">
-                            <Truck size={14} className="text-gray-400" />
+                          <div className="w-8 h-8 rounded-full bg-alonzo-gray-100 flex items-center justify-center shrink-0 mt-0.5">
+                            <Truck size={14} className="text-alonzo-gray-600" />
                           </div>
                           <div>
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Envío</p>
-                            <p className="text-sm text-gray-900 mt-0.5">{DELIVERY_LABELS[order.deliveryType] || order.deliveryType}</p>
+                            <p className="text-[10px] font-bold text-alonzo-gray-600 uppercase tracking-wider">Envío</p>
+                            <p className="text-sm text-alonzo-black mt-0.5">{DELIVERY_LABELS[order.deliveryType] || order.deliveryType}</p>
                             {order.deliveryCostUsd > 0 && (
-                              <p className="text-xs text-gray-400">{formatUSD(order.deliveryCostUsd)}</p>
+                              <p className="text-xs text-alonzo-gray-600">{formatUSD(order.deliveryCostUsd)}</p>
                             )}
                           </div>
                         </div>
@@ -283,42 +283,42 @@ export function AccountOrdersPage() {
                         {/* Address */}
                         {order.clientSnapshot?.address && (
                           <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center shrink-0 mt-0.5">
-                              <MapPin size={14} className="text-gray-400" />
+                            <div className="w-8 h-8 rounded-full bg-alonzo-gray-100 flex items-center justify-center shrink-0 mt-0.5">
+                              <MapPin size={14} className="text-alonzo-gray-600" />
                             </div>
                             <div>
-                              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Dirección</p>
-                              <p className="text-sm text-gray-900 mt-0.5 line-clamp-2">{order.clientSnapshot.address}</p>
+                              <p className="text-[10px] font-bold text-alonzo-gray-600 uppercase tracking-wider">Dirección</p>
+                              <p className="text-sm text-alonzo-black mt-0.5 line-clamp-2">{order.clientSnapshot.address}</p>
                             </div>
                           </div>
                         )}
 
                         {/* Payment */}
                         <div className="flex items-start gap-3">
-                          <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center shrink-0 mt-0.5">
-                            <CreditCard size={14} className="text-gray-400" />
+                          <div className="w-8 h-8 rounded-full bg-alonzo-gray-100 flex items-center justify-center shrink-0 mt-0.5">
+                            <CreditCard size={14} className="text-alonzo-gray-600" />
                           </div>
                           <div>
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Pago</p>
+                            <p className="text-[10px] font-bold text-alonzo-gray-600 uppercase tracking-wider">Pago</p>
                             {(order.payments || []).length > 0 ? (
                               order.payments.map((p: any, i: number) => (
-                                <p key={i} className="text-sm text-gray-900 mt-0.5">{p.method}</p>
+                                <p key={i} className="text-sm text-alonzo-black mt-0.5">{p.method}</p>
                               ))
                             ) : (
-                              <p className="text-sm text-gray-400 mt-0.5 italic">Sin información</p>
+                              <p className="text-sm text-alonzo-gray-600 mt-0.5 italic">Sin información</p>
                             )}
                           </div>
                         </div>
                       </div>
 
                       {/* Totals */}
-                      <div className="border-t border-gray-100 pt-5 space-y-2">
-                        <div className="flex justify-between text-sm text-gray-500">
+                      <div className="border-t border-alonzo-gray-200 pt-5 space-y-2">
+                        <div className="flex justify-between text-sm text-alonzo-gray-600">
                           <span>Subtotal ({totalItems} artículos)</span>
                           <span>{formatUSD(order.total - (order.deliveryCostUsd || 0))}</span>
                         </div>
                         {order.deliveryCostUsd > 0 && (
-                          <div className="flex justify-between text-sm text-gray-500">
+                          <div className="flex justify-between text-sm text-alonzo-gray-600">
                             <span>Envío</span>
                             <span>{formatUSD(order.deliveryCostUsd)}</span>
                           </div>
@@ -329,7 +329,7 @@ export function AccountOrdersPage() {
                             <span>- {formatUSD((order as any).appliedCoupon.discountAmount || 0)}</span>
                           </div>
                         )}
-                        <div className="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-100">
+                        <div className="flex justify-between text-base font-bold text-alonzo-black pt-2 border-t border-alonzo-gray-200">
                           <span>Total</span>
                           <span>{formatUSD(order.total)}</span>
                         </div>
@@ -347,7 +347,7 @@ export function AccountOrdersPage() {
               <button
                 onClick={() => setLimitCount((p) => p + 10)}
                 disabled={loading}
-                className="px-10 py-3.5 border border-black text-xs font-bold tracking-widest hover:bg-black hover:text-white transition-all disabled:opacity-30 uppercase"
+                className="px-10 py-3.5 border border-alonzo-black text-xs font-bold tracking-widest hover:bg-alonzo-black hover:text-white transition-all disabled:opacity-30 uppercase"
               >
                 {loading ? 'CARGANDO...' : 'VER MÁS PEDIDOS'}
               </button>

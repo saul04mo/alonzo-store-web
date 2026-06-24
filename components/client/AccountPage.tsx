@@ -37,17 +37,17 @@ export function AccountPage() {
     return (
       <div className="max-w-[1400px] mx-auto px-4 md:px-10 py-20 text-center font-sans">
         <h1 className="text-2xl font-medium mb-4">Mi Cuenta</h1>
-        <p className="text-gray-500 mb-8">Debes iniciar sesión para ver tu perfil.</p>
+        <p className="text-alonzo-gray-600 mb-8">Debes iniciar sesión para ver tu perfil.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button 
-            onClick={() => router.push('/')} 
-            className="border-2 border-black text-black px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-gray-50 transition-colors w-full sm:w-auto"
+          <button
+            onClick={() => router.push('/')}
+            className="border border-alonzo-black text-alonzo-black px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-alonzo-gray-100 transition-colors w-full sm:w-auto"
           >
             Ir al inicio
           </button>
-          <button 
-            onClick={() => setAuthOpen(true)} 
-            className="bg-black text-white px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-gray-800 transition-colors w-full sm:w-auto"
+          <button
+            onClick={() => setAuthOpen(true)}
+            className="bg-alonzo-black text-white px-8 py-3 uppercase text-xs font-bold tracking-widest hover:bg-alonzo-dark transition-colors w-full sm:w-auto"
           >
             Iniciar sesión
           </button>
@@ -98,7 +98,7 @@ export function AccountPage() {
     <div className="max-w-[1400px] mx-auto px-4 md:px-10 py-12 md:py-20 font-sans min-h-[70vh]">
       {/* Header */}
       <div className="mb-14">
-        <h1 className="text-[24px] md:text-[28px] font-light text-black leading-tight tracking-tight">
+        <h1 className="text-[24px] md:text-[28px] font-light text-alonzo-black leading-tight tracking-tight">
           te damos la bienvenida a tu cuenta, <span className="capitalize">{client.name.split(' ')[0].toLowerCase()}</span>
         </h1>
       </div>
@@ -109,25 +109,26 @@ export function AccountPage() {
           <button
             key={card.id}
             onClick={card.onClick}
-            className="group flex flex-col p-10 border border-gray-200 hover:border-black hover:bg-gray-50/30 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 ease-out text-left bg-white h-[220px]"
+            className="group flex flex-col p-10 border border-alonzo-gray-300 hover:border-alonzo-black hover:bg-alonzo-gray-100 hover:-translate-y-0.5 transition-all duration-300 ease-out text-left bg-white h-[220px]"
           >
-            <h3 className="text-sm md:text-base font-bold tracking-normal text-black mb-4 uppercase transition-colors group-hover:text-alonzo-black">
+            <div className="text-alonzo-black mb-5">{card.icon}</div>
+            <h3 className="text-sm md:text-base font-bold tracking-normal text-alonzo-black mb-3 uppercase">
               {card.title}
             </h3>
-            <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal transition-colors group-hover:text-gray-900">
+            <p className="text-sm text-alonzo-gray-600 leading-relaxed font-normal">
               {card.description}
             </p>
-            
-            <div className="mt-auto pt-4 flex items-center text-[11px] font-bold tracking-widest text-black group-hover:translate-x-1.5 transition-transform duration-300 uppercase">
-              EXPLORAR <ChevronRight size={14} className="ml-1" />
-            </div>
+            <ChevronRight
+              size={16}
+              className="mt-auto text-alonzo-gray-400 group-hover:text-alonzo-black group-hover:translate-x-1.5 transition-all duration-300"
+            />
           </button>
         ))}
 
         {/* Sign Out Card */}
         <button
           onClick={handleSignOut}
-          className="flex flex-col p-8 border border-gray-100 hover:border-red-200 hover:bg-red-50/30 transition-all text-left h-full group"
+          className="flex flex-col p-8 border border-alonzo-gray-200 hover:border-red-200 hover:bg-red-50/30 transition-all text-left h-full group"
         >
           <div className="text-red-400 mb-6 group-hover:rotate-12 transition-transform">
             <LogOut size={24} strokeWidth={1.2} />
@@ -135,7 +136,7 @@ export function AccountPage() {
           <h3 className="text-sm font-bold tracking-wider text-red-500 mb-3 uppercase">
             CERRAR SESIÓN
           </h3>
-          <p className="text-sm text-gray-400 leading-relaxed font-normal">
+          <p className="text-sm text-alonzo-gray-600 leading-relaxed font-normal">
             Finaliza tu sesión actual de forma segura
           </p>
         </button>
