@@ -34,6 +34,11 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const [imageLoaded, setImageLoaded] = useState(false);
   const { toggle: toggleWishlist, isInWishlist } = useWishlist();
 
+  // Botón "Añadir al carrito" dinámico en móvil: flota fijo abajo mientras se
+  // ve la foto y se estaciona en su sitio (el botón en flujo) al llegar a él.
+  const addAnchorRef = useRef<HTMLButtonElement>(null);
+  const [addDocked, setAddDocked] = useState(false);
+
   // Gallery
   const [currentImageIdx, setCurrentImageIdx] = useState(0); // kept for reset only
   const touchStartX = useRef(0);
@@ -46,6 +51,19 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [product?.id]);
+
+  // Observa el botón en flujo: cuando entra en viewport (descontando la zona de
+  // la barra flotante), el "Añadir al carrito" se da por estacionado.
+  useEffect(() => {
+    const el = addAnchorRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setAddDocked(entry.isIntersecting),
+      { rootMargin: '0px 0px -96px 0px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, [product?.id]);
 
   // Reset state when product changes
@@ -528,8 +546,10 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               </button>
             </div>
 
-            {/* ADD TO CART — acción principal (favorece armar un carrito mayor) */}
+            {/* ADD TO CART — acción principal (favorece armar un carrito mayor).
+                Sirve de ancla del botón flotante en móvil. */}
             <button
+              ref={addAnchorRef}
               onClick={handleAddToCart}
               className="w-full py-4 mt-5 bg-alonzo-black hover:bg-alonzo-charcoal text-white text-[12px] tracking-[0.2em] uppercase font-semibold rounded-sm transition-colors duration-200"
             >
@@ -655,8 +675,11 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
         </div>
       )}
 
-      {/* ══════ Barra fija móvil — precio + añadir al carrito ══════ */}
+      {/* ══════ Barra flotante móvil — precio + añadir al carrito ══════
+          Flota mientras no se ve el botón en flujo; al llegar a él (addDocked)
+          se oculta y el botón estático toma el relevo. */}
       <div className="md:hidden h-24" aria-hidden="true" />
+      {!addDocked && (
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-alonzo-gray-300 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
         <div className="flex items-center gap-4">
           <div className="shrink-0 min-w-0">
@@ -677,6 +700,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           </button>
         </div>
       </div>
+      )}
 
       <style jsx>{`
         @keyframes accordionReveal {
