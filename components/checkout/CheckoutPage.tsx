@@ -13,7 +13,6 @@ import { auth, signInAnonymously } from '@/lib/firebase-client';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD, formatBs } from '@/lib/format';
 import { CouponInput, type AppliedCouponWeb } from './CouponInput';
-import { CrossSell } from '@/components/products/CrossSell';
 import type { AddressResult } from './AddressPicker';
 import dynamic from 'next/dynamic';
 
@@ -63,6 +62,19 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  // Observa el ancla del botón de pago: cuando entra en viewport (descontando
+  // la zona de la barra flotante), lo damos por "estacionado".
+  useEffect(() => {
+    const el = payAnchorRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setPayDocked(entry.isIntersecting),
+      { rootMargin: '0px 0px -96px 0px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [items.length]);
+
   // Form
   const [rif, setRif] = useState(client?.rif_ci || '');
   const [name, setName] = useState(client?.name || '');
@@ -99,6 +111,12 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const [fieldErrors, setFieldErrors] = useState<{ rif?: string; name?: string }>({});
   const rifRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+
+  // Botón de pago "dinámico" en móvil: flota fijo abajo mientras se llena el
+  // formulario y se estaciona en su sitio (el ancla al final del resumen)
+  // cuando el usuario llega ahí. payDocked = true cuando el ancla está a la vista.
+  const payAnchorRef = useRef<HTMLDivElement>(null);
+  const [payDocked, setPayDocked] = useState(false);
 
   // Coupon
   const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
@@ -541,44 +559,59 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
               y <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-alonzo-black">Política de Privacidad</a>.
             </p>
 
-            {/* Returns */}
+            {/* Ancla del botón en móvil: cuando se ve, la barra flotante se
+                "estaciona" aquí (deja de flotar). */}
+            <div ref={payAnchorRef} className="lg:hidden">
+              {errorMsg ? (
+                <p className="text-xs font-medium text-red-600 mb-2 text-center">{errorMsg}</p>
+              ) : paymentHint ? (
+                <p className="text-xs text-alonzo-gray-600 mb-2 text-center">{paymentHint}</p>
+              ) : null}
+              <button
+                className="w-full py-4 bg-alonzo-black text-white text-sm font-medium uppercase tracking-wider rounded-none active:bg-alonzo-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                disabled={processing}
+                onClick={handleSubmit}
+              >
+                {processing ? 'Procesando...' : 'Confirmar pago'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    {/* Cross-sell — última oportunidad de sumar prendas antes de pagar */}
-    <CrossSell layout="grid" limit={4} />
+    {/* Espaciador para que la barra fija móvil no tape el contenido final */}
+    <div className="h-24 lg:hidden" aria-hidden="true" />
 
-    {/* Espaciador para que la barra fija móvil no tape el cross-sell */}
-    <div className="h-28 lg:hidden" aria-hidden="true" />
-
-    {/* ── Barra de checkout fija (solo móvil) ──────────────
-        Total + CTA siempre visibles para que nadie confirme sin ver el total,
-        y para que el botón nunca quede enterrado dentro del acordeón. */}
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-alonzo-gray-300 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
-      {errorMsg ? (
-        <p className="text-xs font-medium text-red-600 mb-2 text-center">{errorMsg}</p>
-      ) : paymentHint ? (
-        <p className="text-xs text-alonzo-gray-600 mb-2 text-center">{paymentHint}</p>
-      ) : null}
-      <div className="flex items-center gap-4">
-        <div className="shrink-0">
-          <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide leading-tight">Total</p>
-          <p className="text-lg font-bold text-alonzo-black leading-tight">{formatUSD(total)}</p>
-          {exchangeRate > 0 && (
-            <p className="text-[10px] text-alonzo-gray-600 leading-tight">{formatBs(total * exchangeRate)}</p>
-          )}
+    {/* ── Barra de checkout flotante (solo móvil) ──────────────
+        Total + CTA flotando abajo MIENTRAS no se llega al botón final.
+        Cuando el ancla entra en viewport (payDocked), se oculta y el botón
+        estático del resumen toma el relevo. */}
+    {!payDocked && (
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-alonzo-gray-300 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+        {errorMsg ? (
+          <p className="text-xs font-medium text-red-600 mb-2 text-center">{errorMsg}</p>
+        ) : paymentHint ? (
+          <p className="text-xs text-alonzo-gray-600 mb-2 text-center">{paymentHint}</p>
+        ) : null}
+        <div className="flex items-center gap-4">
+          <div className="shrink-0">
+            <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide leading-tight">Total</p>
+            <p className="text-lg font-bold text-alonzo-black leading-tight">{formatUSD(total)}</p>
+            {exchangeRate > 0 && (
+              <p className="text-[10px] text-alonzo-gray-600 leading-tight">{formatBs(total * exchangeRate)}</p>
+            )}
+          </div>
+          <button
+            className="flex-1 py-3.5 bg-alonzo-black text-white text-sm font-medium uppercase tracking-wider rounded-none active:bg-alonzo-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled={processing}
+            onClick={handleSubmit}
+          >
+            {processing ? 'Procesando...' : 'Confirmar pago'}
+          </button>
         </div>
-        <button
-          className="flex-1 py-3.5 bg-alonzo-black text-white text-sm font-medium uppercase tracking-wider rounded-none active:bg-alonzo-dark transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-          disabled={processing}
-          onClick={handleSubmit}
-        >
-          {processing ? 'Procesando...' : 'Confirmar pago'}
-        </button>
       </div>
-    </div>
+    )}
     </>
   );
 }
