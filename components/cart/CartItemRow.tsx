@@ -35,7 +35,7 @@ export function CartItemRow({ item, index, offer, onMoveToWishlist }: CartItemRo
   return (
     <div className="flex gap-6 md:gap-8 pb-8 border-b border-alonzo-gray-200 last:border-0 relative font-sans">
       {/* Image */}
-      <div className="w-[120px] h-[160px] md:w-[160px] md:h-[200px] shrink-0 bg-alonzo-gray-100 flex items-center justify-center overflow-hidden rounded-md relative">
+      <div className="w-[120px] h-[160px] md:w-[160px] md:h-[200px] shrink-0 bg-alonzo-gray-100 flex items-center justify-center overflow-hidden rounded-sm relative">
         <img
           src={item.img}
           alt={item.titulo}
@@ -61,7 +61,7 @@ export function CartItemRow({ item, index, offer, onMoveToWishlist }: CartItemRo
 
             <div className="flex items-center gap-3 mt-3">
               <span className="text-sm text-alonzo-gray-600">Cantidad:</span>
-              <div className="flex items-center gap-3 border border-alonzo-gray-300 rounded px-2 py-1">
+              <div className="flex items-center gap-3 border border-alonzo-gray-300 rounded-sm px-2 py-1">
                 <button 
                   onClick={decreaseQty}
                   disabled={item.qty <= 1}

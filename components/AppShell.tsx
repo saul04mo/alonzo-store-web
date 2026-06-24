@@ -156,7 +156,7 @@ function ShellContent({ children, announcements }: { children: React.ReactNode; 
         href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '584123380976'}?text=${encodeURIComponent('Hola ALONZO, me gustaría recibir más información.')}`}
         target="_blank"
         rel="noopener noreferrer"
-        className={`fixed ${pathname === '/checkout' ? 'bottom-28 lg:bottom-6' : 'bottom-6'} right-6 z-[200] w-[54px] h-[54px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300`}
+        className={`fixed ${pathname === '/checkout' || pathname === '/cart' ? 'bottom-28 lg:bottom-6' : 'bottom-6'} right-6 z-[200] w-[54px] h-[54px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300`}
         aria-label="Contactar por WhatsApp"
       >
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 ml-0.5 mt-0.5">

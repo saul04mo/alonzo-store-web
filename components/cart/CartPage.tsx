@@ -65,10 +65,11 @@ export function CartPage({ onCheckout }: CartPageProps) {
   };
 
   return (
+    <>
     <div className="w-full max-w-[1400px] mx-auto px-5 md:px-10 py-10 font-sans min-h-[60vh] page-fade-in">
-      <button 
-        onClick={() => router.back()} 
-        className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-black transition-colors mb-6 font-medium"
+      <button
+        onClick={() => router.back()}
+        className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors mb-6 font-medium"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M19 12H5"></path>
@@ -147,9 +148,10 @@ export function CartPage({ onCheckout }: CartPageProps) {
               )}
               {!exchangeRate && <div className="mb-8" />}
 
+              {/* CTA in-summary — desktop. En móvil usamos la barra fija de abajo. */}
               <button
                 onClick={handleCheckout}
-                className="w-full py-4 bg-[#222] text-white font-sans text-sm font-medium hover:bg-black transition-colors mb-4"
+                className="hidden md:block w-full py-4 bg-alonzo-black text-white font-sans text-sm font-medium uppercase tracking-wider hover:bg-alonzo-dark transition-colors mb-4"
               >
                 Continuar
               </button>
@@ -159,5 +161,31 @@ export function CartPage({ onCheckout }: CartPageProps) {
         </div>
       </div>
     </div>
+
+    {/* Espaciador + barra de carrito fija (solo móvil) — Total + CTA siempre
+        visibles para no obligar a hacer scroll hasta el fondo. */}
+    {items.length > 0 && (
+      <>
+        <div className="h-24 md:hidden" aria-hidden="true" />
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-alonzo-gray-300 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+          <div className="flex items-center gap-4">
+            <div className="shrink-0">
+              <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide leading-tight">Total</p>
+              <p className="text-lg font-bold text-alonzo-black leading-tight">{formatUSD(total)}</p>
+              {exchangeRate > 0 && (
+                <p className="text-[10px] text-alonzo-gray-600 leading-tight">{formatBs(total * exchangeRate)}</p>
+              )}
+            </div>
+            <button
+              onClick={handleCheckout}
+              className="flex-1 py-3.5 bg-alonzo-black text-white text-sm font-medium uppercase tracking-wider active:bg-alonzo-dark transition-colors"
+            >
+              Continuar
+            </button>
+          </div>
+        </div>
+      </>
+    )}
+    </>
   );
 }
