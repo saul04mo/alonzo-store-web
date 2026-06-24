@@ -50,7 +50,7 @@ export function CategoryHeader({
           <span className="text-sm text-alonzo-gray-600 mr-1">Ver</span>
           <button
             onClick={() => onGridColsChange(1)}
-            className={`p-1.5 rounded transition-colors sm:hidden ${gridCols === 1 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
+            className={`p-3 rounded transition-colors sm:hidden ${gridCols === 1 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="1 columna"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -60,7 +60,7 @@ export function CategoryHeader({
           </button>
           <button
             onClick={() => onGridColsChange(2)}
-            className={`p-1.5 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
+            className={`p-3 rounded transition-colors ${gridCols === 2 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="2 columnas"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -70,7 +70,7 @@ export function CategoryHeader({
           </button>
           <button
             onClick={() => onGridColsChange(3)}
-            className={`p-1.5 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
+            className={`p-3 rounded transition-colors hidden sm:flex ${gridCols === 3 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="3 columnas"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">
@@ -80,7 +80,7 @@ export function CategoryHeader({
           </button>
           <button
             onClick={() => onGridColsChange(4)}
-            className={`p-1.5 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
+            className={`p-3 rounded transition-colors hidden md:flex ${gridCols === 4 ? 'text-alonzo-black' : 'text-alonzo-gray-500 hover:text-alonzo-black'}`}
             title="4 columnas"
           >
             <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor">

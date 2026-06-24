@@ -62,19 +62,21 @@ export function CartItemRow({ item, index, offer, onMoveToWishlist }: CartItemRo
             <div className="flex items-center gap-3 mt-3">
               <span className="text-sm text-alonzo-gray-600">Cantidad:</span>
               <div className="flex items-center gap-3 border border-alonzo-gray-300 rounded-sm px-2 py-1">
-                <button 
+                <button
                   onClick={decreaseQty}
                   disabled={item.qty <= 1}
-                  className={`flex items-center justify-center transition-colors ${item.qty <= 1 ? 'text-alonzo-gray-300 cursor-not-allowed' : 'text-alonzo-gray-600 hover:text-black'}`}
+                  aria-label="Disminuir cantidad"
+                  className={`w-9 h-9 flex items-center justify-center transition-colors ${item.qty <= 1 ? 'text-alonzo-gray-300 cursor-not-allowed' : 'text-alonzo-gray-600 hover:text-alonzo-black'}`}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
                 </button>
                 <span className="text-sm font-medium w-4 text-center">{item.qty}</span>
-                <button 
+                <button
                   onClick={increaseQty}
-                  className="text-alonzo-gray-600 hover:text-black flex items-center justify-center transition-colors"
+                  aria-label="Aumentar cantidad"
+                  className="w-9 h-9 text-alonzo-gray-600 hover:text-alonzo-black flex items-center justify-center transition-colors"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -100,7 +102,7 @@ export function CartItemRow({ item, index, offer, onMoveToWishlist }: CartItemRo
             <button
               onClick={() => removeItem(index)}
               aria-label="Quitar del carrito"
-              className="p-1.5 text-alonzo-gray-600 hover:text-alonzo-black transition-colors"
+              className="w-9 h-9 flex items-center justify-center -mr-1.5 text-alonzo-gray-600 hover:text-alonzo-black transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

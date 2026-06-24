@@ -513,16 +513,16 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             <div className="flex items-center gap-0 mt-4 border border-alonzo-gray-300 w-fit">
               <button
                 onClick={() => setQty(Math.max(1, qty - 1))}
-                className="w-10 h-10 flex items-center justify-center text-alonzo-gray-500 hover:text-alonzo-black transition-colors"
+                className="w-11 h-11 flex items-center justify-center text-alonzo-gray-500 hover:text-alonzo-black transition-colors"
               >
                 <Minus size={14} />
               </button>
-              <span className="w-10 h-10 flex items-center justify-center text-sm font-medium text-alonzo-charcoal border-x border-alonzo-gray-300">
+              <span className="w-11 h-11 flex items-center justify-center text-sm font-medium text-alonzo-charcoal border-x border-alonzo-gray-300">
                 {qty}
               </span>
               <button
                 onClick={() => setQty(Math.min(99, qty + 1))}
-                className="w-10 h-10 flex items-center justify-center text-alonzo-gray-500 hover:text-alonzo-black transition-colors"
+                className="w-11 h-11 flex items-center justify-center text-alonzo-gray-500 hover:text-alonzo-black transition-colors"
               >
                 <Plus size={14} />
               </button>
