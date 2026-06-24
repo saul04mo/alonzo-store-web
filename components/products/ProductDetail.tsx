@@ -7,6 +7,7 @@ import { Heart, ChevronDown, ChevronLeft, ChevronRight, Truck, X, Minus, Plus, S
 import { useCartStore, useUIStore } from '@/stores';
 import { useToast } from '@/components/ui';
 import { fetchProducts, seedProduct } from '@/lib/api';
+import { auth } from '@/lib/firebase-client';
 import { productHref } from '@/lib/productUrl';
 import { getSizeGuideImage } from '@/config';
 import { useWishlist } from '@/lib/useWishlist';
@@ -24,6 +25,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   const toast = useToast();
   const { addItem } = useCartStore();
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
+  const setAuthOpen = useUIStore((s) => s.setAuthOpen);
 
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [selectedVariantIdx, setSelectedVariantIdx] = useState<number | null>(null);
@@ -34,10 +36,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
   // Gallery
   const [currentImageIdx, setCurrentImageIdx] = useState(0); // kept for reset only
-  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
-  const [zooming, setZooming] = useState(false);
   const touchStartX = useRef(0);
-  const galleryRef = useRef<HTMLDivElement>(null);
 
   const allImages = useMemo(() => {
     if (!product) return [];
@@ -157,10 +156,10 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   if (error || !product) {
     return (
       <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-20 text-center">
-        <p className="text-gray-500 mb-4">{error || 'Producto no encontrado'}</p>
+        <p className="text-alonzo-gray-600 mb-4">{error || 'Producto no encontrado'}</p>
         <button
           onClick={() => router.back()}
-          className="text-sm underline text-black"
+          className="text-sm underline text-alonzo-black"
         >
           Volver a la tienda
         </button>
@@ -280,12 +279,16 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     }
   };
 
-  // Zoom on desktop
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomPos({ x, y });
+  // Wishlist requiere sesión: sin login abrimos el modal de auth en vez de
+  // que el corazón no responda en silencio.
+  const handleToggleWishlist = () => {
+    if (!product) return;
+    if (!auth.currentUser) {
+      toast.show('Inicia sesión para guardar en tu lista de deseos');
+      setAuthOpen(true);
+      return;
+    }
+    toggleWishlist(product.id);
   };
 
   const handleShare = async () => {
@@ -347,13 +350,13 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 <>
                   <button
                     onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                    className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10 active:scale-95 text-alonzo-charcoal/70 hover:text-alonzo-black transition-colors"
+                    className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center z-10 active:scale-95 text-alonzo-charcoal/70 hover:text-alonzo-black transition-colors"
                   >
                     <ChevronLeft size={20} strokeWidth={2} />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); goNext(); }}
-                    className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10 active:scale-95 text-alonzo-charcoal/70 hover:text-alonzo-black transition-colors"
+                    className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center z-10 active:scale-95 text-alonzo-charcoal/70 hover:text-alonzo-black transition-colors"
                   >
                     <ChevronRight size={20} strokeWidth={2} />
                   </button>
@@ -377,7 +380,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
               {/* Image counter (desktop) */}
               {allImages.length > 1 && (
-                <span className="absolute bottom-3 right-3 text-[10px] text-alonzo-gray-500 bg-white/80 px-2 py-0.5 rounded-full z-10 hidden md:block">
+                <span className="absolute bottom-3 right-3 text-[10px] text-alonzo-gray-600 bg-white/90 px-2 py-0.5 rounded-full z-10 hidden md:block">
                   {realIdx + 1} / {allImages.length}
                 </span>
               )}
@@ -403,18 +406,19 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                   </p>
                 )}
                 <button
-                  onClick={() => product && toggleWishlist(product.id)}
+                  onClick={handleToggleWishlist}
+                  aria-label="Guardar en lista de deseos"
                   className="shrink-0"
                 >
                   <Heart
                     size={20}
                     strokeWidth={1.5}
-                    className={product && isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-alonzo-gray-400 hover:text-alonzo-gray-600 transition-colors'}
+                    className={product && isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-alonzo-gray-600 hover:text-alonzo-black transition-colors'}
                   />
                 </button>
                 <button
                   onClick={handleShare}
-                  className="shrink-0 text-alonzo-gray-400 hover:text-alonzo-gray-600 transition-colors"
+                  className="shrink-0 text-alonzo-gray-600 hover:text-alonzo-black transition-colors"
                 >
                   <Share2 size={18} strokeWidth={1.5} />
                 </button>
@@ -424,7 +428,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {/* Offer badge */}
             {hasOffer && (
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-sm font-sans text-alonzo-gray-400 line-through">
+                <span className="text-sm font-sans text-alonzo-gray-600 line-through">
                   {cs()}{displayPrice.toFixed(2)}
                 </span>
                 <span className="bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-sm">
@@ -437,11 +441,11 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
 
             {/* Description */}
             {product.description ? (
-              <p className="text-[11px] leading-relaxed text-alonzo-gray-500 tracking-wide mt-3">
+              <p className="text-[13px] leading-relaxed text-alonzo-gray-600 tracking-wide mt-3">
                 {product.description}
               </p>
             ) : (
-              <p className="text-[11px] leading-relaxed text-alonzo-gray-500 tracking-wide mt-3">
+              <p className="text-[13px] leading-relaxed text-alonzo-gray-600 tracking-wide mt-3">
                 {product.name} de la colección {product.category}. Diseñado con los más altos
                 estándares de calidad y fabricación premium.
               </p>
@@ -461,7 +465,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             {hasVariants && (
               <div className="flex items-center justify-between mt-6 mb-2">
                 <p className="text-xs font-sans tracking-[0.06em] text-alonzo-charcoal font-medium">
-                  Size:
+                  Talla:
                 </p>
               </div>
             )}
@@ -548,9 +552,9 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 className="w-full flex items-center justify-between py-3.5 text-left border-b border-alonzo-gray-200"
               >
                 <span className="text-[11px] tracking-[0.1em] uppercase font-medium text-alonzo-charcoal">
-                  Details
+                  Detalles
                 </span>
-                <span className="text-[11px] text-alonzo-gray-400">
+                <span className="text-[11px] text-alonzo-gray-600">
                   {activeAccordion === 'details' ? '−' : '+'}
                 </span>
               </button>
@@ -571,7 +575,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 <span className="text-[11px] tracking-[0.1em] uppercase font-medium text-alonzo-charcoal">
                   Envío y Pedidos
                 </span>
-                <span className="text-[11px] text-alonzo-gray-400">
+                <span className="text-[11px] text-alonzo-gray-600">
                   {activeAccordion === 'shipping' ? '−' : '+'}
                 </span>
               </button>
@@ -591,7 +595,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                 <span className="text-[11px] tracking-[0.1em] uppercase font-medium text-alonzo-charcoal">
                   Devoluciones y Cambios
                 </span>
-                <span className="text-[11px] text-alonzo-gray-400">
+                <span className="text-[11px] text-alonzo-gray-600">
                   {activeAccordion === 'returns' ? '−' : '+'}
                 </span>
               </button>
@@ -610,7 +614,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
       {/* ══════ Recommended Products ══════ */}
       {recommended.length > 0 && (
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-10 py-10 md:py-14 page-fade-in">
-          <h2 className="text-[11px] tracking-[0.18em] uppercase font-medium text-alonzo-gray-500 mb-6">
+          <h2 className="text-[11px] tracking-[0.18em] uppercase font-medium text-alonzo-gray-600 mb-6">
             También te puede gustar
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
@@ -650,6 +654,29 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
           </div>
         </div>
       )}
+
+      {/* ══════ Barra fija móvil — precio + añadir al carrito ══════ */}
+      <div className="md:hidden h-24" aria-hidden="true" />
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-alonzo-gray-300 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+        <div className="flex items-center gap-4">
+          <div className="shrink-0 min-w-0">
+            <p className="text-[10px] text-alonzo-gray-600 uppercase tracking-wide leading-tight truncate max-w-[38vw]">{product.name}</p>
+            <p className="text-base font-semibold leading-tight whitespace-nowrap">
+              {hasOffer ? (
+                <span className="text-red-600">{cs()}{discountedPrice.toFixed(2)}</span>
+              ) : (
+                <span className="text-alonzo-black">{cs()}{displayPrice.toFixed(2)}</span>
+              )}
+            </p>
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="flex-1 py-3.5 bg-alonzo-black text-white text-[12px] tracking-[0.18em] uppercase font-semibold active:bg-alonzo-charcoal transition-colors"
+          >
+            Añadir al carrito
+          </button>
+        </div>
+      </div>
 
       <style jsx>{`
         @keyframes accordionReveal {
