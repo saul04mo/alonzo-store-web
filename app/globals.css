@@ -126,20 +126,6 @@
   animation: slideUp 0.35s ease-out;
 }
 
-/* Hero — Ken Burns: zoom lento sobre la imagen activa del carrusel para un
-   aire editorial/premium. Se reinicia en cada slide (forwards). */
-@keyframes heroKenburns {
-  from { transform: scale(1); }
-  to { transform: scale(1.07); }
-}
-.hero-kenburns {
-  animation: heroKenburns 7s ease-out forwards;
-  will-change: transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-kenburns { animation: none; }
-}
-
 /* Page transitions */
 @keyframes pageFadeIn {
   from { opacity: 0; transform: translateY(12px); }

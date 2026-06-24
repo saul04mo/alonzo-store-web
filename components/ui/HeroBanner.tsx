@@ -74,7 +74,7 @@ export function HeroBanner({
 
   return (
     <div
-      className="relative w-full h-[100svh] bg-alonzo-gray-100 overflow-hidden"
+      className="relative w-full h-screen bg-alonzo-gray-100 overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -93,7 +93,7 @@ export function HeroBanner({
             return (
               <div
                 key={img + idx}
-                className={`relative h-full flex-shrink-0 ${idx === currentIdx ? 'hero-kenburns' : ''}`}
+                className="relative h-full flex-shrink-0"
                 style={{ width: `${100 / count}%` }}
               >
                 {/* Imagen móvil. priority sólo en el primer slide: es el
@@ -125,18 +125,18 @@ export function HeroBanner({
       <div className="absolute inset-0 bg-gradient-to-tr from-black/50 via-black/15 to-transparent pointer-events-none z-10" />
 
       {/* Texto */}
-      <div className="absolute z-20 bottom-12 left-4 right-4 md:bottom-16 md:left-12 md:right-auto md:max-w-[560px]">
+      <div className="absolute z-20 bottom-12 left-4 right-4 md:bottom-16 md:left-12 md:right-auto md:max-w-[400px]">
         <p className="text-[10px] md:text-xs font-sans tracking-[0.3em] uppercase text-white font-medium mb-3 md:mb-4 drop-shadow-lg stagger-up stagger-1">
-          Novedades
+          New Arrivals
         </p>
-        <h2 className="font-editorial font-normal text-white text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] uppercase tracking-[0.04em] leading-[1.02] [text-wrap:balance] mb-5 md:mb-7 drop-shadow-xl stagger-up stagger-2">
+        <h2 className="font-editorial font-normal text-white text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] uppercase tracking-[0.04em] leading-[1.05] mb-5 md:mb-7 drop-shadow-xl stagger-up stagger-2">
           {heroSubtitle}
         </h2>
         <button
           onClick={handleShop}
           className="inline-block px-10 md:px-14 py-3.5 md:py-4 bg-white text-alonzo-black text-[11px] md:text-xs font-sans font-semibold tracking-[0.2em] uppercase hover:bg-alonzo-black hover:text-white transition-colors duration-300 shadow-xl stagger-up stagger-3"
         >
-          Comprar
+          Shop Now
         </button>
       </div>
 
