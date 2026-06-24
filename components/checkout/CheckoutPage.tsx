@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { cs } from '@/lib/format';
 import { useRouter } from 'next/navigation';
-import { MapPin, ChevronDown, ChevronUp, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
+import { MapPin, ChevronDown, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
 import { BottomSheet, useToast } from '@/components/ui';
 import { useCartStore, useClientStore } from '@/stores';
 import { useExchangeRate } from '@/lib/useExchangeRate';
@@ -30,60 +30,21 @@ const AddressPicker = dynamic(
   }
 );
 
-/* ── Collapsible Section ────────────────────────────── */
+/* ── Sección de formulario (siempre visible, un solo form) ───────────── */
 function Section({
-  number,
   title,
-  summary,
-  open,
-  onToggle,
   children,
 }: {
-  number: number;
   title: string;
-  summary?: string;
-  open: boolean;
-  onToggle: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <div className="border-b border-alonzo-gray-300 py-6">
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={open}
-        aria-controls={`checkout-section-${number}`}
-        className="w-full flex items-center justify-between text-left group"
-      >
-        <div className="flex items-center gap-4">
-          <span className="w-8 h-8 rounded-full bg-alonzo-black text-white flex items-center justify-center text-sm font-medium shrink-0">
-            {number}
-          </span>
-          <div>
-            <h3 className="text-lg font-semibold text-alonzo-black">{title}</h3>
-            {!open && summary && (
-              <p className="text-sm text-alonzo-gray-600 mt-0.5">{summary}</p>
-            )}
-          </div>
-        </div>
-        <span className="text-sm text-alonzo-gray-600 group-hover:text-alonzo-black transition-colors flex items-center gap-1">
-          {open ? 'Cerrar' : 'Editar'}
-          {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </span>
-      </button>
-
-      <div
-        id={`checkout-section-${number}`}
-        role="region"
-        aria-label={title}
-        inert={!open ? true : undefined}
-        className={`transition-all duration-300 ease-in-out ${
-          open ? 'max-h-[2000px] opacity-100 mt-6 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'
-        }`}
-      >
-        {children}
-      </div>
-    </div>
+    <section className="border-b border-alonzo-gray-300 py-7">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-alonzo-black mb-5">
+        {title}
+      </h2>
+      {children}
+    </section>
   );
 }
 
@@ -138,17 +99,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const [fieldErrors, setFieldErrors] = useState<{ rif?: string; name?: string }>({});
   const rifRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
-
-  // Acordeón controlado: el padre conoce qué sección está abierta para poder
-  // abrir la sección con error al validar y marcar las cerradas como `inert`.
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => ({
-    datos: !client,
-    envio: !client?.address,
-    direccion: true,
-    pago: false,
-  }));
-  const toggleSection = (k: string) => setOpenSections((s) => ({ ...s, [k]: !s[k] }));
-  const openSection = (k: string) => setOpenSections((s) => ({ ...s, [k]: true }));
 
   // Coupon
   const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
@@ -221,34 +171,30 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     if (fe.rif || fe.name) {
       setFieldErrors(fe);
       setErrorMsg('Revisa tus datos personales.');
-      openSection('datos');
-      // Esperamos a que la sección se abra antes de enfocar el campo.
-      setTimeout(() => { (fe.rif ? rifRef : nameRef).current?.focus(); }, 60);
+      // Enfocamos (y desplazamos a) el primer campo con error.
+      (fe.rif ? rifRef : nameRef).current?.focus();
       return;
     }
     // La dirección solo es obligatoria si hay envío (no en retiro en tienda).
     if (deliveryType !== 'pickup' && !address) {
       setErrorMsg('Ingresa tu dirección de entrega.');
-      openSection('direccion');
       return;
     }
     if (deliveryType === 'local' && mapDeliveryCost === 0) {
       setErrorMsg('Selecciona tu ubicación en el mapa para calcular el costo de envío.');
-      openSection('direccion');
       return;
     }
-    if (!selectedPaymentMethod) { setErrorMsg('Selecciona tu método de pago para continuar.'); openSection('pago'); return; }
+    if (!selectedPaymentMethod) { setErrorMsg('Selecciona tu método de pago para continuar.'); return; }
     if (!canFinish) {
       const faltante = Math.max(0, total - totalPaid);
       setErrorMsg(`Ingresa el monto del pago. Faltan ${formatUSD(faltante)} por cubrir el total.`);
-      openSection('pago');
       return;
     }
     const needsProof = Object.keys(paymentSelection).some((id) => {
       const val = parseFloat(paymentSelection[id].amount) || 0;
       return val > 0 && id !== 'efectivo_usd';
     });
-    if (needsProof && !proofFile) { setErrorMsg('Debes subir el capture o foto del pago para finalizar.'); openSection('pago'); return; }
+    if (needsProof && !proofFile) { setErrorMsg('Debes subir el capture o foto del pago para finalizar.'); return; }
 
     processingRef.current = true;
     setProcessing(true);
@@ -324,14 +270,8 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         <div className="flex-1 lg:max-w-[60%]">
           <h1 className="text-2xl font-semibold text-alonzo-black mb-8">Finalizar compra</h1>
 
-          {/* 1. Datos personales */}
-          <Section
-            number={1}
-            title="Datos personales"
-            summary={name || 'Completa tus datos'}
-            open={openSections.datos}
-            onToggle={() => toggleSection('datos')}
-          >
+          {/* Datos personales */}
+          <Section title="Datos personales">
             <div className="space-y-5">
               <div>
                 <label htmlFor="checkout-rif" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">RIF / CI</label>
@@ -380,14 +320,8 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             </div>
           </Section>
 
-          {/* 2. Método de envío */}
-          <Section
-            number={2}
-            title="Método de envío"
-            summary={`${deliveryMethodLabel?.label} (${deliveryMethodLabel?.desc})`}
-            open={openSections.envio}
-            onToggle={() => toggleSection('envio')}
-          >
+          {/* Método de envío */}
+          <Section title="Método de envío">
             <div className="space-y-4">
               <div className="relative">
                 <button
@@ -445,15 +379,9 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             </div>
           </Section>
 
-          {/* 3. Dirección de entrega (oculto si es pickup) */}
+          {/* Dirección de entrega (oculto si es pickup) */}
           {deliveryType !== 'pickup' && (
-            <Section
-              number={3}
-              title="Dirección de entrega"
-              summary={address ? address.substring(0, 60) + '...' : 'Busca tu dirección en el mapa'}
-              open={openSections.direccion}
-              onToggle={() => toggleSection('direccion')}
-            >
+            <Section title="Dirección de entrega">
               <AddressPicker
                 initialAddress={address}
                 onAddressSelect={handleAddressSelect}
@@ -463,29 +391,17 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
           )}
 
           {/* Cupón de descuento */}
-          <div className="border-b border-alonzo-gray-300 py-6">
-            <div className="flex items-center gap-4 mb-4">
-              <span className="w-8 h-8 rounded-full bg-alonzo-black text-white flex items-center justify-center text-sm font-medium shrink-0">
-                {deliveryType === 'pickup' ? 3 : 4}
-              </span>
-              <h3 className="text-lg font-semibold text-alonzo-black">Cupón de descuento</h3>
-            </div>
+          <Section title="Cupón de descuento">
             <CouponInput
               subtotal={subtotal}
               appliedCoupon={appliedCoupon}
               onApply={setAppliedCoupon}
               onRemove={() => setAppliedCoupon(null)}
             />
-          </div>
+          </Section>
 
           {/* Pago */}
-          <Section
-            number={deliveryType === 'pickup' ? 4 : 5}
-            title="Pago"
-            summary="Selecciona tu método de pago"
-            open={openSections.pago}
-            onToggle={() => toggleSection('pago')}
-          >
+          <Section title="Pago">
             <PaymentGrid
               paymentMethods={paymentMethods}
               selection={paymentSelection}
