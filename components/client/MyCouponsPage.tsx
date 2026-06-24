@@ -94,63 +94,64 @@ export function MyCouponsPage() {
     <div className="max-w-[1000px] mx-auto px-4 md:px-10 py-12 font-sans min-h-[60vh]">
       <button
         onClick={() => router.push('/account')}
-        className="flex items-center text-[11px] font-bold tracking-widest text-gray-400 hover:text-black transition-colors mb-8 uppercase"
+        className="flex items-center text-[11px] font-bold tracking-widest text-alonzo-gray-600 hover:text-alonzo-black transition-colors mb-8 uppercase"
       >
         <ChevronLeft size={14} className="mr-1" /> VOLVER A MI CUENTA
       </button>
 
-      <h1 className="text-[24px] md:text-[28px] font-light text-black leading-tight tracking-tight mb-2">
+      <h1 className="text-[24px] md:text-[28px] font-light text-alonzo-black leading-tight tracking-tight mb-2">
         Mis Cupones
       </h1>
-      <p className="text-sm text-gray-500 mb-12">
+      <p className="text-sm text-alonzo-gray-600 mb-12">
         Cupones disponibles para tu próxima compra. Copia el código y úsalo en el checkout.
       </p>
 
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="h-28 border border-gray-200 animate-pulse bg-gray-50 rounded" />
+            <div key={i} className="h-28 border border-alonzo-gray-300 animate-pulse bg-alonzo-gray-100 rounded" />
           ))}
         </div>
       ) : coupons.length === 0 ? (
-        <div className="py-20 text-center border border-dashed border-gray-200 rounded-lg">
-          <Ticket size={48} strokeWidth={1} className="mx-auto text-gray-300 mb-4" />
-          <p className="text-sm text-gray-500 mb-2">No tienes cupones disponibles en este momento.</p>
-          <p className="text-xs text-gray-400">Los cupones nuevos aparecerán aquí automáticamente.</p>
+        <div className="py-20 text-center border border-dashed border-alonzo-gray-300 rounded-sm">
+          <Ticket size={48} strokeWidth={1} className="mx-auto text-alonzo-gray-400 mb-4" />
+          <p className="text-sm text-alonzo-gray-600 mb-2">No tienes cupones disponibles en este momento.</p>
+          <p className="text-xs text-alonzo-gray-600">Los cupones nuevos aparecerán aquí automáticamente.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {coupons.map((coupon) => (
             <div
               key={coupon.code}
-              className="border border-gray-200 hover:border-black transition-colors flex flex-col sm:flex-row overflow-hidden"
+              className="border border-alonzo-gray-300 hover:border-alonzo-black transition-colors flex flex-col sm:flex-row overflow-hidden"
             >
               {/* Left: Discount */}
-              <div className="bg-black text-white px-6 py-5 flex flex-col items-center justify-center min-w-[140px] shrink-0">
+              <div className="bg-alonzo-black text-white px-6 py-5 flex flex-col items-center justify-center min-w-[140px] shrink-0">
                 <p className="text-2xl font-bold">
                   {coupon.discountType === 'percentage'
                     ? `${coupon.discountValue}%`
                     : `$${coupon.discountValue}`}
                 </p>
-                <p className="text-[10px] uppercase tracking-widest text-gray-400 mt-1">descuento</p>
+                <p className="text-[10px] uppercase tracking-widest text-alonzo-gray-400 mt-1">descuento</p>
               </div>
 
               {/* Right: Details */}
               <div className="flex-1 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <p className="font-mono text-lg font-bold tracking-wider text-black">{coupon.code}</p>
+                    <p className="font-mono text-lg font-bold tracking-wider text-alonzo-black">{coupon.code}</p>
                     <button
                       onClick={() => handleCopy(coupon.code)}
-                      className="p-1 text-gray-400 hover:text-black transition-colors"
+                      aria-label="Copiar código"
+                      className="p-1.5 text-alonzo-gray-600 hover:text-alonzo-black transition-colors"
                     >
                       {copiedCode === coupon.code
                         ? <CheckCircle size={14} className="text-green-500" />
                         : <Copy size={14} />}
                     </button>
                   </div>
-                  <p className="text-sm text-gray-600">{coupon.description}</p>
-                  <div className="flex flex-wrap gap-3 mt-2.5 text-[10px] text-gray-500">
+                  <p className="text-sm text-alonzo-gray-600">{coupon.description}</p>
+                  <div className="flex flex-wrap gap-3 mt-2.5 text-[10px] text-alonzo-gray-600">
                     {coupon.minPurchase > 0 && (
                       <span className="flex items-center gap-1">
                         <Gift size={10} /> Compra mínima: {cs()}{coupon.minPurchase.toFixed(2)}
@@ -176,7 +177,7 @@ export function MyCouponsPage() {
 
                 <button
                   onClick={() => { handleCopy(coupon.code); router.push('/'); }}
-                  className="bg-black text-white px-6 py-3 text-[10px] font-bold tracking-widest hover:bg-gray-800 transition-colors uppercase shrink-0"
+                  className="bg-alonzo-black text-white px-6 py-3 text-[10px] font-bold tracking-widest hover:bg-alonzo-dark transition-colors uppercase shrink-0"
                 >
                   USAR AHORA
                 </button>
