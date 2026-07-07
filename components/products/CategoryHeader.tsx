@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 
 type GridCols = 1 | 2 | 3 | 4;
@@ -11,12 +12,16 @@ interface CategoryHeaderProps {
   onGridColsChange: (cols: GridCols) => void;
   onOpenFilter: () => void;
   filtersActive: boolean;
+  categories: string[];
+  activeCategory: string;
+  onSelectCategory: (cat: string) => void;
 }
 
 /**
- * Encabezado de una categoría: título + conteo + descripción + selector
- * de columnas (view toggle) + botón de filtros. Antes vivía inline dentro
- * de HomePage; extraído para que HomePage quede legible.
+ * Encabezado de una categoría: título + conteo + descripción + chips de
+ * categorías del género (para cambiar de categoría sin volver al menú) +
+ * selector de columnas (view toggle) + botón de filtros. Antes vivía
+ * inline dentro de HomePage; extraído para que HomePage quede legible.
  */
 export function CategoryHeader({
   displayName,
@@ -26,7 +31,18 @@ export function CategoryHeader({
   onGridColsChange,
   onOpenFilter,
   filtersActive,
+  categories,
+  activeCategory,
+  onSelectCategory,
 }: CategoryHeaderProps) {
+  // HomePage remonta este componente por cada cambio de categoría (key=
+  // activeCategory), así que este efecto corre en cada cambio y centra
+  // el chip activo — si no, en mobile puede quedar fuera del scroll visible.
+  const activeChipRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    activeChipRef.current?.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }, []);
+
   return (
     <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-4 md:pt-6 page-fade-in">
       {/* Title + count */}
@@ -39,14 +55,16 @@ export function CategoryHeader({
 
       {/* Description */}
       {description && (
-        <p className="text-xs md:text-sm text-alonzo-gray-600 max-w-2xl mb-6 md:mb-10 leading-relaxed">
+        <p className="text-xs md:text-sm text-alonzo-gray-600 max-w-2xl mb-6 leading-relaxed">
           {description}
         </p>
       )}
 
-      {/* View toggle + Filter */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      {/* View toggle + category chips + Filter — todo en una fila.
+          Los chips ocupan el espacio central y scrollean horizontal si
+          no caben, para no romper el layout en mobile. */}
+      <div className="flex items-center gap-3 md:gap-4">
+        <div className="flex items-center gap-3 shrink-0">
           <span className="text-sm text-alonzo-gray-600 mr-1">Ver</span>
           <button
             onClick={() => onGridColsChange(1)}
@@ -91,9 +109,34 @@ export function CategoryHeader({
             </svg>
           </button>
         </div>
+
+        {/* Category chips — cambiar de categoría del mismo género sin
+            volver al menú. */}
+        {categories.length > 1 && (
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0 border-l border-alonzo-gray-200 pl-3 md:pl-4">
+            {categories.map((cat) => {
+              const isActive = cat === activeCategory;
+              return (
+                <button
+                  key={cat}
+                  ref={isActive ? activeChipRef : undefined}
+                  onClick={() => onSelectCategory(cat)}
+                  className={`shrink-0 px-3 py-1.5 text-[11px] md:text-xs font-sans tracking-wider uppercase border transition-colors ${
+                    isActive
+                      ? 'bg-alonzo-black text-white border-alonzo-black'
+                      : 'border-alonzo-gray-300 text-alonzo-charcoal hover:border-alonzo-black'
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         <button
           onClick={onOpenFilter}
-          className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors relative"
+          className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors relative shrink-0 ml-auto"
         >
           <span>Filtrar</span>
           <SlidersHorizontal size={20} />

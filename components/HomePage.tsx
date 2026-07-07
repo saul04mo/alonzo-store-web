@@ -153,6 +153,9 @@ export function HomePage({
             onGridColsChange={setGridCols}
             onOpenFilter={() => setFilterOpen(true)}
             filtersActive={filtersActive}
+            categories={categories}
+            activeCategory={activeCategory}
+            onSelectCategory={setActiveCategory}
           />
         )}
 
