@@ -4,6 +4,7 @@ import { CheckCircle, Star, MessageCircle, Truck, Store, Copy, ShoppingBag } fro
 import { useToast } from '@/components/ui';
 import { submitRating } from '@/lib/api';
 import { buildOrderWhatsAppMessage, buildWhatsAppLink, cs } from '@/lib/format';
+import { displaySize } from '@/lib/sizes';
 import { useWebSettings } from '@/lib/useWebSettings';
 import type { Invoice } from '@/types';
 
@@ -111,7 +112,7 @@ export function OrderSuccess({
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-medium text-alonzo-black truncate">{item.name}</p>
                   <p className="text-[10px] text-alonzo-gray-600">
-                    Talla: {item.size}{item.color ? ` · ${item.color}` : ''} · Cant: {item.quantity}
+                    Talla: {displaySize(item.size)}{item.color ? ` · ${item.color}` : ''} · Cant: {item.quantity}
                   </p>
                 </div>
                 <p className="text-xs font-semibold text-alonzo-black shrink-0">{cs()}{item.rowTotal.toFixed(2)}</p>

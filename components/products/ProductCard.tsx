@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
 import { productHref } from '@/lib/productUrl';
+import { isSingleSizeLabel } from '@/lib/sizes';
 
 // Global cache — survives component remounts (back navigation)
 const loadedImages = new Set<string>();
@@ -79,6 +80,13 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     variantIndex: info.variantIndex,
   }));
 
+  // S/T (talla única) nunca se muestra como opción — a veces aparece como
+  // variante extra junto a tallas reales (S, M, L...), otras es la única.
+  const visibleSizes = uniqueSizes.filter((s) => !isSingleSizeLabel(s.size));
+  // Producto "talla única" (ej. S/T) — no hay nada que seleccionar, así que
+  // el botón + agrega directo esa variante en vez de abrir un selector.
+  const isSingleSize = uniqueSizes.length === 1 && isSingleSizeLabel(uniqueSizes[0].size);
+
   const handleSizeClick = (e: React.MouseEvent, sizeInfo: typeof uniqueSizes[0]) => {
     e.stopPropagation();
     e.preventDefault();
@@ -114,6 +122,10 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   // Hover on + button → show sizes
   const toggleSizes = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isSingleSize) {
+      handleSizeClick(e, uniqueSizes[0]);
+      return;
+    }
     setShowSizes(!showSizes);
   };
 
@@ -178,17 +190,17 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         )}
 
         {/* +/× Button — bottom right: always visible on mobile, hover on desktop */}
-        {uniqueSizes.length > 0 && (
+        {(isSingleSize || visibleSizes.length > 0) && (
           <div
             onClick={toggleSizes}
-            onMouseEnter={() => { if (canHover) setShowSizes(true); }}
+            onMouseEnter={() => { if (canHover && !isSingleSize) setShowSizes(true); }}
             className={`absolute right-2 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center z-30 transition-all duration-200 cursor-pointer ${
-              showSizes
+              showSizes && !isSingleSize
                 ? 'bottom-[42px] sm:bottom-[46px] opacity-100'
                 : 'bottom-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100'
             }`}
           >
-            {showSizes ? (
+            {showSizes && !isSingleSize ? (
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="text-alonzo-gray-700">
                 <line x1="3" y1="3" x2="11" y2="11" /><line x1="11" y1="3" x2="3" y2="11" />
               </svg>
@@ -199,12 +211,12 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         )}
 
         {/* Sizes bar — horizontal, bottom of image */}
-        {showSizes && uniqueSizes.length > 0 && (
+        {showSizes && !isSingleSize && visibleSizes.length > 0 && (
           <div
             className="absolute bottom-0 left-0 right-0 bg-white/95 border-t border-alonzo-gray-300 z-20 flex justify-center sizes-reveal"
             onClick={(e) => e.stopPropagation()}
           >
-            {uniqueSizes.map(({ size, inStock, variantIndex }, idx) => (
+            {visibleSizes.map(({ size, inStock, variantIndex }, idx) => (
               <div
                 key={size}
                 onClick={(e) => handleSizeClick(e, { size, inStock, variantIndex })}

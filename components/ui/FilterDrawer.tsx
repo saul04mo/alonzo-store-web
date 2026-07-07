@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import type { Product } from '@/types';
+import { isSingleSizeLabel } from '@/lib/sizes';
 
 export interface FilterState {
   sortBy: 'default' | 'price_asc' | 'price_desc';
@@ -185,7 +186,7 @@ export function extractSizes(products: Product[]): string[] {
   const sizeSet = new Set<string>();
   products.forEach((p) => {
     p.variants.forEach((v) => {
-      if (v.size && parseInt(v.stock) > 0) sizeSet.add(v.size);
+      if (v.size && !isSingleSizeLabel(v.size) && parseInt(v.stock) > 0) sizeSet.add(v.size);
     });
   });
   const order = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'];

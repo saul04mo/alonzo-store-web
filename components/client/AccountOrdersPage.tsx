@@ -4,6 +4,7 @@ import { useClientStore } from '@/stores';
 import { auth, onAuthStateChanged } from '@/lib/firebase-client';
 import { fetchClientOrders, fetchClientOrdersByRif } from '@/lib/api';
 import { formatUSD } from '@/lib/format';
+import { displaySize } from '@/lib/sizes';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Package, Clock, CheckCircle, XCircle, Truck, MapPin, CreditCard, ChevronDown, ShoppingBag } from 'lucide-react';
 import type { Invoice } from '@/types';
@@ -236,7 +237,7 @@ export function AccountOrdersPage() {
                           const name = item.productName || item.titulo || item.name || '—';
                           const qty = item.quantity || item.qty || 1;
                           const price = item.priceAtSale || item.price || 0;
-                          const label = item.variantLabel || (item.size ? `${item.size}${item.color ? ' / ' + item.color : ''}` : '');
+                          const label = item.variantLabel || (item.size ? `${displaySize(item.size)}${item.color ? ' / ' + item.color : ''}` : '');
 
                           return (
                             <div key={idx} className="flex gap-4 items-center">

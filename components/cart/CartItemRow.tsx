@@ -1,6 +1,7 @@
 'use client';
 import { Heart } from 'lucide-react';
 import { cs } from '@/lib/format';
+import { displaySize } from '@/lib/sizes';
 import { useCartStore } from '@/stores';
 import type { CartItem } from '@/types';
 
@@ -56,7 +57,7 @@ export function CartItemRow({ item, index, offer, onMoveToWishlist }: CartItemRo
               {item.titulo}
             </h3>
             <p className="text-sm text-alonzo-gray-600 mt-2">
-              Talla: <span className="font-semibold text-alonzo-black">{item.size || 'Única'}</span>
+              Talla: <span className="font-semibold text-alonzo-black">{displaySize(item.size)}</span>
             </p>
 
             <div className="flex items-center gap-3 mt-3">

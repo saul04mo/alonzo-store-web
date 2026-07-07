@@ -1,6 +1,7 @@
 'use client';
 
 import { cs } from '@/lib/format';
+import { displaySize } from '@/lib/sizes';
 import { useEffect, useRef } from 'react';
 import { X, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
@@ -109,7 +110,7 @@ export function CartDrawer() {
                         {item.titulo}
                       </p>
                       <p className="text-[10px] text-alonzo-gray-500 mt-0.5 tracking-wide">
-                        Talla: {item.size} {item.color && `· ${item.color}`}
+                        Talla: {displaySize(item.size)} {item.color && `· ${item.color}`}
                       </p>
                     </div>
                     <div className="flex items-center justify-between mt-1">

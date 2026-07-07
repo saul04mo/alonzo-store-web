@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { cs } from '@/lib/format';
+import { displaySize } from '@/lib/sizes';
 import { useRouter } from 'next/navigation';
 import { MapPin, ChevronDown, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
 import { BottomSheet, useToast } from '@/components/ui';
@@ -523,7 +524,7 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-alonzo-black truncate">{item.titulo}</p>
                       {item.size && (
-                        <p className="text-xs text-alonzo-gray-600 mt-0.5">Talla: {item.size}</p>
+                        <p className="text-xs text-alonzo-gray-600 mt-0.5">Talla: {displaySize(item.size)}</p>
                       )}
                       <p className="text-xs text-alonzo-gray-600">Cant: {item.qty}</p>
                     </div>

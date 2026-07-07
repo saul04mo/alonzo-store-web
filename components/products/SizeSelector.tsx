@@ -1,5 +1,6 @@
 'use client';
 import { BottomSheet } from '@/components/ui';
+import { isSingleSizeLabel } from '@/lib/sizes';
 import type { Product, ProductVariant } from '@/types';
 
 interface SizeSelectorProps {
@@ -15,6 +16,7 @@ export function SizeSelector({ product, open, onClose, onSelect }: SizeSelectorP
   return (
     <BottomSheet open={open} onClose={onClose} title="SELECCIONA TU TALLA" zIndex={3500}>
       {product.variants.map((variant, idx) => {
+        if (isSingleSizeLabel(variant.size) && product.variants.length > 1) return null;
         const inStock = parseInt(variant.stock) > 0;
         return (
           <button

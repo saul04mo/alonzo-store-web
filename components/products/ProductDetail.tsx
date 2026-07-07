@@ -10,6 +10,7 @@ import { fetchProducts, seedProduct } from '@/lib/api';
 import { auth } from '@/lib/firebase-client';
 import { productHref } from '@/lib/productUrl';
 import { getSizeGuideImage } from '@/config';
+import { isSingleSizeLabel } from '@/lib/sizes';
 import { useWishlist } from '@/lib/useWishlist';
 import { ProductCard } from '@/components/products/ProductCard';
 import { trackPixel } from '@/lib/meta-pixel';
@@ -53,6 +54,21 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [product?.id]);
+
+  // Producto "talla única" (ej. S/T): no hay selector que mostrar, así que
+  // la variante se auto-selecciona para que "Añadir al carrito" funcione
+  // sin requerir un click extra del cliente.
+  useEffect(() => {
+    if (!product) return;
+    const sizeEntries = new Map<string, number>();
+    product.variants.forEach((v, idx) => {
+      if (v.size && !sizeEntries.has(v.size)) sizeEntries.set(v.size, idx);
+    });
+    if (sizeEntries.size === 1) {
+      const [onlySize, variantIndex] = Array.from(sizeEntries.entries())[0];
+      if (isSingleSizeLabel(onlySize)) setSelectedVariantIdx(variantIndex);
+    }
+  }, [product]);
 
   // Meta Pixel: registra la vista de la ficha de producto. Alimenta el
   // retargeting ("vio este producto pero no compró") y los catálogos de Meta.
@@ -226,6 +242,14 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     }
   });
   const sizes = Array.from(sizeEntries.entries());
+  // S/T (talla única) nunca se muestra como opción — a veces aparece como
+  // variante extra junto a tallas reales (S, M, L...), otras es la única.
+  const visibleSizes = sizes.filter(([size]) => !isSingleSizeLabel(size));
+
+  // Producto "talla única" (ej. S/T) — no hay nada que seleccionar, se
+  // trata como si no tuviera tallas y se auto-selecciona esa variante.
+  const isSingleSize = sizes.length === 1 && isSingleSizeLabel(sizes[0][0]);
+  const showSizeSelector = hasVariants && !isSingleSize && visibleSizes.length > 0;
 
   // Agrega el ítem actual al carrito. Devuelve true si quedó en el carrito
   // (nuevo o cantidad actualizada), false si falló la validación (sin talla o
@@ -515,7 +539,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             </div>
 
             {/* Size label + guide link */}
-            {hasVariants && (
+            {showSizeSelector && (
               <div className="flex items-center justify-between mt-6 mb-2">
                 <p className="text-xs font-sans tracking-[0.06em] text-alonzo-charcoal font-medium">
                   Talla:
@@ -524,9 +548,9 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
             )}
 
             {/* Inline size selector */}
-            {hasVariants && (
+            {showSizeSelector && (
               <div className="flex flex-wrap gap-0 border border-alonzo-gray-300">
-                {sizes.map(([size, info], idx) => {
+                {visibleSizes.map(([size, info], idx) => {
                   const inStock = info.stock > 0;
                   const isSelected = selectedVariantIdx === info.variantIndex;
                   return (
@@ -618,7 +642,7 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
                   <p>Categoría: {product.category}</p>
                   <p>Género: {product.gender}</p>
                   {selectedVariant && <p>Color: {selectedVariant.color}</p>}
-                  {hasVariants && <p>Tallas disponibles: {sizes.map(([s]) => s).join(', ')}</p>}
+                  {showSizeSelector && <p>Tallas disponibles: {visibleSizes.map(([s]) => s).join(', ')}</p>}
                 </div>
               )}
 
