@@ -44,3 +44,8 @@ coverage/
 
 # Local Netlify folder
 .netlify
+
+# Agent/design skill caches (local tooling, not app code)
+.agents/
+.impeccable/
+skills-lock.json

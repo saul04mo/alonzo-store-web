@@ -4,6 +4,7 @@ import { Inter, Bebas_Neue } from 'next/font/google';
 import { AppShell } from '@/components/AppShell';
 import { Analytics } from '@/components/Analytics';
 import { Clarity } from '@/components/Clarity';
+import { MetaPixel } from '@/components/MetaPixel';
 import { getAnnouncements } from '@/lib/getAnnouncements';
 import './globals.css';
 
@@ -106,6 +107,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
         <Suspense fallback={null}>
           <Analytics />
+        </Suspense>
+        <Suspense fallback={null}>
+          <MetaPixel />
         </Suspense>
         <Clarity />
         <AppShell announcements={announcements}>{children}</AppShell>

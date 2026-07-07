@@ -12,6 +12,7 @@ import { productHref } from '@/lib/productUrl';
 import { getSizeGuideImage } from '@/config';
 import { useWishlist } from '@/lib/useWishlist';
 import { ProductCard } from '@/components/products/ProductCard';
+import { trackPixel } from '@/lib/meta-pixel';
 import type { Product, ProductVariant } from '@/types';
 
 interface ProductDetailPageProps {
@@ -51,6 +52,20 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [product?.id]);
+
+  // Meta Pixel: registra la vista de la ficha de producto. Alimenta el
+  // retargeting ("vio este producto pero no compró") y los catálogos de Meta.
+  useEffect(() => {
+    if (!product) return;
+    const unit = product.variants?.length ? product.variants[0].price : product.price;
+    trackPixel('ViewContent', {
+      content_ids: [product.id],
+      content_name: product.name,
+      content_type: 'product',
+      value: parseFloat(unit || '0') || 0,
+      currency: 'USD',
+    });
   }, [product?.id]);
 
   // Observa el botón en flujo: cuando entra en viewport (descontando la zona de
@@ -271,14 +286,34 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     return true;
   };
 
+  // Meta Pixel: señal fuerte de intención de compra. Se dispara tanto al
+  // "Añadir al carrito" como al "Comprar ahora" (ambos agregan el ítem).
+  const trackAddToCart = () => {
+    const unit = selectedVariant ? selectedVariant.price : (product.price || '0');
+    trackPixel('AddToCart', {
+      content_ids: [product.id],
+      content_name: product.name,
+      content_type: 'product',
+      contents: [{ id: product.id, quantity: qty }],
+      value: (parseFloat(unit) || 0) * qty,
+      currency: 'USD',
+    });
+  };
+
   const handleAddToCart = () => {
-    if (addCurrentItem()) setCartDrawerOpen(true);
+    if (addCurrentItem()) {
+      trackAddToCart();
+      setCartDrawerOpen(true);
+    }
   };
 
   // "Comprar ahora": agrega el ítem y va directo al checkout, sin pasar por el
   // carrito ni abrir el drawer.
   const handleBuyNow = () => {
-    if (addCurrentItem()) router.push('/checkout');
+    if (addCurrentItem()) {
+      trackAddToCart();
+      router.push('/checkout');
+    }
   };
 
   const toggleAccordion = (key: string) => {

@@ -219,6 +219,11 @@ export function applyFilters(products: Product[], filters: FilterState): Product
       const priceB = parseFloat(b.variants[0]?.price || b.price || '0');
       return filters.sortBy === 'price_asc' ? priceA - priceB : priceB - priceA;
     });
+  } else {
+    result.sort((a, b) =>
+      a.category.localeCompare(b.category, 'es', { sensitivity: 'base' }) ||
+      a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })
+    );
   }
   return result;
 }

@@ -118,7 +118,9 @@ function ShellContent({ children, announcements }: { children: React.ReactNode; 
 
       <main className="pb-24 md:pb-10">{children}</main>
 
-      <SiteFooter />
+      {/* El footer se oculta en el checkout: sus enlaces (ayuda, redes, devoluciones)
+          distraen y sacan al cliente del flujo de compra. */}
+      {pathname !== '/checkout' && <SiteFooter />}
 
       <CartDrawer />
 

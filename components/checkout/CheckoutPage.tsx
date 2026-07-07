@@ -9,6 +9,7 @@ import { useExchangeRate } from '@/lib/useExchangeRate';
 import { deliveryMethods } from '@/config';
 import { usePaymentMethods } from '@/lib/usePaymentMethods';
 import { createOrder } from '@/lib/api';
+import { trackPixel } from '@/lib/meta-pixel';
 import { auth, signInAnonymously } from '@/lib/firebase-client';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD, formatBs } from '@/lib/format';
@@ -61,6 +62,22 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const { client, setClient } = useClientStore();
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  // Meta Pixel: inicio del checkout. Mide el abandono de carrito y permite
+  // optimizar campañas hacia gente que sí empieza a comprar. Solo una vez al
+  // montar, si hay ítems en el carrito.
+  useEffect(() => {
+    if (items.length === 0) return;
+    trackPixel('InitiateCheckout', {
+      content_ids: items.map((i) => i.productId),
+      content_type: 'product',
+      contents: items.map((i) => ({ id: i.productId, quantity: i.qty })),
+      num_items: items.reduce((n, i) => n + i.qty, 0),
+      value: totalMoney(),
+      currency: 'USD',
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Observa el ancla del botón de pago: cuando entra en viewport (descontando
   // la zona de la barra flotante), lo damos por "estacionado".
@@ -257,6 +274,18 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         authenticatedClientId: client?.id,
         couponCode: appliedCoupon?.code || undefined,
       });
+      // Meta Pixel: la conversión. Es el evento MÁS importante — con él Meta
+      // optimiza las campañas y calcula el ROAS. Va antes de limpiar el carrito
+      // para tener los ítems a mano.
+      trackPixel('Purchase', {
+        content_ids: items.map((i) => i.productId),
+        content_type: 'product',
+        contents: items.map((i) => ({ id: i.productId, quantity: i.qty })),
+        num_items: items.reduce((n, i) => n + i.qty, 0),
+        value: result.invoiceData.total,
+        currency: 'USD',
+      });
+
       clearCart();
       onSuccess(result.invoiceData, result.numericId, result.docId);
     } catch (err) {

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Smartphone, Building2, Banknote, Bitcoin, Wallet, CreditCard, Copy, Check, Upload, Image as ImageIcon,
 } from 'lucide-react';
@@ -79,15 +79,6 @@ export function PaymentGrid({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onProofChange(e.target.files?.[0] || null);
   };
-
-  // Pago Móvil por defecto (lo más usado): se preselecciona en cuanto cargan
-  // los métodos, para ahorrar un toque y mostrar sus datos de una vez.
-  useEffect(() => {
-    if (selectedMethod || paymentMethods.length === 0) return;
-    const def = paymentMethods.find((m) => m.id === 'pago_movil') || paymentMethods[0];
-    if (def) handleSelect(def.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paymentMethods]);
 
   const labels: Record<string, string> = {
     bank: 'Banco', name: 'Nombre', phone: 'Teléfono',

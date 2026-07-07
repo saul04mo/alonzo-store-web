@@ -62,7 +62,11 @@ export function SearchPage() {
       );
     }
 
-    return filtered;
+    return [...filtered].sort((a, b) =>
+      a.gender.localeCompare(b.gender, 'es', { sensitivity: 'base' }) ||
+      a.category.localeCompare(b.category, 'es', { sensitivity: 'base' }) ||
+      a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })
+    );
   }, [query, allProducts, genderFilter]);
 
   const handleProductClick = useCallback((product: Product) => {

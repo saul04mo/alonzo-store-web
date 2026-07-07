@@ -175,7 +175,7 @@ export function CartDrawer() {
               onClick={() => { setOpen(false); router.push('/checkout'); }}
               className="w-full py-3 bg-white text-alonzo-black text-[11px] tracking-[0.15em] uppercase font-semibold rounded-sm border border-alonzo-black hover:bg-alonzo-gray-100 transition-colors"
             >
-              Checkout
+              Finalizar compra
             </button>
           </div>
         )}
