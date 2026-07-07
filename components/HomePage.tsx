@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { PromotionsBanner } from '@/components/products/PromotionsBanner';
@@ -13,7 +13,7 @@ import { categoryDescriptions } from '@/config';
 import { useCatalog } from '@/lib/useCatalog';
 import { useCatalogUrlState } from '@/lib/useCatalogUrlState';
 import { useUIStore } from '@/stores';
-import { FilterDrawer, applyFilters, extractSizes, defaultFilters } from '@/components/ui/FilterDrawer';
+import { FilterDrawer, applyFilters, extractSizes, extractSubcategories, defaultFilters } from '@/components/ui/FilterDrawer';
 import type { FilterState } from '@/components/ui/FilterDrawer';
 import type { Product, Gender } from '@/types';
 
@@ -80,6 +80,18 @@ export function HomePage({
 
   const filteredProducts = useMemo(() => applyFilters(baseProducts, filters), [baseProducts, filters]);
   const availableSizes = useMemo(() => extractSizes(baseProducts), [baseProducts]);
+  const availableSubcategories = useMemo(() => extractSubcategories(baseProducts), [baseProducts]);
+
+  // El filtro de "Tipo" es específico de cada categoría (Cargo/Corte Recto
+  // solo existen dentro de Pantalones) — al cambiar de categoría, uno que
+  // haya quedado seleccionado ya no aplica a ningún producto.
+  useEffect(() => {
+    setFilters((f) => (f.subcategory ? { ...f, subcategory: null } : f));
+  }, [activeCategory]);
+
+  const handleSelectSubcategory = useCallback((sub: string | null) => {
+    setFilters((f) => ({ ...f, subcategory: sub }));
+  }, []);
 
   const handleProductClick = useCallback(
     (product: Product) => {
@@ -118,7 +130,7 @@ export function HomePage({
   }, [activeCategory]);
 
   const showHero = !hasBrowsed && !searchTerm;
-  const filtersActive = filters.sortBy !== 'default' || filters.sizes.length > 0 || filters.onSale;
+  const filtersActive = filters.sortBy !== 'default' || filters.sizes.length > 0 || filters.onSale || !!filters.subcategory;
 
   // Acción de salida del empty state: si hay filtros activos, limpiarlos;
   // si no, volver a ver todo (sale del callejón "Sin resultados").
@@ -153,9 +165,9 @@ export function HomePage({
             onGridColsChange={setGridCols}
             onOpenFilter={() => setFilterOpen(true)}
             filtersActive={filtersActive}
-            categories={categories}
-            activeCategory={activeCategory}
-            onSelectCategory={setActiveCategory}
+            availableSubcategories={availableSubcategories}
+            activeSubcategory={filters.subcategory}
+            onSelectSubcategory={handleSelectSubcategory}
           />
         )}
 

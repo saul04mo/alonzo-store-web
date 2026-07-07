@@ -3,17 +3,20 @@ import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import type { Product } from '@/types';
 import { isSingleSizeLabel } from '@/lib/sizes';
+import { deriveSubcategory } from '@/config';
 
 export interface FilterState {
   sortBy: 'default' | 'price_asc' | 'price_desc';
   sizes: string[];
   onSale: boolean;
+  subcategory: string | null;
 }
 
 export const defaultFilters: FilterState = {
   sortBy: 'default',
   sizes: [],
   onSale: false,
+  subcategory: null,
 };
 
 interface FilterDrawerProps {
@@ -43,7 +46,7 @@ export function FilterDrawer({ open, onClose, filters, onApply, availableSizes, 
     setDraft({ ...draft, sizes: next });
   };
 
-  const hasActiveFilters = draft.sortBy !== 'default' || draft.sizes.length > 0 || draft.onSale;
+  const hasActiveFilters = draft.sortBy !== 'default' || draft.sizes.length > 0 || draft.onSale || !!draft.subcategory;
 
   // Compute result count with draft filters
   const draftCount = applyFilters(products, draft).length;
@@ -203,9 +206,24 @@ export function extractSizes(products: Product[]): string[] {
   });
 }
 
+// Helper: extract all unique subcategories present in a set of products
+// (ej: dentro de "Pantalones", los que sean Cargo / Corte Recto / etc.),
+// en el orden en que están definidas las reglas.
+export function extractSubcategories(products: Product[]): string[] {
+  const found = new Set<string>();
+  products.forEach((p) => {
+    const sub = deriveSubcategory(p.category, p.name);
+    if (sub) found.add(sub);
+  });
+  return Array.from(found);
+}
+
 // Helper: apply filters to products
 export function applyFilters(products: Product[], filters: FilterState): Product[] {
   let result = [...products];
+  if (filters.subcategory) {
+    result = result.filter((p) => deriveSubcategory(p.category, p.name) === filters.subcategory);
+  }
   if (filters.sizes.length > 0) {
     result = result.filter((p) =>
       p.variants.some((v) => filters.sizes.includes(v.size) && parseInt(v.stock) > 0)

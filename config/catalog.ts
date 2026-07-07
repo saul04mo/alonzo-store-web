@@ -56,6 +56,37 @@ export const categoryDescriptions: Record<string, string> = {
   'BÁSICOS': 'Piezas esenciales que nunca pasan de moda. La base de todo buen guardarropa.',
 };
 
+// Sub-tipos dentro de una categoría (ej: dentro de "Pantalones" separar
+// Cargo de Corte Recto). El catálogo (POS) no tiene un campo de subcategoría
+// propio, así que se infiere por palabras clave en el nombre del producto.
+// Se evalúan en orden — la primera regla que matchee gana.
+export const subcategoryRules: Record<string, { label: string; match: RegExp }[]> = {
+  PANTALONES: [
+    { label: 'Cargo', match: /\bCARGO\b/i },
+    { label: 'Jogger', match: /\bJOGGER\b/i },
+    { label: 'Corte Recto', match: /\bRECTO\b/i },
+    { label: 'Skinny', match: /\bSKINNY\b/i },
+    { label: 'Wide Leg', match: /\bWIDE\b/i },
+    { label: 'Baggy', match: /\bBAGGY\b/i },
+  ],
+  'PANTALONES MUJER': [
+    { label: 'Cargo', match: /\bCARGO\b/i },
+    { label: 'Mom Fit', match: /\bMOM\b/i },
+    { label: 'Skinny', match: /\bSKINNY\b/i },
+    { label: 'Wide Leg', match: /\bWIDE\b/i },
+    { label: 'Flare', match: /\bFLARE\b/i },
+  ],
+};
+
+// Deriva el sub-tipo de un producto a partir de su categoría + nombre.
+// Devuelve null si la categoría no tiene reglas o el nombre no matchea ninguna.
+export function deriveSubcategory(category: string, name: string): string | null {
+  const rules = subcategoryRules[category.trim().toUpperCase()];
+  if (!rules) return null;
+  const found = rules.find((r) => r.match.test(name));
+  return found ? found.label : null;
+}
+
 // Size guide image mapping
 export function getSizeGuideImage(category: string, gender: string): string | null {
   const cat = category.toUpperCase();

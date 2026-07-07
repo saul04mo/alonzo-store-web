@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useRef } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 
 type GridCols = 1 | 2 | 3 | 4;
@@ -12,16 +11,16 @@ interface CategoryHeaderProps {
   onGridColsChange: (cols: GridCols) => void;
   onOpenFilter: () => void;
   filtersActive: boolean;
-  categories: string[];
-  activeCategory: string;
-  onSelectCategory: (cat: string) => void;
+  availableSubcategories: string[];
+  activeSubcategory: string | null;
+  onSelectSubcategory: (sub: string | null) => void;
 }
 
 /**
  * Encabezado de una categoría: título + conteo + descripción + chips de
- * categorías del género (para cambiar de categoría sin volver al menú) +
- * selector de columnas (view toggle) + botón de filtros. Antes vivía
- * inline dentro de HomePage; extraído para que HomePage quede legible.
+ * sub-tipos (ej: dentro de Pantalones, Cargo / Corte Recto) + selector de
+ * columnas (view toggle) + botón de filtros. Antes vivía inline dentro de
+ * HomePage; extraído para que HomePage quede legible.
  */
 export function CategoryHeader({
   displayName,
@@ -31,18 +30,10 @@ export function CategoryHeader({
   onGridColsChange,
   onOpenFilter,
   filtersActive,
-  categories,
-  activeCategory,
-  onSelectCategory,
+  availableSubcategories,
+  activeSubcategory,
+  onSelectSubcategory,
 }: CategoryHeaderProps) {
-  // HomePage remonta este componente por cada cambio de categoría (key=
-  // activeCategory), así que este efecto corre en cada cambio y centra
-  // el chip activo — si no, en mobile puede quedar fuera del scroll visible.
-  const activeChipRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    activeChipRef.current?.scrollIntoView({ block: 'nearest', inline: 'center' });
-  }, []);
-
   return (
     <div className="px-4 md:px-6 lg:px-10 mb-8 md:mb-12 pt-4 md:pt-6 page-fade-in">
       {/* Title + count */}
@@ -60,9 +51,7 @@ export function CategoryHeader({
         </p>
       )}
 
-      {/* View toggle + category chips + Filter — todo en una fila.
-          Los chips ocupan el espacio central y scrollean horizontal si
-          no caben, para no romper el layout en mobile. */}
+      {/* View toggle + Filter */}
       <div className="flex items-center gap-3 md:gap-4">
         <div className="flex items-center gap-3 shrink-0">
           <span className="text-sm text-alonzo-gray-600 mr-1">Ver</span>
@@ -110,24 +99,34 @@ export function CategoryHeader({
           </button>
         </div>
 
-        {/* Category chips — cambiar de categoría del mismo género sin
-            volver al menú. */}
-        {categories.length > 1 && (
+        {/* Subcategory chips — sub-tipos dentro de la categoría actual
+            (ej: dentro de Pantalones, Cargo / Corte Recto). Solo aparecen
+            si la categoría activa tiene sub-tipos detectados. */}
+        {availableSubcategories.length > 0 && (
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0 border-l border-alonzo-gray-200 pl-3 md:pl-4">
-            {categories.map((cat) => {
-              const isActive = cat === activeCategory;
+            <button
+              onClick={() => onSelectSubcategory(null)}
+              className={`shrink-0 px-3 py-1 text-[11px] font-sans tracking-wider uppercase rounded-full border transition-colors ${
+                activeSubcategory === null
+                  ? 'bg-alonzo-charcoal text-white border-alonzo-charcoal'
+                  : 'border-alonzo-gray-300 text-alonzo-gray-500 hover:border-alonzo-charcoal'
+              }`}
+            >
+              Todos
+            </button>
+            {availableSubcategories.map((sub) => {
+              const isActive = sub === activeSubcategory;
               return (
                 <button
-                  key={cat}
-                  ref={isActive ? activeChipRef : undefined}
-                  onClick={() => onSelectCategory(cat)}
-                  className={`shrink-0 px-3 py-1.5 text-[11px] md:text-xs font-sans tracking-wider uppercase border transition-colors ${
+                  key={sub}
+                  onClick={() => onSelectSubcategory(isActive ? null : sub)}
+                  className={`shrink-0 px-3 py-1 text-[11px] font-sans tracking-wider uppercase rounded-full border transition-colors ${
                     isActive
-                      ? 'bg-alonzo-black text-white border-alonzo-black'
-                      : 'border-alonzo-gray-300 text-alonzo-charcoal hover:border-alonzo-black'
+                      ? 'bg-alonzo-charcoal text-white border-alonzo-charcoal'
+                      : 'border-alonzo-gray-300 text-alonzo-gray-500 hover:border-alonzo-charcoal'
                   }`}
                 >
-                  {cat}
+                  {sub}
                 </button>
               );
             })}

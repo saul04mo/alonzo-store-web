@@ -6,4 +6,6 @@ export {
   hombreCategoryOrder,
   categoryDescriptions,
   getSizeGuideImage,
+  subcategoryRules,
+  deriveSubcategory,
 } from './catalog';
