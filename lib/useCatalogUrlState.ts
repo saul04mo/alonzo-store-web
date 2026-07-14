@@ -66,16 +66,22 @@ export function useCatalogUrlState(): { mounted: boolean } {
       return;
     }
     const params = new URLSearchParams();
+    // El género va a la URL aunque no haya categoría elegida: sin esto, ver la
+    // sección de Mujer desde la home no dejaba ningún rastro (misma ruta, mismo
+    // título) y no había forma de medir cuánta gente la mira. 'Hombre' es el
+    // default, así que se omite y la home queda en "/" limpia.
+    if (gender === 'Mujer') params.set('gender', gender);
     if (hasBrowsed && activeCategory) {
       params.set('gender', gender);
       params.set('category', activeCategory);
-      const newUrl = `/?${params.toString()}`;
-      // Only push if URL actually changed
-      if (window.location.search !== `?${params.toString()}`) {
-        router.push(newUrl, { scroll: false });
-      }
-    } else if (!hasBrowsed && window.location.search) {
-      router.push('/', { scroll: false });
+    }
+
+    const query = params.toString();
+    const newUrl = query ? `/?${query}` : '/';
+    const newSearch = query ? `?${query}` : '';
+
+    if (window.location.search !== newSearch) {
+      router.push(newUrl, { scroll: false });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCategory, hasBrowsed, gender, mounted]);

@@ -49,15 +49,20 @@ export function Analytics() {
         if (lastLoggedRef.current === page_path) return;
         lastLoggedRef.current = page_path;
 
-        // La vista de una categoría se reporta con nombre propio para poder
-        // distinguirla de la home y ver qué categorías se navegan de verdad.
+        // Las vistas de categoría y de género se reportan con nombre propio
+        // para poder distinguirlas de la home: las tres viven en la ruta "/"
+        // y comparten el mismo <title>.
         const category = searchParams.get('category');
         const gender = searchParams.get('gender');
-        const isCategoryView = pathname === '/' && !!category;
+        const isHome = pathname === '/';
 
-        const page_title = isCategoryView
-          ? `Categoría: ${titleCase(category!)}${gender ? ` (${gender})` : ''} | ALONZO Store`
-          : document.title;
+        let page_title = document.title;
+        if (isHome && category) {
+          page_title = `Categoría: ${titleCase(category)}${gender ? ` (${gender})` : ''} | ALONZO Store`;
+        } else if (isHome && gender) {
+          // Home filtrada por género, sin categoría (ej. tocó "Mujer" y nada más).
+          page_title = `Inicio — ${gender} | ALONZO Store`;
+        }
 
         const { logEvent } = await import('firebase/analytics');
         logEvent(analytics, 'page_view', {

@@ -12,6 +12,8 @@ import { productHref } from '@/lib/productUrl';
 import { categoryDescriptions } from '@/config';
 import { useCatalog } from '@/lib/useCatalog';
 import { useCatalogUrlState } from '@/lib/useCatalogUrlState';
+import { useScrollDepth } from '@/lib/useScrollDepth';
+import { trackEvent } from '@/lib/analytics';
 import { useUIStore } from '@/stores';
 import { FilterDrawer, applyFilters, extractSizes, extractSubcategories, defaultFilters } from '@/components/ui/FilterDrawer';
 import type { FilterState } from '@/components/ui/FilterDrawer';
@@ -91,6 +93,21 @@ export function HomePage({
 
   const handleSelectSubcategory = useCallback((sub: string | null) => {
     setFilters((f) => ({ ...f, subcategory: sub }));
+    if (sub) void trackEvent('select_subcategory', { subcategory: sub });
+  }, []);
+
+  // Los filtros son estado local (no tocan la URL), así que sin este evento no
+  // hay forma de saber si la gente los usa. Van como evento y NO como page_view:
+  // registrarlos como vistas volvería a inflar el reporte de páginas.
+  const handleApplyFilters = useCallback((next: FilterState) => {
+    setFilters(next);
+    void trackEvent('apply_filters', {
+      sort_by: next.sortBy,
+      sizes: next.sizes.join(',') || 'none',
+      size_count: next.sizes.length,
+      on_sale: next.onSale,
+      subcategory: next.subcategory ?? 'none',
+    });
   }, []);
 
   const handleProductClick = useCallback(
@@ -130,6 +147,15 @@ export function HomePage({
   }, [activeCategory]);
 
   const showHero = !hasBrowsed && !searchTerm;
+
+  // Contexto del scroll: qué estaba mirando el visitante al scrollear. Sin esto
+  // no se puede separar "rebotó en el hero" de "recorrió la grilla entera".
+  const scrollContext = searchTerm
+    ? 'search'
+    : hasBrowsed && activeCategory
+      ? `category:${activeCategory}`
+      : `home:${gender}`;
+  useScrollDepth(scrollContext);
   const filtersActive = filters.sortBy !== 'default' || filters.sizes.length > 0 || filters.onSale || !!filters.subcategory;
 
   // Acción de salida del empty state: si hay filtros activos, limpiarlos;
@@ -208,7 +234,7 @@ export function HomePage({
         open={filterOpen}
         onClose={() => setFilterOpen(false)}
         filters={filters}
-        onApply={setFilters}
+        onApply={handleApplyFilters}
         availableSizes={availableSizes}
         products={baseProducts}
       />
