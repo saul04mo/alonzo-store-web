@@ -665,23 +665,46 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                       solo después de seleccionar. */}
                   {officeCity && (
                     <div>
-                      <span className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
-                        Oficina ({officeList.length})
-                      </span>
-                      <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
-                        {officeList.map((o) => {
-                          const selected = officeName === o.name;
-                          return (
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-sm font-medium text-alonzo-gray-600">
+                          Oficina{!selectedOffice && ` (${officeList.length})`}
+                        </span>
+                        {/* Ya elegida: botón para volver a ver la lista. */}
+                        {selectedOffice && (
+                          <button
+                            type="button"
+                            onClick={() => setOfficeName('')}
+                            className="text-xs font-medium text-alonzo-black underline hover:text-alonzo-gray-600 transition-colors"
+                          >
+                            Cambiar
+                          </button>
+                        )}
+                      </div>
+
+                      {selectedOffice ? (
+                        /* Colapsado: solo la oficina elegida (no ocupa espacio). */
+                        <div className="w-full rounded-sm border border-alonzo-black bg-alonzo-gray-100 p-3 flex items-start gap-3">
+                          <MapPin size={16} className="text-alonzo-gray-600 shrink-0 mt-0.5" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium text-alonzo-black">{selectedOffice.name}</p>
+                            {selectedOffice.address && (
+                              <p className="text-xs text-alonzo-gray-600 mt-0.5">{selectedOffice.address}</p>
+                            )}
+                            {selectedOffice.phone && (
+                              <p className="text-xs text-alonzo-gray-600 mt-0.5">Tel: {selectedOffice.phone}</p>
+                            )}
+                          </div>
+                          <CheckCircle2 size={16} className="text-alonzo-black shrink-0" />
+                        </div>
+                      ) : (
+                        /* Sin elegir: lista completa con dirección visible. */
+                        <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
+                          {officeList.map((o) => (
                             <button
                               key={o.name}
                               type="button"
                               onClick={() => setOfficeName(o.name)}
-                              aria-pressed={selected}
-                              className={`w-full text-left rounded-sm border p-3 transition-colors flex items-start gap-3 ${
-                                selected
-                                  ? 'border-alonzo-black bg-alonzo-gray-100'
-                                  : 'border-alonzo-gray-300 hover:border-alonzo-black bg-white'
-                              }`}
+                              className="w-full text-left rounded-sm border border-alonzo-gray-300 hover:border-alonzo-black bg-white p-3 transition-colors flex items-start gap-3"
                             >
                               <MapPin size={16} className="text-alonzo-gray-600 shrink-0 mt-0.5" />
                               <div className="min-w-0 flex-1">
@@ -693,11 +716,10 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                                   <p className="text-xs text-alonzo-gray-600 mt-0.5">Tel: {o.phone}</p>
                                 )}
                               </div>
-                              {selected && <CheckCircle2 size={16} className="text-alonzo-black shrink-0" />}
                             </button>
-                          );
-                        })}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
