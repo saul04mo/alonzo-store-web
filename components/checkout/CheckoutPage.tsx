@@ -710,6 +710,16 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                             {selectedOffice.phone && (
                               <p className="text-xs text-alonzo-gray-600 mt-0.5">Tel: {selectedOffice.phone}</p>
                             )}
+                            {selectedOffice.mapUrl && (
+                              <a
+                                href={selectedOffice.mapUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-alonzo-black underline hover:text-alonzo-gray-600 mt-1 inline-block"
+                              >
+                                Ver ubicación en Google Maps
+                              </a>
+                            )}
                           </div>
                           <CheckCircle2 size={16} className="text-alonzo-black shrink-0" />
                         </div>

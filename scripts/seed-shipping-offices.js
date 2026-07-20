@@ -83,6 +83,7 @@ async function seed() {
         name: o.name,
         address: o.address || '',
         phone: o.phone || '',
+        mapUrl: o.mapUrl || '',
         active: true,
       });
       byAgency[o.agency] = (byAgency[o.agency] || 0) + 1;

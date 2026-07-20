@@ -4910,5 +4910,1229 @@
 "name": "Las Mercedes del Llano",
 "address": "CALLE DOÑA BÁRBARA. CENTRO COMERCIAL MERCEDES PLAZA, PB, LOCAL 5A. LAS MERCEDES DEL LLANO - EDO GUÁRICO.",
 "phone": ""
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Guatire",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4760594,-66.5455681"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Charallave",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.229768,-66.862192"
+},
+{
+"agency": "Tealca",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Juan Griego",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=11.08244,-63.96501"
+},
+{
+"agency": "Tealca",
+"state": "Sucre",
+"city": "Sucre",
+"name": "Cumaná",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.454638,-64.18522"
+},
+{
+"agency": "Tealca",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "El Tigre",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.886654,-64.257451"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Oficina Comercial Valencia",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.1923388,-67.9445373"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Oficina Comercial Barquisimeto",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.0755683,-69.3196026"
+},
+{
+"agency": "Tealca",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Oficina Comercial Maturín",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.743425,-63.181064"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Sur (la Coromoto)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.5580843,-71.6349576"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Dr. Portillo",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.6621832,-71.6233616"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Chaguaramos",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4835048,-66.8232033"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Oficina Comercial Maracaibo - Cecilio Acosta",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.6636299,-71.6316671"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Oficina Comercial Maracay",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2332073,-67.5970854"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Oeste - La Limpia",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.6742332,-71.6571583"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Norte",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.698001,-71.636685"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Circunvalacion 2 Sur Oeste",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.63472,-71.66415"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Centro Cc Gran Bazar",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1648.6656553200733!2d-71.62043668618671!3d10.640798848470414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDM4JzI4LjciTiA3McKwMzcnMTAuNyJX!5e0!3m2!1ses-419!2sve!4v1749043479233!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Delicias Norte Centro Comercial El Pilar",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3920.64956555981!2d-71.6267902890842!3d10.684285260841941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDQxJzAzLjQiTiA3McKwMzcnMjcuMiJX!5e0!3m2!1ses-419!2sve!4v1753287960060!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Caja Seca",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.1396208,-71.0845654"
+},
+{
+"agency": "Tealca",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Merida",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.5876632,-71.1568428"
+},
+{
+"agency": "Tealca",
+"state": "Mérida",
+"city": "Mérida",
+"name": "El Vigía",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.62054,-71.65213"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Cabimas",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.3989452,-71.4586294"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Ciudad Ojeda",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.1985716,-71.3272977"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Bella Vista 5 De Julio",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.663929,-71.607857"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Delicias 5 De Julio",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.6668894,-71.6196844"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Sur (san Francisco)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.58865,-71.638842"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Cristóbal (barrio Obrero)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.7734277,-72.2208595"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Paramillo",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.7925023,-72.2085637"
+},
+{
+"agency": "Tealca",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Valera",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.3075293,-70.6098766"
+},
+{
+"agency": "Tealca",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Valera-Centro",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.3173541,-70.6076363"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "La Fria",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.2225998,-72.2568205"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Cristóbal Sur",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.7589,-72.2332"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Tariba",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3952.7430000074505!2d-72.22703028834665!3d7.817005306747101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwNDknMDEuMiJOIDcywrAxMycyOC4wIlc!5e0!3m2!1ses!2sve!4v1769024777319!5m2!1ses!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Cristobal",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3953.055644948877!2d-72.2332902883467!3d7.783925307199817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwNDcnMDIuMSJOIDcywrAxMyc1MC42Ilc!5e0!3m2!1ses!2sve!4v1769024753151!5m2!1ses!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Capacho",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3952.674682129987!2d-72.31521028834644!3d7.824215306648261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwNDknMjcuMiJOIDcywrAxOCc0NS41Ilc!5e0!3m2!1ses!2sve!4v1769024726131!5m2!1ses!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Antonio Del Tachira",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3952.7468386806822!2d-72.44498028863694!3d7.816599992171548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwNDgnNTkuOCJOIDcywrAyNiczMi42Ilc!5e0!3m2!1ses-419!2sve!4v1774271657729!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Carora",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.173346,-70.0804967"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Ureña",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.9182715,-72.4541473"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Barquisimeto Oeste",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.05487,-69.34953"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Barquisimeto Oeste Av. Las Industrias",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.071798,-69.3701058"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Barquisimeto Carrera 19",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.06549,-69.32697"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Cabudare",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.03279,-69.26022"
+},
+{
+"agency": "Tealca",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Alto Barinas",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3944.7149022952594!2d-70.26321028834339!3d8.623345295168933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMzcnMjQuMCJOIDcwwrAxNSczOC4zIlc!5e0!3m2!1ses-419!2sve!4v1765973648177!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinas Centro Comercial Barinas",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3944.7084286341064!2d-70.22464028834324!3d8.623965295159651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMzcnMjYuMyJOIDcwwrAxMycxOS40Ilc!5e0!3m2!1ses-419!2sve!4v1765973678913!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinitas",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.76278,-70.40969"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Barquisimeto Este",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.0726691,-69.2976891"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "Barquisimeto Sur",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.0704357,-69.3064897"
+},
+{
+"agency": "Tealca",
+"state": "Portuguesa",
+"city": "Portuguesa",
+"name": "Guanare",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.0367192,-69.7381304"
+},
+{
+"agency": "Tealca",
+"state": "Cojedes",
+"city": "Cojedes",
+"name": "San Carlos",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.6599201947748,-68.581317897839"
+},
+{
+"agency": "Tealca",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Calabozo",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.92849,-67.42718"
+},
+{
+"agency": "Tealca",
+"state": "Yaracuy",
+"city": "Yaracuy",
+"name": "San Felipe",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.33778,-68.74103"
+},
+{
+"agency": "Tealca",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Coro",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=11.40267,-69.66603"
+},
+{
+"agency": "Tealca",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Punto Fijo",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=11.70627,-70.19115"
+},
+{
+"agency": "Tealca",
+"state": "Cojedes",
+"city": "Cojedes",
+"name": "Tinaquillo",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3930.238963817119!2d-68.31199028833692!3d9.91404527446475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwNTQnNTAuNSJOIDY4wrAxOCczMy45Ilc!5e0!3m2!1ses!2sve!4v1765374166153!5m2!1ses!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Punta Cardon",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3907.5125869834146!2d-70.20805492451076!3d11.658039988549476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDM5JzI4LjkiTiA3MMKwMTInMTkuNyJX!5e0!3m2!1ses-419!2sve!4v1776791966375!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia (distribuidor San Blas)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.1824225,-67.9880829"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Valencia (plaza La Candelaria)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.177215,-68.005811"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia (zona Industrial Norte)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.175346,-67.978892"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Naguanagua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.240088,-68.006396"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "San Diego",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.209627,-67.963051"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Tocuyito",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.094963,-68.089056"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Guacara",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.225772,-67.8776173"
+},
+{
+"agency": "Tealca",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Valle De La Pascua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.2148569,-66.0037557"
+},
+{
+"agency": "Tealca",
+"state": "Portuguesa",
+"city": "Portuguesa",
+"name": "Acarigua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.5503646,-69.1804708"
+},
+{
+"agency": "Tealca",
+"state": "Delta Amacuro",
+"city": "Delta Amacuro",
+"name": "Tucupita",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.0596479,-62.0505064"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Este (av. Sucre)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2550167,-67.5976968"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Tealca Maracay Sector Santa Ana",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2412643,-67.594294"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Cagua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.1855887,-67.4651957"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "La Morita",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2270663,-67.5441723"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "La Victoria",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2271491,-67.3238325"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia (av. Andrés Eloy Blanco)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2114699,-68.0139594"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Sur (paseo Las Industrias)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.165007,-67.960031"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Oeste",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.24823,-67.60518"
+},
+{
+"agency": "Tealca",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Anaco",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.433444,-64.4642143"
+},
+{
+"agency": "Tealca",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturín Este (c.c. Juanico)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.752394,-63.141004"
+},
+{
+"agency": "Tealca",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Puerto Ordaz Castillito",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.314458,-62.712276"
+},
+{
+"agency": "Tealca",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Puerto Ordaz Alta Vista",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.294776,-62.732068"
+},
+{
+"agency": "Tealca",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Unare",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.279643,-62.760601"
+},
+{
+"agency": "Tealca",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "San Félix (el Roble)",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.3526903,-62.6733381"
+},
+{
+"agency": "Tealca",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Upata",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.0093479262331,-62.401761265398"
+},
+{
+"agency": "Tealca",
+"state": "Amazonas",
+"city": "Amazonas",
+"name": "Ventuari",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.2645517,-62.770316"
+},
+{
+"agency": "Tealca",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Tipuro",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3931.784188313745!2d-63.20095492561168!3d9.784319990310372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwNDcnMDMuNiJOIDYzwrAxMSc1NC4yIlc!5e0!3m2!1ses-419!2sve!4v1773425991034!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Porlamar",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.9895117,-63.839029"
+},
+{
+"agency": "Tealca",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Lechería",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.181562,-64.659665"
+},
+{
+"agency": "Tealca",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Barcelona",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.153591,-64.686272"
+},
+{
+"agency": "Tealca",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Puerto La Cruz",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.208656,-64.631254"
+},
+{
+"agency": "Tealca",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Cocheima",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=11.04071,-63.85774"
+},
+{
+"agency": "Tealca",
+"state": "Sucre",
+"city": "Sucre",
+"name": "Carupano",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.66205,-63.2512"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "San Antonio De Los Altos",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3924.5992453103468!2d-66.96381992452753!3d10.37389298975148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDIyJzI2LjAiTiA2NsKwNTcnNDAuNSJX!5e0!3m2!1ses-419!2sve!4v1777462727949!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Guarenas",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4725982,-66.6213017"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Los Teques",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.3546157,-67.0322064"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "El Cafetal",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.45798,-66.82891"
+},
+{
+"agency": "Tealca",
+"state": "La Guaira",
+"city": "La Guaira",
+"name": "Junquito",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.47689068895,-67.004805448775"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Ccct",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3923.1963124454082!2d-66.85776028908595!3d10.485185264454415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDI5JzA2LjciTiA2NsKwNTEnMTguNyJX!5e0!3m2!1ses-419!2sve!4v1753287858144!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "La Guaira",
+"city": "La Guaira",
+"name": "Maiquetia",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d800.9799587629377!2d-66.95211797690168!3d10.59716893409344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDM1JzUwLjQiTiA2NsKwNTcnMDYuMyJX!5e0!3m2!1ses-419!2sve!4v1776858385004!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Los Palos Grandes",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.49728,-66.8456295"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Candelaria",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.508193,-66.9091845"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Cementerio",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4810503,-66.9206025"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Candelaria C.c. Lord Center",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.5055279,-66.9002311"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Caobos",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.499153,-66.8870166"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Filas De Mariches",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4722825,-66.7713833"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Prados Del Este",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4528658,-66.8714189"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "El Rosal - Chacao",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4905987,-66.8594271"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Sabana Grande",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4965099,-66.8781298"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Boleíta",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4915464,-66.8223426"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Montecristo",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4981068,-66.8274398"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "La California",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4809155,-66.8192681"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Paraíso",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4827533,-66.9386244"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Catia",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.5147165,-66.9445426"
+},
+{
+"agency": "Tealca",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "San Martin",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.49561,-66.93625"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "La Trinidad",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2310.763911720398!2d-66.87382073048575!3d10.43586862438597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDI2JzA5LjUiTiA2NsKwNTInMjAuMSJX!5e0!3m2!1ses-419!2sve!4v1765225027317!5m2!1ses-419!2sve\" width=\"800\" height=\"600\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Yaracuy",
+"city": "Yaracuy",
+"name": "Yaritagua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.0792347,-69.3515191"
+},
+{
+"agency": "Tealca",
+"state": "Yaracuy",
+"city": "Yaracuy",
+"name": "Yaritagua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.081176028578,-69.131600945889"
+},
+{
+"agency": "Tealca",
+"state": "Apure",
+"city": "Apure",
+"name": "San Fernando De Apure",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.8805569069176,-67.469837728128"
+},
+{
+"agency": "Tealca",
+"state": "Lara",
+"city": "Lara",
+"name": "El Tocuyo",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.9312947352675,-69.615486310453"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Machiques Villa Del Rosario",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.6499634,-71.6141908"
+},
+{
+"agency": "Tealca",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Puerto Piritu",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.1115909,-64.6635948"
+},
+{
+"agency": "Tealca",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Puerto Cabello Moron",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.1922952,-67.9445374"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Caucagua - Higuerote - Barlovento - Tacarigua",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.484094010267,-66.101689402164"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "San Juan De Los Morros - Villa De Cura",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.91267,-67.36145"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Santa Teresa",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.22687,-66.66775"
+},
+{
+"agency": "Tealca",
+"state": "La Guaira",
+"city": "La Guaira",
+"name": "Catia La Mar",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.4925776,-66.9182369"
+},
+{
+"agency": "Tealca",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Bailadores - Tovar - Lagunillas - Santa Cruz De Mora",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.5911102,-71.1505909"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "La Grita",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.7429661,-72.2346213"
+},
+{
+"agency": "Tealca",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Merida Norte",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3944.7512851115735!2d-71.13384028825843!3d8.619859991390328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMzcnMTEuNSJOIDcxwrAwNyc1Mi41Ilc!5e0!3m2!1ses-419!2sve!4v1778598352841!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinas",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.2330314,-70.8227697"
+},
+{
+"agency": "Tealca",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Santa Barbara Del Zulia",
+"address": "",
+"phone": "",
+"mapUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3940.697894588755!2d-71.91341678825516!3d8.999921191023034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwNTknNTkuNyJOIDcxwrA1NCczOS4wIlc!5e0!3m2!1ses-419!2sve!4v1778598726523!5m2!1ses-419!2sve\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Turmero",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.2151672,-67.4858429"
+},
+{
+"agency": "Tealca",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Las Delicias",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.26062,-67.58961"
+},
+{
+"agency": "Tealca",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Ciudad Bolivar",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=8.12578,-63.54086"
+},
+{
+"agency": "Tealca",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Higuerote",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=10.483969164234,-66.099992769563"
+},
+{
+"agency": "Tealca",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Santa Barbara De Barinas",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.8133837275,-71.175120169331"
+},
+{
+"agency": "Tealca",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Punta De Mata",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.689935078922,-63.618870312497"
+},
+{
+"agency": "Tealca",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Dabajuro",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=11.01837221995,-70.680027192935"
+},
+{
+"agency": "Tealca",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Rubio",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=7.7042372022431,-72.356971054674"
+},
+{
+"agency": "Tealca",
+"state": "Monagas",
+"city": "Monagas",
+"name": "El Temblador",
+"address": "",
+"phone": "",
+"mapUrl": "https://maps.google.com/?q=9.007801530521,-62.640504129681"
 }
 ]

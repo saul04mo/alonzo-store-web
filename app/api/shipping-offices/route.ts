@@ -23,7 +23,7 @@ export async function GET() {
       .get();
 
     // agency -> state -> city -> offices[]
-    const tree = new Map<string, Map<string, Map<string, { name: string; address: string; phone: string }[]>>>();
+    const tree = new Map<string, Map<string, Map<string, { name: string; address: string; phone: string; mapUrl?: string }[]>>>();
 
     snap.forEach((doc) => {
       const d = doc.data();
@@ -41,6 +41,7 @@ export async function GET() {
         name: d.name,
         address: d.address || '',
         phone: d.phone || '',
+        ...(d.mapUrl ? { mapUrl: d.mapUrl as string } : {}),
       });
     });
 

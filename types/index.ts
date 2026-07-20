@@ -79,6 +79,7 @@ export interface ShippingOffice {
   name: string;
   address: string;
   phone: string;
+  mapUrl?: string; // link a Google Maps (algunas agencias no dan dirección)
 }
 export interface ShippingCityOffices {
   city: string;
