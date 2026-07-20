@@ -660,38 +660,43 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                     </div>
                   )}
 
-                  {/* Oficina */}
+                  {/* Oficina — lista de tarjetas: se ve la DIRECCIÓN (y el
+                      teléfono) de cada oficina mientras el cliente elige, no
+                      solo después de seleccionar. */}
                   {officeCity && (
                     <div>
-                      <label htmlFor="office-name" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
-                        Oficina
-                      </label>
-                      <select
-                        id="office-name"
-                        className={inputClass}
-                        value={officeName}
-                        onChange={(e) => setOfficeName(e.target.value)}
-                      >
-                        <option value="">Selecciona la oficina</option>
-                        {officeList.map((o) => (
-                          <option key={o.name} value={o.name}>{o.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-
-                  {/* Detalle de la oficina elegida. */}
-                  {selectedOffice && (
-                    <div className="flex items-start gap-3 bg-alonzo-gray-100 rounded-sm p-4">
-                      <MapPin size={18} className="text-alonzo-gray-600 shrink-0 mt-0.5" />
-                      <div className="text-sm">
-                        <p className="font-medium text-alonzo-black">{selectedOffice.name}</p>
-                        {selectedOffice.address && (
-                          <p className="text-alonzo-gray-600">{selectedOffice.address}</p>
-                        )}
-                        {selectedOffice.phone && (
-                          <p className="text-alonzo-gray-600">Tel: {selectedOffice.phone}</p>
-                        )}
+                      <span className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
+                        Oficina ({officeList.length})
+                      </span>
+                      <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
+                        {officeList.map((o) => {
+                          const selected = officeName === o.name;
+                          return (
+                            <button
+                              key={o.name}
+                              type="button"
+                              onClick={() => setOfficeName(o.name)}
+                              aria-pressed={selected}
+                              className={`w-full text-left rounded-sm border p-3 transition-colors flex items-start gap-3 ${
+                                selected
+                                  ? 'border-alonzo-black bg-alonzo-gray-100'
+                                  : 'border-alonzo-gray-300 hover:border-alonzo-black bg-white'
+                              }`}
+                            >
+                              <MapPin size={16} className="text-alonzo-gray-600 shrink-0 mt-0.5" />
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-alonzo-black">{o.name}</p>
+                                {o.address && (
+                                  <p className="text-xs text-alonzo-gray-600 mt-0.5">{o.address}</p>
+                                )}
+                                {o.phone && (
+                                  <p className="text-xs text-alonzo-gray-600 mt-0.5">Tel: {o.phone}</p>
+                                )}
+                              </div>
+                              {selected && <CheckCircle2 size={16} className="text-alonzo-black shrink-0" />}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
