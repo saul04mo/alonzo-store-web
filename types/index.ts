@@ -74,6 +74,28 @@ export interface PaymentMethod {
   accountInfo: Record<string, string>;
 }
 
+/* ── Oficinas de envío nacional (agencia → estado → ciudad → oficina) ──── */
+export interface ShippingOffice {
+  name: string;
+  address: string;
+  phone: string;
+}
+export interface ShippingCityOffices {
+  city: string;
+  offices: ShippingOffice[];
+}
+export interface ShippingStateOffices {
+  state: string;
+  cities: ShippingCityOffices[];
+}
+export interface ShippingAgencyOffices {
+  agency: string;
+  states: ShippingStateOffices[];
+}
+export interface ShippingOfficesResponse {
+  agencies: ShippingAgencyOffices[];
+}
+
 export interface PaymentEntry {
   method: string;
   amountUsd: number;

@@ -8,6 +8,7 @@ import { BottomSheet, useToast } from '@/components/ui';
 import { useCartStore, useClientStore } from '@/stores';
 import { useExchangeRate } from '@/lib/useExchangeRate';
 import { deliveryMethods, shippingAgencies } from '@/config';
+import { useShippingOffices } from '@/lib/useShippingOffices';
 import { usePaymentMethods } from '@/lib/usePaymentMethods';
 import { createOrder } from '@/lib/api';
 import { trackPixel } from '@/lib/meta-pixel';
@@ -134,6 +135,14 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const [agency, setAgency] = useState<string | null>(null);
   const [otherAgency, setOtherAgency] = useState('');
   const [agencyDestination, setAgencyDestination] = useState('');
+  // Selección en cascada cuando la agencia tiene oficinas cargadas.
+  const [officeState, setOfficeState] = useState('');
+  const [officeCity, setOfficeCity] = useState('');
+  const [officeName, setOfficeName] = useState('');
+
+  // Oficinas de envío nacional (se descargan solo si el cliente elige nacional).
+  const { agencies: officeAgencies, loading: officesLoading } =
+    useShippingOffices(deliveryType === 'national');
 
   // Payment
   const [paymentSelection, setPaymentSelection] = useState<PaymentSelection>({});
@@ -213,6 +222,25 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       ? otherAgency.trim()
       : shippingAgencies.find((a) => a.id === agency)?.label ?? '';
 
+  // ¿La agencia elegida tiene oficinas cargadas en Firestore? Si sí, usamos
+  // los dropdowns en cascada; si no (agencia sin data aún, u "Otra"), caemos
+  // al texto libre de destino.
+  const officeAgency = officeAgencies.find(
+    (a) => a.agency.toLowerCase() === agencyLabel.toLowerCase()
+  );
+  const officeStates = officeAgency?.states ?? [];
+  const officeCities = officeStates.find((s) => s.state === officeState)?.cities ?? [];
+  const officeList = officeCities.find((c) => c.city === officeCity)?.offices ?? [];
+  const selectedOffice = officeList.find((o) => o.name === officeName);
+  const usesOfficePicker = deliveryType === 'national' && !!officeAgency;
+
+  // Al cambiar de agencia, reiniciamos la cascada estado/ciudad/oficina.
+  useEffect(() => {
+    setOfficeState('');
+    setOfficeCity('');
+    setOfficeName('');
+  }, [agency]);
+
   // GA4 add_shipping_info — al cambiar método de envío o agencia (no al montar).
   // Para envío nacional el "tier" incluye la agencia (national · Zoom).
   useEffect(() => {
@@ -276,7 +304,13 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         setErrorMsg('Indícanos el nombre de la agencia.');
         return;
       }
-      if (!agencyDestination.trim()) {
+      if (usesOfficePicker) {
+        // Agencia con oficinas cargadas: cascada estado → ciudad → oficina.
+        if (!officeState) { setErrorMsg('Selecciona el estado de destino.'); return; }
+        if (!officeCity) { setErrorMsg('Selecciona la ciudad de destino.'); return; }
+        if (!selectedOffice) { setErrorMsg('Selecciona la oficina de destino.'); return; }
+      } else if (!agencyDestination.trim()) {
+        // Agencia sin oficinas cargadas (u "Otra"): destino en texto libre.
         setErrorMsg('Indica la ciudad y oficina/dirección de destino.');
         return;
       }
@@ -333,8 +367,18 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       let deliveryZoneInfo = 'No especificada';
       let orderAddress = address;
       if (deliveryType === 'national') {
-        deliveryZoneInfo = `Agencia: ${agencyLabel} — ${agencyDestination.trim()}`;
-        orderAddress = agencyDestination.trim();
+        if (usesOfficePicker && selectedOffice) {
+          // Oficina elegida de la lista: guardamos todo el detalle.
+          deliveryZoneInfo =
+            `Agencia: ${agencyLabel} — ${officeState}, ${officeCity} — ` +
+            `Oficina: ${selectedOffice.name}` +
+            (selectedOffice.phone ? ` (Tel: ${selectedOffice.phone})` : '');
+          orderAddress = `${selectedOffice.name} — ${selectedOffice.address}, ${officeCity}, ${officeState}`;
+        } else {
+          // Destino en texto libre (agencia sin oficinas cargadas u "Otra").
+          deliveryZoneInfo = `Agencia: ${agencyLabel} — ${agencyDestination.trim()}`;
+          orderAddress = agencyDestination.trim();
+        }
       } else if (deliveryType === 'local' && mapDistanceKm !== null) {
         deliveryZoneInfo = `Calculado mapa (${mapDistanceKm} km)`;
       }
@@ -570,8 +614,92 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                 </div>
               )}
 
-              {/* Destino: ciudad + oficina/dirección de la agencia. */}
-              {agency && (
+              {/* Cargando oficinas de la agencia elegida. */}
+              {agency && agency !== 'otra' && officesLoading && !officeAgency && (
+                <p className="mt-4 text-sm text-alonzo-gray-600">Cargando oficinas…</p>
+              )}
+
+              {/* Cascada estado → ciudad → oficina (agencias con data cargada). */}
+              {usesOfficePicker && (
+                <div className="mt-4 space-y-4">
+                  {/* Estado */}
+                  <div>
+                    <label htmlFor="office-state" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
+                      Estado
+                    </label>
+                    <select
+                      id="office-state"
+                      className={inputClass}
+                      value={officeState}
+                      onChange={(e) => { setOfficeState(e.target.value); setOfficeCity(''); setOfficeName(''); }}
+                    >
+                      <option value="">Selecciona tu estado</option>
+                      {officeStates.map((s) => (
+                        <option key={s.state} value={s.state}>{s.state}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Ciudad */}
+                  {officeState && (
+                    <div>
+                      <label htmlFor="office-city" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
+                        Ciudad
+                      </label>
+                      <select
+                        id="office-city"
+                        className={inputClass}
+                        value={officeCity}
+                        onChange={(e) => { setOfficeCity(e.target.value); setOfficeName(''); }}
+                      >
+                        <option value="">Selecciona tu ciudad</option>
+                        {officeCities.map((c) => (
+                          <option key={c.city} value={c.city}>{c.city}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {/* Oficina */}
+                  {officeCity && (
+                    <div>
+                      <label htmlFor="office-name" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
+                        Oficina
+                      </label>
+                      <select
+                        id="office-name"
+                        className={inputClass}
+                        value={officeName}
+                        onChange={(e) => setOfficeName(e.target.value)}
+                      >
+                        <option value="">Selecciona la oficina</option>
+                        {officeList.map((o) => (
+                          <option key={o.name} value={o.name}>{o.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {/* Detalle de la oficina elegida. */}
+                  {selectedOffice && (
+                    <div className="flex items-start gap-3 bg-alonzo-gray-100 rounded-sm p-4">
+                      <MapPin size={18} className="text-alonzo-gray-600 shrink-0 mt-0.5" />
+                      <div className="text-sm">
+                        <p className="font-medium text-alonzo-black">{selectedOffice.name}</p>
+                        {selectedOffice.address && (
+                          <p className="text-alonzo-gray-600">{selectedOffice.address}</p>
+                        )}
+                        {selectedOffice.phone && (
+                          <p className="text-alonzo-gray-600">Tel: {selectedOffice.phone}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Destino en texto libre: agencia sin oficinas cargadas u "Otra". */}
+              {agency && !usesOfficePicker && !(agency !== 'otra' && officesLoading) && (
                 <div className="mt-4">
                   <label htmlFor="agency-destination" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
                     Ciudad y oficina / dirección de destino

@@ -1,0 +1,2914 @@
+[
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM 18 DE OCTUBRE",
+"address": "CALLE K, CON AV. 5 EDIF SALADILLO PISO P.B LOCAL 5 , SECTOR 18 DE OCTUBRE",
+"phone": "04247532338"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM AV LIBERTADOR CENTRO",
+"address": "AV. 100 C.C. SAN ANDRESITO NIVEL P.B. LOCAL 8-54, SECTOR CASCO CENTRAL",
+"phone": "04220800816"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Porlamar",
+"name": "ZOOM C.C MERCADO LA ISLA",
+"address": "AV. LLANO ADENTRO C.C. MERCADO LA ISLA NIVEL 01 LOCAL L-336,SECTOR LLANO ADENTRO",
+"phone": "04166954667"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM C.C PLAZA ATLANTICO",
+"address": "AV. ATLÁNTICO, C.C PLAZA ATLÁNTICO, NIVEL ATLÁNTICO, LOCAL PB-48-B, URB LOMAS DEL CARONÍ",
+"phone": "04148823031"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Santa Elena de Arenales",
+"name": "ZOOM SANTA ELENA DE ARENALES",
+"address": "CARRETERA PANAMERICANA, CASA SN7, PISO 2, LOCAL 2.",
+"phone": "02749991918 - 04265198959"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM C.C SAN ONOFRE",
+"address": "AV. HUMBOLDT C.C. SAN ONOFRE NIVEL P.B LOCAL NRO 13, SECTOR SANTA CATALINA",
+"phone": "02934337301"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM AV VENEZUELA CENTRO",
+"address": "AV. VENEZUELA CON CIUDAD BOLÍVAR, EDIF CENTRO RESIDENCIAL Y EMPRESARIAL PARQUE DEL CENTRO PB LOCAL 5-L2, ZONA CENTRO.",
+"phone": "02869235509"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM AV VICTORIA",
+"address": "AV. VICTORIA, EDF. MERIDIONAL P.B, ENTRE CALLE CUBA Y AV. CENTRO AMÉRICA, LAS ACACIAS",
+"phone": "02126342589 - 02126342606"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "El Tigre",
+"name": "ZOOM C.C ALBA",
+"address": "AV. FRANCISCO DE MIRANDA C.C. ALBA NIVEL BAJO LOCAL 8.",
+"phone": "04248483009 - 04269989020"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Cantaura",
+"name": "ZOOM CANTAURA CENTRO",
+"address": "CALLE ARISMENDI EDIF. ERYMAR PISO PB LOCAL S/N, SECTOR CENTRO CANTAURA",
+"phone": "04121147476"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Ciudad Bolivar",
+"name": "ZOOM HANGAR DISTRIBUIDORA",
+"address": "AV. JESUS SOTO, LOCAL HANGAR DISTRIBUIDORA TOMS, C.A, NRO S/N, SECTOR AEROPUERTO.",
+"phone": "02856340680 - 02856325102"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto la Cruz",
+"name": "ZOOM HOTEL RASIL",
+"address": "AV. PASEO COLON, EDIF. HOTEL RASIL, PISO 1, LOCAL NRO 02, SECTOR PUERTO LA CRUZ.",
+"phone": "02812687582 - 04129494925"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guarenas",
+"name": "ZOOM 27 DE FEBRERO",
+"address": "URB. NRO 27 DE FEBRERO, CTRA NACIONAL, LOCAL ESTACIONAMIENTO Y MULTISERVICIOS SOUTO NRO. S/N.",
+"phone": "02123626603 - 02123626603"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM 3Y SAN MARTIN",
+"address": "CALLE NRO. 74,CON AV.NRO.3Y, LOCAL CANDELORO NRO.5-A.SECTOR BELLA VISTA.",
+"phone": "02617932798"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM 5TA AVENIDA I",
+"address": "AV. 5TA ENTRE CALLES 3 Y 4 LOCAL EDIF. A.C NRO 8,SECTOR CENTRO",
+"phone": "04247087517"
+},
+{
+"agency": "Zoom",
+"state": "Portuguesa",
+"city": "Acarigua",
+"name": "ZOOM ACARIGUA",
+"address": "CALLE 30 CON AV. 35, CENTRO COMERCIAL PÁEZ, PLANTA BAJA, LOCAL 02.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM AEROPUERTO JACINTO LARA",
+"address": "AV. VICENTE LANDAETA GIL CON AV. LA SALLE, AEROPUERTO GENERAL JACINTO LARA P.B,LOCAL A-6",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM ALTAMIRA",
+"address": "AV. DEL AVILA, RES. BELMONT, PB, LOCAL 01, ALTAMIRA SUR.",
+"phone": "02122656834"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Barinas",
+"name": "ZOOM ALTO BARINAS NORTE",
+"address": "AV. COLOMBIA, LOCAL 80-C, ALTO BARINAS NORTE",
+"phone": "02733511230 - 04145547238"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Barinas",
+"name": "ZOOM ALTO BARINAS SUR",
+"address": "AV. LOS LLANOS, C.C. SION, PLANTA BAJA, LOCAL 5, ALTO BARINAS SUR.",
+"phone": "04264292088"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto la Cruz",
+"name": "ZOOM AMANA",
+"address": "CALLE BOLIVAR CRUCE CON CALLE MANEIRO. CENTRO COMERCIAL AMANA LOCAL PB A-6",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Cagua",
+"name": "ZOOM AMANI CALLE COMERCIO",
+"address": "CALLE COMERCIO CRUCE CON CALLE SUCRE, EDIF AMANI P.B LOCAL 104-70-17,SECTOR CENTRO CAGUA",
+"phone": "04123138039"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM AMPARO",
+"address": "AV.58 C.C CIRCUNVALACION NIVEL P.B LOCAL 9,SECTOR AMPARO",
+"phone": "04243749086"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Anaco",
+"name": "ZOOM ANACO",
+"address": "CALLE 5 DE JULIO, EDF. SAN ELIAS NRO 3-23B PB. P.REF. UNA CUADRA DE BANESCO.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Anaco",
+"name": "ZOOM ANACO CENTER",
+"address": "AV. JOSE ANTONIO ANZOATEGUI, C.C. ANACO CENTER PISO 1 LOCAL 75-S.A",
+"phone": "04121147476"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM ARAGUA",
+"address": "EDIFICIO TORRE SINDONI, ENTRE LAS AV. MIRANDA Y BOLIVAR LOCALES NRO PB-19-A, PB-19-D, M1-18-D Y M1-18-B",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM AV 10 CECILIO ACOSTA",
+"address": "AV. 10 ENTRE CALLES 66 Y 66A CASA NRO 66-48 LOCAL 2,ZONA ESTRELLA.",
+"phone": "04146740154 - 02614183766"
+},
+{
+"agency": "Zoom",
+"state": "Yaracuy",
+"city": "San Felipe",
+"name": "ZOOM AV 6 C.C DON ANTONIO",
+"address": "AV. 6 ENTRE CALLE 16 Y AVENIDA LA PATRIA, C.C DON ANTONIO NIVEL PB LOCAL 5, SECTOR CENTRO.",
+"phone": "02548038181 - 04245208788"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM AV FERRERO TAMAYO",
+"address": "AV. FERRERO TAMAYO, CRUCE AV. LAS PILAS C.C BARATA, LOCAL P.B-03.",
+"phone": "02763563341"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM AV FRANCISCO SOLANO",
+"address": "AV. FRANCISCO SOLANO LOPEZ, ENTRE CALLE EL CRISTO Y LOS MANGUITOS, EDIF. TORRE OASIS PB LOCAL 9, URB LAS DELICIAS.",
+"phone": "02127620067"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Ciudad Bolivar",
+"name": "ZOOM AV GERMANIA",
+"address": "AV. GERMANIA, C.C. LOS PROCERES NIVEL PB, LOCAL ANEXO ESTACIONAMIENTO,SECTOR GERMANIA.",
+"phone": "02856320750 - 02856320750"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM AV LECUNA",
+"address": "CALLE MIRACIELO, NRO 83-2, PARROQUIA SANTA TERESA",
+"phone": "02124813251 - 02124818918"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM AV LIBERTADOR",
+"address": "AV. LIBERTADOR CON CALLE NEGRIN , C.C. LIBERTADOR, LOCAL NRO. 13, URB LA FLORIDA",
+"phone": "02127616878"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM AV LISANDRO ALVARADO",
+"address": "AV. LISANDRO ALVARADO CON CALLE PADRE BEGERETTI, C.C.TORINOCO 83-19 NIVEL PB LOCAL 12,SECTOR CANDELARIA",
+"phone": "04122438903 - 04124712930"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM AV MICHELENA",
+"address": "CALLE 91 CASA NRO 90-63, URB MICHELENA, SAN BLAS",
+"phone": "02418571347"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM AV MIRANDA",
+"address": "AV. MIRANDA, C.C. DOÑA HERACLITA LOCAL 2.",
+"phone": "02742620375 - 02742620225"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM AV MONTES DE OCA CENTRO",
+"address": "AV. 102 MONTE DE OCA CALLE 24 DE JUNIO Y CALLE GIRARDOT, NRO CIVICO 96-24 CASA 5-A.",
+"phone": "04124792008"
+},
+{
+"agency": "Zoom",
+"state": "Amazonas",
+"city": "Puerto Ayacucho",
+"name": "ZOOM AV ORINOCO",
+"address": "AV. ORINOCO EDIF. EL REY P.B LOCAL 02, ZONA CENTRO",
+"phone": "02485215654"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM AV RAUL LEONI",
+"address": "AV. RAÚL LEONI, CRUCE CON PROLONGACIÓN BOYACÁ, EDIF. NAR-OLY, TORRE A, P. PB, LOCAL A SUR, SECTOR CENTRO.",
+"phone": "02916414638 - 02916414638"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Ciudad Bolivar",
+"name": "ZOOM AV REPUBLICA",
+"address": "AV. SIEGART CON AV. REPÚBLICA, EDIF. IVANNA, PISO P.B, LOCAL 1, SECTOR AV. REPÚBLICA.",
+"phone": "04122838051"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM AV ROTARIA",
+"address": "VDA. 8 Y 9, CASA NRO. 2-24, SECTOR PROLONGACIÓN DE LA UNIDAD VECINAL.",
+"phone": "04148975541 - 04143850382"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM AV URDANETA",
+"address": "AV. URDANETA, C.C. LAS MARGARITAS, NIVEL PB, LOCAL PB-9, SECTOR URDANETA.",
+"phone": "02742620894"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Antonio del Tachira",
+"name": "ZOOM AV VENEZUELA",
+"address": "AV. VENEZUELA, CARRERA 6, LOCAL NRO. 6-02, SECTOR BOLÍVAR.",
+"phone": "02767714653"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM AV. 4 BELLA VISTA",
+"address": "CALLE 63A ENTRE AVENIDAS 4Y5 CASA 4-20 NRO 2Y3,SECTOR TIERRA NEGRA",
+"phone": "04246394495"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Ciudad Ojeda",
+"name": "ZOOM AV. ALONSO DE OJEDA",
+"address": "AV. ALONSO DE OJEDA, EDIF. TIBIDABO, PB LOCAL 2, SECTOR CASCO CENTRAL.",
+"phone": "02656317266 - 02656317266"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM AV. BERMUDEZ TACITA DE PLATA",
+"address": "AV. BERMUDEZ CRUCE CON AV. 10 DE DICIEMBRE, EDIF DEL PINTO LOCAL B,BARRIO EL CARMEN.",
+"phone": "04243077353 - 02432331262"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM AV. BOLIVAR NORTE",
+"address": "AV. BOLIVAR NORTE, EDF. DON ENRIQUE PB. P.REF. FRENTE A LA FUNERARIA LA SUPERIOR A 100 MTS DEL ATENEO DE VALENCIA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM AV. LA LIMPIA",
+"address": "AV. 28 CALLE 79 CASA NRO 77-60,SECTOR LA LIMPIA",
+"phone": "04149686332 - 04146799478"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Coro",
+"name": "ZOOM AV. MANAURE",
+"address": "AV. MANAURE CON CALLE EL SOL, C.C. SAN ANTONIO PLAZA P.B LOCAL 08.",
+"phone": "05019666000"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Ciudad Bolivar",
+"name": "ZOOM AV. PASEO MENESES",
+"address": "PASEO MENESES, EDIF. H-BOCCARDO, LOCAL 3, SECTOR MERCADO PERIFÉRICO.",
+"phone": "04249572022"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM AV.CANCAMURE",
+"address": "AV. CANCAMURE, URB. SUCRE LOCAL C.",
+"phone": "04221809516"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM AVENIDA 19 DE ABRIL",
+"address": "AV. 19 DE ABRIL, C.C. MERCADO ATENEO, PASILLO F, LOCAL F-08, SECTOR CENTRO.",
+"phone": "04145994854 - 04144565110"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM AVENIDA LIBERTADOR CALLE 29",
+"address": "AV. LIBERTADOR, ENTRE CALLES 29 Y 30, LOCAL 29-71, EDIF. VERGARA, ZONA CENTRO.",
+"phone": "04227575777"
+},
+{
+"agency": "Zoom",
+"state": "Apure",
+"city": "San Fernando",
+"name": "ZOOM AVENIDA PASEO LIBERTADOR",
+"address": "AV. PASEO LIBERTADOR, EDIF. DOÑA ISABEL, PISO S/N, LOCAL S/N.",
+"phone": "04241935646 - 02473410911"
+},
+{
+"agency": "Zoom",
+"state": "Guárico",
+"city": "Valle de la Pascua",
+"name": "ZOOM AVENIDA ROMULO GALLEGOS",
+"address": "AV. RÓMULO GALLEGOS, EDIF. ADRIÁTICO, PISO P.B, LOCAL NRO. 03, SECTOR CENTRO.",
+"phone": "04243668848"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Bachaquero",
+"name": "ZOOM BACHAQUERO",
+"address": "AV. BOLÍVAR, C.C. BOLÍVAR CENTER, NIVEL 2, LOCAL 2, SECTOR EL MURO.",
+"phone": "04127893957"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Barcelona",
+"name": "ZOOM BARCELONA",
+"address": "AV. INTERCOMUNAL JORGE RODRIGUEZ, C.C. BRISAS DEL NEVERI, LOCAL 04. P.REF. FRENTE A LA ESCUELA DE INGENIERIA UGMA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Barinas",
+"name": "ZOOM BARINAS",
+"address": "AV. ELIAS CORDERO, N° 1- 120. P.REF. FRENTE A SUELAPIEL.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Barinas",
+"name": "ZOOM BARINAS CENTRO",
+"address": "SECTOR BARRIO OBRERO, CALLE CAMEJO ENTRE AVENIDAS MONTILLA Y OLMEDILLA, EDIFICIO LOS HERMANOS.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM BARQUISIMETO",
+"address": "CARRERA 24, ENTRE CALLES 23 Y 24, NRO. 23-69. P.REF. FRENTE A LA PLAZA MORA, DIAGONAL AL IUTIRLA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM BARRIO EL CARMEN",
+"address": "CALLE 2, NRO. 10-45, BARRIO EL CARMEN, LA CONCORDIA.",
+"phone": "02763461015"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Barcelona",
+"name": "ZOOM BARRIO SUCRE",
+"address": "CALLE GUAYAQUIL, LOCAL NRO. 46, LOCAL 1 Y 2, SECTOR BARRIO SUCRE.",
+"phone": "04248924429"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM BARUTA",
+"address": "CALLE PÁEZ, LOCAL 4, DIAGONAL A LA AV. RICAURTE, PUEBLO DE BARUTA.",
+"phone": "02129520275"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM BASE ARAGUA",
+"address": "AV. LAS DELICIAS, C.C. Y HOTEL PASEO LAS DELICIAS, NIVEL PB, LOCAL 2-PB-22, URB. BASE ARAGUA.",
+"phone": "04124604023 - 02432324109"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Bejuma",
+"name": "ZOOM BEJUMA",
+"address": "AV. SUCRE C/C CALLE HERES LOCAL S/N, SECTOR PUEBLO NUEVO LA UNIÓN.",
+"phone": "04244735850"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM BELLAS ARTES",
+"address": "AV. ESTE 2, ENTRE SUR 25 Y BLVD. AMADOR BENDAYÁN, EDIF. MAYA, P.B, URB. LA CANDELARIA.",
+"phone": "02125721064"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM BELLO MONTE",
+"address": "AV. BEETHOVEN, EDIF. IBAIZABAL, LOCAL F, URB. COLINAS DE BELLO MONTE.",
+"phone": "02127539163"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM BIG LOW SAN DIEGO",
+"address": "AV. BOULEVARD NORTE 102, C.C. BOULEVARD NORTE, LOCAL 3, URB. SAN DIEGO.",
+"phone": "04127558690"
+},
+{
+"agency": "Zoom",
+"state": "Apure",
+"city": "Biruaca",
+"name": "ZOOM BIRUACA",
+"address": "AV. LAS ACACIAS, LOCAL NRO. 2, SECTOR ENCRUCIJADA DE BIRUACA.",
+"phone": "02473640461 - 04243189370"
+},
+{
+"agency": "Zoom",
+"state": "Trujillo",
+"city": "Bocono",
+"name": "ZOOM BOCONO",
+"address": "AV. CARABOBO, ENTRE CALLE MONSEÑOR JÁUREGUI Y ANDRÉS BELLO, CASA NRO. 6-22, SECTOR CENTRO, BOCONÓ.",
+"phone": "02724154614"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM BOLEITA",
+"address": "CALLE SEGUNDA DE BOLEÍTA SUR, LOCAL NRO. 6, ZONA INDUSTRIAL BOLEÍTA SUR.",
+"phone": "02122393510 - 02122393510"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM BOULEVARD LA COROMOTO",
+"address": "CALLE 171, LOCAL NRO. 44-73, SECTOR LA COROMOTO.",
+"phone": "04146058029"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C AEROCENTRO",
+"address": "AVENIDA LUIS ERNESTO BRANGER, CONJUNTO EMPRESARIAL, ENTRADA F, P.B. LOCAL 5, ZONA INDUSTRIAL MUNICIPAL SUR.",
+"phone": "02418386828 - 04144000009"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM C.C AKRAI CENTER",
+"address": "CALLE 86 PICHINCHA CON AV 4 BELLA VISTA, CENTRO COMERCIAL AKRAI CENTER, LOCALES A-14 Y A-15 PB",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM C.C ALFA ESTE",
+"address": "AV. MADRID, URB. EL PARQUE, C.C. ALFA, NIVEL P.B. LOCAL 6.",
+"phone": "02514162053 - 02512549869"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Cabudare",
+"name": "ZOOM C.C ALMARRIERA",
+"address": "AV. LA MONTANITA C.C.ALMARRIERA PLANTA BAJA ALTA. LOCAL L-29. URB.ALMARRIERA. LOS RASTROJOS.CABUDARE.",
+"phone": "02512403779"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM C.C ARBOLEDA COUNTRY",
+"address": "AV. CANCAMURE, C.C. ARBOLEDA COUNTRY, NIVEL PB, LOCAL C-5, SECTOR ARBOLEDA.",
+"phone": "04124229482"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Cua",
+"name": "ZOOM C.C BETANIA",
+"address": "CTRA. NACIONAL CÚA-CHARALLAVE, C.C. BETANIA, NIVEL P.A, LOCAL MINILOCAL 12, SECTOR CIUDAD ZAMORA.",
+"phone": "04122817227"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C CARIBEAN PLAZA",
+"address": "CALLE SAN JORGE, C.C. CARIBBEAN PLAZA, MODULO 8, LOCAL 171, P.B, SECTOR CAMORUCO.",
+"phone": "02419904506"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Guacara",
+"name": "ZOOM C.C CENTRAL GUACARA",
+"address": "CTRA. NACIONAL GUACARA-LOS GUAYOS, C.C. CENTRAL GUACARA, PB, LOCAL 18 Y 20.",
+"phone": "04144053334 - 02455712946"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM C.C EL SAMAN",
+"address": "CTRA. KM 11 VÍA PERIJÁ, C.C. EL SAMÁN, NIVEL P.B, LOCAL S/N, URB. EL CAUJARO.",
+"phone": "04226007413 - 04146738225"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C FIN DE SIGLO",
+"address": "AV. DON JULIO CENTENO, C.C. SAN DIEGO (FIN DE SIGLO), NIVEL GALERÍA, LOCAL 1 Y 2, SECTOR SAN DIEGO.",
+"phone": "02418723474 - 04244268495"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM C.C GALERIAS EL RECREO",
+"address": "AV. VENEZUELA, C.C. GALERÍAS EL RECREO, NIVEL AVENIDA, LOCAL AV-1C.",
+"phone": "02127613920 - 04127394897"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM C.C GALERIAS MALL",
+"address": "CALLE 28,C.C GALERIAS MALL, NIVEL P.B. LOCAL PB-ESTE 4A, SECTOR FRANCISCO DE MIRANDA.",
+"phone": "04143620260"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM C.C GRAN SABANA",
+"address": "AV. PASEO CARONÍ, C.C. GRAN SABANA, PLANTA BAJA, LOCAL 07, SECTOR UD-305.",
+"phone": "04220292211"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Guacara",
+"name": "ZOOM C.C GUACARA PLAZA",
+"address": "CALLE PIAR, C.C GUACARA PLAZA NIVEL P.B. LOCAL PB-09.",
+"phone": "04244401699"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM C.C IPSFA-MARACAY",
+"address": "AV.BOLIVAR ESTE C.C. LOS PROCERES, NIVEL P.B LOCAL PCB-15",
+"phone": "04243744211"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto la Cruz",
+"name": "ZOOM C.C JUDIBANA",
+"address": "AV. STADIUM C.C JUDIBANA, NIVEL P.B LOCAL,SECTOR CHUPARIN",
+"phone": "04120123058"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Cabudare",
+"name": "ZOOM C.C LA ESTANCIA",
+"address": "AV. INTERCOMUNAL BARQUISIMETO-CABUDARE, C.C. LA ESTANCIA, LOCAL 20.",
+"phone": "04262993053"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Upata",
+"name": "ZOOM C.C LA FAVORITA",
+"address": "AV. BICENTENARIO, CENTRO DE INVERSIONES LA FAVORITA, P.B, LOCAL 2.",
+"phone": "04262864448"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C LA GALERIA",
+"address": "CALLE 137, C.C. LA GALERÍA, NAVE A, NIVEL P.B., LOCAL 1-A6, URB. CAMORUCO.",
+"phone": "02418210858"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Los Teques",
+"name": "ZOOM C.C LA HOYADA",
+"address": "CALLE PIAR, C.C. LA HOYADA, NIVEL SEGUNDA PLANTA, LOCAL 328, SECTOR LA HOYADA.",
+"phone": "04122105771"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Pampatar",
+"name": "ZOOM C.C LA REDOMA",
+"address": "CALLE LIBERTAD, C.C. LA REDOMA, NIVEL 1, LOCAL 42, SECTOR LOS ROBLES, EL PILAR.",
+"phone": "02952626006 - 04147898585"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM C.C LAS AMERICAS",
+"address": "AV LAS DELICIAS, CENTRO COMERCIAL LAS AMERICAS LOCALES NROS M1-428 Y M1-428A MEZZANINA UNO (M1)",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM C.C LOS SAMANES",
+"address": "AV. 1, C.C. LOS SAMANES, NIVEL SUPERMERCADO, LOCAL 5, URB. LOS SAMANES.",
+"phone": "04142738996"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM C.C MADETOR ESTE",
+"address": "AV. VENEZUELA, ENTRE AV. BRACAMONTE Y AV. LOS LEONES, CENTRO COMERCIAL IMECA, PISO 1, LOCAL 1-H Y 1-G",
+"phone": "02514356423 - 04245964680"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM C.C MARACAY PLAZA",
+"address": "AV. BERMUDEZ, CRUCE CON AV. ARAGUA, C.C. MARACAY PLAZA, NIVEL P.B, LOCAL 61-D.",
+"phone": "04124689874 - 04124893642"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM C.C MARINA PLAZA",
+"address": "AV.CRISTOBAL COLON PERIMETAL, SEC. EL DIQUI, C.C. MARINA PLAZA, EDIF. D-3, LOCAL P.B.-4",
+"phone": "02934315251"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C METROPOLIS",
+"address": "AUTOPISTA REGIONAL DEL CENTRO. ENTRADA DE VALENCIA, AL LADO DE MAKRO.CENTRO COMERCIAL METROPOLIS NIVEL CIELO, LOCAL A1-300B",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM C.C METROPOLIS BRM",
+"address": "AV. FLORENCIO JIMENEZ CON AV. LA SALLE C.C. METROPOLI NIVEL SOL LOCAL L-204-205-206.",
+"phone": "04125203320 - 02512306336"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guarenas",
+"name": "ZOOM C.C MIRANDA",
+"address": "AV. INTERCOMUNAL MENCA DE LEONI, C.C. MIRANDA, LOCAL 30-22. P.REF. AREA DE MINITIENDAS, PARTE ALTA DE GUARENAS.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C NAGUANAGUA",
+"address": "AV. UNIVERSIDAD, C.C. NAGUANAGUA NIVEL PB LOCAL 28, SECTOR LA CAMPIÑA",
+"phone": "02416157878 - 04244053454"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Los Guayos",
+"name": "ZOOM C.C PARAPARAL",
+"address": "AV. PRINCIPAL DE PARAPARAL, C.C. GALERIAS, P.B NIVEL A LOCAL A-6, URB PARAPARAL",
+"phone": "04226360842"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM C.C PARQUE REAL",
+"address": "AV. LARA CON CRUCE AV. LOS LEONES, C.C. PARQUE REAL NIVEL P-AL LOCAL 10,ZONA ESTE",
+"phone": "04245557772"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C PASEO LAS INDUSTRIAS",
+"address": "AV. HENRY FORD, C.C. PASEO LAS INDUCTRIAS NIVEL PB LOCAL 7,ZONA INDUSTRIAL SUR",
+"phone": "02418579890 - 04166422083"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM C.C. BELLO CAMPO",
+"address": "CENTRO COMERCIAL BELLO CAMPO, ENTRE LA AV. COROMOTO, JOSÉ FELIX SOSA Y LA PRINCIPAL DE LA URB. BELLO CAMPO, LOCALES 27, 28 Y 29",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guatire",
+"name": "ZOOM C.C. BUENAVENTURA VISTA PLACE",
+"address": "AV. INTERCOMUNAL GUARENAS-GUATIRE, C.C. BUENAVENTURA VISTA PLACE, NIVEL PLAZA LOCALES PL-94 Y PL-95.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM C.C. CRISTAL NAGUANAGUA",
+"address": "AV. FEO LA CRUZ, C.C. CRISTAL, PB, LOCAL PBA08, URB. LAS QUINTAS.",
+"phone": "04244389547"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM C.C. EL RECREO",
+"address": "AV. CASANOVA, C.C. EL RECREO, NIVEL C1, LOCAL LC1-C29-30, URB. SABANA GRANDE.",
+"phone": "02127613358 - 02127614768"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM C.C. GRAN BAZAR",
+"address": "AV. 15 DELICIAS, C.C. GRAN BAZAR, NIVEL P.B., LOCAL ML 1480,SECTOR SANTA BÁRBARA.",
+"phone": "04129345068"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM C.C. METROSOL",
+"address": "AV. 58 C.C. METROSOL NIVEL PB LOCAL 19-A, SECTOR CIRCUNVALACIÓN NRO 2.",
+"phone": "04123217316"
+},
+{
+"agency": "Zoom",
+"state": "Portuguesa",
+"city": "Acarigua",
+"name": "ZOOM C.C. SOL DE CURPA",
+"address": "AV. LIBERTADOR, E/ CALLES 32 Y 33 C.C. SOL DE CURPA NIVEL P.B LOCAL 7, SECTOR CENTRO.",
+"phone": "02556223280"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM C.C. ZULIA",
+"address": "CALLE CUCHIVERO, C.C. ZULIA, NIVEL PB, LOCAL 53 URB. ALTA VISTA.",
+"phone": "02869727031 - 02869727031"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM C.C.C.T",
+"address": "AV LA ESTANCIA ENTRE CALLE BLOHM Y DISTRIBUIDOR CIEMPIÉS C.C CIUDAD TAMANACO NIVEL 1ERA ETAPA LOCAL 43-R2 URB CHUAO",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Cabimas",
+"name": "ZOOM CABIMAS",
+"address": "CARRETERA H CENTRO COMERCIAL BORJAS LOCAL 6 Y 7",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Cabudare",
+"name": "ZOOM CABUDARE",
+"address": "AVENIDA LIBERTADOR ENTRE CALLES MIGUEL BERNAL Y JUAREZ, CENTRO COMERCIAL LIBERTADOR, LOCALES PB-02 Y PB-03.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Cagua",
+"name": "ZOOM CAGUA",
+"address": "SECTOR CENTRO, CALLE RONDON C/C CALLE BERMUDEZ NRO 104-03-07, LOCAL L-3.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Caja Seca",
+"name": "ZOOM CAJA SECA",
+"address": "AV. PRIMERA TRANSVERSAL, CORREDOR VIAL AL TERMINAL DE PASAJEROS, C.C. FARMACIA SUR DEL LAGO, NIVEL PB, LOCAL 2, SECTOR CASCO CENTRAL.",
+"phone": "02717721621"
+},
+{
+"agency": "Zoom",
+"state": "Guárico",
+"city": "Calabozo",
+"name": "ZOOM CALABOZO",
+"address": "CALLE 5 ENTRE CARRERAS 9 Y 10, EDIFICIO VILLAVICENCIO, P.B LOCALES 5 Y 6. P.REF. A 50 MTS DEL MUSEO DE CALABOZO.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM CALLE 12",
+"address": "CALLE 12, ENTRE CARRERA 4 Y 5TA AVENIDA, NRO. 4-35, SECTOR LA ERMITA.",
+"phone": "04141768868"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM CALLE 14 CENTRO-ESTE",
+"address": "CALLE 14, ENTRE CARRERAS 18 Y 19, QUINTA NELLY, LOCAL NRO. 3,SECTOR CENTRO.",
+"phone": "02514352009 - 02516118906"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM CALLE 15",
+"address": "CALLE 15 CON CARRERA 22, EDIF. APOLO, LOCAL 3, BARRIO OBRERO.",
+"phone": "02763568693 - 02763568933"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "El Tigre",
+"name": "ZOOM CALLE 20 SUR",
+"address": "CALLE 20 SUR, CRUCE CON 5TA CARRERA BIS.",
+"phone": "02832411295"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM CALLE 72",
+"address": "AVENIDA 9 CON CALLE 72, LOCAL NRO. 01, SECTOR AVENIDA 72.",
+"phone": "04246288233"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Punto Fijo",
+"name": "ZOOM CALLE ARGENTINA",
+"address": "CENTRO COMERCIAL EMPRESARIAL CADERCO, P.B. LOCAL A, SECTOR CENTRO, CALLE FALCÓN ESQUINA CALLE ARGENTINA.",
+"phone": "02692467546 - 04146950242"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Porlamar",
+"name": "ZOOM CALLE CAMPOS",
+"address": "CALLE CAMPOS EDIFICIO JUAMO PB.",
+"phone": "02952641217"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CALLE COLOMBIA",
+"address": "CALLE COLOMBIA, EDIF. S/N, P.B, LOCAL ÚNICO, URB. NUEVA CARACAS, CATIA.",
+"phone": "02127442936 - 02128724989"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CALLE GARCILASO",
+"address": "CALLE GARCILASO, EDIF. PERSEO, P.B, LOCAL A, URB. COLINAS DE BELLO MONTE.",
+"phone": "02127538615"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto la Cruz",
+"name": "ZOOM CALLE GUARAGUAO",
+"address": "CALLE LAS FLORES, C.C. CARABEL, P.B, LOCAL 2.",
+"phone": "02812686871 - 02812685196"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guatire",
+"name": "ZOOM CALLE RIVAS",
+"address": "CALLE RIVAS, LOCAL NRO 15,SECTOR CASCO CENTRAL",
+"phone": "04242017028"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Santa Teresa del Tuy",
+"name": "ZOOM CALLE SUCRE",
+"address": "CALLE SUCRE, AV. AYACUCHO, LOCAL C, NRO 3.",
+"phone": "02392311394 - 02392315674"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Ciudad Ojeda",
+"name": "ZOOM CALLE VARGAS",
+"address": "CALLE VARGAS CON CALLE CAMPO ELÍAS, C.C NOCCIANO, P.B, LOCAL 2, SECTOR CASCO CENTRAL.",
+"phone": "04246105634 - 04246105628"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Barcelona",
+"name": "ZOOM CAMINO REAL",
+"address": "AV COSTANERA CON AV FUERZAS ARMADAS C.C CAMINO REAL NIVEL PLAZA PB LOCAL C11, SECTOR NUEVA BARCELONA",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Capacho",
+"name": "ZOOM CAPACHO",
+"address": "CARRERA 5, C.C. CAPIN TIENDAS, LOCAL 12, BARRIO CENTRO.",
+"phone": "04247554572"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CARICUAO PLAZA",
+"address": "AV.PRINCIPAL DE RUIZ PINEDA C.C. CARICUAO PLAZA NIVEL 2 LOCAL 126 Y 127,URB UD-7.",
+"phone": "04241240954"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Carora",
+"name": "ZOOM CARORA",
+"address": "AV FCO DE MIRANDA E/CALLE LISBOS Y COROMOTO LOCAL TIENDAS MONTANA, SECTOR FCO DE MIRANDA",
+"phone": "02524213481"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM CARRERA 15 CALLE 46 OESTE",
+"address": "CARRERA 15 CON CALLE 46, LOCAL S/N, ZONA CENTRO.",
+"phone": "04125044481"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM CARRERA 19",
+"address": "CARRERA 19, ENTRE CALLE 15 Y 16, LOCAL 15-15, BARRIO OBRERO.",
+"phone": "02763487790"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM CARRERA 19 CON 34",
+"address": "CARRERA 19 CON CALLES 33 Y 34, NRO 33-68, SECTOR CENTRO.",
+"phone": "02512338790"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM CARRERA 25 CALLE 41",
+"address": "CARRERA 25 CON CALLE 41, EDIF. COSTA ESMERALDA, LOCAL 2.",
+"phone": "02512543597 - 04168596267"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Carupano",
+"name": "ZOOM CARUPANO",
+"address": "AV.LIBERTAD CON CALLE MONAGAS, EDIFICIO TURBO ORIENTE PB",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Carupano",
+"name": "ZOOM CARUPANO CENTRO",
+"address": "CALLE JUNCAL CON CALLE BOLÍVAR, LOCAL 258, SECTOR CENTRO.",
+"phone": "04248489250"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM CASCO CENTRAL I",
+"address": "AVENIDA AZCUE CON AVENIDA ROJAS, SECTOR CENTRO, LOCAL 1, SECTOR CENTRO.",
+"phone": "02916427925"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Lecherias",
+"name": "ZOOM CASCO CENTRAL LECHERIA",
+"address": "CARRERA 5, CENTRO EMPRESARIAL 17-11, P.B.LOCAL 1, SECTOR CASCO CENTRAL.",
+"phone": "04248316682"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM CASCO HISTORICO",
+"address": "CALLE SUCRE, C.C. CUMANá, NIVEL ÚNICO, OFICINA 8, SECTOR CASCO HISTóRICO.",
+"phone": "04141891314 - 04248135003"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guatire",
+"name": "ZOOM CASTILLEJO",
+"address": "AVENIDA PRINCIPAL, C.C. CASTILLEJO, NIVEL 1, LOCAL 02-14, URB. CASTILLEJO.",
+"phone": "02123419881 - 04241503520"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CDO CATIA",
+"address": "AV.PPAL DE ALTAVISTA, A 50 METROS DE LA TEXTILERIA OVEJITA, GALPON GRUPO ZOOM.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM CDO MYC",
+"address": "AV.ANTHON PHILLIPS, ZONA INDUSTRIAL SAN VICENTE, GRUPO EMPRESARIAL SAN VICENTE, LOCAL 2, AL LADO DE EMPRESAS SAVIRAN.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM CDO SVZ",
+"address": "CALLE 14 CON CALLEJUELA LA REPUBLICA, NRO G-46. SECTOR PUENTE REAL",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto la Cruz",
+"name": "ZOOM CENTRAL MADEIRENSE",
+"address": "AV MUNICIPAL CC CENTRAL MADEIRENSE NIVEL PB LOCAL 17,SECTOR PUEBLO NUEVO",
+"phone": "04121815617"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CENTRO",
+"address": "CALLE NORTE 2, ENTRE ESQUINAS SANTA CAPILLA Y MIJARES, EDIF. SAN SEBASTIÁN, PISO P.B, LOCAL 5, ZONA CATEDRAL.",
+"phone": "02128644386 - 02128629151"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Anaco",
+"name": "ZOOM CENTRO ANACO",
+"address": "CALLE MONAGAS CASA NRO 1-16, SECTOR LAS PARCELAS.",
+"phone": "04148371205 - 04248169504"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM CENTRO CALLE PAEZ",
+"address": "CALLE PÁEZ OESTE, C.C RES. CENTRO COLONIAL LOCAL MINI NRO 1-B-PB,SECTOR CENTRO SUR OESTE III",
+"phone": "04221594944"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CENTRO COMERCIAL BELLO MONTE",
+"address": "AV. PRINCIPAL DE BELLO MONTE, ENTRE AV. LEONARDO DA VINCI Y AV. LINCOLN. C.C. BELLO MONTE P.B LOCAL NRO. 10,BELLO MONTE.",
+"phone": "02127512097 - 02127538886"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Ejido",
+"name": "ZOOM CENTRO EJIDO",
+"address": "CALLE SUCRE, FRENTE A LA PLAZA BOLIVAR DE EJIDO, CON AV.BOLIVAR C.C. EJIDO PB, LOCAL 1-C",
+"phone": "04122744925"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM CENTRO MERIDA",
+"address": "AV. 3 INDEPENDENCIA ESQUINA CALLE 21 LASO C.C. LA ROSALERA NIVEL 03 OF 01, SECTOR CENTRO.",
+"phone": "04120748915 - 02742511367"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM CENTRO NORTE FUERZAS ARMADAS",
+"address": "AV. 15 Y 15 A ENTRE CALLES 19 A Y 20 C.C. NORTE NIVEL P.B LOCAL PB-17, SECTOR FUERZAS ARMADAS",
+"phone": "04126992173"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CENTRO PLAZA",
+"address": "AV. FRANCISCO DE MIRANDA, C.C. CENTRO PLAZA NIVEL 4, LOCAL CC4-25.",
+"phone": "02122844894 - 02122834426"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "El Vigia",
+"name": "ZOOM CENTRO VIGIA",
+"address": "CALLE 3 LOCAL S/N, PARROQUIA PRESIDENTE BETANCOURT,SECTOR CENTRO.",
+"phone": "04122901787"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CHACAO, C.A",
+"address": "CALLE 3, MONSEÑOR JUAN GRILC REZMAN, QTA. SILVIA, N. 309, LOCAL 5.CHACAO",
+"phone": "02122669103 - 02122669103"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Charallave",
+"name": "ZOOM CHARALLAVE CIUDAD CONCORDIA",
+"address": "AV. TOSTA GARCIA, CENTRO COMERCIAL CIUDAD CONCORDIA, PISO NRO. 1, LOCALES 8, 9 Y 10.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Charallave",
+"name": "ZOOM CHARALLAVE II",
+"address": "FINAL AV TOSTA EDIF BOAL, LOCAL B-1 PB",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM CIRCULO MILITAR LA RINCONADA",
+"address": "AV. INTERCOMUNAL VALLE COCHE LOCAL NRO 01-B, SECTOR LAS MAYAS, CIRCULO MILITAR LA RINCONADA.",
+"phone": "04265179438"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Ciudad Bolivar",
+"name": "ZOOM CIUDAD BOLIVAR",
+"address": "AV. JESUS SOTO CON CALLE CAURA, C.C. TEPUY, LOCAL 1 Y 2, PB.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Ciudad Bolivia",
+"name": "ZOOM CIUDAD BOLIVIA-PEDRAZA",
+"address": "CALLE 4 PROLONGACION 1 LOCAL DON PANCHO NRO S/N, SECTOR VISTA HERMOSA II PARTE ALTA, CARRETERA VIA MIJAGUAS.",
+"phone": "04125659910"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Ciudad Ojeda",
+"name": "ZOOM CIUDAD OJEDA",
+"address": "SECTOR LAS MOROCHAS, AV. INTERCOMUNAL CALLE CARDON, EDIFICIO OJEDA. PB., LOCALES 6 Y 7.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM CIUDADELA FARIA",
+"address": "AV. 27 CIRCUNVALACIÓN 2 CON CALLE 69, C.C. CIUDADELA PLAZA NIVEL 2DO LOCAL 13-1,URB CIUDADELA FARIA.",
+"phone": "04149603688"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM COCHE",
+"address": "AV. INTERCOMUNAL VALLE COCHE C.C COCHE NIVEL P.B LOCAL 25, URB. DELGADO CHALBAUD.",
+"phone": "02126824855"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Barcelona",
+"name": "ZOOM COLINA DEL NEVERI",
+"address": "CALLE RUIZ PINEDA EDIF. VELASQUEZ PISO PB-02, URB COLINAS DEL NEVERI.",
+"phone": "04248451210"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Colon",
+"name": "ZOOM COLON",
+"address": "CTRA NRO. 7, CON CALLE NRO. 3, CASA NRO. 6-81. SECTOR CENTRO COLON TACHIRA.",
+"phone": "02763914892 - 04264338423"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Coloncito",
+"name": "ZOOM COLONCITO",
+"address": "CR. NRO. 04, CASA NRO. 3-47,SECTOR CASCO CENTRAL COLONCITO.",
+"phone": "02775465158"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Colonia Tovar",
+"name": "ZOOM COLONIA TOVAR",
+"address": "CARRETERA PRINCIPAL PLAN DE MORENO, C.C. PARQUE MORITZ, NIVEL 1, LOCAL N1-3,SECTOR PLAN DE MORENO.",
+"phone": "04129989906"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Coro",
+"name": "ZOOM CORO",
+"address": "SECTOR LOS TRES PLATOS, AV. LOS MEDANOS CRUCE CON AV. INDEPENDENCIA, EDIFICIO AREF, PB., LOCAL 1.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Portuguesa",
+"city": "Guanare",
+"name": "ZOOM CORREDOR VIAL TOMAS MONTILLA",
+"address": "CR 7 ENTRE AV. UNDA Y CORREDOR VIAL TOMAS MONTILLA EDIF. FORUM PISO 1 LOCAL 2, BARRIO MATURIN.",
+"phone": "04245612124"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM COSTO SUPERMERCADO",
+"address": "AV. ARISTIDES ROJAS CON CALLE BERMUDEZ, C.C. PERMAGAS NIVEL P.B LOCAL I,SECTOR CENTRO.",
+"phone": "02120000000"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Cua",
+"name": "ZOOM CUA",
+"address": "CALLE JOSE MARIA CARREÑO, LOCAL MINICOZZI P.B, SECTOR CASCO CENTRAL CUA.",
+"phone": "04123240537 - 04124007413"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM CUMANA",
+"address": "AV SANTA ROSA, EDIFICIO GRUPO PROFESIONAL SANTA ROSA PB LOCAL 2 CUMANA ESTADO SUCRE",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Dabajuro",
+"name": "ZOOM DABAJURO",
+"address": "AV. BOLIVAR LOCAL S/N, SECTOR EL CERRO DABAJURO.",
+"phone": "02798282132"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM DELICIAS",
+"address": "AV. 15 PROLONGACIÓN DELICIAS, C.C. LUZ Y SOL NRO 60C.58 NIVEL NO INDICA LOCAL 3.",
+"phone": "04125555410"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM DON BOSCO",
+"address": "AV. SAN JUAN BOSCO, ENTRE 1.ª TRANSVERSAL Y AV. FRANCISCO DE MIRANDA EDIF. MAY FLOWER, PISO PB, LOCAL B, ALTAMIRA.",
+"phone": "02123105997 - 04142512277"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Cabimas",
+"name": "ZOOM EDIFICIO D MAIO",
+"address": "AV. INTERCOMUNAL, EDIF. HOTEL D\\'MAIO, NIVEL PB, LOCAL N.º 1, SECTOR EL DIVIDIVE.",
+"phone": "04246687655 - 04246105634"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Ejido",
+"name": "ZOOM EJIDO MALL",
+"address": "CALLE EL COBRE MUNICIPIO CAMPO ELÍAS, PARROQUIA MATRIZ, LOCAL PB-B-17/PB-B-18,CENTRO COMERCIAL EJIDO MALL, SECTOR POZO HONDO.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "El Callao",
+"name": "ZOOM EL CALLAO CHARITO",
+"address": "VDA CALLEJON GAZZANEO ENTRE CALLE BOLIVAR Y CALLE RICAURE, LOCAL NRO 1.",
+"phone": "02887620675"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "El Callao",
+"name": "ZOOM EL CALLAO LA HORMIGA",
+"address": "CALLE BOLÍVAR, DIAGONAL A LA POLICÍA, LOCAL S/N, EL CALLAO.",
+"phone": "02887622173"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM EL CEMENTERIO",
+"address": "AV. PRINCIPAL DEL CEMENTERIO, CALLE EL DEGREDO, MERCAPOP, PASILLO 6, GRAN MAYOR, LOCAL 12, EL CEMENTERIO.",
+"phone": "04124834763"
+},
+{
+"agency": "Zoom",
+"state": "La Guaira",
+"city": "Maiquetia",
+"name": "ZOOM EL CONSUL",
+"address": "CALLE LOS PIPOTES, ENTRE ESQUINA EL BRILLANTE Y LOS PIPOTES, CASA N.º 129, NIVEL PB.",
+"phone": "04242020063"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM EL CUJI",
+"address": "AV INTERCOMUNAL VIA DUACA KILOMETRO 7 CON AVENIDA BOLIVAR Y CALLE LA CRUZ LOCAL NRO 2, SECTOR EL CUJI",
+"phone": "04120913947"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "El Limon",
+"name": "ZOOM EL LIMON",
+"address": "SECTOR EL LIMON, AV. UNIVERSIDAD,C.C. EL LIMON, NIVEL PB, LOCAL NRO. 03",
+"phone": "04241854427"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM EL MARQUES",
+"address": "AV. SANZ, ENTRE AV. RÓMULO GALLEGOS Y CALLE NAIGUATÁ,C.C. EL MARQUÉS, LOCALES 2 - 3 -9 10",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "El Pinal",
+"name": "ZOOM EL PIÑAL",
+"address": "SECTOR EL PIÑAL, CALLE N°. 1 ENTRE CARRERA N°. 3 Y 4, CASA N°. 3-19. (SAN RAFAEL DEL PIñAL).",
+"phone": "02772340646"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM EL REMANSO",
+"address": "CONJUNTO RESIDENCIAL EL REMANSO, LOTE 23 C, CASA NRO 24.SAN DIEGO",
+"phone": "04121445014"
+},
+{
+"agency": "Zoom",
+"state": "Guárico",
+"city": "El Sombrero",
+"name": "ZOOM EL SOMBRERO",
+"address": "CALLE FRATERNIDAD CRUCE CON CALLE LOS ESTUDIANTES LOCAL NRO S/N, SECTOR FRENTE A LA PLAZA BOLIVAR EL SOMBRERO",
+"phone": "04124538216"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "El Tigre",
+"name": "ZOOM EL TIGRE",
+"address": "AV. FCO. DE MIRANDA, CENTRO COMERCIAL FLAMINGO, PB. LOCALES A-07 Y A-08. P.REF. AL LADO DE LA ALCALDIA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "El Tigrito",
+"name": "ZOOM EL TIGRITO",
+"address": "AV FERNANDEZ PADILLA CC DECA NIVEL N/A LOCAL LOCAL 3 ZONA SAN JOSE DE GUANIPA",
+"phone": "04247775152"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "El Tocuyo",
+"name": "ZOOM EL TOCUYO",
+"address": "CALLE 20 ENTRE 7 Y 8 CRUCE FINAL AVENIDA FRATERNIDAD URB CORPAHUAICO",
+"phone": "02536633950"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM EL VALLE",
+"address": "CALLE CAJIGAL CC EL VALLE NIVEL 3 LOCAL M27 URB EL VALLE",
+"phone": "04265134491"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "El Venado",
+"name": "ZOOM EL VENADO",
+"address": "CENTRO COMERCIAL DE DOS PLANTAS VERA CRUZ CARRETERA LARA -ZULIA LOCAL S/N P.B. PASILLO PRINCIPAL NO. 06,SECTOR CASCO CENTRAL",
+"phone": "04246893212"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "El Vigia",
+"name": "ZOOM EL VIGIA",
+"address": "AV. 3 NRO 3-88, BARRIO PANAMERICANO, ENTRE AV. BOLIVAR Y DON PEPE ROJAS, P.REF. DIAGONAL AL DISTRIBUIDOR CARRERO MENDEZ.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM ELARBA I",
+"address": "AVENIDA BOLIVAR, EDIFICIO ELARBA, PISO PB, LOCAL 133, SECTOR CENTRO DE MATURIN",
+"phone": "02916427302"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Coro",
+"name": "ZOOM FERIAL PUNTO EXPRESS",
+"address": "CALLE FALCON CC FERIAL NIVEL PB LOCAL 01, ZONA CENTRO SANTA ANA",
+"phone": "04126843501"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM FIN DE SIGLO BARQUISIMETO",
+"address": "CALLE 20, ENTRE CARRERAS 31 Y 32, EDF. FIN DE SIGLO PISO 2. P.REF. DETRAS DEL CENTRO COMERCIAL ARCA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM FLOR AMARILLO",
+"address": "SECTOR, FLOR AMARILLO VALENCIA, AV. NRO. 107-C, LOCAL C.C. LA FUNDACION NRO. 1",
+"phone": "02418782653"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM FORUM IPSFA",
+"address": "CENTRO COMERCIAL LOS PRóCERES (IPSFA), PASEO LOS ILUSTRES, CARACAS",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM FUERZAS AÉREAS-LAS ACACIAS",
+"address": "AV FUERZAS AEREAS, URB MARIO BRICEÑO IRAGORRI, NRO 93",
+"phone": "04221804059"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "San Antonio de los Altos",
+"name": "ZOOM GALERIAS LAS AMERICAS",
+"address": "CARRETERA PANAMERICANA, KM 15, SECTOR LAS MINAS, CC GALERÍA LAS AMÉRICAS, NIVEL 1, LOCAL N1-40",
+"phone": "04242746804 - 04242746804"
+},
+{
+"agency": "Zoom",
+"state": "Portuguesa",
+"city": "Guanare",
+"name": "ZOOM GUANARE",
+"address": "AV. SIMON BOLIVAR ENTRE AV. UNDA Y CALLE 9, CENTRO COMERCIAL AUTOCENTRO, PB. LOCAL ZOOM.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guarenas",
+"name": "ZOOM GUARENAS",
+"address": "ZONA INDUSTRIAL SANTA CRUZ, URB. LOS NARANJOS, P.REF. PASANDO LOS BOMBEROS ENTRANDO POR LA LEVIS AL LADO DE PANDOK.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Guasipati",
+"name": "ZOOM GUASIPATI",
+"address": "CALLE MERIDA CC CLEMENT NIVEL 1 LOCAL NRO 5-6, SECTOR LAS GRACIAS GUASIPATI",
+"phone": "04148524027"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Higuerote",
+"name": "ZOOM HIGUEROTE",
+"address": "AVENIDA ANDRÉS BELLO, C.C. ANJULICAR, P.B. LOCAL 3, SECTOR TOCORÓN.",
+"phone": "02343233305"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM JARDINES DEL VALLE",
+"address": "CALLE ANTIGUA CALLE REAL DE LOS JARDINES DEL VALLE CALLE 14 LOCAL NRO 14 LOCAL, URB EL VALLE TALLER RANI",
+"phone": "04125420836 - 02126729456"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Juan Griego",
+"name": "ZOOM JUAN GRIEGO",
+"address": "C.C. LA ESTANCIA, LOCAL L23, JUAN GRIEGO.",
+"phone": "04248277609"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM KILOMETRO 4",
+"address": "CALLE 148 LOCAL NO. 115-59 EDIFICIO TAMI VIA ZONA INDUSTRIAL A 50 METROS DEL KILÓMETRO 4.",
+"phone": "04149606388"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Ciudad Ojeda",
+"name": "ZOOM LA ARTERIAL CIUDAD OJEDA",
+"address": "CTRA K CON ESQUINA AVENIDA CRISTÓBAL COLON CC RIJER NIVEL PB LOCAL LOCAL NRO 7,SECTOR ARTERIAL 7",
+"phone": "04123143345"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Porlamar",
+"name": "ZOOM LA ASUNCION",
+"address": "AV INTERSEECION DE LAS CALLES GIRARDOT Y SANTA ISABEL EDIF CENTRO EMPRESARIAL LA ASUNCION PISO PB OF,URB LA ASUNCIÓN",
+"phone": "04142816100"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LA CALIFORNIA",
+"address": "AV FRANCISCO DE MIRANDA, RESIDENCIAS MÓNACO LOCAL B, URB LA CALIFORNIA NORTE",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LA CANDELARIA",
+"address": "AV ESTE 2. TRACABORDO A PUENTE YANEZ, EDIF. RES. YANORAL, P.B. LA CANDELARIA.",
+"phone": "02125767249 - 02125762250"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM LA CANDELARIA VALENCIA",
+"address": "VALENCIA CENTER PB, LOCAL NRO 38, AL FRENTE DEL COLEGIO REPUBLICA DEL PERU, DETRAS DEL REGISTRO CIVIL.",
+"phone": "02418352003 - 04244021923"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Barinas",
+"name": "ZOOM LA CAROLINA",
+"address": "AV ANDRES VARELA LOCAL ESTADIO AGUSTIN TOVAR LA CAROLINA NRO A1, SECTOR LA CAROLINA",
+"phone": "04245520763 - 04245832777"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Carrizal",
+"name": "ZOOM LA CASCADA",
+"address": "CARRETERA PANAMERICANA KM 21, C.C. LA CASCADA NIVEL PLANTA BAJA LOCAL PB-43,SECTOR CORRALITO",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM LA CHINITA",
+"address": "AV. 15, ENTRE CALLES 93 Y 95, CENTRO COMERCIAL LA CHINITA, PRIMER NIVEL, LOCAL N° 26. P.REF. POR LA FERIA DE COMIDA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "La Concepcion",
+"name": "ZOOM LA CONCEPCION",
+"address": "SECTOR LOS LIRIOS LA CONCEPCION, (LOS TEQUES), AV. PRINCIPAL, LOCAL NRO. S/N.",
+"phone": "04246112096"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Lecherias",
+"name": "ZOOM LA CONCHA LECHERIA",
+"address": "AV PRINCIPAL CC LA CONCHA NIVEL S/N LOCAL 17, SECTOR CIUDAD DE LECHERIAS",
+"phone": "04248814628"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM LA CONCORDIA",
+"address": "AV 19 DE ABRIL NRO 9-29 ENTRE CARRERAS 9 Y 10 LA CONCORDIA.",
+"phone": "02763480822 - 02763480822"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM LA COOPERATIVA",
+"address": "ZONA LA COOPERATIVA MARACAY, AV. PPAL. LA COOPERATIVA C/C CALLE URDANETA, CASA NRO. 7, LOCAL NRO. 4.",
+"phone": "04123960747 - 02432422566"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM LA COROMOTO",
+"address": "CALLE 165 CON AVENIDA 41 CC SARA FARIA NIVEL PB LOCAL 3 URB LA COROMOTO SAN FRANCISCO",
+"phone": "04141764812"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LA FLORIDA",
+"address": "AV. JUAN BAUTISTA ARISMENDI, ENTRE CALLE PEDROZA Y AV. DON BOSCO.",
+"phone": "02127304991"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "La Fria",
+"name": "ZOOM LA FRIA",
+"address": "SECTOR TERMINAL DE PASAJEROS LA FRIA, CALLE 2 ENTRE CARRERAS 18 Y 19, LOCAL NRO. 25",
+"phone": "02774144833"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "La Grita",
+"name": "ZOOM LA GRITA C.A",
+"address": "CALLE 2 ENTRE CARRERAS 11 Y 12 CASA 11-86 SECTOR CASCO CENTRAL",
+"phone": "02778815316"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LA HOYADA",
+"address": "AV FUERZAS ARMADAS ENTRE ESQUINAS DE SOCARRAS Y CORAZÓN DE JESUS EDF LA GALERIA PB LOCAL 8, LA HOYADA",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM LA ISABELICA",
+"address": "AV 73 HUMBERTO CELLI NRO 84-50 LOCAL 17 CENTRO COMERCIAL METRO SUR ZONA INDUSTRIAL MUNICIPAL NORTE.",
+"phone": "02418321947"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Santa Rita - Aragua",
+"name": "ZOOM LA MORITA",
+"address": "CALLE CALLE LEONARDO RUIZ PINEDA LOCAL NRO 11",
+"phone": "04243746956"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM LA PARROQUIA",
+"address": "CALLE PÁEZ CASA NRO 2-35 LOCAL A, SECTOR LA PARROQUIA",
+"phone": "02742712653"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "La Pastora",
+"name": "ZOOM LA PASTORA",
+"address": "CALLE PRINCIPAL LOCAL NRO 02 SECTOR EL CENTRO, LA PASTORA",
+"phone": "04261547421 - 04126704725"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Punto Fijo",
+"name": "ZOOM LA PUMAROSA",
+"address": "AV. RAFAEL GONZALEZ, CRUCE CON AV JOFFE PAUL JATEM (ANTIGUA PUMAROSA), EDF. BRISANCA",
+"phone": "02692478555 - 02692473812"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LA TAHONA",
+"address": "AVENIDA LA GUAIRITA CALLE REYNA, INSTITUTO UNIVERSITARIO AVEPANE, URB LA TAHONA",
+"phone": "04129293927"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LA URBINA",
+"address": "SECTOR SUR, CALLE 7, URB LA URBINA, EDIFICIO GRUPO ZOOM.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "La Victoria",
+"name": "ZOOM LA VICTORIA",
+"address": "CALLE RIVAS DAVILA, C.C. VICTORIA CENTER, PRIMERA ETAPA, NIVEL PLANTA BAJA, LOCAL A-6.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Villa del Rosario",
+"name": "ZOOM LA VILLA DEL ROSARIO",
+"address": "SECTOR CASCO CENTRAL LA VILLA DEL ROSARIO, AV. N°. 18 DE OCTUBRE, LOCAL N°. 18-13.",
+"phone": "02634510856"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Lagunillas",
+"name": "ZOOM LAGUNILLAS",
+"address": "AV 6, AGUA DE URAO LOCAL NRO S/N SECTOR PUEBLO VIEJO",
+"phone": "04127656704"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM LARA PALACE",
+"address": "CARRERA 23, ENTRE CALLES 52 Y 54, URBANIZACION SANTA EDUVIGIS,CONJUNTO RESIDENCIAL LARA PALACE, NRO. 1-06,",
+"phone": "02514437050"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Barquisimeto",
+"name": "ZOOM LAS INDUSTRIAS",
+"address": "AV. LAS INDUSTRIAS, EDIF. SEDE DE INDUSTRIALES DEL ESTADO LARA, URB. RAFAEL CALDERA",
+"phone": "04145072365 - 04145073909"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Punto Fijo",
+"name": "ZOOM LAS MARGARITAS",
+"address": "AV CORO ENTRE AVENIDAS FRANCISCO DE MIRANDA Y MORUY LOCAL CENTRAL SECTOR LAS MARGARITAS",
+"phone": "04246546611"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LAS MERCEDES",
+"address": "CALLE VERACRUZ, EDIFICIO TORREON, P.B, LOCAL 4. LAS MERCEDES",
+"phone": "02129518275 - 04123907092"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LAS PALMAS",
+"address": "AV. LAS PALMAS, EDF. PALMA ALTA, TORRE A, LOCAL 4, PB.",
+"phone": "02120000000"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM LOS AVIADORES",
+"address": "CALLE OESTE DEL PARCELAMIENTO CIUDAD LIBERTADOR, FRENTE A LA AVENIDA LOS AVIADORES CENTRO COMERCIAL PARQUE LOS AVIADORES, PARCELA 2-A1 LOCAL COMERCIAL L-218, SECTOR NORTE",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LOS CHAGUARAMOS",
+"address": "CALLE RAZETTI, URB. LOS CHAGUARAMOS, QUINTA CENTRO PROFESIONAL LOS CHAGUARAMOS PB.",
+"phone": "02126623496 - 04169304378"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LOS CORTIJOS",
+"address": "AV. FRANCISCO DE MIRANDA EDIFICIO CENTRO EMPRESARIAL DON BOSCO PISO P.B LOCAL 2. LOS CORTIJOS DE LOURDES",
+"phone": "02122393830 - 04242725228"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LOS DOS CAMINOS",
+"address": "AV SUCRE ENTRE CUARTA Y QUINTA TRANSVERSAL CONJUNTO CENTRO PARQUE BOYACA LOCAL PLANTA BAJA NRO 11,URB LOS DOS CAMINOS",
+"phone": "04123058843"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Los Guayos",
+"name": "ZOOM LOS GUAYOS",
+"address": "CALLE PAEZ ENTRE BRUZUAL Y NEGRO PRIMERO, LOCAL A-01.",
+"phone": "02418774708 - 04128826631"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LOS NARANJOS",
+"address": "AV. EL PAUJI, C.C. GALERIAS LOS NARANJOS, PISO 2, LOCAL C2-53.",
+"phone": "02129853166 - 02129857738"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM LOS OLIVOS",
+"address": "CENTRO COMERCIAL SANTO TOME III, PLANTA BAJA, LOCAL PB-05, PUERTO ORDAZ",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM LOS POSTES NEGROS",
+"address": "AV 28 CASA NRO 7-59 LOCAL N/A BARRIO SEBASTOPOL",
+"phone": "04227147196"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM LOS PROCERES",
+"address": "AV LOS PRÓCERES EDIF LONGIMAR PISO PB LOCAL 2 Y 3, SECTOR ALDEA SANTA BARBARA",
+"phone": "02742667720"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Los Puertos de Altagracia",
+"name": "ZOOM LOS PUERTOS DE ALTAGRACIA",
+"address": "AV 3 NUMERO 10-98, ESQUINA 11 CC LAS AURORAS NIVEL P.B LOCAL N° 9",
+"phone": "04162600335 - 04127731947"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Pampatar",
+"name": "ZOOM LOS ROBLES",
+"address": "AV JOVITO VILLALBA C.C. CENTRO ARTESANAL LOS ROBLES NIVEL P.B",
+"phone": "08007679666"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM LOS RUICES",
+"address": "AV FRANCISCO DE MIRANDA, ENTRE CALLE C Y CALLE GUANCHEZ CC LOS RUICES NIVEL PB LOCAL 11 URB LOS RUICES",
+"phone": "04241216513"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM LOS SAMANES MATURIN",
+"address": "CALLE PRINCIPAL, CENTRO COMERCIAL LOS SAMANES, LOCAL 1, PLANTA BAJA, SECTOR LOS SAMANES.",
+"phone": "02916529709"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Los Teques",
+"name": "ZOOM LOS TEQUES",
+"address": "SECTOR EL TAMBOR, AV. PEDRO RUFFO FERRER, C.C. LOS TEQUES LOCAL A5. P.REF. FRENTE AL BANCO DE VENEZUELA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Machiques",
+"name": "ZOOM MACHIQUES",
+"address": "AV ARTES ENTRE CALLE LA MARINA Y CALLE EL CARMEN CASA NRO S/N, MACHIQUES",
+"phone": "04127939071"
+},
+{
+"agency": "Zoom",
+"state": "La Guaira",
+"city": "Maiquetia",
+"name": "ZOOM MAIQUETIA",
+"address": "AV.SOUBLETTE, C.C LITORA NIVEL COMERCIO 1, LOCAL 12",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM MAKRO LA YAGUARA",
+"address": "AV. INTERCOMUNAL DE ANTIMANO CRUCE CON AV. PRINCIPAL DE LA YAGUARA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM MANZANARES",
+"address": "AV. PRINCIPAL C.C MANZANARES II NIVEL MIRADOR LOCAL M104",
+"phone": "02129446663 - 04141262683"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM MARACAIBO",
+"address": "AVENIDA 5 DE JULIO, CALLE 77 CON AV. 12.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM MARACAY AV. MIRANDA",
+"address": "AV. MIRANDA OESTE, CRUCE CON CALLE CAMPO ELIAS NRO 165.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM MATURIN",
+"address": "AV. BICENTENARIO EDIFICIO CONGESA, LOCAL I Y II PUNTO DE REFERENCIA: FRENTE PLAZA EL INDIO",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Mene Grande",
+"name": "ZOOM MENE GRANDE",
+"address": "MENE GRANDE - LA LINEA",
+"phone": "04146105458"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM MERCADO MURACHI",
+"address": "AV.LAS AMERICAS,CENTRO COMERCIAL MERCADO MURACHI,NIVEL UNICO LOCAL 44.",
+"phone": "02746573522"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Merida",
+"name": "ZOOM MERIDA",
+"address": "CALLE 36 ENTRE AVENIDAS 2 Y 3, EDIFICIO EL PARQUE PISO PB LOCAL 35-65, SECTOR CENTRO EL LLANO",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM METROCENTER CAPITOLIO",
+"address": "AVENIDA UNIVERSIDAD CON AVENIDA BARALT Y SUR 4, ENTRE LAS ESQUINA LA BOLSA Y PEDRERA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Montalban",
+"name": "ZOOM MONTALBAN CARABOBO",
+"address": "AV. BOLIVAR LOCAL NRO. 2 SECTOR CENTRO MONTALBAN",
+"phone": "02497985614 - 04166409680"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM MONTALBAN I",
+"address": "URB. MONTALBAN I, AV. NRO. 2, AV. MONTALBAN I, C.C. USLAR NIVEL MIRADOR, LOCAL NRO. 03, LA NRO. 21.",
+"phone": "02124712023"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM MONTALBAN III",
+"address": "C.C. CARACAS, PISO 1, LOCAL 01 15 GALERÍAS MAGIC CENTER (MINITIENDAS) MONTALBAN III, AV. TRANSVERSAL 3-E.",
+"phone": "02124724111"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Mucuchies",
+"name": "ZOOM MUCUCHIES",
+"address": "AV INDEPENDENCIA ESQUINA CALLE SUCRE NRO 69, CENTRO MUCUCHIES",
+"phone": "04122899238"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM MULTICENTRO EMPRESARIAL DEL ESTE",
+"address": "AV.FRANCISCO DE MIRANDA MULTICENTRO EMPRESARIAL DEL ESTE, PLANTA BAJA TORRE MIRANDA. LOCAL PB 04",
+"phone": "02122678865 - 02122678865"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM MULTISERVICIOS BARRIO OBRERO",
+"address": "CALLE 11 ENTRE CARRERAS 18 Y 19 NRO 19-59, CALLE 11 ENTRE CARRERAS 18 Y 19 NRO 19-59.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Ocumare del Tuy",
+"name": "ZOOM OCUMARE DEL TUY",
+"address": "CALLE PRINCIPAL LA ACEQUIA CC RESIDENCIA LA ACEQUIA NIVEL PB LOCAL NRO 7",
+"phone": "02392246033"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM ORINOKIA MALL",
+"address": "URB. ALTA VISTA, AV. PROLONGACION, AV. LAS AMERICAS, C.C. ORINOKIA MALL NIVEL PLAZA, SANTO TOME LOCAL PB-04.",
+"phone": "05001966600"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Guarenas",
+"name": "ZOOM PALMA REAL",
+"address": "CALLE PRINCIPAL, C.C PALMA REAL NIVEL-LOCAL 25,URB. NUEVA CASARAPA",
+"phone": "02126888454 - 04166117793"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Palmira",
+"name": "ZOOM PALMIRA",
+"address": "SECTOR PALMIRA, CARRETERA 5, LOCAL NRO. 2.",
+"phone": "02763919727"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM PARADA BOLIVARIANO",
+"address": "CALLE MARIÑO CC JUNIOR NIVEL PB LOCAL 1,SECTOR BOULEVARD URDANETA",
+"phone": "04248120919"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM PARAMILLO",
+"address": "AV 4 EDIF MINICENTRO PARAMILLO PISO 3 LOCAL 1 ETAPA,ZONA INDUSTRIAL PARAMILLO",
+"phone": "02763552808"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PARQUE CARACAS-LA CANDELARIA",
+"address": "AV. ESTE NRO. 2, CON CALLE SUR NRO. 21, C.C. PARQUE CARACAS, NIVEL PB, LOCAL NRO. 36..",
+"phone": "04248922112 - 02125775569"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PARQUE HUMBOLDT",
+"address": "CENTRO COMERCIAL PARQUE HUMBOLDT, LOCAL 10, URB. PRADOS DEL ESTE",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PASAJE ZINGG",
+"address": "AV UNIVERSIDAD EDIF PASAJE ZINGG PISO PB LOCAL 32 ZONA CENTRO",
+"phone": "04142063734"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM PLAZA DE TOROS",
+"address": "CALLE 52-A LOCAL NRO 1380000, URB. LA TRINIDAD, SECTOR PLAZA DE TORO.",
+"phone": "02617579467"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PLAZA LAS AMERICAS",
+"address": "AV RAUL LEONI CC PLAZA LAS AMERICAS NIVEL PB LOCAL 2 URB EL CAFETAL",
+"phone": "04241480329 - 02122259147"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PLAZA MADARIAGA",
+"address": "AV. LOS SAMANES, C.C. EURO, NIVEL PB, LOCAL NRO 12. EL PARAISO",
+"phone": "02124840607"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM POMONA",
+"address": "BARRIO SAN TRINO LA POMONA, CALLE NRO. 102 ENTRE AV. NRO. 18 Y CALLE NRO. 102A, LOCAL NRO. 18-26.",
+"phone": "02617237537"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Porlamar",
+"name": "ZOOM PORLAMAR",
+"address": "AV. 4 DE MAYO, RESIDENCIAS PANERCO, PLANTA BAJA, LOCAL 1.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Porlamar",
+"name": "ZOOM PORLAMAR CENTRO",
+"address": "CALLE VELÁSQUEZ CON CALLE DÍAZ, CENTRO COMERCIAL CONCORD, LOCAL #100. PASILLO CENTRAL",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PRADOS DEL ESTE",
+"address": "AV. PPAL. DE PRADOS DEL ESTE. CTRO. COMERCIAL GALERIAS PRADOS DEL ESTE. NIVEL PA. LOCAL 39.",
+"phone": "04241206154 - 04123103404"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM PROPATRIA",
+"address": "AV SIMON BOLIVAR CC PROPATRIA NIVEL 1 LOCAL A9 URB PROPATRIA",
+"phone": "02128721361"
+},
+{
+"agency": "Zoom",
+"state": "Guárico",
+"city": "San Juan de los Morros",
+"name": "ZOOM PUEBLO NUEVO",
+"address": "SECTOR PUEBLO NUEVO, AV. BOLIVAR CRUCE CON 1RO DE MAYO NRO. 41-D,",
+"phone": "02464325959"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "El Tigre",
+"name": "ZOOM PUEBLO NUEVO NORTE",
+"address": "CALLE 18 NORTE LOCAL NRO 04 SECTOR PUEBLO NUEVO NORTE",
+"phone": "04248654630"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "San Antonio de los Altos",
+"name": "ZOOM PUEBLO SAN ANTONIO",
+"address": "CALLE BOLIVAR CON CRUCE CALLE LAS FLORES EDIF BELLO PISO P1 APT NRO 16,SECTOR CASCO CENTRAL",
+"phone": "04128623889"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Punto Fijo",
+"name": "ZOOM PUERTA MARAVEN",
+"address": "URB. PUERTA MARAVEN, AV. OLLARVIDES, LOCAL NRO. 264.",
+"phone": "02692463038 - 02692463038"
+},
+{
+"agency": "Zoom",
+"state": "Amazonas",
+"city": "Puerto Ayacucho",
+"name": "ZOOM PUERTO AYACUCHO",
+"address": "AV. RIO NEGRO, CENTRO COMERCIAL JUNCOSA, LOCAL 2-A.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Puerto Cabello",
+"name": "ZOOM PUERTO CABELLO",
+"address": "PRIMERA CALLE SEGRESTAA, EDIFICIO ENNA, PB., LOCAL 26 Y 27.P.REF. DIAGONAL A LA CRUZ ROJA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Puerto Cumarebo",
+"name": "ZOOM PUERTO CUMAREBO",
+"address": "CALLE LA PAZ LOCAL COMERCIAL CALLEJA NRO S/N, SECTOR CENTRO PUERTO CUMAREBO",
+"phone": "04226509666"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM PUERTO ORDAZ",
+"address": "SECTOR UNARE, ZONA INDUSTRIAL I, CALLE TUNAPUY, P.REF. DIAGONAL AL TIGASCO.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto Piritu",
+"name": "ZOOM PUERTO PIRITU",
+"address": "CALLE BOLIVAR CC ZEGHEN INVERSIONES GEORGINA NIVEL PB LOCAL 06, 08 Y 10,SECTOR CENTRO",
+"phone": "04125486274"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Punta de Mata",
+"name": "ZOOM PUNTA DE MATA",
+"address": "AV BOLIVAR CC JUPITER CENTER NIVEL PB LOCAL 10,SECTOR CENTRO PUNTA DE MATA",
+"phone": "04249550302"
+},
+{
+"agency": "Zoom",
+"state": "Falcón",
+"city": "Punto Fijo",
+"name": "ZOOM PUNTO FIJO",
+"address": "SECTOR CENTRO, CALLE ARISMENDI, ENTRE TALAVERA Y LAS PALMAS, LOCAL 203.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Lara",
+"city": "Quibor",
+"name": "ZOOM QUIBOR",
+"address": "AV 5 ENTRE CALLES 12 Y 13 LOCAL NRO S/N",
+"phone": "04120376682"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM QUINTA CRESPO",
+"address": "AV. BARALT ESQ EL CARMEN C.C. DORAL BARALT NIVEL 1 LOCAL 30. QUINTA CRESPO.",
+"phone": "02124824568"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Pampatar",
+"name": "ZOOM RATTAN PLAZA",
+"address": "AV JOVITO VILLALBA CC RATTAN HYPERPLAZA NIVEL MEZZANINA LOCAL E-43,SECTOR PLAYA EL ANGEL",
+"phone": "02952626044"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Rubio",
+"name": "ZOOM RUBIO",
+"address": "CALLE 14 ENTRE AV. 8 Y 9, CENTRO COMERCIAL DONA IVONNE, P.B. LOCAL 6 Y 7",
+"phone": "02767626456"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM SAMBIL LA CANDELARIA",
+"address": "44 AV. ESTE 0, C.C SAMBIL LA CANDELARIA, LOCAL NO. E-04, NIVEL SÓTANO 1",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Nueva Esparta",
+"city": "Pampatar",
+"name": "ZOOM SAMBIL MARGARITA",
+"address": "AVENIDA JÓVITO VILLALBA, SECTOR SAN LORENZO, SAMBIL MARGARITA, LOCALES T01A Y T01B, AL LADO DE LA SALIDA PLAYA GUACUCO",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM SAMBIL PETARE",
+"address": "AV PRINCIPAL PETARE, C.C SUPER PETARE (SAMBIL PETARE), LOCAL A-18",
+"phone": "04167182904"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Antonio del Tachira",
+"name": "ZOOM SAN ANTONIO",
+"address": "CALLE 9 ENTRE CARRERAS 10 Y 11 NúMERO 10-44 BARRIO LA POPA SAN ANTONIO DEL TáCHIRA.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "San Antonio de los Altos",
+"name": "ZOOM SAN ANTONIO",
+"address": "CARRETERA PANAMERICANA, KM 16, SECTOR LA ROSALEDA.",
+"phone": "02123725877 - 02123725877"
+},
+{
+"agency": "Zoom",
+"state": "Cojedes",
+"city": "San Carlos",
+"name": "ZOOM SAN CARLOS",
+"address": "AV. BOLIVAR CRUCE CON CALLE SILVA, CENTRO COMERCIAL COLAVITA, PLANTA BAJA, LOCALES L1 Y L2.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM SAN CRISTOBAL",
+"address": "AV. LIBERTADOR, EDIFICIO EL MARACUCHO PB. LOCAL A-56. P.REF. FRENTE AL HOTEL HAMBURGO.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Yaracuy",
+"city": "San Felipe",
+"name": "ZOOM SAN FELIPE",
+"address": "AV. LA PATRIA CON AV. 19 DE ABRIL, CENTRO COMERCIAL ARACOI, LOCAL C-5. P.REF. FTE. A OFICINAS DE CALEY.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "San Felix",
+"name": "ZOOM SAN FELIX",
+"address": "SECTOR EL ROBLE, AV. MORENA MENDOZA, CENTRO COMERCIAL LA CARIÑOSA, LOCAL C.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Apure",
+"city": "San Fernando",
+"name": "ZOOM SAN FERNANDO DE APURE",
+"address": "EDIFICIO LARA,PLANTA BAJA CALLE BOLíVAR, CRUCE CON CALLE 24 DE JULIO.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Guárico",
+"city": "San Juan de los Morros",
+"name": "ZOOM SAN JUAN DE LOS MORROS",
+"address": "AVENIDA BOLÍVAR, TORRE TAURO, PLANTA BAJA",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM SAN MARTIN",
+"address": "AV. SAN MARTIN, ENTRE LA 2DA Y 3ERA CALLE LOS MOLINOS, URB. LOS MOLINOS, EDIFICIO KOMPLOT, PB. P.REF. EDIFICIO KOMPLOT, PB.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Santa Barbara de Barinas",
+"name": "ZOOM SANTA BARBARA",
+"address": "CARRERA 5, ENTRE CALLES 9 Y 10, SECTOR PUEBLO VIEJO.",
+"phone": "02782221082"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Santa Barbara del Zulia",
+"name": "ZOOM SANTA BARBARA DEL ZULIA",
+"address": "AV. BOLIVAR C.C. DORADO, NIVEL P.B LOCAL 02, SECTOR SANTA BARBARA.",
+"phone": "04247651784"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Santa Cruz de Aragua",
+"name": "ZOOM SANTA CRUZ DE ARAGUA",
+"address": "AV. 02, PARCELAS B-17-A Y B-17-B, ZONA INDUSTRIAL SANTA CRUZ.",
+"phone": "04243799915 - 04125488679"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM SANTA FE",
+"address": "AV. JOSE MARIA VARGAS. C.C. SANTA FE. NIVEL C-3. LOCAL 68, URB SANTA FE NORTE.",
+"phone": "02129763064 - 04140223755"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Santa Rita - Aragua",
+"name": "ZOOM SANTA RITA ARAGUA",
+"address": "AV. FRANCISCO DE MIRANDA, NRO. 75, C.C. ACCA, LOCAL 02, SECTOR GUARUTO 2, SANTA RITA DE ARAGUA.",
+"phone": "04243452332"
+},
+{
+"agency": "Zoom",
+"state": "Sucre",
+"city": "Cumana",
+"name": "ZOOM SANTA ROSA",
+"address": "AV. SANTA ROSA, C.C. SANTA ROSA, NIVEL PB, LOCAL 06, SECTOR SANTA ROSA.",
+"phone": "02934325295"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM SANTA ROSALIA",
+"address": "ESQUINA MUERTO A PELAEZ, CASA NRO. 116, ZONA PARROQUIA SANTA ROSALIA.",
+"phone": "02125416823 - 02125413324"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "San Cristobal",
+"name": "ZOOM SANTA TERESA",
+"address": "CALLE PRINCIPAL, C.C. CASA GRANDE, NIVEL P.B, LOCAL S/N, SECTOR SANTA TERESA.",
+"phone": "02763416689"
+},
+{
+"agency": "Zoom",
+"state": "Miranda",
+"city": "Santa Teresa del Tuy",
+"name": "ZOOM SANTA TERESA DEL TUY",
+"address": "AVENIDA ALI PRIMERA, CENTRO COMERCIAL PASEO TUY, LOCALES 135-135-136, PISO 1",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM SECTOR ROJAS QUEIPO",
+"address": "CALLE ROJAS QUEIPO, C.C. PARQUE SAN JOSÉ, LOCAL NRO. 02.",
+"phone": "04128866039 - 04124747724"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Maracay",
+"name": "ZOOM SECTOR SAN MIGUEL",
+"address": "AV. MARINO SUR, CENTRO EMPRESARIAL UNIARAGUA, PLANTA BAJA, LOCAL 1.",
+"phone": "04128188424 - 02432464315"
+},
+{
+"agency": "Zoom",
+"state": "Zulia",
+"city": "Maracaibo",
+"name": "ZOOM SIERRA MAESTRA",
+"address": "CALLE 13, C.C. OASIS NIVEL PB LOCAL L-3, BARRIO SIERRA MAESTRA.",
+"phone": "04146718682"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Socopo",
+"name": "ZOOM SOCOPO",
+"address": "CR 9 ENTRE CALLES 3 Y 4, C.C. GALERIAS NIVEL PB LOCAL NRO 2, SECTOR CENTRO SOCOPO",
+"phone": "04142911696 - 04145112200"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM TAQUILLA CC ARTICA",
+"address": "CENTRO COMERCIAL ARTICA, CARRERA GUASIPATI, LOCALES 5 Y 6. CENTRO DE PUERTO ORDAZ.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Tariba Nueva",
+"name": "ZOOM TARIBA",
+"address": "CALLE 6 CON CARRERA 6 CASA NRO 5-70, SECTOR TARIBA",
+"phone": "04149742075"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM TEATRO MUNICIPAL DE VALENCIA",
+"address": "CALLE COLOMBIA CON SOUBLETTE, C.C. FIERA MOSCA, NIVEL PB, LOCAL 2.",
+"phone": "02418580598 - 04140431897"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM TELARES LOS ANDES",
+"address": "AV. PRINCIPAL DEL CEMENTERIO, C.C TELARES LOS ANDES LOCAL NRO 38, SECTOR AZUL.",
+"phone": "04166025869"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Temblador",
+"name": "ZOOM TEMBLADOR",
+"address": "CALLE SUCRE CASA NRO S/N, SECTOR LA PLAZA TEMBLADOR",
+"phone": "02877920795"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Puerto la Cruz",
+"name": "ZOOM TERMINAL PASAJEROS",
+"address": "CALLE DEMOCRACIA, CRUCE CON CALLE JUNCAL, TERMINAL DE PASAJEROS DE PUERTO LA CRUZ, PASILLO 6,LOCAL 71. PASILLO 6.",
+"phone": "02812656859"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM TERRAZAS DEL AVILA",
+"address": "AV. PRINCIPAL TERRAZAS DEL AVILA C.C EL AVILA NIVEL C-3 LOCAL N C-3-06, URB TERRAZAS DEL AVILA.",
+"phone": "04141346742"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM TIPURO",
+"address": "CTRA. VÍA VIBORAL, C.C. VIRGEN DEL VALLE, NIVEL PLANTA ALTA, LOCAL 58-A, SECTOR TIPURO",
+"phone": "02916437282"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM TORRE CAURA",
+"address": "CTRA TOCOMA, CON CALLE CAURA CC C.C TORRE CAURA NIVEL SOTANO LOCAL 4, SECTOR ALTA VISTA",
+"phone": "02869675225 - 04167256342"
+},
+{
+"agency": "Zoom",
+"state": "Distrito Capital",
+"city": "Caracas",
+"name": "ZOOM TORRE EXA",
+"address": "AV.LIBERTADOR C.C. EXA NIVEL PB LOCAL 17,URB EL ROSAL",
+"phone": "02129520275"
+},
+{
+"agency": "Zoom",
+"state": "Mérida",
+"city": "Tovar",
+"name": "ZOOM TOVAR",
+"address": "AV. CRISTOBAL MENDOZA EDIF. ECHEVERRIA PISO 1 LOCAL 3 Y 4,SECTOR AL AÑIL.",
+"phone": "02758733489"
+},
+{
+"agency": "Zoom",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "ZOOM TRUJILLO",
+"address": "AV. BOLIVAR C.C. COMERCIAL SOLUNTO, NIVEL 1 LOCAL 1, CENTRO DE TRUJILLO.",
+"phone": "04247013305"
+},
+{
+"agency": "Zoom",
+"state": "Delta Amacuro",
+"city": "Tucupita",
+"name": "ZOOM TUCUPITA CENTRO",
+"address": "CALLE LA PAZ LOCAL NRO S/N, SECTOR CENTRO TUCUPITA",
+"phone": "02877214546 - 04164214200"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Tumeremo",
+"name": "ZOOM TUMEREMO CALLE BOLIVAR",
+"address": "CALLE SUR ESTE, CON CALLE ZEA CRUCE CON CALLE MARTÍ, LOCAL NÚMERO 01",
+"phone": "04164299636 - 04148946067"
+},
+{
+"agency": "Zoom",
+"state": "Portuguesa",
+"city": "Turen",
+"name": "ZOOM TUREN",
+"address": "AV. RICARDO PEREZ ZAMBRANO, EDIF. AGOSI. LOCAL NRO. 1,VILLA BRUZUAL.",
+"phone": "02563211405"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Turmero",
+"name": "ZOOM TURMERO CENTRO",
+"address": "CALLE URDANETA CASA NRO.16 Y NRO.1,SECTOR CENTRO TURMERO.",
+"phone": "04243155639 - 04121493125"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Turmero",
+"name": "ZOOM TURMERO ENCRUCIJADA",
+"address": "CARRETERA NACIONAL TURMERO - CAGUA C.C. PASEO LOS LAURELES NIVEL PB LOCAL 4, URB.LA ENCRUCIJADA.",
+"phone": "02443957879"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Turmero",
+"name": "ZOOM TURMERO INTERCOMUNAL",
+"address": "AV. INTERCOMUNAL MARACAY-TURMERO, C.C. INTERCOMUNAL CENTER NIVEL LOCAL 1-7,SECTOR LA MORITA",
+"phone": "04243790087"
+},
+{
+"agency": "Zoom",
+"state": "Monagas",
+"city": "Maturin",
+"name": "ZOOM UGARTE PELAYO",
+"address": "AV. ALIRIO UGARTE PELAYO, EDIF. VESPA, LOCAL 6, SECTOR BAJO GUARAPICHE.",
+"phone": "04249065409"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM UNARE BIBLOS CENTER",
+"address": "CALLE UCHIRE, C.C BIBLOS CENTER NIVEL 54 B LOCAL 54,UNARE II.",
+"phone": "04248869747 - 02869520287"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Upata",
+"name": "ZOOM UPATA C.C DATIL",
+"address": "AV. BICENTENARIO, DIAGONAL A CALLE 19 DE ABRIL, C.C. EL DATIL, NIVEL PB, LOCAL S/N, SECTOR CENTRO.",
+"phone": "04249400343"
+},
+{
+"agency": "Zoom",
+"state": "Táchira",
+"city": "Urena",
+"name": "ZOOM UREÑA",
+"address": "CALLE 5, BARRIO LA GOAJIRA, CARRETERA 5, LOCAL 01.",
+"phone": "02767870254 - 04244039287"
+},
+{
+"agency": "Zoom",
+"state": "Carabobo",
+"city": "Valencia",
+"name": "ZOOM VALENCIA",
+"address": "AV. ESTE OESTE CON CALLE 97, URBANIZACION SAN DIEGO, PARQUE COMERCIAL INDUSTRIAL CASTILLITO PARCELA L-70 Y L-78.",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Trujillo",
+"city": "Valera",
+"name": "ZOOM VALERA",
+"address": "AVENIDA BOLÍVAR EDIFICIO GALOTTA II, URB LAS ACACIAS AL LADO DE LA BERA",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Trujillo",
+"city": "Valera",
+"name": "ZOOM VALERA CENTRO",
+"address": "C.C. CANAIMA, NIVEL PB, LOCAL L-20, CALLE 6 ENTRE AVENIDAS 10 Y 11",
+"phone": "02712212756"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Barcelona",
+"name": "ZOOM VALLE ALTO",
+"address": "AV. PRINCIPAL DEL SAMÁN, C.C. VALLE ALTO, NIVEL PB, LOCAL NRO. 12, SECTOR EL SAMÁN",
+"phone": "04248672633"
+},
+{
+"agency": "Zoom",
+"state": "Guárico",
+"city": "Valle de la Pascua",
+"name": "ZOOM VALLE DE LA PASCUA",
+"address": "AVENIDA LAS INDUSTRIAS CRUCE CON CALLE LOS PARAMOS CENTRO COMERCIAL LA PASCUA CENTER LOCAL NRO 2",
+"phone": "0501 ZOOM000 (0-501-966-6000)"
+},
+{
+"agency": "Zoom",
+"state": "Barinas",
+"city": "Barinas",
+"name": "ZOOM VARYNA ALTO BARINAS SUR",
+"address": "AV. VENEZUELA CON CALLE JUSTICIA LOCAL, NRO. 127 B-3, URB. ALTO BARINAS SUR",
+"phone": "02735410623"
+},
+{
+"agency": "Zoom",
+"state": "Anzoátegui",
+"city": "Barcelona",
+"name": "ZOOM VENECIA",
+"address": "AV. NUEVA ESPARTA C.C NASCAR NIVEL PB LOCAL 06, SECTOR VENECIA",
+"phone": "04248135156 - 04265771056"
+},
+{
+"agency": "Zoom",
+"state": "Bolívar",
+"city": "Puerto Ordaz",
+"name": "ZOOM VILLA AFRICANA",
+"address": "C.C GIGIA, LOCAL 1 URB.VILLA AFRICANA, ENTRE VIA ITALIA Y CALLE EGIPTO",
+"phone": "04143862972 - 02869610286"
+},
+{
+"agency": "Zoom",
+"state": "Aragua",
+"city": "Villa de Cura",
+"name": "ZOOM VILLA DE CURA",
+"address": "CALLE SUCRE CON ADUANA, C.C. VILLA HERMOSA, LOCAL 39.",
+"phone": "02443865962 - 02443868351"
+},
+{
+"agency": "Zoom",
+"state": "Yaracuy",
+"city": "Yaritagua",
+"name": "ZOOM YARITAGUA",
+"address": "AV. PADRE TORRES. CALLE 19 ENTRE CARRETERA 11 Y 12.",
+"phone": "02514821770"
+}
+]
