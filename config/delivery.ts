@@ -34,6 +34,22 @@ export const deliveryZones: DeliveryZoneGroup[] = [
   },
 ];
 
+// Agencias de encomienda para "Envío Nacional". El cliente elige una y el
+// cobro del flete lo hace la agencia a destino (por eso no calculamos costo).
+// El `id` es el que viaja a la orden; el `label` es lo que ve el cliente.
+export interface ShippingAgency {
+  id: string;
+  label: string;
+  desc: string;
+}
+
+export const shippingAgencies: ShippingAgency[] = [
+  { id: 'zoom', label: 'Zoom', desc: 'Cobro a destino' },
+  { id: 'mrw', label: 'MRW', desc: 'Cobro a destino' },
+  { id: 'tealca', label: 'Tealca', desc: 'Cobro a destino' },
+  { id: 'otra', label: 'Otra agencia', desc: 'Indícanos cuál' },
+];
+
 export const deliveryMethods: DeliveryMethod[] = [
   { id: 'pickup', label: 'Retiro en Tienda', desc: 'Gratis' },
   // Nota: los IDs 'local' y 'national' deben coincidir EXACTAMENTE con

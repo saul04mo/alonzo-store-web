@@ -7,7 +7,7 @@ import { MapPin, ChevronDown, Truck, CreditCard, CheckCircle2 } from 'lucide-rea
 import { BottomSheet, useToast } from '@/components/ui';
 import { useCartStore, useClientStore } from '@/stores';
 import { useExchangeRate } from '@/lib/useExchangeRate';
-import { deliveryMethods } from '@/config';
+import { deliveryMethods, shippingAgencies } from '@/config';
 import { usePaymentMethods } from '@/lib/usePaymentMethods';
 import { createOrder } from '@/lib/api';
 import { trackPixel } from '@/lib/meta-pixel';
@@ -129,6 +129,12 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const [mapDeliveryCost, setMapDeliveryCost] = useState(0);
   const [mapDistanceKm, setMapDistanceKm] = useState<number | null>(null);
 
+  // Envío nacional por agencia (Zoom / MRW / Tealca / Otra). El flete lo cobra
+  // la agencia a destino, así que aquí solo capturamos QUÉ agencia y A DÓNDE.
+  const [agency, setAgency] = useState<string | null>(null);
+  const [otherAgency, setOtherAgency] = useState('');
+  const [agencyDestination, setAgencyDestination] = useState('');
+
   // Payment
   const [paymentSelection, setPaymentSelection] = useState<PaymentSelection>({});
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
@@ -201,13 +207,24 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const canFinish = total - totalPaid <= 0.01;
   const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
 
-  // GA4 add_shipping_info — al cambiar el método de envío (no en el montaje).
+  // Nombre legible de la agencia elegida (para orden, resumen y GA4).
+  const agencyLabel =
+    agency === 'otra'
+      ? otherAgency.trim()
+      : shippingAgencies.find((a) => a.id === agency)?.label ?? '';
+
+  // GA4 add_shipping_info — al cambiar método de envío o agencia (no al montar).
+  // Para envío nacional el "tier" incluye la agencia (national · Zoom).
   useEffect(() => {
     if (!shippingTrackedRef.current) { shippingTrackedRef.current = true; return; }
     if (items.length === 0) return;
-    gaAddShippingInfo(items, deliveryType, total);
+    const tier =
+      deliveryType === 'national' && agencyLabel
+        ? `national · ${agencyLabel}`
+        : deliveryType;
+    gaAddShippingInfo(items, tier, total);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deliveryType]);
+  }, [deliveryType, agency]);
 
   // GA4 add_payment_info — la primera vez que se selecciona cada método.
   useEffect(() => {
@@ -242,14 +259,27 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       (fe.rif ? rifRef : nameRef).current?.focus();
       return;
     }
-    // La dirección solo es obligatoria si hay envío (no en retiro en tienda).
-    if (deliveryType !== 'pickup' && !address) {
+    // Delivery local: la dirección (del mapa) es obligatoria y define el costo.
+    if (deliveryType === 'local' && !address) {
       setErrorMsg('Ingresa tu dirección de entrega.');
       return;
     }
     if (deliveryType === 'local' && mapDeliveryCost === 0) {
       setErrorMsg('Selecciona tu ubicación en el mapa para calcular el costo de envío.');
       return;
+    }
+    // Envío nacional: hay que elegir agencia (y decir cuál, si es "Otra") y a
+    // dónde va la encomienda.
+    if (deliveryType === 'national') {
+      if (!agency) { setErrorMsg('Selecciona la agencia de envío.'); return; }
+      if (agency === 'otra' && !otherAgency.trim()) {
+        setErrorMsg('Indícanos el nombre de la agencia.');
+        return;
+      }
+      if (!agencyDestination.trim()) {
+        setErrorMsg('Indica la ciudad y oficina/dirección de destino.');
+        return;
+      }
     }
     if (!selectedPaymentMethod) { setErrorMsg('Selecciona tu método de pago para continuar.'); return; }
     if (!canFinish) {
@@ -297,11 +327,23 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
           };
         });
 
+      // Info de envío según el método:
+      //  - national: agencia elegida + destino (el flete lo cobra la agencia).
+      //  - local: distancia calculada por el mapa.
+      let deliveryZoneInfo = 'No especificada';
+      let orderAddress = address;
+      if (deliveryType === 'national') {
+        deliveryZoneInfo = `Agencia: ${agencyLabel} — ${agencyDestination.trim()}`;
+        orderAddress = agencyDestination.trim();
+      } else if (deliveryType === 'local' && mapDistanceKm !== null) {
+        deliveryZoneInfo = `Calculado mapa (${mapDistanceKm} km)`;
+      }
+
       const result = await createOrder({
         cart: items,
-        clientData: { name, rif_ci: rif, phone, address },
+        clientData: { name, rif_ci: rif, phone, address: orderAddress },
         deliveryType, deliveryCostUsd: deliveryCost,
-        deliveryZoneInfo: mapDistanceKm !== null ? `Calculado mapa (${mapDistanceKm} km)` : 'No especificada',
+        deliveryZoneInfo,
         payments, exchangeRate, proofFile,
         authenticatedClientId: client?.id,
         couponCode: appliedCoupon?.code || undefined,
@@ -467,14 +509,83 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             </div>
           </Section>
 
-          {/* Dirección de entrega (oculto si es pickup) */}
-          {deliveryType !== 'pickup' && (
+          {/* Delivery local: dirección por mapa (calcula el costo). */}
+          {deliveryType === 'local' && (
             <Section title="Dirección de entrega">
               <AddressPicker
                 initialAddress={address}
                 onAddressSelect={handleAddressSelect}
-                showCostPricing={deliveryType === 'local'}
+                showCostPricing={true}
               />
+            </Section>
+          )}
+
+          {/* Envío nacional: elección de agencia + destino (el flete lo cobra
+              la agencia a destino, por eso NO usamos el mapa aquí). */}
+          {deliveryType === 'national' && (
+            <Section title="Agencia de envío">
+              <p className="text-sm text-alonzo-gray-600 mb-4">
+                Elige tu agencia. El costo del envío lo pagas al retirar en la
+                oficina de destino.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {shippingAgencies.map((a) => {
+                  const selected = agency === a.id;
+                  return (
+                    <button
+                      key={a.id}
+                      type="button"
+                      onClick={() => setAgency(a.id)}
+                      aria-pressed={selected}
+                      className={`text-left rounded-sm border p-4 transition-colors ${
+                        selected
+                          ? 'border-alonzo-black bg-alonzo-gray-100'
+                          : 'border-alonzo-gray-300 hover:border-alonzo-black bg-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-semibold text-alonzo-black">{a.label}</span>
+                        {selected && <CheckCircle2 size={16} className="text-alonzo-black shrink-0" />}
+                      </div>
+                      <span className="text-xs text-alonzo-gray-600">{a.desc}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Nombre de la agencia cuando eligió "Otra". */}
+              {agency === 'otra' && (
+                <div className="mt-4">
+                  <label htmlFor="agency-other" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
+                    ¿Cuál agencia?
+                  </label>
+                  <input
+                    id="agency-other"
+                    type="text"
+                    className={inputClass}
+                    placeholder="Nombre de la agencia"
+                    value={otherAgency}
+                    onChange={(e) => setOtherAgency(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {/* Destino: ciudad + oficina/dirección de la agencia. */}
+              {agency && (
+                <div className="mt-4">
+                  <label htmlFor="agency-destination" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
+                    Ciudad y oficina / dirección de destino
+                  </label>
+                  <textarea
+                    id="agency-destination"
+                    rows={3}
+                    className={`${inputClass} resize-none`}
+                    placeholder="Ej: Valencia, Edo. Carabobo — oficina Av. Bolívar Norte / dirección exacta"
+                    value={agencyDestination}
+                    onChange={(e) => setAgencyDestination(e.target.value)}
+                  />
+                </div>
+              )}
             </Section>
           )}
 
