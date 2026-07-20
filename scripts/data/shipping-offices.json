@@ -2910,5 +2910,2005 @@
 "name": "ZOOM YARITAGUA",
 "address": "AV. PADRE TORRES. CALLE 19 ENTRE CARRETERA 11 Y 12.",
 "phone": "02514821770"
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Caobos",
+"address": "AV PANAM- AV LIBERTADOR QUINTA MRW, AL LADO DE AUVISIÓN C.A. DETRAS DEL RESTAURANT GRAN YEN, SUBIENDO POR LA TORRE POLAR. LOS CAOBOS.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Bello Monte",
+"address": "AVENIDA MIGUELANGEL, EDIFICIO OBERON, LOCAL E, FRENTE A LA PASTELER-A LA SABRINA, AL LADO DE PINTA CASA, COLINAS DE BELLO MONTE 10°29'10.3\"N 66°52'23.7\"W",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Llanito",
+"address": "AV. PRINCIPAL TAMANACO, EL LLANITO, QTA. CELIA, FRENTE AL SUPERMERCADO ACUARIO, PISO: MEZZANINA, LOCAL 5 GPS: 10.4716649,-66.8066276",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Plaza Las Americas",
+"address": "CENTRO COMERCIAL PLAZA LAS AMERICAS. NIVEL ORO. LOCAL 107-A. EL CAFETAL GPS: 10.458950, -66.828896",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Centro",
+"address": "AV. UNIVERSIDAD, ESQ. DE SOCIEDAD A GRADILLAS, EDIF. HUMBOLT P.B. LOCAL MRW. 10.504785537719727,-66.91412353515625",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Chacao el Muñeco",
+"address": "CALLE EL MUÑECO ENTRE AV. LIBERTADOR Y AV FRANCISCO DE MIRANDA EDIF GUAN PB LOCAL 7 10.49131,-66.8581542",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Chuao",
+"address": "C.C.C.T, PB. SECTOR EL PUEBLO. LOCAL F. SALIDA AL ESTACIONAMIENTO DE LA TORRE A. CHUAO. GPS: 10.484559,-66.8564348,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Paraiso",
+"address": "URBANIZACION EL PARAISO, ENTRE AVENIDA BOLIVAR Y AVENIDAS LAS FUENTES A 20 MTS DE LA PLAZA WASHINGTON, QUINTA FRANCELIS PB LOCAL 1, EL PARAISO CARACAS.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Plaza Estrella",
+"address": "PLAZA ESTRELLA A SAN FELIPE, RES. DORABEL, PB LOCAL 3. A MEDIA CUADRA DEL PASAJE ANAUCO. SAN BERNARDINO. GPS: 10.5082611,-66.9029304.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Campo Claro",
+"address": "AV.FRANCISCO DE MIRANDA EDF. VALENCIA 1 CAMPO CLARO LOS DOS CAMINOS. GPS: 10.4933241,-66.8308808",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Trinidad",
+"address": "CALLE DEL ARENAL, CASA LAURA, Nº 15-14, A DOS CUADRAS DEL FARMATODO DE LA ZONA INDUSTRIAL DE LA TRINIDAD. GPS:10.4363249,-66.8612064",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Chaguaramos",
+"address": "AV. UNIVERSIDAD, URB. LOS CHAGUARAMOS, EDF. MAURICA, PB, LOCAL G, SE ENCUENTRA UBICADO FRENTE A LA IGLESIA SAN PEDRO, CARACAS. GPS: 10.484966,-66.8922411",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Lebrun Petare",
+"address": "CALLE LOS NARANJOS EDF. LEBRUN PISO P.B LOCAL 19 , URB LEBRUN.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Palo Verde",
+"address": "CENTRO COMERCIAL PALO VERDE, NIVEL II, LOCAL N 2-27D, AL LADO DE LA PIÑATERIA BEHIRAS SHOP",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Sabana Grande",
+"address": "AV. ORINOCO, ENTRE CALLES 2DA Y CARON-, QUINTA ISM+NIA, P.B. SECTOR SABANA GRANDE - BELLO MONTE NORTE. GPS: 10.4889629,-66.8748077",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Altamira",
+"address": "AV SAN JUAN BOSCO CON 1ERA TRANSVERSAL EDIFICIO EXCELSIOR PB LOCAL 2 AL LADO DE ORGANIGO. GPS:10.496381, -66.849539",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Chorros",
+"address": "AV. PINCIPAL LA CARLOTA ENTRE AV. FRANCISCO DE MIRANDA Y ROMULO GALLEGOS, EDF. BERTHA, LOCAL 05 PUNTO DE REFERENCIA FRENTE A LA ZONA DE CARGA DEL MILLENIUM, LOS DOS CAMINOS 10.4977255,-66.8265758",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Piramide",
+"address": "AV R-O PARAGUA EDIF CENTRO COMERCIAL LA PIRAMIDE PISO PB LOCAL 6A URB PRADOS DEL ESTE, SECTOR PARQUE HUMBOLDT, CARACAS 10.4530563,-66.8708792",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Baruta",
+"address": "AV. SAN SEBASTIAN , CENTRO COMERCIAL LOS GONZALEZ , LOCAL MRW , AL LADO DE LA COPA CREMA BARUTA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Las Acacias",
+"address": "AVENIDA PRESIDENTE MEDINA ANGARITA (AV. VICTORIA), EDIFICIO \"BETANIA\", PLANTA BAJA, LOCAL MRW. URB. LAS ACACIAS. PUNTO DE REFERENCIA: FRENTE A REPUESTOS PAMACA DE LA FORD.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Urbina",
+"address": "AV. PPAL. LA URBINA. EDIF. APULIA. P.B. CERCA A LA PANADER-A TULIP-N. LA URBINA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Rosales",
+"address": "AV. LOS LAURELES CON AV. ROOSEVELT, RES. TIUNA LOCAL E. PB FRENTE A PLAZA TIUNA LOS ROSALES. GPS: 10.4809693,-66.900801",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Las Mercedes",
+"address": "AV. VERACRUZ. EDIF. MATISCO. P.B. DIAGONAL A CONATEL LAS MERCEDES GPS: 10.4798852,-66.855312",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Santa Sofia",
+"address": "AV. PRINCIPAL DE SANTA SOFIA, C.C. SANTA SOFIA, LOCAL Z-3. P.B. GPS: 10.47158,-66.84261",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Hatillo",
+"address": "CALLE BOLIVAR, LOCAL NO 31, PUEBLO EL HATILLO, MUNICIPIO EL HATILLO, ESTADO MIRANDA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Cementerio",
+"address": "CALLE TERCERA TRANSVERSAL SAMANES Y LOS TOTUMOS CASA NRO 3 URB. EL CEMEN TERIO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Catia",
+"address": "AV. SUCRE CC. OESTE NIVEL 3 LOCAL 3 SECTOR CATIA, CARACAS, FRENTE A LA CLINICA POPULAR CATIA. GPS: 10.5149652,-66.9332887.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Junquito",
+"address": "URBANIZACIÓN EL JUNKO, CARRETERA CARACAS EL JUNQUITO, KILÓMETRO 15, C.C EL JUNKO, NIVEL PLANTA BAJA, LOCAL 04-C, PARROQUIA EL JUNQUITO MUNICIPIO LIBERTADOR, CARACAS, VENEZUELA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Santa Monica",
+"address": "AV. ARTURO MICHELENA C/C AGUSIN CODAZZI, LOCAL 5-B MRW URB. SANTA MONICA GPS: 10.4776992,-66.8910918",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Bosque",
+"address": "CALLE EL EMPALME CON PRINCIPAL DEL BOSQUE QUINTA TORRE DE LA VEGA LOCAL 6 MRW",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Caricuao",
+"address": "CENTRO COMERCIAL CARICUAO PLAZA NIVEL MEZANINA LOCAL 8. GPS: 10.434337,-67.0000542",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Florida",
+"address": "AV. LOS CHAGUARAMOS. QTA. COROLI. PB. LA FLORIDA. DIAGONAL A HIDROCAPITAL.. GPS. 10.5068807,-66.8732728",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "San Martin",
+"address": "AV SAN MARTIN, AV SANTANDER CRUCE CON AV. SAN MARTIN, C.C MARACAIBO NIVEL MEZZ LOCAL NRO 12.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Lecuna",
+"address": "CALLE SUR 3, DE ZAMURO A MISERIA, EDIF. INDUCENTRO LOCAL 1 PB, A 20 MTS DE LA AV. LECUNA. SANTA ROSALIA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Pantin",
+"address": "CALLE PANTIN, GALPON MRW. AL FRENTE DE LA POLICIA DE CHACAO.URBANIZACIÓN ESTADO LEAL. CHACAO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Las Minas",
+"address": "CARRETERA CARACAS- BARUTA, CENTRO COMERCIAL LAS DANIELAS, DIAGONAL AL AMBULATORIO DE LAS MINAS DE BARUTA O CENTRO ASTURIANO DE CCS, LOCAL 2-3, SECTOR LAS MINAS DE BARUTA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Candelaria",
+"address": "PUENTE YANEZ A PERICO EDF. SERRANO PB LOCAL 3 LA CANDELARIA. GPS: 10.5038406,-66.9082209.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Av. Casanova",
+"address": "AV. CASANOVA ENTRE CALLE SAN ANTONIO Y CALLE EL COLEGIO, C.C. DEL ESTE, Nº 21. DIAGONAL AL HOTEL KURSSAL",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "El Valle",
+"address": "AV. INTERVECINAL EL VALLE. RESIDENCIAS DON PEDRO. TORRE B. LOCAL 1. P.B.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Andres Bello",
+"address": "AV ANDR+S BELLO COLEGIO NACIONAL DE PERIODISTA PB LOCAL B- 01 URBANIZACIÓN LOS CAOBOS CARACAS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Sebucan",
+"address": "AV. ROMULO GALLEGOS, ENTRE AV. PRINCIPAL DE SEBUCAN Y AV. SUCRE DE LOS DOS CAMINOS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Capitolio",
+"address": "AV CONDE A PIÑANGO (AV OESTE 0), CASONA Nº 11, ENTRE AV BARALT Y AV SUR 4, PARROQUIA ALTAGRACIA, AL LADO DE LA JEFATURA CATEDRAL.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Antimano/ la Yaguara",
+"address": "CALLE REAL BOULEVARD DE ANTIMANO ENTRE LA JEFATURA Y LA PLAZA BOLIVAR ANTIMANO LOCAL MRW",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La Castellana",
+"address": "CALLE URDANETA, QUINTA AURANA, P.B. A MEDIA CUADRA DEL RESTAURANT LA ESTANCIA. LA CASTELLANA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Chacaito",
+"address": "CENTRO COMERCIAL UNICO PB LOCAL 5 URB EL ROSAL AV PICHINCHA ENTRE LA SALIDA DEL METRO Y AV TAMANACO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Los Palos Grandes",
+"address": "AV. ANDES BELLO CON 2Í TRANSVERSAL, EDIFICIO VISTA HERMOSA, LOCAL C, URBANIZACIÓN LOS PALOS GRANDES.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Amazonas",
+"city": "Amazonas",
+"name": "Puerto Ayacucho",
+"address": "CALLE PRINCIPAL LOCAL S/N BARRIO UNION, ZONA CENTROPUERTO AYACUCHO AMAZONAS ZONA POSTAL.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Barcelona",
+"address": "AV. FUERZAS ARMADAS. ESQUINA CALLE EULALIA BUROZ, EDIF AZGAN PISO PB LOCAL 02 SECTOR CENTRO, BARCELONA. GPS: 10.1373363,-64.6829436",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Anaco",
+"address": "AV. JOSé ANTONIO ANZOáTEGUI, CRUCE CON AV. LOS PILONES LOCAL NO. 02 ANACO, EDO. ANZOáTEGUI.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "El Tigre",
+"address": "AV. FCO. DE MIRANDA CON CALLE 18 SUR. EDIF. LOS GERANIOS # 2 Y 3 FRENTE A LA PANADERIA SIRIA. GPS: 8.8943036,-64.2369862",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Las Garzas",
+"address": "AV JORGE RODRIGUEZ, LOCAL MRW 1, SECTOR LAS GARZAS LECHERIA, ANZOATEGUI. GPS: 10.1815638,-64.6686459",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Pariaguan",
+"address": "CALLE BOLÍVAR CRUCE CON COLOMBIA, SECTOR CENTRO FRENTE COOPERATIVA DE TRANSPORTE PARIAGUAN EXPRESS A POCOS MTS DE FARMACIA CONTINENTAL.8.84156581686022, -64.72001416185448",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Pto la Cruz",
+"address": "CALLE MIRANDA, CRUCE CON CALLE BOLIVAR, EDIF. HOTEL SENADOR, PISO PB, ZONA CENTRO, PUERTO LA CRUZ",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Nueva Barcelona",
+"address": "CALLE URDANETA CON CARRERA 24, C.C. GOLD COUNTRY, LOCAL P.B. 07, SECTOR NUEVA BARCELONA, ESTADO ANZOáTEGUI",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Clarines",
+"address": "AV. FERNANDEZ PADILLA, MINI C.C. LOS COCOS. C.C. \"MTC\". LOCAL 5 P.B. CLARINES 9.943983711041437, -65.16311529674937 ...",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Lecheria",
+"address": "AV. PRINCIPAL DE LECHERÍA, MINI CENTRO PRINCIPAL, LOCAL 02, AL LADO DE PANADERÍA LA PRINCIPAL. LECHERÍA. ESTADO ANZOÁTEGUI. GPS: 10.1828176,-64.6893312",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "El Tigre Centro",
+"address": "CARRERA 2 SUR, ENTRE CALLES 2 Y 3, EDIFICIO HANA, PISO 1,. LOCAL Nº 1, SECTOR PUEBLO NUEVO SUR. EL TIGRE-ESTADO ANZOATEGUI. GPS:8.8869825,-64.2571774",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Apure",
+"city": "Apure",
+"name": "Guasdualito",
+"address": "CALLE SUCRE ENTRE CARRERA MARIÑO Y SIMÓN RODRÍGUEZ, A CUADRA Y MEDIA DE LA SANTÍSIMA TRINIDAD, GUASDUALITO ESTADO APURE. 7.244789042820635, -70.72687547535314",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Apure",
+"city": "Apure",
+"name": "San Fernando Centro",
+"address": "AV CARACAS A 50 MTRS DEL PASEO LIBERTADOR, CENTRO EMPRESARIAL GENESIS, PB LOCAL 1, SECTOR CENTRO SAN FERNANDO DE APURE. GPS: 7.8834063,-67.4716484",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Zona Ind.",
+"address": "AV BERMUDEZ CC MARACAY PLAZA NIVEL PB LOCAL PB-82F URB CENTRO MARACAY ARAGUA 10.23335936240899, -67.59657221951802.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "La Victoria",
+"address": "URBANIZACIÓN BOLIVAR SUR, AV. VICTORIA # 44-2, LOCAL A-2, LA VICTORIA, ARAGUA. GPS: 10.2265456,-67.3315944",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay 5 de Julio",
+"address": "CALLE 5 DE JULIO, ENTRE PAEZ Y MIRANDA. EDIF SANTIMONE. P.B.B LOCAL 3, ZONA CENTRO, DIAGONAL A IMGEVE, MARACAY ESTADO ARAGUA. GPS: 10.2497141,-67.5991998",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Turmero",
+"address": "CALLE MARIÑO C/C CALLE PEÑALVER C.C MARIÑO PLAZA P.B LOCAL 02, TURMERO EDO. ARAGUA. GPS: 10.2290922,-67.4778999",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Villa de Cura",
+"address": "CALLE BOLIVAR Y VILLEGAS LOCAL NRO 54/A SECTOR CENTRO VILLA DE CURA, ESTADO ARAGUA 10.033978725869476, -67.48539854649998",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "S.sebastian D los Reyes",
+"address": "CALLE LA PISTA, LOCAL NRO 03, SECTOR EL POLVERO, SAN SEBASTIAN DE LOS REYES ARAGUA. GPS: 9.9460006,-67.1795018",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay la Democracia",
+"address": "AV AYACUCHO NORTE NRO 83, BARRIO LA DEMOCRACIA, MARACAY EDO ARAGUA. GPS: 10.2576291,-67.6096241",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Turmero Zona Industrial",
+"address": "AV. INTERCOMUNAL MARACAY-TURMERO, CENTRO COMERCIAL INTERCOMUNAL CENTER, LOCAL NRO. PB 6, SECTOR LA MORITA, TURMERO, ESTADO ARAGUA. 10.231931328877549, -67.54792062508638",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "La Encrucijada",
+"address": "AV. PRINCIPAL, C.C. LOS LAURELES, NIVEL P.B, LOCAL 12, SECTOR LA ENCRUCIJADA DE TURMERO. ESTADO ARAGUA. GPS: 10.2025453,-67.4714206",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Base Aragua",
+"address": "AV. LAS DELICIAS C.C. HOTEL PASEO LAS DELICIAS II NIVEL PB LOCAL 12 URB BASE ARAGUA MARACAY. GPS: 10.2557458,-67.5919065",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Santa Rosa",
+"address": "CALLE CARABOBO, Nº 75-A, SECTOR SANTA ROSA. MARACAY, ESTADO ARAGUA. GPS: 10.2466199,-67.6097298",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay la Romana",
+"address": "CENTRO COMERCIAL TIUNA, AV. BOLÍVAR OESTE NRO. 198, SECTOR LA ROMANA, MUNICIPIO GIRARDOT, ESTADO ARAGUA. GPS: 10.2543384,-67.6136697",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinas",
+"address": "CALLE CEDEÑO, C.C. GIAMMA, LOCAL 6. DIAGONAL AL HOSPITAL LUIS RAZZETTI",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Socopo",
+"address": "CALLE 1 ENTRE CARRERAS 6 Y 7, BARRIO EL CARMEN, DIAGONAL AL COMERCIAL LA ESTRELLA ORIENTAL DE LOS CHINOS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinas Zona Ind.",
+"address": "AV ELIAS CORDERO EDIFICIO REY DE REYES PASOS DETR-S DEL TERMINAL DE PASAJEROS DIAGONAL A LA FERRETERIA MECATASO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Sta Barbara de Barinas",
+"address": "CALLE 12 ENTRE CARRERAS 0 Y 00 ( PUNTO DE REFERENCIA 2 CUADRAS Y MEDIA DE CORPOELEC",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinas Sabaneta",
+"address": "CALLE 1 ENTRE AV. OBISPOS Y AV. ANTONIO MARIA BAYON, SECTOR 9 DE DICIEMBRE. C.C. TRICOLOR, P.B. LOCAL 2.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Alto Barinas",
+"address": "URB ALTO BARINAS NORTE, AV FRANCIA CON AV PIE DE MONTE Y TACHIRA, LOCAL 135, BARINAS.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Forum",
+"address": "AV 23 DE ENERO CON AV GUAIPURO, CENTRO COMERCIAL FORUM, PB, LOCAL Nº52. BARINAS.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Barinas 23 de Enero",
+"address": "AVENIDA 23 DE ENERO, EDIFICIO LA FONTANA, LOCAL Nº 3. A 50 METROS DEL REGISTRO INMOBILIARIO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Ciudad Bolivar",
+"address": "AVENIDA REPUBLICA. EDIF. FRANCO, PB LOCALES 1 Y 2, AL LADO DE BANESCO. CIUDAD BOLIVAR. GPS: 8.1243327,-63.548044",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Alta Vista",
+"address": "C.C. ZULIA, EN LA ENTRADA FRENTE AL SUPERMERCADO RÍO, LOCAL 3 Y 4, ALTA VISTA - PUERTO ORDAZ",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Santa Elena de Uairen",
+"address": "CALLE IKABARÚ, TRONCAL 10. CASCO CENTRAL, LOCAL S/N, A 100 MTRS. DEL HOSPITAL ROSARIO VERA ZURITA, SANTA ELENA DE UAIREN, EDO. BOLIVAR. CÓDIGO POSTAL 8011. GPS: 4.5988806,-61.1098221,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Cdad Bolivar Zona Ind.",
+"address": "AV. NUEVA GRANADA. EDIF. GRAN SABANA. P.B., LOCAL 1 CIUDAD BOLIVAR. EDO. BOLIVA. GPS: 8.1121051,-63.5426025",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Av Las Americas",
+"address": "AV. BRASIL, URB. VILLA BRASIL, MANZANA 142, LOCAL N°2, A 200MTS DEL ABASTO LA ESPAÑOLA, SECTOR VILLA ANTILLANA, PUERTO ORDAZ. GPS 8.312743079567095, -62.73015092522482",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Plaza Atlántico",
+"address": "AV. ATLANTICO, C.C PLAZA ATLANTICO, NIVEL ATLANTICO, LOCAL PB-12, URB. LOMAS DEL CARONI, CIUDAD GUAYANA, ESTADO BOLÍVAR.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Centro",
+"address": "AV. MIRANDA LOCAL 118-31 MRW DIAGONAL A DAMASCO, AV. ROJAS QUEIPO, SECTOR SAN JOSE VALENCIA-CARABOBO. GPS: 10.197811126708984,-68.00529479980469",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Big Low",
+"address": "CALLE 97, C.C. CIUDAD VALENCIA, PB, LOCAL B4. URB. ZONA INDUSTRIAL CASTILLITO. VALENCIA, ESTADO CARABOBO. GPS: 10.1855496,-67.9630739",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Guacara",
+"address": "CALLE PIAR, CRUCE CON JACINTO LARA, C.C SAN PEDRO, NIVEL PB, LOCAL 8, GUACARA, ESTADO CARABOBO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Alianza Mall",
+"address": "CARRETERA NACIONAL GUACARA, URB CIUDAD ALIANZA, C.C. CENTRAL GUACARA, LOCAL 27, FRENTE AL SUPERMERCADO CENTRAL MADEIRENSE. VALENCIA. 10.214366295492411, -67.89425738511322 .",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Los Guayos Zona Ind.",
+"address": "LOS GUAYOS CALLE NEGRO PRIMERO CC LAS DELICIAS LOCAL. VALENCIA -EDO CARABOBO 10.184388886833883, -67.96016545998904",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Puerto Cabello",
+"address": "CALLE RONDON EDIFICIO EL NARANJAL LOCAL N° 2 FRENTE AL TEMPLO EL REFUGIO, AL LADO DE LA CLINICA SAN AGUSTIN. PUERTO CABELLO EDO. CARABOBO GPS 10.467739247357235, -68.00847609018656",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Moron",
+"address": "AVDA. YARACUY - Nª 52, FRENTE AL BANCO BANESCO, AL LADO DEL BANCO BOD. MORON ESTADO CARABOBO. GPS: 10,3365,-68,7902",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Flor Amarillo",
+"address": "AV. LAS INDUSTRIAS, CRUCE CON AV. PRINCIPAL, URB. PARQUE VALENCIA, C.C. MEGA MERCADO, PB , LOCAL 8C1.VALENCIA EDO CARABOBO. GPS: 10.1549212,-67.9575439",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia el Trigal",
+"address": "AV. PRINCIPAL DE MAÑONGO, C.C. PATIO TRIGAL. NIVEL PB LOCAL 208 A URB TRIGAL NORTE, VALENCIA CARABOBO ZONA POSTAL 2001. GPS: 10.2262077,-67.9973322",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Naguanagua",
+"address": "AV. 96-B, C.C. CRSTAL, PB. LOCAL B-06 A DOS LOCALES DEL BANCO BICENTENARIO, POR LA ENTRADA PRINCIPAL. NAGUANAGUA, EDO. CARABOBO 10.242749899854418, -68.00661230788387",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Mariara",
+"address": "AVENIDA BOLíVAR, SECTOR GUAMACHO NúMERO 51, MARIARA ESTADO CARABOBO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Sur",
+"address": "AUTOPISTA VALENCIA - CAMPO CARABOBO. CENTRO COMERCIAL EL PRADO, PLANTA BAJA LOCAL B 6. LOS CAOBOS, VALENCIA-EDO.CARABOBO. GPS:10.1590111,-68.024857",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Bejuma",
+"address": "CALLE URDANETA, C.C. ENMANUEL, PISO PB, LOCAL 5, BEJUMA, ESTADO CARABOBO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Palacio de Justicia",
+"address": "AV. ARANZAZU, EDIFICIO VORMA, PISO P.B., LOCAL PB-3, LA CANDELARIA. VALENCIA EDO. CARABOBO. GPS: 10.1735768,-68.0113902",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Av. Las Ferias",
+"address": "AV. LAS FERIAS, ENTRE CALLES SILVA Y RANGEL, CC ISORA, LOCAL NA-21. VALENCIA ESTADO CARABOBO.VALENCIA, ESTADO CARABOBO.GPS 10.179644277519218, -68.00105393259143",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Zona Ind.",
+"address": "AV.PROLONGACION MICHELENA C.C. MYCRA LOCAL 10 ZONA INDUSTRIAL VALENCIA. GPS. 10.1744565,-67.9743876",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "La Isabelica",
+"address": "AV. 04 SECTOR 10, VEREDA 14, LOCAL 01, URB. LA ISABELICA. VALENCIA - CARABOBO. GPS: 10.1609746,-67.9705846",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia el Parral",
+"address": "LAS 4 AVENIDAS, C.C. PROFESIONAL CERAVICA PB, LOCAL 2, URB. EL PARRAL - EDO. CARABOBO. GPS: 10.206328648925,-68.027472897835,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia San Diego",
+"address": "AV. DON JULIO CENTENO C.C. METRO PLAZA P.B LOCAL 33 SAN DIEGO EDO. CARABOBO. GPS: 10.207965724456,-67.96278714390199,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "La Esmeralda San Diego",
+"address": "AV. INTERCOMUNAL DON JULIO CENTENO C.C LA ESMERALDA LOCAL 13. 10.231411363382831, -67.96611163115217",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Norte",
+"address": "AV. BOLIVAR NORTE, SECTOR MAJAY, LOCAL Nº 151-54, , FRENTE A LA TORRE PRINCIAPAL (BANCO BNC). VALENCIA, EDO. CARABOBO. GPS: 10.2208278,-68.0094254",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "San Diego Boulevard Castillito",
+"address": "CENTRO COMERCIAL BOULEVARD CENTER, LOCAL L-03 FRENTE A POLLOS ARTUROS, DIAGONAL A TERMINAL DE PASAJEROS BIG LOW CENTER, SAN DIEGO-EDO. CARABOBO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Gobernación",
+"address": "CALLE PAEZ ENTRE MONTES DE OCA Y CARABOBO C.C. PAPIN PB LOCAL NRO 1, CENTRO DE VALENCIA ( CERCA DEL CAPITOLIO). EDO CARABOBO. 10.1809602,-68.0084552,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia Av. Lara",
+"address": "AV. LARA CON CALLE USLAR, LOCAL 87-107. FRENTE A MOLINARI CACCIA GUERRA, VALENCIA CARABOBO. 10.1794327,-67.994418,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Paraparal",
+"address": "CENTRO COMERCIAL GALERíAS PARAPARAL, LOCAL B-22 . AV. PRINCIPAL DE PARAPARAL, ESTADO CARABOBO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Cojedes",
+"city": "Cojedes",
+"name": "San Carlos",
+"address": "CALLE SUCRE ENTRE ZAMORA Y LIBERTAD LOCAL #8-33, EDO. COJEDES. 9.66114019394716, -68.59257922694682",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Cojedes",
+"city": "Cojedes",
+"name": "Tinaquillo",
+"address": "AV. MADARIAGA, ENTRE CALLE CEDEÑO Y CALLE NEGRO PRIMERO, TINAQUILLO - ESTADO COJEDES 9.917399229094885, -68.30170553115445",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Delta Amacuro",
+"city": "Delta Amacuro",
+"name": "Tucupita",
+"address": "CALLE DALLA COSTA # 22, LOCAL 1, EDF. CIARCIA FRENTE A LA PLAZA BOLIVAR, PQ. SAN JOSE, MNCP: TUCUPITA, CD: TUCUPITA EDO: DELTA AMACURO. GPS: 9.0572867,-62.050785",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Coro",
+"address": "CALLE ZAMORA. ESQUINA CALLEJON LAS FLORES E ITURBE LOCAL S/N SECTOR CHIMPIRE CORO MCIPIO MIRANDA EDO FALCON SANTA ANA DE CORO. GPS: 11.4108253,-69.6709781",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Tucacas",
+"address": "AV LIBERTADOR DE TUCACAS, DIAGONAL AL HOTEL LA SUERTE , LOCAL NRO #1. EDO. FALCON. GPS 2054. 10.7927387,-68.3213246,17",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Caja de Agua",
+"address": "CALLE MANUELITA SÁENZ ENTRE CALLE COMERCIO Y PROVIDENCIA SECTOR, SECTOR CAJA DE AGUA, DIAGONAL A LA IGLESIA LOS MORMONES, LOCAL NRO. 01, EDO. FALCÓN. GPS 11.7124573,-70.1915814",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Puerta Maraven",
+"address": "CALLE SAN ROMÁN ENTRE AV GENERAL PELAYO Y AV. OLLARVIDES, DIAGONAL A RÍAS ALTAS. 10.792441,-68.3196871",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "El Castillo",
+"address": "AVENIDA MANAURE, ESQUINA CON CALLE MONZON . C.C. EL CASTILLO DON LEONCIO, PB, LOCAL Nº 10. CORO. GPS: 11.402398864692,-69.6721584",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Punto Fijo Av.monagas",
+"address": "CALLE MONAGAS ENTRE GARCES Y ZAMORA EDIF. LUCRISCAR PLANTA BAJA, PUNTO FIJO-EDO.FALCON. GPS: 11.6910626,-70.2002248",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "S. Juan de los Morros",
+"address": "CALLE EL CARMEN, EDF. RAUSEO, LOCAL 2 BAJANDO POR LA GOBERNACIÓN, DIAGONAL A LA CANTV. GPS: 9.9151168,-67.3552737",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Calabozo",
+"address": "CARRETERA 13, ENTRE CALLES 13 Y 14, LOCAL NRO S/N, SECTOR CASCO CENTRAL CALABOZO, ESTADO GUÁRICO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Valle de la Pascua",
+"address": "CALLE BOLIVAR ENTRE AV. LIBERTADOR Y CALLE DELEITE, LOCAL N° 58-1 SECTOR CENTRO, DIAGONAL A POLIGUARICO, VALLE DE LA PASCUA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Zaraza",
+"address": "CALLE BOLIVAR, ENTRE AYACUCHO Y SUCRE , LOCAL MRW, PB, A 100 MTS DEL SAIME, SECTOR CENTRO, ZARAZA, ESTADO GUARICO. GPS: 9.3474244,-65.3244822",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Tucupido",
+"address": "CALLE SALOM NRO 24 DIAGONAL A LA ALCALDIA, ENTRE SAN PABLO Y ZARAZA, LOCAL MRW PB. GPS: 10.4347,-66.8747",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Altagracia de Orituco",
+"address": "CALLE HURTADO ASCANIO CRUCE CON VUELVAN CARA. EDF. RESIDENCIAS LA PAZ, PB, LOCAL 2, SECTOR LAS BRISAS DEL ESTE ALTAGRACIA DE ORITUCO. EDO. GUARICO. GPS: 9.8554654,-66.3795806",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Bqto Centro",
+"address": "AV. VENEZUELA ENTRE CALLES 39 Y 40, NÚMERO 39-55, SENTIDO OESTE-ESTE. BARQUISIMETO. GPS: 10.0715248,-69.3309241",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Canaima",
+"address": "CALLE 55 ENTRE AV. PEDRO LEON TORRES Y CARRERA 19, C.C. CANAIMA, LOCAL F-02. ZONA ESTE BARQUISIMETO. GPS 10.0640084,-69.3466274",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Andres Bello",
+"address": "AV. ANDRES BELLO, ENTRE CARRERA 22 Y 23, EDF. PULCA 2, LOCALES 2 Y 3. BARQUISIMETO. GPS 10.0696841,-69.3132541",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Bqmeto Oeste",
+"address": "AV. FLORENCIO JIMENEZ, C.C. ARCOIRIS, LOCAL 5, P.B., FRENTE AL DECANATO DE LA UCLA, BARQUISIMETO, EDO. LARA. GPS: 10.0709,-69.3556",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Carora",
+"address": "AV FCO DE MIRANDA / CLLS 15A Y 16 CASA NRO 15 SECTOR EGIDIO MONTESINO-CARORA A 50 MTS DE LA PLAZA CHIO ZUBILLAGA. GPS: 10.1731161,-70.0812122",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Bqmeto Este",
+"address": "CALLE 15, ENTRE CARRERAS 20 Y 21, LOCAL NO. 5, DIAGONAL A LA CLINICA SAN FRANCISCO. BARQUISIMETO,ESTADO LARA. GPS: 10.068597793579102,-69.30667877197266",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Av. Moran",
+"address": "CARRERA 21 CON CALLE 9, BARQUISIMETO, ESTADO LARA GPS 10.0691719,-69.2989034",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Cabudare",
+"address": "AV. SANTA BARBARA, ENTRE CALLES GUILLERMO ALVIZU Y LA CRUZ, C.C. STA. BARBARA, LOCAL 2, DETRAS FERRETERIA TABURE. CÓDIGO POSTAL 3023 GPS: 10.0339,-69.2635",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Quibor",
+"address": "CALLE 8 ENTRE AVENIDA 8 Y 9 A 200MTS DEL SUPERMERCADO LA PALMA. GPS 9.9275333,-69.6190894",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Valle Lindo",
+"address": "AUTOPISTA VIA DUACA KM 10 SECTOR SABANA GRANDE AL LADO DE LA FARMACIA SAN IGNACIO, ZONA NORTE, BQTO. GPS: 10.1691728,-69.3130929",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Barquisimeto Nueva Segovia",
+"address": "CALLE 3 ENTRE CARRERA 1 Y AV LARA, CASA NRO AL-99 URB NUEVA SEGOVIA BARQUISIMETO EDO LARA GPS: 10.064689636230469,-69.29549407958984",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Patarata",
+"address": "AV. LIBERTADOR ENTRE AV. ARGEMIRO BRACAMONTE Y AV. LOPEZ CONTRERA, SECTOR PATARATA, CENTRO RECREACIONAL PARQUE JARDIN, LOCAL 04, BARQUISIMETO EDO. LARA. GPS 10.0799945,-69.2939417",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Babilom",
+"address": "CALLE 19 CON AV LIBERTADOR ZONA INDUSTRIAL I C.C LIBERTADOR LOCAL 13-B. GPS: 10.0638548,-69.3612843",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "El Recreo",
+"address": "AV. LIBERTADOR. C.C. EL ROSARIO. LOCAL 5. FRENTE AL IPASME GPS 10.0831128,-69.3233322",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Cabudare Sur",
+"address": "AV EL PLACER LOCAL TRIGALPA NRO 7 URB EL TRIGAL LOS RASTROJOS LARA, GP 10.0340094,-69.2378423",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Av. Venezuela",
+"address": "AV VENEZUELA CON CALLE 21, EDIFICIO LAZIO, LOCAL NRO. 02, BQTO. EDO. LARA. C GPS 10.0735602,-69.3125445",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Merida Cubo Rojo",
+"address": "AV GONZALO PICON CON VIADUCTO MIRANDA, CC CUBO ROJO NIVEL PB LOCAL 2,4,6,7,8 SECTOR GLORIAS PATRIAS MERIDA. GPS: 8.5879926,-71.1545853",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Merida Paseo de la Feria",
+"address": "AV. DON TULIO FEBRES CORDERO, CON CALLE 29, DETRÁS DEL EDF. ADMINISTRATIVO DE LA ULA, EDF. EL PASEO PB, LOCAL ÚNICO. GPS: 8.59251880645752,-71.14743041992188",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "El Vigia",
+"address": "AV. 11, LOCAL 2, NUMERO 6-21, SECTOR LA IMAGULADA EL VIGÍA EN EL ESTADO MÉRIDA. GPS: 8.616976, -71.645681",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Tovar",
+"address": "CARRETERA 4TA. CC EL LLANO NIVEL PB LOCAL 4 SECTOR EL LLANO TOVAR, EDO.MERIDA, GPS: 8.3291184,-71.7561206",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Ejido",
+"address": "AV. FERNANDEZ PEÑA CASA PLANTA BAJA NRO 133-C SECTOR MONTALBAN, A 100 MTS DEL DIARIO FRONTERA. CENTRO EJIDO MERIDA. GPS: 8.5489483,-71.2383251",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Merida Milla",
+"address": "AV. DOS LORA, CENTRO PROFESIONAL MOLI-ROD, PB, LOCAL 4, DIAGONAL A LA PLAZA DE MILLACÓN, MÉRIDA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Mda los Proceres",
+"address": "AV LOS PROCERES, CALLE LA ORQUÍDEA , MINICENTRO COMERCIAL , DON LUIS, LOCAL 2B O MRW GPS 8.577718,-71.1863891",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Mérida",
+"city": "Mérida",
+"name": "Tucanizon",
+"address": "CARRETERA PANAMERICANA , SECTOR EL CARMEN,GALPON 1, AL LADO DE LA ESTACION DE SERVICIO EL INDIO.TUCANIZON EDO MERIDA. GPS: 8.9661928,-71.2757046",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Charallave",
+"address": "CALLE 9, AVENIDA JOSE GREGORIO HERNANDEZ CON AVENIDA BOLIVAR EDF. LOS SAMANES NRO 03 SECTOR CASCO CENTRAL CHARALLAVE MIRANDA. GPS: 10.2403277,-66.8578658",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Ocumare del Tuy",
+"address": "AVENIDA MIRANDA CON CALLE TORIBIO MOTA, EDIF. TELEVISA, PB. FRENTE A LA PARADA DE PAROSCA.. GPS: 10.117089966358561,-66.77527175651109",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Guarenas",
+"address": "C.C LA CANDELARIA, NIVEL PLANTA BAJA, LOCAL 01, ESTADO MIRANDA. GPS 10.4696896,-66.6216372",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Guatire",
+"address": "GUATIRE, CALLE ZAMORA NUMERO 47, LOCAL PB-1, EDIFICIO QUINTA ARELIS. GPS: 10.4759,-66.5454",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "San Antonio de los Altos",
+"address": "CARRETA PANAMERICANA, KILOMETRO 16, C.C. LA CASONA II, PISO 1, LOCAL #2-17 AL LADO DE CINEX, GPS 10.3697786,-66.9827115",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Higuerote",
+"address": "CALLE EL RÍO, CC MARTÍ PLAZA, LOCAL 1, HIGUEROTE EDO. MIRANDA, GPS 10.485067,-66.100898",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Rio Chico",
+"address": "CALLE COMERCIO, LOCAL MRW. AL LADO DE LA FARMACIA LAS MERCEDES, RÍO CHICO- MUNICIPIO PÁEZ- EDO. MIRANDA. GPS: 10.3164736,-65.9778191",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Sta Teresa del Tuy",
+"address": "CALLE AYACUCHO EDIF DON GUILLERMO PISO 1 OF 2 ZONA CENTRO SANTA TERESA DEL TUY MIRANDA. GPS: 10.2336028,-66.6645992",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Cua",
+"address": "URBANIZACION JARDINES DE SANTA ROSA, C. C. EL COLONIAL, LOCAL 26-A, CÚA, MIRANDA. GPS: 10.1691341,-66.8886829",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Guatire Oasis",
+"address": "AV INTERCOMUNAL GUARENAS , GUATIRE , CENTRO COMERCIAL OASIS CENTER PLANTA BAJA LOCAL 15, FRENTE AL BANCO BICENTENARIO GPS 10.465076,-66.5711214",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Punta de Mata",
+"address": "CALLE 5 DE JULIO CRUCE CON CALLE NUEVA, LOCAL MRW, DETR-S DEL BANCO CARONI W3W DESPACHO.ASPIRA.IMPUESTOS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturin Centro",
+"address": "AV ROJAS EDIF BRAVO PISO P.B LOCAL 01 SECTOR CENTRO MATURIN MONAGAS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Temblador",
+"address": "CALLE BOLIVAR. NO 70-A. DIAGONAL A LA LINEA DE TAXI EJECUTIVO DEL SUR.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturin Norte",
+"address": "AV. PPAL VIA VIBORAL, CENTRO COMERCIAL LAS COLINAS B, P.B. LOCAL 09",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturin Zona Industrial",
+"address": "AV. PRINCIPAL DE LA CRUZ, C.C MACARENAS, LOCAL # 23 PB",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturin Av. Raul Leoni",
+"address": "AV. RAUL LEONI ENTRE CARRERA 3 (ANTIGUA AV. RIVAS) Y CARRERA 4 (ANTIGUA PROLONGACION CEDEÑO) FRENTE AL POLIDEPORTIVO, MATURIN EDO. MONAGAS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturin la Floresta",
+"address": "CR 1 Nº 4 C.C LA REDOMA NIVEL PB LOCAL 5 SECTOR BRISAS DEL AEROPUETO MATURIN MONAGAS ZONA POSTAL 6201",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Monagas",
+"city": "Monagas",
+"name": "Maturin Plaza el Indio",
+"address": "AV. BICENTENARIO EDIF. ZAMORA, P.B. DIAGONAL AL HOSPITAL CENTRAL DE MATURIN",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Juan Griego",
+"address": "CALLE GUEVARA, Nº 12 B, ENTRE CALLES LA MARINA Y MARCANO, DIAGONAL A COMERCIAL JUAN GRIEGO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "El Espinal",
+"address": "AV. JUAN BAUTISTA ARISMENDI, SECTOR LA ENCRUCIJADA DEL ESPINAL VIA SAN JUAN BAUTISTA. A 100 METROS DE LA REGIONAL. EL ESPINAL",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Jovito Villalba",
+"address": "AV. JOVITO VILLALBA, LOCAL ESTACION DE SERVICIO MANEIRO, NRO 9493, URB SAN LORENZO, AL LADO DEL SAMBIL. PAMPATAR EDO. NUEVA ESPARTA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Porlamar Centro",
+"address": "CALLE VELAZQUEZ CON ESQUINA FAJARDO, CASA S/N, SECTOR CENTRO PORLAMAR, NUEVA ESPARTA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Villa Rosa",
+"address": "AV JUAN BAUTISTA ARISMENDI LOCAL GALPON SEVEN-ART NRO PLANTA BAJA SECTOR SAN ANTONIO NORTE VILLA ROSA NUEVA ESPARTA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Portuguesa",
+"city": "Portuguesa",
+"name": "Guanare",
+"address": "AV. PRINCIPAL JOSE MARIA VARGAS CON AV. SIMON BOLIVAR CENTRO COMERCIAL REVICA GALPON N. 4 GPS: 9.0332177,-69.7401574",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Portuguesa",
+"city": "Portuguesa",
+"name": "Acarigua",
+"address": "CALLE 22. ENTRE AVENIDAS LIBERTADOR Y ALIANZA DIAGONAL A LA PANADERIA TREBOL, ACARIGUA CENTRO. EDO. PORTUGUESA. GPS: 9.5585801,-69.212533",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Portuguesa",
+"city": "Portuguesa",
+"name": "Centro los Llanos",
+"address": "CALLE 31 CON AV 28 C.C LOS LLANOS LOCAL 5 PLANTA BAJA. GPS: 9.560776,-69.2045441",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Sucre",
+"city": "Sucre",
+"name": "Cumana",
+"address": "CALLE MARIÑO, EDIF TURIMIQUIRE , FRENTE A LA CRUZ ROJA DE CUMANA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Sucre",
+"city": "Sucre",
+"name": "Carupano",
+"address": "AV UNIVERSITARIA EDIF PROSSEIN PISO MEZANINA LOCAL B SECTOR LOS MOLINOS CARUPANO SUCRE",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Sucre",
+"city": "Sucre",
+"name": "Cumana Urdaneta",
+"address": "4TA TRANSVERSAL DE LA AVENIDA GRAN MARISCAL. EDIFICIO CEU, P.B. LOCAL 2 MRW",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Barrio Obrero Carrera 20",
+"address": "BARRIO OBRERO CALLE 10 CARRERA 20 NO. 9-108, LOCAL 6 FRENTE LICORER-A 9 CON 19. SAN CRISTÓBAL ESTADO TACHIRA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Cristobal Concordia",
+"address": "CALLE 4 C/C CARRERAS 6 Y 7 EDF. RAM-REZ PB LOCAL 1, DETR-S DEL DIARIO LA NACIÓN. LA CONCORDIA. SAN CRISTÓBAL, ESTADO TACHIRA..",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "S. Antonio del Tachira",
+"address": "AV VENEZUELA CON CALLE 7 EDIF REAL LOCAL N 7-09 SECTOR CENTRO, A TRES CUADRAS DE LA ADUANA PRINCIPAL.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "La Fria",
+"address": "CARRERA 11 ENTRE CALLES 4 Y 5 AL LADO DE RAMINI LA FRIA EDO. TACHIRA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "La Grita",
+"address": "AV FCO DE CACERES DIAGONAL AL COLEGIO STA ROSA DE LIMA , LA GRITA EDO. TACHIRA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Rubio",
+"address": "CENTRO COMERCIAL VENEZIA FRENTE A LA PLAZA BOLIVAR DE RUBIO SECTOR CENTR0O LOCALES 6 Y 7, ESTADO TACHIRA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "El Piñal",
+"address": "CALLE 1 CON CARRERA 3, LOCAL NO. 1. ZONA COMERCIAL EL MIRADOR. VIA LA MORITA. CERCA DE LA E/S EL PIÑAL",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Tariba",
+"address": "CALLE 8 CON CARRERA 8 CASA NRO 7-87 LOCAL 3, 4 CUADRAS SUBIENDO DE LA PLAZUELA DE TARIBA. SECTOR TARIBA, TACHIRA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Barrio Obrero",
+"address": "BARRIO OBRERO, CARRERA 22, ESQUINA CALLE 12, DIAGONAL A LA PLAZA LOS MANGOS, AL LADO DE LA CAPILLA DE LOS AHORCADOS, N° 22-9 SAN CRISTOBAL EDO. TÁCHIRA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Ureña",
+"address": "CALLE 5 CON ESQUINA CARRERA 6, EDIF. SOFI, LOCAL 106, BARRIO LA GUAJIRA. UREÑA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Cristobal Centro",
+"address": "7MA AV ENTRE CALLE 5 Y 6 C.C. PARTENÓN , NIVEL P.B LOCAL Nº 3 DIAGONAL A LA TORRE UNIÓN, A CUADRA Y MEDIA DE LA PLAZA BOLIVAR, SECTOR CENTRO, SAN CRISTOBAL ESTADO TACHIRA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "Paramillo",
+"address": "BARRIO EL LOBO, CALLE 1 FRENTE A LA MANGA DE COLEO DE ASOGATA, A 100 MTS DE LA AV. LOS AGUSTINOS, RESIDENCIAS MARSEE, PISO PB, SECTOR PARAMILLO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Táchira",
+"city": "Táchira",
+"name": "San Juan de Colon",
+"address": "C. 7 ESQUINA CARRERA 5. NO 4-79. SAN JUAN DE COLON.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Trujillo",
+"address": "AV. INDEPENDENCIA CENTRO COMERCIAL LOS TORRES LOCAL 02, TRUJILLO ESTADO TRUJILLO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Valera",
+"address": "CALLE 5 ENTRE AV. BOLIVAR Y 9. EDIF. DON PEPE. P.B. AL LADO DE LA ANTIGUA SEDE.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Carache",
+"address": "AV. PRINCIPAL CASA S/N SECTOR PALO NEGRO, CARACHE ESTADO TRUJILLO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Bocono",
+"address": "AV. MIRANDA C/C C. ANDRES BELLO. LOCAL 2",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Valera los Limoncitos",
+"address": "AV. BOLIVAR, ENTRE CALLE 22 Y 23, CENTRO COMERCIAL ARICHUNA, NIVEL PB, LOCAL 14, SECTOR LOS LIMONCITOS, MUNICIPIO VALERA, ESTADO TRUJILLO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Valera Centro",
+"address": "AV. 12 ENTRE CALLES 8 Y 9, EDIF. BEATRIZ, P.B., LOCAL 1, A UNA CUADRA DE LA PLAZA BOL-VAR. GPS: 9.3149416,-70.6091462",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Trujillo",
+"city": "Trujillo",
+"name": "Sabana de Mendoza",
+"address": "C.C. SABANA MALL, AV. BOLIVAR CON CALLE BERMUDEZ DE SABANA DE MENDOZA, MUNICIPIO SUCRE, EDO. TRUJILLO,",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "La Guaira",
+"city": "La Guaira",
+"name": "Catia la Mar",
+"address": "CALLE 3 Y 8 C.C PROFESIONAL LA COLINA, NIVEL PB-5 CATIA LA MAR EDO. VARGAS. GPS: 10.6036138,-67.0313671",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Yaracuy",
+"city": "Yaracuy",
+"name": "San Felipe",
+"address": "CALLE 12, ENTRE AVENIDA 8 Y 9, EDIFICIO DON JORGE, PLANTA BAJA, LOCAL 3, SECTOR CAJA DE AGUA, SAN FELIPE, ESTADO YARACUY. GPS 10.3403525,-68.7384701",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Yaracuy",
+"city": "Yaracuy",
+"name": "Nirgua",
+"address": "AV. 5 ENTRE CALLES 4 Y 5. EDIF. MURCIA, LOCAL 3. DIAGONAL AL BANCO PROVINCIAL, SECTOR PLAZA SUCRE. NIRGUA. GPS: 10.1498921,-68.5658553",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Yaracuy",
+"city": "Yaracuy",
+"name": "Yaritagua",
+"address": "CALLE 17 ENTRE CARRERAS 7 Y 8 LOCAL S/N, DIAGONAL AL REGISTRO CIVIL. SECTOR CENTRO YARITAGUA - YARACUY. GPS: 10.0783462,-69.1288746",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Mbo la Limpia",
+"address": "AV. 28 (LA LIMPIA) Nº 14-54. EDIF. RODR-GUEZ Y BARBOZA, DIAGONAL AL HOTEL MARACAIBO SUITE. PB",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Circunvalacion 2",
+"address": "PARROQUIA CECILIO ACOSTA, MUNICIPIO MARACAIBO, AV. 58 CIRCUNVALACION N° 2 EDIF, CASA SAAS PISO: PB, LOCAL 98E-164 BARRIO ENTRE CALLES 98E Y 99, BARRIO ANDRES ELOY BLANCO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Los Olivos",
+"address": "AV 28 LA LIMPIA CON AVENIDA 69A LOCAL #69B-09 SECTOR LOS ACEITUNOS, AL LADO DE LA E/S LOS ACEITUNOS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Maracaibo Norte",
+"address": "AV. PAUL MORENO, ANTIGUA FUERZAS ARMADAS CON CALLE 20, EDIF. MILENIUM FARMACIA YA!, MARCAIBO EDO-ZULIA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Mbo Indio Mara",
+"address": "CALLE 78 DR PORTILLO ENTRE AV. 17 Y 18 NO 17-35, C.C. DON JULIO, DIAGONAL AL BANCO PROVINCIAL, SECTOR EL PARAISO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Ciudad Ojeda",
+"address": "AV. INTERCOMUNAL. SECTOR LAS MOROCHAS. FRENTE A LA ESTACION DE SERVICIO CENTRAL SECTOR LAS MOROCHAS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Manzanillo",
+"address": "CALLE UNION (10A) CON AV. 24, SECTOR MANZANILLO, LOCAL Nº2.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Coromoto",
+"address": "URBANIZACIÓN COROMOTO, AVENIDA 40, C.C. VILLA MALL, PB. 4.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Machiques",
+"address": "CALLE UNION, ENTRE AVENIDAS UDON PEREZ Y VALLE FRIO, CASA S/N, SECTOR VALLE FRIO. MACHIQUES",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Cabimas",
+"address": "AV INTERCOMUNAL, ESQUINA CUMANA EDIF INTERCUMANA LOCAL N 02 PB CABIMAS EDO ZULIA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "La Chinita",
+"address": "AV.19 CON CALLE 93, EDIFICO PADILLA, PB, LOCAL 33, AL LADO DEL CENTRO DE LITERATURA CRISTIANA, CASCO CENTRAL, MARACAIBO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Mbo Irama",
+"address": "C.C. LA PARAGUA, PLANTA BAJA, LOCAL 5, AL LADO DE AMERICAN IMPORT, EDO. ZULIA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Santa Barbara del Zulia",
+"address": "AV 8 CASA Nº 5-117 SECTOR BOLIVAR, SANTA BARBARA ZULIA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "El Venado",
+"address": "AV. INDEPENDENCIA, CENTRO COMERCIAL SAN ANTONIO (LOS DUARTES), LOCAL #01, MENE GRANDE; MUNICIPIO BARALT DEL ESTADO ZULIA, CODIGO POSTAL 4015",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Ciudad Ojeda Centro",
+"address": "C.C. BARI, CARRETERA “N”, ENTRE CALLES 34 Y SANTA MONICA, CIUDAD OJEDA, ESTADO ZULIA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Tia Juana",
+"address": "AVENIDA INTERCOMUNAL DE TIA JUANA, SECTOR EZEQUIEL ZAMORA, LOCAL # 1. FRENTE A PRODATA WIRE - LINE. TIA JUANA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Mbo la Lago",
+"address": "AV. 3E ENTRE CALLE 72 Y 73 EDIF. ASOCIACIÓN ZULIANA DE CIEGOS, LOCAL 3",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Caja Seca",
+"address": "CTRA. PANAMERICANA, C.C. SAGRADO CORAZON DE JESUS, NIVEL PB, LOCAL 1, SECTOR EL LATINO. NUEVA BOLIVIA, EDO. MERIDA , ZONA POSTAL 5115.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Curva de Molina",
+"address": "CALLE 79 NRO 92-58 FRENTE AL MODULO LIBERTADOR, AL LADO DE LA FERRETERIA RAYEN.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Portuguesa",
+"city": "Portuguesa",
+"name": "Turen",
+"address": "AVENIDA 6, ENTRE CALLE 8 Y 9, TURÉN PORTUGUESA. GPS 9.3329354,-69.1236159",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Quinta Crespo",
+"address": "EDIFICIO DOLORES, AVENIDA OESTE 18A, BÁRCENAS, LOCAL NÚMERO 3, PARROQUIA SANTA TERESA, CARACAS, DISTRITO CAPITA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Apure",
+"city": "Apure",
+"name": "San Fernando",
+"address": "CALLE BOLIVAR ENTRE CALLE PIAR Y GIRARDOT, LOCAL NRO S/N SECTOR CENTRO, SAN FERNANDO DE APURE GPS: 7.887714, -67.475549",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Montalban",
+"address": "MONTALBAN II. 2DA TRANSVERSAL CENTRO COMERCIAL LA VILLA. GPS: 10.473580360412598,-66.95611572265625",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Los Teques",
+"address": "CALLE SUCRE NORTE, LOCALES NRO. 2 Y 15-1, SECTOR EL PUEBLO, LOS TEQUES, MIRANDA GPS - 10.349844, -67.043481",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Santa Rita",
+"address": "AV. GENERALíSIMO FRANCISCO DE MIRANDA, ENTRE PROLONGACIóN Y ANDRéS BELLO, CALLE ANDRéS BELLO, LOCAL NRO. 75, SECTOR GUARUTO, SANTA RITA, ESTADO ARAGUA 10.234873030073881, -67.5923007253661.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Nueva Esparta",
+"city": "Nueva Esparta",
+"name": "Porlamar",
+"address": "CALLE CEDEñO CRUCE CON CALLE NARVAEZ, EDIFICIO R. AMAYA & CIA , PLANTA BAJA, LOCAL S/N, SECTOR TACHIRA, PORLAMAR, MUNICIPIO MARIÑO DEL ESTADO NUEVA ESPARTA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "La California",
+"address": "AV. FCO. DE MIRANDA CON AV. MADRID C.C. PUERTAS DEL ESTE, LOCAL 5 LA CALIFORNIA NORTE.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Barinas",
+"city": "Barinas",
+"name": "Av Sucre Barinas",
+"address": "AV. SUCRE, EDIFICIO RESIDENCIAS KARO, LOCAL N° 1, PB",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "El Tigrito",
+"address": "CENTRO COMERCIAL DECA, PB, LOCAL NRO. 2, AV. FERNáNDEZ PADILLA, MUNICIPIO SAN JOSé DE GUANIPA, ESTADO ANZOáTEGUI.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Boleita",
+"address": "AV. LAS PALMAS, EDIF. TORRE DON LEONARDO, PISO PB, LOCAL 6, URB. BOLEITA SUR, CARACAS (PETARE), ZONA POSTAL 1071",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Falcón",
+"city": "Falcón",
+"name": "Punto Fijo Centro",
+"address": "AV. COLOMBIA, ENTRE AYACUCHO Y PENINSULAR, C.C. DON JOSE LAY, NIVEL PB, LOCAL 5B, SECTOR CENTRO, PUNTO FIJO FALCON.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Altagracia",
+"address": "CARRERA 21, ENTRE CALLE 20 Y 21, LOCAL COMERCIAL S/N, EDIFICIO NRO. 20 – 81, BARQUISIMETO .",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "La Guaira",
+"city": "La Guaira",
+"name": "La Guaira",
+"address": "CALLE LOTE DE TERRENO DE LA MANZANA E LOCAL 94 SECTOR MIRAMAR, AL LADO DEL C.C. BAHIA SUPERMARKET, MAIQUETIA LA GUAIRA ZONA POSTAL 1161",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Miranda",
+"city": "Miranda",
+"name": "Carrizal",
+"address": "KILÓMETRO 21 DE LA CARRETERA PANAMERICANA, INGRESANDO POR LA URBANIZACIÓN MONTAÑA ALTA, LOCAL S-1, CENTRO COMERCIAL COLINAS DE CARRIZAL, FRENTE AL CENTRO COMERCIAL LA CASCADA, CARRIZAL ESTADO MIRANDA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Bolívar",
+"city": "Bolívar",
+"name": "Caicara del Orinoco",
+"address": "CARRETERA TRONCAL 19 LOCAL NRO. S/N, SECTOR SAN RAFAEL, CAICARA DEL ORINOCO, ESTADO BOLíVAR",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay Centro",
+"address": "AVENIDA FUERZAS AéREAS, LOCAL 91-B, SECTOR MARIO BRICEñO IRAGORRY, MARACAY ESTADO ARAGUA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Los Cedros",
+"address": "CALLE 5 DE JULIO, CRUCE CON CJN \"В\" LOCAL NRO. 116 BARRIO LIBERTAD MARACAY ESTADO ARAGUA",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Valencia los Guajiros",
+"address": "CALLE 73, NRO. CIVICO 90-27,, LOCAL S/N, BARRIO LA ISABELA, VALENCIA ESTADO CARABOBO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Lara",
+"city": "Lara",
+"name": "Av Venezuela Este",
+"address": "AV. VENEZUELA CON CALLES 8 Y 9, BARQUISIMETO, ESTADO LARA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Carabobo",
+"city": "Carabobo",
+"name": "Tocuyito",
+"address": "CALLE ARVELO, LOCAL NRO. A-01, SECTOR CASCO CENTRAL DE TOCUYITO, EDIFICIO SAN JOSE, TOCUYITO, ESTADO CARABOBO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Perez Bonalde",
+"address": "CATIA ENTRÉ CALLE COLOMBIA Y ATLÁNTICO EDIFICIO LAZIO PB PÉREZ BONALDEZ CARACAS",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Parque Naciones Unidas",
+"address": "AV. JOSÉ ANTONIO PÁEZ, ENTRE AV. LOS PINOS Y PARQUE NACIONES UNIDAS, RESIDENCIA CITY PARK, PB - EL PARAISO",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Valle de la Pascua Norte",
+"address": "CALLE RETUMBO ENTRE CALLE PARAISO Y AV. RÓMULO GALLEGOS, C.C. CENTRO NORTE, LOCAL 1A, AL LADO DE OXILA 5000, ESTADO GUARICO.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Distrito Capital",
+"city": "Distrito Capital",
+"name": "Santa Fe",
+"address": "AV. JOSÉ MARÍA VARGAS CON CALLE SANTA ISABEL, EDIFICIO RESIDENCIAS CODICA II NO 8 URBANIZACIÓN SAN JUAN SANTA FE NORTE, MUNICIPIO BARUTA DEL ESTADO MIRANDA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Anzoátegui",
+"city": "Anzoátegui",
+"name": "Piritu",
+"address": "CALLE BOLIVAR, C.C. LOS DELFINES, NIVEL PB, LOCAL 5, SECTOR CENTRO PUERTO PIRITU, ANZOáTEGUI",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Aragua",
+"city": "Aragua",
+"name": "Maracay la Cooperativa",
+"address": "AV. RAFAEL URDANETA, LOCAL NRO. PB-3, URB. ANDRES BELLO, MARACAY, ESTADO ARAGUA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Zulia",
+"city": "Zulia",
+"name": "Villa del Rosario",
+"address": "AV. 20 MUNICIPAL CON CALLE 15 PÁEZ, C.C. INNOVACIÓN, LOCAL NO. 8, FRENTE AL CLUB DE MARIACHIS, VILLA DEL ROSARIO, ZULIA.",
+"phone": ""
+},
+{
+"agency": "MRW",
+"state": "Guárico",
+"city": "Guárico",
+"name": "Las Mercedes del Llano",
+"address": "CALLE DOÑA BÁRBARA. CENTRO COMERCIAL MERCEDES PLAZA, PB, LOCAL 5A. LAS MERCEDES DEL LLANO - EDO GUÁRICO.",
+"phone": ""
 }
 ]

@@ -241,6 +241,16 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     setOfficeName('');
   }, [agency]);
 
+  // Algunas agencias (ej. MRW) no manejan ciudad: hay una sola "ciudad" por
+  // estado. En ese caso la auto-seleccionamos y ocultamos ese paso.
+  const singleCity = officeCities.length === 1;
+  useEffect(() => {
+    if (officeState && singleCity && officeCity !== officeCities[0].city) {
+      setOfficeCity(officeCities[0].city);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [officeState, singleCity]);
+
   // GA4 add_shipping_info — al cambiar método de envío o agencia (no al montar).
   // Para envío nacional el "tier" incluye la agencia (national · Zoom).
   useEffect(() => {
@@ -369,11 +379,17 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       if (deliveryType === 'national') {
         if (usesOfficePicker && selectedOffice) {
           // Oficina elegida de la lista: guardamos todo el detalle.
+          // Si la ciudad coincide con el estado (agencias sin ciudad), no lo
+          // repetimos.
+          const place = officeCity && officeCity !== officeState
+            ? `${officeState}, ${officeCity}`
+            : officeState;
           deliveryZoneInfo =
-            `Agencia: ${agencyLabel} — ${officeState}, ${officeCity} — ` +
+            `Agencia: ${agencyLabel} — ${place} — ` +
             `Oficina: ${selectedOffice.name}` +
             (selectedOffice.phone ? ` (Tel: ${selectedOffice.phone})` : '');
-          orderAddress = `${selectedOffice.name} — ${selectedOffice.address}, ${officeCity}, ${officeState}`;
+          orderAddress =
+            `${selectedOffice.name} — ${selectedOffice.address}, ${place}`;
         } else {
           // Destino en texto libre (agencia sin oficinas cargadas u "Otra").
           deliveryZoneInfo = `Agencia: ${agencyLabel} — ${agencyDestination.trim()}`;
@@ -640,8 +656,9 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
                     </select>
                   </div>
 
-                  {/* Ciudad */}
-                  {officeState && (
+                  {/* Ciudad — se oculta si la agencia no maneja ciudad (una
+                      sola por estado, ej. MRW): ese paso se salta solo. */}
+                  {officeState && !singleCity && (
                     <div>
                       <label htmlFor="office-city" className="text-sm font-medium text-alonzo-gray-600 block mb-1.5">
                         Ciudad
