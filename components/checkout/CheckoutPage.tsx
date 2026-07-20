@@ -11,6 +11,12 @@ import { deliveryMethods } from '@/config';
 import { usePaymentMethods } from '@/lib/usePaymentMethods';
 import { createOrder } from '@/lib/api';
 import { trackPixel } from '@/lib/meta-pixel';
+import {
+  gaBeginCheckout,
+  gaAddShippingInfo,
+  gaAddPaymentInfo,
+  gaPurchase,
+} from '@/lib/analytics';
 import { auth, signInAnonymously } from '@/lib/firebase-client';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
 import { formatUSD, formatBs } from '@/lib/format';
@@ -77,6 +83,8 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
       value: totalMoney(),
       currency: 'USD',
     });
+    // GA4 begin_checkout — el mismo momento del embudo, hacia Google Analytics.
+    gaBeginCheckout(items, appliedCoupon?.code);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,6 +100,12 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     obs.observe(el);
     return () => obs.disconnect();
   }, [items.length]);
+
+  // GA4 add_shipping_info / add_payment_info: se disparan cuando el cliente
+  // ELIGE envío o pago, no al montar. Estos guards saltan el primer render
+  // (donde deliveryType ya trae su valor por defecto "pickup").
+  const shippingTrackedRef = useRef(false);
+  const paymentTrackedRef = useRef<string | null>(null);
 
   // Form
   const [rif, setRif] = useState(client?.rif_ci || '');
@@ -186,6 +200,23 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const total = Math.max(0, subtotal - offerDiscount - couponDiscount + deliveryCost);
   const canFinish = total - totalPaid <= 0.01;
   const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
+
+  // GA4 add_shipping_info — al cambiar el método de envío (no en el montaje).
+  useEffect(() => {
+    if (!shippingTrackedRef.current) { shippingTrackedRef.current = true; return; }
+    if (items.length === 0) return;
+    gaAddShippingInfo(items, deliveryType, total);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deliveryType]);
+
+  // GA4 add_payment_info — la primera vez que se selecciona cada método.
+  useEffect(() => {
+    if (!selectedPaymentMethod || items.length === 0) return;
+    if (paymentTrackedRef.current === selectedPaymentMethod) return;
+    paymentTrackedRef.current = selectedPaymentMethod;
+    gaAddPaymentInfo(items, selectedPaymentMethod, total);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPaymentMethod]);
 
   // Pista de lo que falta para poder pagar — se muestra bajo el botón para que
   // el cliente nunca vea un CTA "muerto" sin saber por qué.
@@ -285,6 +316,15 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
         num_items: items.reduce((n, i) => n + i.qty, 0),
         value: result.invoiceData.total,
         currency: 'USD',
+      });
+      // GA4 purchase — LA conversión. transaction_id = id de la orden para que
+      // GA no cuente dos veces si el usuario recarga la pantalla de éxito.
+      // Va antes de clearCart() para tener los ítems a mano.
+      gaPurchase(items, {
+        transaction_id: String(result.numericId),
+        value: result.invoiceData.total,
+        shipping: deliveryCost,
+        coupon: appliedCoupon?.code,
       });
 
       clearCart();

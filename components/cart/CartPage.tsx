@@ -8,6 +8,7 @@ import { useExchangeRate } from '@/lib/useExchangeRate';
 import { useWishlist } from '@/lib/useWishlist';
 import { useToast } from '@/components/ui';
 import { auth } from '@/lib/firebase-client';
+import { gaViewCart } from '@/lib/analytics';
 
 interface CartPageProps {
   onCheckout: () => void;
@@ -22,6 +23,12 @@ export function CartPage({ onCheckout }: CartPageProps) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // GA4 view_cart — una vez al abrir el carrito con contenido.
+  useEffect(() => {
+    if (items.length > 0) gaViewCart(items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Mover un ítem del carrito a la lista de deseos. Requiere sesión: si no la

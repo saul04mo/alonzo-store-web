@@ -14,6 +14,7 @@ import { isSingleSizeLabel } from '@/lib/sizes';
 import { useWishlist } from '@/lib/useWishlist';
 import { ProductCard } from '@/components/products/ProductCard';
 import { trackPixel } from '@/lib/meta-pixel';
+import { gaViewItem } from '@/lib/analytics';
 import type { Product, ProductVariant } from '@/types';
 
 interface ProductDetailPageProps {
@@ -53,6 +54,24 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [product?.id]);
+
+  // GA4 view_item — una vez por producto abierto. Armamos un "ítem" mínimo con
+  // el mismo formato que el carrito para reutilizar el mapeo de lib/analytics.
+  useEffect(() => {
+    if (!product) return;
+    gaViewItem({
+      key: product.id,
+      productId: product.id,
+      titulo: product.name,
+      img: product.imageUrl,
+      precio: product.price || '0',
+      qty: 1,
+      size: '',
+      color: '',
+      variantIndex: 0,
+      offer: product.offer,
+    });
   }, [product?.id]);
 
   // Producto "talla única" (ej. S/T): no hay selector que mostrar, así que
