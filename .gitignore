@@ -10,6 +10,7 @@ out/
 # Build
 dist/
 build/
+*.tsbuildinfo
 
 # Environment
 .env
@@ -49,3 +50,6 @@ coverage/
 .agents/
 .impeccable/
 skills-lock.json
+
+# Volcados intermedios de los scripts de scraping (el _ marca temporal)
+scripts/data/_*
