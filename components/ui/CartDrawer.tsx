@@ -1,6 +1,6 @@
 'use client';
 
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { displaySize } from '@/lib/sizes';
 import { useEffect, useRef } from 'react';
 import { X, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
@@ -16,6 +16,7 @@ function calcDiscountedPrice(price: number, offer?: { type: string; value: numbe
 
 export function CartDrawer() {
   const router = useRouter();
+  const { cs } = useMoney();
   const open = useUIStore((s) => s.cartDrawerOpen);
   const setOpen = useUIStore((s) => s.setCartDrawerOpen);
   const items = useCartStore((s) => s.items);

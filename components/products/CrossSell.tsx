@@ -6,7 +6,7 @@ import { useCartStore, useUIStore } from '@/stores';
 import { fetchProducts, seedProduct } from '@/lib/api';
 import { productHref } from '@/lib/productUrl';
 import { ProductCard } from './ProductCard';
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import type { Product } from '@/types';
 
 interface CrossSellProps {
@@ -25,6 +25,7 @@ function displayPrice(p: Product): number {
 
 export function CrossSell({ layout, limit = 4, title = 'También te puede gustar' }: CrossSellProps) {
   const router = useRouter();
+  const { cs } = useMoney();
   const items = useCartStore((s) => s.items);
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
 

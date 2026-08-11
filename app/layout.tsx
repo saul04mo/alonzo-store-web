@@ -6,6 +6,8 @@ import { Analytics } from '@/components/Analytics';
 import { Clarity } from '@/components/Clarity';
 import { MetaPixel } from '@/components/MetaPixel';
 import { getAnnouncements } from '@/lib/getAnnouncements';
+import { getServerWebSettings } from '@/lib/getServerWebSettings';
+import { WebSettingsBootstrap } from '@/components/WebSettingsBootstrap';
 import './globals.css';
 
 const inter = Inter({
@@ -96,7 +98,10 @@ const structuredData = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const announcements = await getAnnouncements();
+  const [announcements, settings] = await Promise.all([
+    getAnnouncements(),
+    getServerWebSettings(),
+  ]);
 
   return (
     <html lang="es" className={`${inter.variable} ${bebas.variable}`}>
@@ -112,6 +117,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <MetaPixel />
         </Suspense>
         <Clarity />
+        <WebSettingsBootstrap
+          currencySymbol={settings.currencySymbol}
+          whatsappNumber={settings.whatsappNumber}
+        />
         <AppShell announcements={announcements}>{children}</AppShell>
       </body>
     </html>

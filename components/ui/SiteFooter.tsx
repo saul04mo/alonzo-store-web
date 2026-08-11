@@ -1,6 +1,6 @@
 'use client';
 
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import Link from 'next/link';
 import { Instagram, Facebook, ChevronRight } from 'lucide-react';
 import { useUIStore, useClientStore } from '@/stores';
@@ -16,6 +16,7 @@ export function SiteFooter() {
   const setAuthOpen = useUIStore((s) => s.setAuthOpen);
   const client = useClientStore((s) => s.client);
   const { whatsappNumber } = useWebSettings();
+  const { cs } = useMoney();
 
   const footerSections = [
     {

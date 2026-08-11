@@ -1,6 +1,6 @@
 'use client';
 
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Ticket, Copy, CheckCircle, Clock, Gift } from 'lucide-react';
@@ -21,6 +21,7 @@ interface PublicCoupon {
 export function MyCouponsPage() {
   const router = useRouter();
   const toast = useToast();
+  const { cs } = useMoney();
   const [coupons, setCoupons] = useState<PublicCoupon[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);

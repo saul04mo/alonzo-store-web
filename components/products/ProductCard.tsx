@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { Plus } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import type { Product } from '@/types';
@@ -30,6 +30,7 @@ function calcDiscountedPrice(price: number, offer: Product['offer']): number {
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
   const router = useRouter();
+  const { cs } = useMoney();
   const wasCached = loadedImages.has(product.imageUrl || '');
   const [loaded, setLoaded] = useState(wasCached);
   const [showSizes, setShowSizes] = useState(false);
