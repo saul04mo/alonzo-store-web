@@ -1,13 +1,12 @@
 'use client';
 
-import { useMoney } from '@/lib/useMoney';
+import { cs } from '@/lib/format';
 import { displaySize } from '@/lib/sizes';
 import { useEffect, useRef } from 'react';
 import { X, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCartStore, useUIStore } from '@/stores';
 import { useRouter } from 'next/navigation';
 import { CrossSell } from '@/components/products/CrossSell';
-import { useClarityOverlay } from '@/lib/clarity';
 
 function calcDiscountedPrice(price: number, offer?: { type: string; value: number }): number {
   if (!offer || !offer.value) return price;
@@ -17,7 +16,6 @@ function calcDiscountedPrice(price: number, offer?: { type: string; value: numbe
 
 export function CartDrawer() {
   const router = useRouter();
-  const { cs } = useMoney();
   const open = useUIStore((s) => s.cartDrawerOpen);
   const setOpen = useUIStore((s) => s.setCartDrawerOpen);
   const items = useCartStore((s) => s.items);
@@ -26,8 +24,6 @@ export function CartDrawer() {
   const totalItems = useCartStore((s) => s.totalItems);
   const totalMoney = useCartStore((s) => s.totalMoney);
   const drawerRef = useRef<HTMLDivElement>(null);
-  // El panel no cambia la URL: sin esto Clarity lo cuenta como la página de fondo.
-  useClarityOverlay(open ? 'Carrito (panel lateral)' : null);
 
   // Close on ESC key
   useEffect(() => {

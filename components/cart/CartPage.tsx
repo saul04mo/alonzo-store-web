@@ -3,8 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore, useUIStore } from '@/stores';
 import { CartItemRow } from './CartItemRow';
-import { formatBs } from '@/lib/format';
-import { useMoney } from '@/lib/useMoney';
+import { formatUSD, formatBs } from '@/lib/format';
 import { useExchangeRate } from '@/lib/useExchangeRate';
 import { useWishlist } from '@/lib/useWishlist';
 import { useToast } from '@/components/ui';
@@ -17,7 +16,6 @@ interface CartPageProps {
 
 export function CartPage({ onCheckout }: CartPageProps) {
   const { items, totalItems, totalMoney, removeItem } = useCartStore();
-  const { formatUSD } = useMoney();
   const router = useRouter();
   const { toggle, isInWishlist } = useWishlist();
   const setAuthOpen = useUIStore((s) => s.setAuthOpen);

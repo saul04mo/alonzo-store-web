@@ -15,7 +15,6 @@ import { Client } from '@/types';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase-client';
 import { useToast } from '@/components/ui';
-import { useClarityOverlay } from '@/lib/clarity';
 
 // Detect mobile browser
 function isMobile(): boolean {
@@ -31,8 +30,6 @@ interface AuthModalProps {
 
 export function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(true);
-  // Sin ruta propia: se abre encima de cualquier página.
-  useClarityOverlay(open ? (isLogin ? 'Login' : 'Registro') : null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');

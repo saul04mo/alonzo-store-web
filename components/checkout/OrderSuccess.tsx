@@ -3,11 +3,9 @@ import { useState, useEffect } from 'react';
 import { CheckCircle, Star, MessageCircle, Truck, Store, Copy, ShoppingBag } from 'lucide-react';
 import { useToast } from '@/components/ui';
 import { submitRating } from '@/lib/api';
-import { buildOrderWhatsAppMessage, buildWhatsAppLink } from '@/lib/format';
-import { useMoney } from '@/lib/useMoney';
+import { buildOrderWhatsAppMessage, buildWhatsAppLink, cs } from '@/lib/format';
 import { displaySize } from '@/lib/sizes';
 import { useWebSettings } from '@/lib/useWebSettings';
-import { useClarityOverlay } from '@/lib/clarity';
 import type { Invoice } from '@/types';
 
 const STORE_ADDRESS = 'ALONZO Store — Retiro en tienda. Te contactaremos para coordinar.';
@@ -33,10 +31,7 @@ export function OrderSuccess({
   isGuest = false,
 }: OrderSuccessProps) {
   const toast = useToast();
-  const { cs } = useMoney();
   const { whatsappNumber } = useWebSettings();
-  // Sin ruta propia: para Clarity esto sería otra vista de /checkout.
-  useClarityOverlay(open ? 'Pedido confirmado' : null);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [ratingSubmitted, setRatingSubmitted] = useState(false);

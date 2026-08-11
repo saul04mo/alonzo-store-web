@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useMoney } from '@/lib/useMoney';
+import { cs } from '@/lib/format';
 import type L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapPin, Navigation, Search, X } from 'lucide-react';
@@ -102,7 +102,6 @@ interface AddressPickerProps {
 
 /* ── Component ── */
 export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing = true }: AddressPickerProps) {
-  const { cs } = useMoney();
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);

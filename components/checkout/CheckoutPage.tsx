@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { useMoney } from '@/lib/useMoney';
+import { cs } from '@/lib/format';
 import { displaySize } from '@/lib/sizes';
 import { useRouter } from 'next/navigation';
 import { MapPin, ChevronDown, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
@@ -20,7 +20,7 @@ import {
 } from '@/lib/analytics';
 import { auth, signInAnonymously } from '@/lib/firebase-client';
 import { PaymentGrid, type PaymentSelection } from './PaymentGrid';
-import { formatBs } from '@/lib/format';
+import { formatUSD, formatBs } from '@/lib/format';
 import { CouponInput, type AppliedCouponWeb } from './CouponInput';
 import type { AddressResult } from './AddressPicker';
 import dynamic from 'next/dynamic';
@@ -64,7 +64,6 @@ interface CheckoutPageProps {
 export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const router = useRouter();
   const toast = useToast();
-  const { cs, formatUSD } = useMoney();
   const exchangeRate = useExchangeRate();
   const { methods: paymentMethods } = usePaymentMethods();
   const { items, totalMoney, clear: clearCart } = useCartStore();
