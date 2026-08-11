@@ -7,14 +7,23 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // OJO con el valor por defecto dentro del var(): NO es decorativo.
+      // Si --font-inter no está definida, CSS invalida la declaración
+      // ENTERA (invalid at computed-value time) en vez de saltar al
+      // siguiente item de la lista — y font-family cae a su valor
+      // inicial, o sea la serif del navegador (Times New Roman). Pasó en
+      // producción: durante una ventana del deploy el CDN sirvió el HTML
+      // de un build (clase __variable_8c3f94) con el CSS de otro
+      // (.__variable_fa2f99), la variable quedó sin definir y TODO el
+      // sitio se fue a Times. Con el default el peor caso es system-ui.
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        sans: ['var(--font-inter, system-ui)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
         // Sans-serif condensada estilo streetwear/fashion editorial
         // (Bebas Neue). Se usa en títulos del hero. Si en el futuro
         // se cambia la marca a otra fuente similar (Oswald, Antonio,
         // Barlow Condensed), basta con cambiar la variable
         // --font-bebas en layout.tsx.
-        editorial: ['var(--font-bebas)', 'Impact', '"Helvetica Neue Condensed"', 'Arial Narrow', 'sans-serif'],
+        editorial: ['var(--font-bebas, Impact)', 'Impact', '"Helvetica Neue Condensed"', 'Arial Narrow', 'sans-serif'],
       },
       colors: {
         alonzo: {
