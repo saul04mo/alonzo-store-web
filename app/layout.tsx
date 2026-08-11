@@ -116,7 +116,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
-        <Clarity />
+        <Suspense fallback={null}>
+          <Clarity />
+        </Suspense>
         <WebSettingsBootstrap
           currencySymbol={settings.currencySymbol}
           whatsappNumber={settings.whatsappNumber}
