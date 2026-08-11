@@ -1,6 +1,6 @@
-import { formatUSD, formatBs } from '@/lib/format';
+import { formatBs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 
-import { cs } from '@/lib/format';
 interface OrderSummaryProps {
   subtotal: number;
   discount: number;
@@ -22,6 +22,7 @@ export function OrderSummary({
   freeShipping,
   originalDeliveryCost,
 }: OrderSummaryProps) {
+  const { cs, formatUSD } = useMoney();
   const total = Math.max(0, subtotal - discount + deliveryCost);
   const totalBs = total * exchangeRate;
   const difference = total - totalPaid;

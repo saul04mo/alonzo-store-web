@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useClientStore } from '@/stores';
 import { auth, onAuthStateChanged } from '@/lib/firebase-client';
 import { fetchClientOrders, fetchClientOrdersByRif } from '@/lib/api';
-import { formatUSD } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { displaySize } from '@/lib/sizes';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Package, Clock, CheckCircle, XCircle, Truck, MapPin, CreditCard, ChevronDown, ShoppingBag } from 'lucide-react';
@@ -38,6 +38,7 @@ const DELIVERY_LABELS: Record<string, string> = {
 
 export function AccountOrdersPage() {
   const router = useRouter();
+  const { formatUSD } = useMoney();
   // RIF del store (para los pedidos del POS). El id viene del user de
   // Firebase para garantizar que la query a Firestore vaya autenticada.
   const clientRif = useClientStore((s) => s.client?.rif_ci);

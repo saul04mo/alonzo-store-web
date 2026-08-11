@@ -1,6 +1,6 @@
 'use client';
 
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Heart, ChevronLeft, ShoppingCart, Trash2 } from 'lucide-react';
@@ -14,6 +14,7 @@ import type { Product } from '@/types';
 export function WishlistPage() {
   const router = useRouter();
   const toast = useToast();
+  const { cs } = useMoney();
   const { items: wishlistIds, loading: wishLoading, remove } = useWishlist();
   const { addItem } = useCartStore();
   const [products, setProducts] = useState<Product[]>([]);

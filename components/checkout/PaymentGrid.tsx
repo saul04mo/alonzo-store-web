@@ -4,7 +4,8 @@ import {
   Smartphone, Building2, Banknote, Bitcoin, Wallet, CreditCard, Copy, Check, Upload, Image as ImageIcon,
 } from 'lucide-react';
 import { useToast } from '@/components/ui';
-import { copyToClipboard, cs } from '@/lib/format';
+import { copyToClipboard } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import type { PaymentMethod } from '@/types';
 
 const iconMap: Record<string, typeof Smartphone> = {
@@ -39,6 +40,7 @@ export function PaymentGrid({
   onProofChange,
 }: PaymentGridProps) {
   const toast = useToast();
+  const { cs } = useMoney();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const handleSelect = (id: string) => {

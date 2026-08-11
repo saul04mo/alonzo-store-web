@@ -96,6 +96,20 @@ function ensureSubscribed() {
   }
 }
 
+/**
+ * Siembra el snapshot con los valores que el servidor ya leyó de Firestore,
+ * para que el PRIMER render del cliente (y el HTML del SSR) usen la config
+ * real en vez de DEFAULTS. Sin esto la página pinta con DEFAULTS (símbolo €)
+ * y solo se corrige ~300ms después, cuando llega el onSnapshot — y únicamente
+ * en los componentes que estén suscritos.
+ *
+ * No pisa un snapshot ya existente: el listener de Firestore siempre manda.
+ */
+export function primeWebSettings(partial: Partial<WebSettings>): void {
+  if (snapshot) return;
+  snapshot = { ...DEFAULTS, ...partial };
+}
+
 export function invalidateWebSettingsCache(): void {
   if (unsubscribe) {
     try { unsubscribe(); } catch {}

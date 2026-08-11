@@ -1,6 +1,6 @@
 'use client';
 import { Heart } from 'lucide-react';
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { displaySize } from '@/lib/sizes';
 import { useCartStore } from '@/stores';
 import type { CartItem } from '@/types';
@@ -14,6 +14,7 @@ interface CartItemRowProps {
 
 export function CartItemRow({ item, index, offer, onMoveToWishlist }: CartItemRowProps) {
   const { updateQty, removeItem } = useCartStore();
+  const { cs } = useMoney();
 
   const increaseQty = () => {
     updateQty(index, 1);

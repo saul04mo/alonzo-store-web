@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { cs } from '@/lib/format';
+import { useMoney } from '@/lib/useMoney';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Heart, ChevronDown, ChevronLeft, ChevronRight, Truck, X, Minus, Plus, Share2 } from 'lucide-react';
@@ -26,6 +26,7 @@ interface ProductDetailPageProps {
 export function ProductDetailPage({ product, loading = false, error = '' }: ProductDetailPageProps) {
   const router = useRouter();
   const toast = useToast();
+  const { cs } = useMoney();
   const { addItem } = useCartStore();
   const setCartDrawerOpen = useUIStore((s) => s.setCartDrawerOpen);
   const setAuthOpen = useUIStore((s) => s.setAuthOpen);
