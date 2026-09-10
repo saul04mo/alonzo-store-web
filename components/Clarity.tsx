@@ -48,6 +48,7 @@ function viewName(pathname: string, params: URLSearchParams): string {
     '/account/coupons': 'Mis cupones',
     '/privacy': 'Privacidad',
     '/terms': 'Términos',
+    '/data-deletion': 'Eliminación de datos',
   };
   return fixed[pathname] || pathname;
 }
