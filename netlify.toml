@@ -34,3 +34,18 @@
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# ─── Dominio anterior → alonzove.com ────────────
+# alonzocollection.com queda como alias en Netlify sólo para redirigir:
+# 301 conserva el SEO acumulado y los links viejos (Instagram, WhatsApp).
+[[redirects]]
+  from = "https://alonzocollection.com/*"
+  to = "https://alonzove.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.alonzocollection.com/*"
+  to = "https://alonzove.com/:splat"
+  status = 301
+  force = true

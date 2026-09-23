@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { adminDb } from '@/lib/firebase-admin';
 import { productHref } from '@/lib/productUrl';
 
-const SITE_URL = 'https://alonzocollection.com';
+const SITE_URL = 'https://alonzove.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages: MetadataRoute.Sitemap = [

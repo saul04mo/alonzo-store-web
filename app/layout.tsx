@@ -29,7 +29,7 @@ const bebas = Bebas_Neue({
   variable: '--font-bebas',
 });
 
-const SITE_URL = 'https://alonzocollection.com';
+const SITE_URL = 'https://alonzove.com';
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   icons: { icon: '/icons/icon-192x192.png', apple: '/icons/icon-192x192.png' },
   manifest: '/manifest.json',
   metadataBase: new URL(SITE_URL),
-  // Canónica: consolida todas las señales en alonzocollection.com y evita que
+  // Canónica: consolida todas las señales en alonzove.com y evita que
   // Google indexe dominios duplicados (p. ej. el subdominio de Netlify).
   alternates: { canonical: '/' },
   openGraph: {

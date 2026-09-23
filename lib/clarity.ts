@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 //
 // Clarity agrupa las grabaciones por URL, y eso no alcanza en esta tienda:
 //   1. El catálogo por categoría/género vive en la MISMA ruta ("/") con query
-//      params, así que media sesión se reporta como "alonzocollection.com".
+//      params, así que media sesión se reporta como "alonzove.com".
 //   2. Varias vistas son modales sin ruta propia (carrito lateral, login,
 //      pedido confirmado), y para Clarity ni siquiera existen.
 // Por eso le pasamos nosotros un nombre legible en cada cambio de vista.

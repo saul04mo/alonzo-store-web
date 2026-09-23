@@ -5,4 +5,4 @@ Disallow: /account/
 Disallow: /checkout/
 Disallow: /cart/
 
-Sitemap: https://alonzocollection.com/sitemap.xml
+Sitemap: https://alonzove.com/sitemap.xml

@@ -15,10 +15,10 @@ export const runtime = 'nodejs';
 //
 // Cómo conectarlo en Meta:
 //   Administrador de comercio → Catálogo → Orígenes de datos → Feed de datos →
-//   "Usar una URL" → pegar:  https://alonzocollection.com/api/meta-catalog
+//   "Usar una URL" → pegar:  https://alonzove.com/api/meta-catalog
 //   Programar actualización (diaria u horaria). Moneda: USD.
 
-const SITE_URL = 'https://alonzocollection.com';
+const SITE_URL = 'https://alonzove.com';
 
 // Escapa caracteres reservados de XML para que el feed no se rompa con nombres
 // o descripciones que tengan &, <, >, comillas, etc.
