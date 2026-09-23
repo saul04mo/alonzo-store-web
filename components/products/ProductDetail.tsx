@@ -664,8 +664,8 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
               </button>
               {activeAccordion === 'shipping' && (
                 <div className="py-3 text-[11px] text-alonzo-gray-600 leading-relaxed tracking-wide accordion-reveal">
-                  <p>Entrega estimada: 3 - 10 días hábiles.</p>
-                  <p className="mt-1">Envío disponible a nivel nacional.</p>
+                  <p>Delivery inmediato en Caracas: tiempo estimado de 45 minutos.</p>
+                  <p className="mt-1">Envíos a nivel nacional: entrega de 1 a 2 días hábiles.</p>
                   <p className="mt-1">Retiro en tienda disponible sin costo.</p>
                 </div>
               )}
