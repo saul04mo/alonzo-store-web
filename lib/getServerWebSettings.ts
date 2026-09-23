@@ -28,9 +28,11 @@ export interface ServerWebSettings {
 
 const DEFAULTS: ServerWebSettings = {
   heroSubtitle: 'Newest Collection',
-  heroImage: '/images/hero-banner.jpg',
+  heroImage: '',
   heroImageMobile: '',
-  heroImages: ['/images/hero-banner.jpg'],
+  // Sin imagen de relleno: si no hay banner configurado (o falla Firestore)
+  // se ve el fondo gris del hero, nunca una foto vieja que luego cambia.
+  heroImages: [],
   heroImagesMobile: [],
   heroSlideInterval: 6,
   whatsappNumber: '584123380976',

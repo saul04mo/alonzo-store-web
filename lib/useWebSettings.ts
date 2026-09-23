@@ -23,9 +23,11 @@ const DEFAULTS: WebSettings = {
   currencySymbol: '€',
   heroTitle: 'ALONZO',
   heroSubtitle: 'Newest Collection',
-  heroImage: '/images/hero-banner.jpg',
+  heroImage: '',
   heroImageMobile: '',
-  heroImages: ['/images/hero-banner.jpg'],
+  // Sin imagen de relleno: si no hay banner configurado (o falla Firestore)
+  // se ve el fondo gris del hero, nunca una foto vieja que luego cambia.
+  heroImages: [],
   heroImagesMobile: [],
   heroSlideInterval: 6,
   installPromptEnabled: false,
@@ -36,6 +38,19 @@ let snapshot: WebSettings | null = null;
 let initialized = false;
 let unsubscribe: (() => void) | null = null;
 const listeners = new Set<(s: WebSettings) => void>();
+
+/**
+ * `true` sólo cuando llegó el onSnapshot REAL de Firestore.
+ *
+ * No confundir con `snapshot !== null`: primeWebSettings() siembra un
+ * snapshot parcial (sólo los campos que el layout le pasa) completado con
+ * DEFAULTS. Si `loaded` se derivara de que exista snapshot, un consumidor
+ * que use el flag para decidir entre "valor del servidor" y "valor del
+ * hook" elegiría el del hook — que para los campos NO sembrados sigue
+ * siendo DEFAULTS. Eso hacía que el HeroBanner descartara la imagen real
+ * del SSR y pintara la imagen por defecto hasta que llegaba Firestore.
+ */
+let hydrated = false;
 
 function ensureSubscribed() {
   if (initialized) return;
@@ -80,10 +95,14 @@ function ensureSubscribed() {
         } else {
           snapshot = DEFAULTS;
         }
+        hydrated = true;
         listeners.forEach((l) => l(snapshot!));
       },
       (err) => {
         console.error('[useWebSettings] onSnapshot error:', err);
+        // A propósito NO se marca hydrated: si Firestore falla, lo mejor que
+        // tenemos son los valores que el servidor ya renderizó, así que los
+        // consumidores deben seguir prefiriéndolos antes que estos DEFAULTS.
         if (!snapshot) {
           snapshot = DEFAULTS;
           listeners.forEach((l) => l(snapshot!));
@@ -116,20 +135,21 @@ export function invalidateWebSettingsCache(): void {
   }
   snapshot = null;
   initialized = false;
+  hydrated = false;
   unsubscribe = null;
   listeners.clear();
 }
 
 export function useWebSettings(): WebSettings & { loaded: boolean } {
   const [settings, setSettings] = useState<WebSettings>(snapshot || DEFAULTS);
-  const [isLoaded, setIsLoaded] = useState(snapshot !== null);
+  const [isLoaded, setIsLoaded] = useState(hydrated);
 
   useEffect(() => {
     ensureSubscribed();
 
     if (snapshot) {
       setSettings(snapshot);
-      setIsLoaded(true);
+      setIsLoaded(hydrated);
     }
 
     const listener = (s: WebSettings) => {
