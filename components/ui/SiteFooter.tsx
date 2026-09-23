@@ -6,6 +6,16 @@ import { Instagram, Facebook, ChevronRight } from 'lucide-react';
 import { useUIStore, useClientStore } from '@/stores';
 import { useWebSettings } from '@/lib/useWebSettings';
 
+// Datos que Meta coteja contra el RIF en la verificacion de negocio: la razon
+// social y el domicilio fiscal tienen que estar visibles sin cuenta, en todas las
+// paginas. El nombre comercial (ALONZO Store) no le alcanza al revisor.
+const DATOS_LEGALES = {
+  razonSocial: 'ALONZO MODA 2024, C.A.',
+  rif: 'J-50607126-6',
+  direccion:
+    'Av. La Salle con Av. Lima, Edif. Torre Phelps, Piso 25, Of. 25-B, Urb. Los Caobos, Caracas 1050, Distrito Capital, Venezuela.',
+};
+
 const socialLinks = [
   { icon: 'instagram', href: 'https://www.instagram.com/alonzo.ve/' },
   { icon: 'facebook', href: 'https://www.facebook.com/alonzovenezuela' },
@@ -129,6 +139,11 @@ export function SiteFooter() {
         {/* Copyright */}
         <p className="text-[9px] text-alonzo-gray-500 tracking-wider">
           © ALONZO STORE. Venezuela · Todos los derechos reservados.
+        </p>
+        <p className="text-[9px] text-alonzo-gray-500 tracking-wider mt-2 leading-relaxed">
+          {DATOS_LEGALES.razonSocial} · RIF {DATOS_LEGALES.rif}
+          <br />
+          {DATOS_LEGALES.direccion}
         </p>
       </div>
 
@@ -265,8 +280,13 @@ export function SiteFooter() {
       <div className="border-t border-alonzo-gray-200">
         <div className="max-w-[1400px] mx-auto px-10 py-5">
           {/* Copyright line */}
-          <p className="text-2xs text-alonzo-gray-500 tracking-wider mb-3">
+          <p className="text-2xs text-alonzo-gray-500 tracking-wider mb-1">
             © ALONZO STORE. Venezuela&nbsp;&nbsp;·&nbsp;&nbsp;Todos los derechos reservados.
+          </p>
+          <p className="text-2xs text-alonzo-gray-500 tracking-wider mb-3 leading-relaxed">
+            {DATOS_LEGALES.razonSocial}&nbsp;&nbsp;·&nbsp;&nbsp;RIF {DATOS_LEGALES.rif}
+            <br />
+            {DATOS_LEGALES.direccion}
           </p>
 
           {/* Legal links */}

@@ -81,7 +81,20 @@ const structuredData = {
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: 'ALONZO',
-      alternateName: ['Alonzo Collection', 'ALONZO Store'],
+      // `legalName` y `taxID` son lo que une la razon social del RIF con la marca
+      // que se lee en el sitio. Sin eso Meta ve dos negocios distintos.
+      legalName: 'ALONZO MODA 2024, C.A.',
+      taxID: 'J-50607126-6',
+      alternateName: ['Alonzo Collection', 'ALONZO Store', 'Alonzo Men'],
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress:
+          'Av. La Salle con Av. Lima, Edif. Torre Phelps, Piso 25, Of. 25-B, Urb. Los Caobos',
+        addressLocality: 'Caracas',
+        addressRegion: 'Distrito Capital',
+        postalCode: '1050',
+        addressCountry: 'VE',
+      },
       url: SITE_URL,
       logo: `${SITE_URL}/images/logoAlonzo.png`,
       sameAs: [] as string[],
