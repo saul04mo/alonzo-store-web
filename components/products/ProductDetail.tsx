@@ -330,23 +330,8 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
     return true;
   };
 
-  // Meta Pixel: señal fuerte de intención de compra. Se dispara tanto al
-  // "Añadir al carrito" como al "Comprar ahora" (ambos agregan el ítem).
-  const trackAddToCart = () => {
-    const unit = selectedVariant ? selectedVariant.price : (product.price || '0');
-    trackPixel('AddToCart', {
-      content_ids: [product.id],
-      content_name: product.name,
-      content_type: 'product',
-      contents: [{ id: product.id, quantity: qty }],
-      value: (parseFloat(unit) || 0) * qty,
-      currency: 'USD',
-    });
-  };
-
   const handleAddToCart = () => {
     if (addCurrentItem()) {
-      trackAddToCart();
       setCartDrawerOpen(true);
     }
   };
@@ -355,7 +340,6 @@ export function ProductDetailPage({ product, loading = false, error = '' }: Prod
   // carrito ni abrir el drawer.
   const handleBuyNow = () => {
     if (addCurrentItem()) {
-      trackAddToCart();
       router.push('/checkout');
     }
   };

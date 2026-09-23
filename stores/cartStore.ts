@@ -4,6 +4,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { CartItem } from '@/types';
 import { gaAddToCart, gaRemoveFromCart } from '@/lib/analytics';
+import { trackPixel } from '@/lib/meta-pixel';
 
 const CART_TTL_MS = 24 * 60 * 60 * 1000;
 
@@ -41,6 +42,19 @@ export const useCartStore = create<CartState>()(
         });
         // GA4 add_to_cart — con las unidades que agregó realmente este clic.
         if (addedQty > 0) gaAddToCart({ ...newItem, qty: addedQty });
+        // Meta AddToCart desde acá y no desde cada botón: se agrega desde la
+        // ficha, desde el + de talla en la grilla, el selector rápido y
+        // favoritos, y sólo la ficha lo disparaba.
+        if (addedQty > 0) {
+          trackPixel('AddToCart', {
+            content_ids: [newItem.productId],
+            content_name: newItem.titulo,
+            content_type: 'product',
+            contents: [{ id: newItem.productId, quantity: addedQty }],
+            value: (parseFloat(newItem.precio) || 0) * addedQty,
+            currency: 'USD',
+          });
+        }
       },
       updateQty: (index, delta) => {
         const before = get().items[index];
