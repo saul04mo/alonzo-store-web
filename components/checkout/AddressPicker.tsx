@@ -397,24 +397,25 @@ export function AddressPicker({ initialAddress, onAddressSelect, showCostPricing
         )}
       </div>
 
-      {/* GPS Button */}
+      {/* GPS Button — la vía rápida para el delivery en Caracas: un toque y
+          listo, sin escribir la dirección. Por eso va centrado y destacado. */}
       <button
         type="button"
         onClick={handleUseMyLocation}
         disabled={gpsLoading}
-        className="flex items-center gap-2 text-sm text-alonzo-gray-600 hover:text-alonzo-black transition-colors font-medium disabled:text-alonzo-gray-600"
+        className="mx-auto flex items-center justify-center gap-2.5 w-full sm:w-auto sm:min-w-[300px] px-8 py-4 bg-alonzo-black text-white text-sm font-semibold uppercase tracking-wider rounded-sm hover:bg-alonzo-dark active:bg-alonzo-dark transition-colors disabled:opacity-60"
       >
         {gpsLoading ? (
-          <><span className="w-3.5 h-3.5 border-2 border-alonzo-gray-400 border-t-transparent rounded-full animate-spin" /> Obteniendo ubicación...</>
+          <><span className="w-4 h-4 border-2 border-white/60 border-t-transparent rounded-full animate-spin" /> Obteniendo ubicación...</>
         ) : (
-          <><Navigation size={14} /> Usar mi ubicación actual</>
+          <><Navigation size={18} /> Usar mi ubicación actual</>
         )}
       </button>
 
       {/* Map */}
       <div
         ref={mapRef}
-        className="w-full h-[280px] rounded-sm border border-alonzo-gray-300 overflow-hidden"
+        className="w-full h-[200px] md:h-[230px] rounded-sm border border-alonzo-gray-300 overflow-hidden"
         style={{ zIndex: 1 }}
       />
 

@@ -31,7 +31,7 @@ const AddressPicker = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[280px] rounded-sm bg-alonzo-gray-200 animate-pulse flex items-center justify-center">
+      <div className="w-full h-[200px] md:h-[230px] rounded-sm bg-alonzo-gray-200 animate-pulse flex items-center justify-center">
         <p className="text-sm text-alonzo-gray-600">Cargando mapa...</p>
       </div>
     ),
@@ -166,8 +166,9 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   const payAnchorRef = useRef<HTMLDivElement>(null);
   const [payDocked, setPayDocked] = useState(false);
 
-  // Coupon
+  // Coupon — plegado por defecto para no ocupar espacio; se abre al tocarlo.
   const [appliedCoupon, setAppliedCoupon] = useState<AppliedCouponWeb | null>(null);
+  const [couponOpen, setCouponOpen] = useState(false);
 
   // Address from map
   const handleAddressSelect = (result: AddressResult) => {
@@ -214,6 +215,22 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
   }, [paymentSelection, exchangeRate, paymentMethods]);
 
   const total = Math.max(0, subtotal - offerDiscount - couponDiscount + deliveryCost);
+
+  // El efectivo se cobra en la entrega o el retiro; en envío nacional la
+  // encomienda la entrega la agencia, así que no hay quién lo reciba.
+  const availablePaymentMethods = useMemo(
+    () =>
+      deliveryType === 'national'
+        ? paymentMethods.filter((m) => m.id !== 'efectivo_usd')
+        : paymentMethods,
+    [deliveryType, paymentMethods]
+  );
+  useEffect(() => {
+    if (deliveryType === 'national' && selectedPaymentMethod === 'efectivo_usd') {
+      setSelectedPaymentMethod(null);
+      setPaymentSelection({});
+    }
+  }, [deliveryType, selectedPaymentMethod]);
   const canFinish = total - totalPaid <= 0.01;
   const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
 
@@ -772,20 +789,56 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             </Section>
           )}
 
-          {/* Cupón de descuento */}
-          <Section title="Cupón de descuento">
-            <CouponInput
-              subtotal={subtotal}
-              appliedCoupon={appliedCoupon}
-              onApply={setAppliedCoupon}
-              onRemove={() => setAppliedCoupon(null)}
-            />
-          </Section>
+          {/* Cupón de descuento — desplegable. Plegado, el título igual
+              muestra el código aplicado. */}
+          <section className="border-b border-alonzo-gray-300 py-7">
+            <button
+              type="button"
+              onClick={() => setCouponOpen((o) => !o)}
+              aria-expanded={couponOpen}
+              aria-controls="coupon-panel"
+              className="w-full flex items-center justify-between text-left"
+            >
+              <span className="text-xs font-semibold uppercase tracking-[0.15em] text-alonzo-black">
+                Cupón de descuento
+                {appliedCoupon && (
+                  <span className="ml-2 normal-case tracking-normal font-medium text-alonzo-success">
+                    · {appliedCoupon.code}
+                  </span>
+                )}
+              </span>
+              <ChevronDown
+                size={18}
+                className={`text-alonzo-gray-600 transition-transform duration-300 ${couponOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+            <div
+              id="coupon-panel"
+              className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                couponOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+              }`}
+            >
+              {/* invisible al plegar (tras la animación): así el input no
+                  recibe foco con Tab mientras está oculto. */}
+              <div
+                className={`overflow-hidden transition-[visibility] duration-300 ${couponOpen ? 'visible' : 'invisible'}`}
+              >
+                <div className="pt-5">
+                  <CouponInput
+                    subtotal={subtotal}
+                    appliedCoupon={appliedCoupon}
+                    onApply={setAppliedCoupon}
+                    onRemove={() => setAppliedCoupon(null)}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
           {/* Pago */}
           <Section title="Pago">
             <PaymentGrid
-              paymentMethods={paymentMethods}
+              paymentMethods={availablePaymentMethods}
               selection={paymentSelection}
               onChange={setPaymentSelection}
               selectedMethod={selectedPaymentMethod}
