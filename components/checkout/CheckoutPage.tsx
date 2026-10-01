@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { useMoney } from '@/lib/useMoney';
 import { displaySize } from '@/lib/sizes';
 import { useRouter } from 'next/navigation';
-import { MapPin, ChevronDown, Truck, CreditCard, CheckCircle2 } from 'lucide-react';
+import { MapPin, ChevronDown, Truck, Store, Package, CheckCircle2 } from 'lucide-react';
 import { BottomSheet, useToast } from '@/components/ui';
 import { useCartStore, useClientStore } from '@/stores';
 import { useExchangeRate } from '@/lib/useExchangeRate';
@@ -37,6 +37,12 @@ const AddressPicker = dynamic(
     ),
   }
 );
+
+const deliveryIcons: Record<string, typeof Truck> = {
+  pickup: Store,
+  local: Truck,
+  national: Package,
+};
 
 /* ── Sección de formulario (siempre visible, un solo form) ───────────── */
 function Section({
@@ -127,7 +133,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
 
   // Delivery
   const [deliveryType, setDeliveryType] = useState<'pickup' | 'local' | 'national'>('pickup');
-  const [methodDropdownOpen, setMethodDropdownOpen] = useState(false);
   const [mapDeliveryCost, setMapDeliveryCost] = useState(0);
   const [mapDistanceKm, setMapDistanceKm] = useState<number | null>(null);
 
@@ -232,7 +237,6 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
     }
   }, [deliveryType, selectedPaymentMethod]);
   const canFinish = total - totalPaid <= 0.01;
-  const deliveryMethodLabel = deliveryMethods.find((m) => m.id === deliveryType);
 
   // Nombre legible de la agencia elegida (para orden, resumen y GA4).
   const agencyLabel =
@@ -528,62 +532,48 @@ export function CheckoutPage({ onSuccess }: CheckoutPageProps) {
             </div>
           </Section>
 
-          {/* Método de envío */}
+          {/* Método de envío — lista con radio, igual que los métodos de pago */}
           <Section title="Método de envío">
-            <div className="space-y-4">
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setMethodDropdownOpen(!methodDropdownOpen)}
-                  aria-haspopup="listbox"
-                  aria-expanded={methodDropdownOpen}
-                  aria-label="Método de envío"
-                  className="w-full border border-alonzo-gray-300 rounded-sm px-4 py-3.5 text-base flex justify-between items-center cursor-pointer hover:border-alonzo-black transition-colors bg-white"
-                >
-                  <span>
-                    {deliveryMethodLabel?.label}{' '}
-                    <span className="text-sm text-alonzo-gray-600">({deliveryMethodLabel?.desc})</span>
-                  </span>
-                  <ChevronDown size={18} className={`text-alonzo-gray-600 transition-transform ${methodDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {methodDropdownOpen && (
-                  <div className="absolute z-10 top-full left-0 right-0 mt-2 bg-white border border-alonzo-gray-300 rounded-sm shadow-lg overflow-hidden">
-                    {deliveryMethods.map((m) => (
-                      <button
-                        key={m.id}
-                        onClick={() => {
-                          setDeliveryType(m.id as any);
-                          setMethodDropdownOpen(false);
-                          if (m.id === 'pickup') {
-                            setMapDeliveryCost(0);
-                            setMapDistanceKm(null);
-                          }
-                        }}
-                        className={`w-full text-left px-4 py-3.5 text-sm hover:bg-alonzo-gray-100 transition-colors border-b border-alonzo-gray-200 last:border-0 flex items-center justify-between ${
-                          deliveryType === m.id ? 'bg-alonzo-gray-100' : ''
-                        }`}
-                      >
-                        <div>
-                          <span className="font-medium text-alonzo-black">{m.label}</span>
-                          <span className="text-alonzo-gray-600 ml-2">{m.desc}</span>
-                        </div>
-                        {deliveryType === m.id && <CheckCircle2 size={16} className="text-alonzo-black" />}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {deliveryMethodLabel && (
-                <div className="flex items-center gap-3 bg-alonzo-gray-100 rounded-sm p-4 mt-2">
-                  <Truck size={20} className="text-alonzo-gray-600" />
-                  <div>
-                    <p className="text-sm font-medium text-alonzo-charcoal">{deliveryMethodLabel.label}</p>
-                    <p className="text-xs text-alonzo-gray-600">{deliveryMethodLabel.desc}</p>
-                  </div>
-                </div>
-              )}
+            <div
+              role="radiogroup"
+              aria-label="Método de envío"
+              className="border border-alonzo-gray-300 rounded-sm divide-y divide-alonzo-gray-200 overflow-hidden"
+            >
+              {deliveryMethods.map((m) => {
+                const isActive = deliveryType === m.id;
+                const Icon = deliveryIcons[m.id] || Truck;
+                return (
+                  <button
+                    key={m.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={isActive}
+                    onClick={() => {
+                      setDeliveryType(m.id as typeof deliveryType);
+                      if (m.id === 'pickup') {
+                        setMapDeliveryCost(0);
+                        setMapDistanceKm(null);
+                      }
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3.5 text-left transition-colors ${
+                      isActive ? 'bg-alonzo-gray-100' : 'bg-white hover:bg-alonzo-gray-100'
+                    }`}
+                  >
+                    <span className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
+                      isActive ? 'border-alonzo-black' : 'border-alonzo-gray-400'
+                    }`}>
+                      {isActive && <span className="w-2.5 h-2.5 rounded-full bg-alonzo-black" />}
+                    </span>
+                    <span className="flex-1 min-w-0">
+                      <span className={`block text-sm font-semibold ${isActive ? 'text-alonzo-black' : 'text-alonzo-charcoal'}`}>
+                        {m.label}
+                      </span>
+                      <span className="block text-xs text-alonzo-gray-600">{m.desc}</span>
+                    </span>
+                    <Icon size={20} strokeWidth={1.5} className="text-alonzo-gray-600 shrink-0" />
+                  </button>
+                );
+              })}
             </div>
           </Section>
 
