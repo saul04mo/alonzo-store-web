@@ -51,12 +51,12 @@ export const shippingAgencies: ShippingAgency[] = [
 ];
 
 export const deliveryMethods: DeliveryMethod[] = [
-  { id: 'pickup', label: 'Retiro en Tienda', desc: 'Gratis' },
+  { id: 'pickup', label: 'Retiro en Tienda (Caracas)', desc: 'Gratis' },
   // Nota: los IDs 'local' y 'national' deben coincidir EXACTAMENTE con
   // los valores que el POS de ALONZO espera en el campo deliveryType
   // (ver src/config/constants.ts en el repo Facturacion-alonzo). Antes
   // se usaban 'delivery' y 'nacional' (legacy) pero esas facturas
   // quedaban sin clasificar en el panel Canal de Ventas del POS.
-  { id: 'local', label: 'Delivery', desc: 'Cálculo por mapa' },
+  { id: 'local', label: 'Delivery (Caracas)', desc: 'Cálculo por mapa' },
   { id: 'national', label: 'Envío Nacional', desc: 'Cobro a destino' },
 ];
